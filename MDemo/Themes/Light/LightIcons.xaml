@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    >
+
+    <BitmapImage x:Key="logo64" UriSource="/MDemo;component/Resources/logo/pdfbinder_logo_64.png" />
+
+    <BitmapImage x:Key="fstate_unknown" UriSource="/MDemo;component/Resources/icons/light/appbar.question.png" />
+    <BitmapImage x:Key="fstate_unreadable" UriSource="/MDemo;component/Resources/icons/light/appbar.camera.flash.png" />
+    <BitmapImage x:Key="fstate_locked" UriSource="/MDemo;component/Resources/icons/light/appbar.lock.png" />
+    <BitmapImage x:Key="fstate_OK" UriSource="/MDemo;component/Resources/icons/light/appbar.check.png" />
+
+</ResourceDictionary>

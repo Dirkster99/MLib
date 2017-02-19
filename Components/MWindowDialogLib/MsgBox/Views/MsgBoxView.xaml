@@ -1,0 +1,197 @@
+﻿<UserControl x:Class="MWindowDialogLib.MsgBox.Views.MsgBoxView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="600"
+
+             xmlns:conv="clr-namespace:MWindowDialogLib.Converters"
+             xmlns:behav="clr-namespace:MWindowDialogLib.Behaviors"
+             xmlns:localiz="clr-namespace:MWindowDialogLib.MsgBox.Local"
+             
+             xmlns:reskeys="clr-namespace:MWindowDialogLib.Themes"
+             SnapsToDevicePixels="True">
+    <UserControl.Resources>
+        <conv:EnumMatchToBooleanConverter x:Key="enumConverter" />
+        <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Image Source="{Binding TypeOfImage, Converter={conv:ImageEnumToImageConverter}, Mode=OneWay}"
+               Visibility="{Binding TypeOfImage, Converter={conv:ImageEnumToVisibilityConverter}, Mode=OneWay}"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Center" 
+               Height="48" Width="48" Margin="9"
+               Grid.Column="0" Grid.Row="0" />
+
+        <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Margin="9,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBox Text="{Binding Message}"
+                     ToolTip="{x:Static localiz:Strings.COPY_KEY_TIP}"
+                     Foreground="{DynamicResource {x:Static reskeys:ResourceKeys.MsgBoxMessageColorBrushKey}}"
+                     Grid.Row="0"
+                     ScrollViewer.CanContentScroll="True"
+                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     TextWrapping="NoWrap" 
+                     IsReadOnly="True"
+                     BorderBrush="{x:Null}"
+                     Background="Transparent"
+                     BorderThickness="0"
+                     HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Left" Margin="0, 9" />
+
+            <Label Content="{Binding HyperlinkLabel}" Margin="0,9"
+                   ToolTip="{x:Static localiz:Strings.COPY_KEY_TIP}"
+                   Grid.Row="1" VerticalAlignment="Center"
+                   Visibility="{Binding DisplayHelpLink, Converter={StaticResource BoolToVisConverter}}" />
+            <TextBlock Margin="9,3" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"
+                       Visibility="{Binding DisplayHelpLink, Converter={StaticResource BoolToVisConverter}}">
+          <Hyperlink NavigateUri="{Binding Path=HelpLink, Mode=OneWay}" IsEnabled="True"
+                     Command="{Binding Path=NavigateToUri}"
+                     CommandParameter="{Binding Path=HelpLink, Mode=OneWay}"
+                     ToolTip="{x:Static localiz:Strings.ToolTip_MoreDetails}">
+
+            <TextBlock Text="{Binding Path=HelpLinkTitle, Mode=OneWay}"
+                       TextWrapping="Wrap"
+                       Background="Transparent" />
+          </Hyperlink>
+        </TextBlock>
+        </Grid>
+
+        <Expander Header="{x:Static localiz:Strings.MsgBox_Expander_Header_Title}" Grid.Row="2" Grid.ColumnSpan="2"
+                  ToolTip="{x:Static localiz:Strings.COPY_KEY_TIP}"
+                  Visibility="{Binding ShowDetails, Converter={StaticResource BoolToVisConverter}}"
+                  Margin="9,9, 9, 9">
+
+            <TextBox Margin="0" Padding="18,9, 18, 3" 
+                     Text="{Binding InnerMessageDetails}"
+                     Foreground="{DynamicResource {x:Static reskeys:ResourceKeys.MsgBoxMessageColorBrushKey}}"
+                     ScrollViewer.CanContentScroll="True"
+                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     TextWrapping="NoWrap" 
+                     IsReadOnly="True"
+                     BorderBrush="{x:Null}"
+                     Background="Transparent"
+                     BorderThickness="0"
+                     HorizontalAlignment="Left" VerticalAlignment="Top" TextAlignment="Left"/>
+        </Expander>
+
+        <!--  Main container for buttons at the bottom of the dialog -->
+        <Grid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" x:Name="PART_BUTTONS"
+              VerticalAlignment="Center" 
+              HorizontalAlignment="Stretch"
+              Margin="6"
+             KeyboardNavigation.DirectionalNavigation="Cycle"
+             KeyboardNavigation.TabNavigation="Cycle"
+             KeyboardNavigation.ControlTabNavigation="Cycle"
+              >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Button Grid.Column="0" Grid.Row="1"
+                    ToolTip="{x:Static localiz:Strings.Copy_Button_ToolTip}"
+                    Content="{x:Static localiz:Strings.Copy_Button_Label}"
+                    Margin="6" MinHeight="24" MinWidth="80"
+                    Command="{Binding CopyText}"
+                    CommandParameter="{Binding Path=AllToString, Mode=OneWay}"
+                    Visibility="{Binding EnableCopyFunction, Converter={StaticResource BoolToVisConverter}}"
+                    VerticalAlignment="Center" HorizontalAlignment="Left" 
+                    KeyboardNavigation.IsTabStop="True"
+                    IsDefault="False" />
+
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="2" Grid.Row="1">
+
+                <Button Content="{x:Static localiz:Strings.Yes_Button_Label}"
+                        Visibility="{Binding YesNoVisibility, Converter={StaticResource BoolToVisConverter}}"
+                        Command="{Binding YesCommand}"
+                        IsDefault="{Binding Path=IsDefaultButton, Mode=OneTime, 
+                                    Converter={StaticResource enumConverter},
+                                    ConverterParameter=Yes}"
+                        Margin="6" MinHeight="24" MinWidth="80"
+                        KeyboardNavigation.IsTabStop="True"
+                        behav:SetKeyboardFocusWhenIsDefault.SetFocus="True"
+                        Grid.Column="2"
+               />
+
+                <Button Content="{x:Static localiz:Strings.No_Button_Label}"
+                        Visibility="{Binding YesNoVisibility, Converter={StaticResource BoolToVisConverter}}"
+                        Command="{Binding NoCommand}"
+                        IsDefault="{Binding Path=IsDefaultButton, Mode=OneTime, 
+                                    Converter={StaticResource enumConverter},
+                                    ConverterParameter=No}"
+                        Margin="6" MinHeight="24" MinWidth="80"
+                        KeyboardNavigation.IsTabStop="True"
+                        behav:SetKeyboardFocusWhenIsDefault.SetFocus="True"
+                        Grid.Column="3"
+              />
+
+                <Button Content="{x:Static localiz:Strings.Cancel_Button_Label}"
+                        Visibility="{Binding CancelVisibility, Converter={StaticResource BoolToVisConverter}}"
+                        Command="{Binding CancelCommand}"
+                        IsDefault="{Binding Path=IsDefaultButton, Mode=OneTime, 
+                                    Converter={StaticResource enumConverter},
+                                    ConverterParameter=Cancel}"
+                        Margin="6" MinHeight="24" MinWidth="80"
+                        KeyboardNavigation.IsTabStop="True"
+                        behav:SetKeyboardFocusWhenIsDefault.SetFocus="True"
+                        Grid.Column="4"
+              />
+
+                <Button Content="{x:Static localiz:Strings.OK_Button_Label}"
+                        x:Name="OK_BUTTON"
+                        Visibility="{Binding OkVisibility, Converter={StaticResource BoolToVisConverter}}"
+                        Command="{Binding OkCommand}"
+                        IsDefault="{Binding Path=IsDefaultButton, Mode=OneTime, 
+                                    Converter={StaticResource enumConverter},
+                                    ConverterParameter=OK}"
+                        Margin="6" MinHeight="24" MinWidth="80"
+                        KeyboardNavigation.IsTabStop="True"
+                        behav:SetKeyboardFocusWhenIsDefault.SetFocus="True"
+                        Grid.Column="5"
+              />
+
+                <Button Content="{x:Static localiz:Strings.Close__Button_Label}"
+                        Visibility="{Binding CloseVisibility, Converter={StaticResource BoolToVisConverter}}"
+                        Command="{Binding CloseCommand}"
+                        IsDefault="{Binding Path=IsDefaultButton, Mode=OneTime, 
+                                    Converter={StaticResource enumConverter},
+                                    ConverterParameter=Close}"
+                        Margin="6" MinHeight="24" MinWidth="80"
+                        KeyboardNavigation.IsTabStop="True"
+                        behav:SetKeyboardFocusWhenIsDefault.SetFocus="True"
+                        Grid.Column="6"
+              />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

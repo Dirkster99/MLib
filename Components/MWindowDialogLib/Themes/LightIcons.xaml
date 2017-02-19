@@ -1,0 +1,30 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+    
+    xmlns:view="clr-namespace:MsgBox.View"
+    >
+
+  <!-- These icons can be displayed in a message box. They are setup to work for light Metro styled GUI.
+       Just include this file in your application's ResourceDictionary and the ImageEnumToImageConverter
+       shall pick it up from there.
+   -->
+    <BitmapImage x:Key="MsgBoxImage_Information"         UriSource="/MWindowDialogLib;component/MsgBox/Images/Metro/Light/appbar.cancel.png" />
+    <BitmapImage x:Key="MsgBoxImage_Question"            UriSource="/MWindowDialogLib;component/MsgBox/Images/Metro/Light/appbar.question.png" />
+    <BitmapImage x:Key="MsgBoxImage_Error"               UriSource="/MWindowDialogLib;component/MsgBox/Images/Metro/Light/appbar.sign.stop.png" />
+    <BitmapImage x:Key="MsgBoxImage_OK"                  UriSource="/MWindowDialogLib;component/MsgBox/Images/Metro/Light/appbar.check.png" />
+    <BitmapImage x:Key="MsgBoxImage_Alert"               UriSource="/MWindowDialogLib;component/MsgBox/Images/Metro/Light/appbar.warning.png" />
+    <BitmapImage x:Key="MsgBoxImage_Default"             UriSource="/MWindowDialogLib;component/MsgBox/Images/Metro/Light/appbar.lightbulb.hue.on.png" />
+    <BitmapImage x:Key="MsgBoxImage_Warning"             UriSource="/MWindowDialogLib;component/MsgBox/Images/Metro/Light/appbar.information.png" />
+
+    <BitmapImage x:Key="MsgBoxImage_Default_OffLight"    UriSource="/MWindowDialogLib;component/MsgBox/Images/Metro/Light/appbar.lightbulb.hue.png" />
+    <BitmapImage x:Key="MsgBoxImage_Default_RedLight"    UriSource="/MWindowDialogLib;component/MsgBox/Images/Metro/Light/appbar.lightbulb.png" />
+    <BitmapImage x:Key="MsgBoxImage_Information_Orange"  UriSource="/MWindowDialogLib;component/MsgBox/Images/Metro/Light/appbar.lightning.png" />
+    <BitmapImage x:Key="MsgBoxImage_Information_Red"     UriSource="/MWindowDialogLib;component/MsgBox/Images/Metro/Light/appbar.warning.png" />
+    <BitmapImage x:Key="MsgBoxImage_Process_Stop"        UriSource="/MWindowDialogLib;component/MsgBox/Images/Metro/Light/appbar.stop.png" />
+
+    <!-- Notification icon for message box usage notification -->
+    <BitmapImage x:Key="MsgBox_Usage_Notification" UriSource="/MWindowDialogLib;component/MsgBox/Images/Metro/Light/appbar.information.png" />
+
+</ResourceDictionary>

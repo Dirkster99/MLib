@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    
+                    xmlns:reskeys="clr-namespace:MLib.Themes;assembly=MLib"
+                    xmlns:dialogs="clr-namespace:MWindowDialogLib.Dialogs;assembly=MWindowDialogLib"
+                    >
+
+    <!-- "This dialog allows arbitrary content." x:Name="CustomTestDialog" -->
+    <StackPanel x:Key="CustomDialogTest" Margin="6,3">
+        <!-- x:Name="MessageTextBlock" -->
+        <TextBlock HorizontalAlignment="Stretch"
+                   FontSize="22"
+                   Text="{Binding Message}"
+                   Margin="3"
+                   Foreground="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentBrushKey}}" />
+    </StackPanel>
+
+    <!-- Custom Dialog which is awaitable -->
+    <StackPanel x:Key="CustomCloseDialogTest">
+        <TextBlock Height="30"
+                    Foreground="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentBrushKey}}"
+                    Text="This dialog allows arbitrary content. You have to close it yourself by clicking the close button below."
+                    TextWrapping="Wrap" />
+        <Button Command="{Binding CloseCommand}" Content="Close Me!" />
+    </StackPanel>
+
+</ResourceDictionary>
