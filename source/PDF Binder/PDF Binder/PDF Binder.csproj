@@ -75,9 +75,6 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DropDownButtonLib">
-      <HintPath>..\..\00_Binaries\DropDownButtonLib.dll</HintPath>
-    </Reference>
     <Reference Include="itextsharp, Version=5.5.11.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\..\packages\iTextSharp.5.5.11\lib\itextsharp.dll</HintPath>
     </Reference>
@@ -226,6 +223,10 @@
       <Project>{dec77495-6e48-4f66-b22b-e9ba2ca6e257}</Project>
       <Name>BindToMLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Components\MLib\MLib.csproj">
+      <Project>{87a9302d-c6a7-4507-82d5-d83a40e899e2}</Project>
+      <Name>MLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Components\MWindowDialogLib\MWindowDialogLib.csproj">
       <Project>{ef9c4ab3-61d7-4c10-a2e6-5c205764f0ec}</Project>
       <Name>MWindowDialogLib</Name>
@@ -238,6 +239,10 @@
       <Project>{be4c8126-e5c8-405e-958f-4de9f686089b}</Project>
       <Name>MWindowLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\More_Components\DropDownButtonLib\DropDownButtonLib\DropDownButtonLib.csproj">
+      <Project>{386cfc32-9bb3-4f42-9164-4900e099e93c}</Project>
+      <Name>DropDownButtonLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\More_Components\fs3_Components\FileSystemModels\FileSystemModels.csproj">
       <Project>{391639c4-5c43-4391-9465-27686e82c33f}</Project>
       <Name>FileSystemModels</Name>
@@ -245,14 +250,6 @@
     <ProjectReference Include="..\..\More_Components\fs3_Components\FolderBrowser\FolderBrowser.csproj">
       <Project>{7d4bd5f8-a98e-4966-abbd-cbe202dfbef7}</Project>
       <Name>FolderBrowser</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Components\ExplorerLib\ExplorerLib.csproj">
-      <Project>{c1d141f7-4962-45f3-9eda-a7900deed1c7}</Project>
-      <Name>ExplorerLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Components\MLib\MLib.csproj">
-      <Project>{87a9302d-c6a7-4507-82d5-d83a40e899e2}</Project>
-      <Name>MLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\More_Components\ServiceLocator\ServiceLocator.csproj">
       <Project>{252126d1-e1d9-49c3-910b-fcf2266265ef}</Project>
@@ -266,13 +263,17 @@
       <Project>{2807b493-cc2e-402e-901a-eb138698fedc}</Project>
       <Name>Settings</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Components\WatermarkControlsLib\Lib\WatermarkControlsLib.csproj">
-      <Project>{1df7e22d-622d-437a-9100-2d586ebf4019}</Project>
-      <Name>WatermarkControlsLib</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Components\Doc\Doc.csproj">
       <Project>{e4aa9a89-efa8-40a1-9fa7-5b4a03e473d4}</Project>
       <Name>Doc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Components\ExplorerLib\ExplorerLib.csproj">
+      <Project>{c1d141f7-4962-45f3-9eda-a7900deed1c7}</Project>
+      <Name>ExplorerLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Components\WatermarkControlsLib\Lib\WatermarkControlsLib.csproj">
+      <Project>{1df7e22d-622d-437a-9100-2d586ebf4019}</Project>
+      <Name>WatermarkControlsLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\PDFBinderLib\PDFBinderLib.csproj">
       <Project>{35d0ca7f-fc07-4515-82f2-7ddc14b8437b}</Project>

@@ -76,9 +76,6 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DropDownButtonLib">
-      <HintPath>..\More_Components\DropDownButtonLib\DropDownButtonLib\bin\Debug\DropDownButtonLib.dll</HintPath>
-    </Reference>
     <Reference Include="log4net">
       <HintPath>..\00_Binaries\log4net.dll</HintPath>
     </Reference>
@@ -247,6 +244,10 @@
     <ProjectReference Include="..\Components\BindToMLib\BindToMLib.csproj">
       <Project>{dec77495-6e48-4f66-b22b-e9ba2ca6e257}</Project>
       <Name>BindToMLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\More_Components\DropDownButtonLib\DropDownButtonLib\DropDownButtonLib.csproj">
+      <Project>{386cfc32-9bb3-4f42-9164-4900e099e93c}</Project>
+      <Name>DropDownButtonLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\More_Components\fs3_Components\FolderBrowser\FolderBrowser.csproj">
       <Project>{7d4bd5f8-a98e-4966-abbd-cbe202dfbef7}</Project>
