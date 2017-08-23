@@ -1,0 +1,60 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+                    xmlns:reskeys="clr-namespace:DropDownButtonLib.Themes"
+                    >
+
+    <!-- Accent Color Brush Definition
+             - Look for references on ControlAccentBrushKey to find where this is being set in code -->
+    <Color x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
+           ResourceId=ControlAccentColorKey}">#FF2C628B</Color>
+
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
+                     ResourceId=ControlAccentBrushKey}"
+                     Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}" />
+
+    <!-- Control -->
+    <SolidColorBrush x:Key="{x:Static reskeys:ResourceKeys.ControlNormalBackgroundKey}" Color="#313131" options:Freeze="true" />
+    <SolidColorBrush x:Key="{x:Static reskeys:ResourceKeys.ControlDisabledBackgroundKey}" Color="#313131" options:Freeze="true" />
+    <SolidColorBrush x:Key="{x:Static reskeys:ResourceKeys.ControlNormalBorderKey}" Color="#313131" options:Freeze="true" />
+    <SolidColorBrush x:Key="{x:Static reskeys:ResourceKeys.ControlMouseOverBorderKey}" Color="#FF7EB4EA" options:Freeze="true" />
+    <SolidColorBrush x:Key="{x:Static reskeys:ResourceKeys.ControlSelectedBorderKey}" Color="#FF569DE5" options:Freeze="true" />
+    <SolidColorBrush x:Key="{x:Static reskeys:ResourceKeys.ControlFocusedBorderKey}" Color="Red" options:Freeze="true" />
+
+    <!-- Button -->
+    <SolidColorBrush x:Key="{x:Static reskeys:ResourceKeys.ButtonNormalOuterBorderKey}" Color="#FF333333" options:Freeze="true" />
+    <SolidColorBrush x:Key="{x:Static reskeys:ResourceKeys.ButtonNormalBackgroundKey}" Color="#FF333333" options:Freeze="true" />
+
+    <SolidColorBrush x:Key="{x:Static reskeys:ResourceKeys.ButtonMouseOverOuterBorderKey}" Color="#FF333333" options:Freeze="true" />
+    <SolidColorBrush x:Key="{x:Static reskeys:ResourceKeys.ButtonMouseOverBackgroundKey}" Color="#3e3e3e" options:Freeze="true" />
+
+    <SolidColorBrush x:Key="{x:Static reskeys:ResourceKeys.ButtonPressedOuterBorderKey}"
+                     Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}"
+                     options:Freeze="true" />
+
+    <SolidColorBrush x:Key="{x:Static reskeys:ResourceKeys.ButtonPressedBackgroundKey}"
+                     Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}"
+                     options:Freeze="true" />
+
+    <SolidColorBrush x:Key="{x:Static reskeys:ResourceKeys.ButtonFocusedOuterBorderKey}" Color="Red" options:Freeze="true" />
+    <SolidColorBrush x:Key="{x:Static reskeys:ResourceKeys.ButtonFocusedBackgroundKey}" Color="Orange" options:Freeze="true" />
+
+    <SolidColorBrush x:Key="{x:Static reskeys:ResourceKeys.ButtonDisabledOuterBorderKey}" Color="#FFADB2B5" options:Freeze="true" />
+
+    <!-- Up/Down Glyphs -->
+    <SolidColorBrush options:Freeze="true" x:Key="{x:Static reskeys:ResourceKeys.GlyphNormalForegroundKey}" Color="#FFFFFFFF" />
+    <SolidColorBrush options:Freeze="true"
+                   x:Key="{x:Static reskeys:ResourceKeys.GlyphMouseOverForegroundKey}"
+                   Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}" />
+
+    <SolidColorBrush options:Freeze="true" x:Key="{x:Static reskeys:ResourceKeys.GlyphDisabledForegroundKey}" Color="#FF4e4e50" />
+    <SolidColorBrush options:Freeze="true" x:Key="{x:Static reskeys:ResourceKeys.DropDownList_BackgroundKey}" Color="#FF1b1b1c" />
+    <SolidColorBrush options:Freeze="true" x:Key="{x:Static reskeys:ResourceKeys.DropDownList_BorderForegroundKey}" Color="#FF3f3f3f" />
+
+    <!-- SpinButton CornerRadius -->
+    <!-- CornerRadius x:Key="{x:Static reskeys:ResourceKeys.SpinButtonCornerRadiusKey}" TopLeft="0" TopRight="0" BottomRight="0" BottomLeft="0" options:Freeze="true" / -->
+
+    <!-- DropDownList MouseOverBackgroundKey -->
+    <SolidColorBrush x:Key="{x:Static reskeys:ResourceKeys.DropDownList_MouseOverBackgroundKey}" Color="#FF333334" options:Freeze="true" />
+
+</ResourceDictionary>

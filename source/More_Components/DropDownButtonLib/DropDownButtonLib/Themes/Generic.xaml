@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    >
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/DropDownButtonLib;component/Themes/GenericBrushes.xaml" />
+
+        <ResourceDictionary Source="/DropDownButtonLib;component/Controls/Chromes/ButtonChrome.xaml" />
+        <ResourceDictionary Source="/DropDownButtonLib;component/Controls/DropDownButton.xaml" />
+        <ResourceDictionary Source="/DropDownButtonLib;component/Controls/DropDownItemsButton.xaml" />
+
+        <ResourceDictionary Source="/DropDownButtonLib;component/Controls/SplitButton.xaml" />
+        <ResourceDictionary Source="/DropDownButtonLib;component/Controls/SplitItemsButton.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

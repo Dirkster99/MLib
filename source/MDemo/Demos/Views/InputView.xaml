@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="MDemo.Demos.Views.InputView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Margin="3,21"
+          xmlns:conv="clr-namespace:MWindowDialogLib.Converters;assembly=MWindowDialogLib"
+          >
+        <Grid.Resources>
+            <conv:NullToVisibilityConverter x:Key="nullToVisConv" />
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" MinHeight="23" />
+        </Grid.RowDefinitions>
+        <!--
+FontSize="{Binding DialogMessageFontSize, RelativeSource={RelativeSource AncestorType=Dialogs:InputDialog, Mode=FindAncestor}, UpdateSourceTrigger=PropertyChanged}"
+Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Dialogs:InputDialog, Mode=FindAncestor}, UpdateSourceTrigger=PropertyChanged}"
+        -->
+        <TextBlock Grid.Row="0"
+                   Margin="0 5 0 0"
+                   Text="{Binding Message, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                   TextWrapping="Wrap" />
+        <!--
+                 FontSize="{Binding DialogMessageFontSize, RelativeSource={RelativeSource AncestorType=Dialogs:InputDialog, Mode=FindAncestor}, UpdateSourceTrigger=PropertyChanged}"
+                 Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Dialogs:InputDialog, Mode=FindAncestor}, UpdateSourceTrigger=PropertyChanged}"
+-->
+        <TextBox x:Name="PART_TextBox"
+                 Grid.Row="1"
+                 Margin="0 5 0 0"
+                 Text="{Binding Input, UpdateSourceTrigger=PropertyChanged}"
+                 TextWrapping="Wrap"
+                 />
+        <!--
+            controls:TextBoxHelper.SelectAllOnFocus="True" />
+            controls:ControlsHelper.FocusBorderBrush="{DynamicResource AccentColorBrush}"
+        -->
+
+        <StackPanel Grid.Row="2"
+                    Margin="0,9"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal"
+                    >
+            <Button Content="{Binding AffirmativeButtonText, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    IsDefault="True"
+                    Command="{Binding OKCommand}"
+                    Margin="3"
+                    >
+                <Button.Visibility>
+                    <PriorityBinding>
+                        <Binding Path="AffirmativeButtonText" Converter="{StaticResource nullToVisConv}" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"/>
+                        <Binding Source="{x:Static Visibility.Collapsed}" Mode="OneWay" />
+                    </PriorityBinding>
+                </Button.Visibility>
+            </Button>
+            <!-- Style="{DynamicResource AccentedDialogSquareButton}" -->
+            <Button Content="{Binding NegativeButtonText, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    Command="{Binding CloseCommand}"
+                    Margin="3"
+                    >
+                <Button.Visibility>
+                    <PriorityBinding>
+                        <Binding Path="NegativeButtonText" Converter="{StaticResource nullToVisConv}" Mode="OneWay" UpdateSourceTrigger="PropertyChanged"/>
+                        <Binding Source="{x:Static Visibility.Collapsed}" Mode="OneWay" />
+                    </PriorityBinding>
+                </Button.Visibility>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

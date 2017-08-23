@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+    <Fragment>
+        <ComponentGroup Id="PDFBinderCore">
+            <Component Id="cmpNvrgTKJvSigsvLDLTBrPeAwWPLM" Directory="INSTALLFOLDER" Guid="{E34CB7B7-E132-4986-AB00-FBF54D2ADF87}">
+                <File Id="fil4AqfpdKAtp8oCXjrg4bDA6w2R4k" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="BindToMLib.dll" />
+            </Component>
+            <Component Id="cmpptvM36itQeZbt7z1e9njSDRZDDQ" Directory="INSTALLFOLDER" Guid="{EAC05739-E2B1-4419-AACD-8E2868A7D0F5}">
+                <File Id="fil7vPTgEumSkBgodAmJ7eSHNIGW30" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="Doc.dll" />
+            </Component>
+            <Component Id="cmppTccWm7sY77dm5ZxkzqmV7IOYiI" Directory="INSTALLFOLDER" Guid="{05AEED73-1E4B-48B9-9199-B494E8870342}">
+                <File Id="filE0404p4WRc9iH9zqO_NiYoXtn2E" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="DropDownButtonLib.dll" />
+            </Component>
+            <Component Id="cmpWqffgiH4KNUcVASY3glGVfoGgWs" Directory="INSTALLFOLDER" Guid="{2BA35D0C-E240-4628-9D3E-B5AAC4225BE1}">
+                <File Id="fil0gTMNCeTAXgzWI3daJTtREmaBfk" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="ExplorerLib.dll" />
+            </Component>
+            <Component Id="cmpvEediSgPhXw3_pcNf80.rGQEg34" Directory="INSTALLFOLDER" Guid="{435EC521-B4C3-482D-84A9-66A5D256A0C1}">
+                <File Id="fil5E.LsdFDpPWN6D1dZuG7c00h7.E" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="FileSystemModels.dll" />
+            </Component>
+            <Component Id="cmpj9uzJPUqC9urczjyHNEk7v4KJJA" Directory="INSTALLFOLDER" Guid="{9862B78E-E8FB-48B4-912B-BCC113EBA300}">
+                <File Id="filappL88hqlwNvDLKcSaZ5zgqdWnc" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="FolderBrowser.dll" />
+            </Component>
+            <Component Id="cmpeOW1ah5MiE4oMklGEBbhVgRODcE" Directory="INSTALLFOLDER" Guid="{6173D3C7-64B7-4D2F-9496-8346BAEAB58B}">
+                <File Id="filZ.B9LPprRGxYGLy57aLx3d14vsE" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="FsCore.dll" />
+            </Component>
+            <Component Id="cmp6DNHHVC6K0qdsUUDOsayFpDjeB0" Directory="INSTALLFOLDER" Guid="{1124671B-36A4-4D6C-A6DA-CAA17501386C}">
+                <File Id="filJ4LHKBSRFCaRoTgdgUIvIhjQick" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="InplaceEditBoxLib.dll" />
+            </Component>
+            <Component Id="cmp3VXKj15DGz72MksLgVGRdVrEfAg" Directory="INSTALLFOLDER" Guid="{272F0EE2-6FB3-4FA9-8F10-9B11D0AE19F7}">
+                <File Id="filVmMkD4.b.dzwsOiuTfp0frLs3Ww" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="InplaceEditBoxLib.xml" />
+            </Component>
+            <Component Id="cmpxyFOfosSFNR09kE.lhzusGjBAYI" Directory="INSTALLFOLDER" Guid="{18477B47-37D8-4DEC-A818-18A3C593FCCD}">
+                <File Id="fil0XgT1rrA4.mKUxuN7BL8xYIWjtg" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="itextsharp.dll" />
+            </Component>
+            <Component Id="cmpD8tcgqMoWFBaDcKXgmFXMQIEv3w" Directory="INSTALLFOLDER" Guid="{D87AAE54-EDCE-4559-9C7F-6232572CC673}">
+                <File Id="filUR5YAVavRdPay.zi4UUaaUGz8PQ" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="itextsharp.xml" />
+            </Component>
+            <Component Id="cmpl8xqLy3ipesC9ubApK1C6vBwLxk" Directory="INSTALLFOLDER" Guid="{9805D6F7-9359-41E2-92B7-4838E73C6645}">
+                <File Id="filRlRXP3ES_77niwaHo1qp6gHqyBA" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="log4net.dll" />
+            </Component>
+            <Component Id="cmpgf.ARInJGIJj4jys4oPMsJu9V3g" Directory="INSTALLFOLDER" Guid="{77BCF04D-6BA6-4577-A9E8-CB3E9CE74D3A}">
+                <File Id="filcvgR.r8O07kMxAvndJesHa33srs" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="log4net.xml" />
+            </Component>
+            <Component Id="cmpmnAgqhRlqGzD8Nl8lkAUr1mFe64" Directory="INSTALLFOLDER" Guid="{B77A8F65-60CB-457D-AD76-975ECD9F86C7}">
+                <File Id="filuLBDUzAxdLuqadrV0JIttLaURA8" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="MLib.dll" />
+            </Component>
+            <Component Id="cmpCxlAu3og0Tbo_LtdIcBlCcjZTPg" Directory="INSTALLFOLDER" Guid="{11A1A667-B323-4FA9-AD6B-3205C70EB62C}">
+                <File Id="filBWWYFpFjsYhmp6DRktMj05eNr9M" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="MWindowDialogLib.dll" />
+            </Component>
+            <Component Id="cmpIZbEN2vqiuAXMcAG4ZAiPVFNQ.I" Directory="INSTALLFOLDER" Guid="{9EC6994C-E9EE-4595-B7FD-3DB794E7B6B5}">
+                <File Id="filqBKv6nhIRQrw8PAihn5hX9uP_jM" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="MWindowInterfacesLib.dll" />
+            </Component>
+            <Component Id="cmpXCSetLqcf0d0JxwKPYdiUYFFFD4" Directory="INSTALLFOLDER" Guid="{BBDFF57E-59E7-412C-ACD7-F7BE76FEE980}">
+                <File Id="fild9Q1c8xXUhCcpMDYdUac_px3RKY" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="MWindowLib.dll" />
+            </Component>
+
+            <Component Id="cmpc6g1rxpYypzguPfc0wUwq.lqeZk" Directory="INSTALLFOLDER" Guid="{41C6F0AA-21B5-46D0-A2F3-6D037BEFE2E9}">
+              <File Id="filotCdPLRcj_pBGP43tPR87u_bkwc" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="PDF Binder.exe" />
+              <Shortcut Id="desktopPDFBinder"
+                        Directory="DesktopFolder"
+                        Name="PDF Binder"
+                        WorkingDirectory='INSTALLDIR'
+                        Icon="pdfbinder_logo_128.ico" IconIndex="0" Advertise="yes" />
+            </Component>
+
+            <Component Id="cmpwt8OKrFBAgO__TJSxiL.RUNjCaM" Directory="INSTALLFOLDER" Guid="{434BA9F1-E1C2-4813-826E-534A71561F89}">
+                <File Id="filbuuvoJpbgj45JeLSSn_R3wEeCgc" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="PDF Binder.exe.config" />
+            </Component>
+            <Component Id="cmpvTkpTSTcj9kzgQbAOOGKeW61GW0" Directory="INSTALLFOLDER" Guid="{75ECA678-EF90-4C68-BE70-D59218B31740}">
+                <File Id="filF0_nziwCO5ES66M6AyRHekOCSBc" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="PDFBinderLib.dll" />
+            </Component>
+            <Component Id="cmpG2ZL.8n8jdZZmd.AOKgz.pEfV1E" Directory="INSTALLFOLDER" Guid="{425A1F4B-90BC-4EF8-98D9-4E8CE81BB131}">
+                <File Id="fileH7.xFEnGDEOKDAlYEbo_7hziYk" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="ServiceLocator.dll" />
+            </Component>
+            <Component Id="cmpYa_uqm1jdUizLiWDRq2_jLISVv0" Directory="INSTALLFOLDER" Guid="{632DDC2C-4F2F-45D4-BE84-0DAB56895D85}">
+                <File Id="filCeFwmNnCkp6b.STtyfC4D3KqUFU" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="Settings.dll" />
+            </Component>
+            <Component Id="cmpoJmcjvRKN5bOioHGMOrxF6_CZ2k" Directory="INSTALLFOLDER" Guid="{E3A121D7-8DDA-43FD-8170-5BF3C67A7CFC}">
+                <File Id="filQ9piLOOv4dx8tKeMjoDeLF1Qgs4" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="SettingsModel.dll" />
+            </Component>
+            <Component Id="cmp6QKknHo60JV8WL8z_zcDQgsDN6Y" Directory="INSTALLFOLDER" Guid="{732BB16F-2AB3-4067-959E-049005E9F091}">
+                <File Id="filW85mDEs2BiHACP__b4FdsAyYhWY" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="SettingsModel.xml" />
+            </Component>
+            <Component Id="cmpynQ07Ods5XTW8zM7s7r7gKBM4kA" Directory="INSTALLFOLDER" Guid="{448CC6E3-48F8-4F54-80F2-117DA773EC9D}">
+                <File Id="filDfNwn6xHc8BhKI4H.h.j0p_iUuE" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="System.Windows.Interactivity.dll" />
+            </Component>
+            <Component Id="cmpDX3mP4pmnDdLTpYp_n07Y3DGDXg" Directory="INSTALLFOLDER" Guid="{5E12A63B-EC7E-4FBD-AD5B-5DFF2AF2C28B}">
+                <File Id="filTb1i7PVnhtERe9dKsIBjJltKuzY" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="System.Windows.Interactivity.xml" />
+            </Component>
+            <Component Id="cmp0uOc3cLfHcVWBH86dFmgbA9h.AQ" Directory="INSTALLFOLDER" Guid="{902882C3-020A-4FCD-BDF3-37EE1DC1DFC2}">
+                <File Id="filIIpTY9NfwdLzrR5x45E6MlH6bEU" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="UserNotification.dll" />
+            </Component>
+            <Component Id="cmpB0xWknG4HDKoCAWKim51iQljppg" Directory="INSTALLFOLDER" Guid="{8CD3FF46-33CA-464A-BEF4-C71F0AC8C2D7}">
+                <File Id="filIakGv_dYxI27F58RpV3q2xkYbrc" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="UserNotification.xml" />
+            </Component>
+            <Component Id="cmpmuFWgO8K7yfpaC7OepsJcAQrBUc" Directory="INSTALLFOLDER" Guid="{2AC29F59-70DF-45CF-A683-9E8640AD1DB3}">
+                <File Id="filuPDX6Iyek1196PgMiAP91DBgIkg" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="WatermarkControlsLib.dll" />
+            </Component>
+            <Component Id="cmp.7XGq7e2lxIlsZW0uN0Yvy._vr0" Directory="INSTALLFOLDER" Guid="{431E9A16-4DB0-4B67-9BEF-BE4CF5904E81}">
+                <File Id="filMUv3D8woJw5NngF2D4RU9a6UUeE" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)"  Name="WPFProcessingLib.dll" />
+            </Component>
+            <Component Id="cmp5w38Iru_N5358qi.u_p40QJDOy4" Directory="direEzoKvjSIb5VIwdl3DqY6j4yrVI" Guid="{40451B93-1875-422D-A1B1-ABF7CC452E2F}">
+                <File Id="fil8OiM48d8YQ7r0_agdXNdP.XikpU" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)\de-DE\"  Name="FileSystemModels.resources.dll" />
+            </Component>
+            <Component Id="cmpXBgprA7qXkosjeq1cpgvrCuUQko" Directory="direEzoKvjSIb5VIwdl3DqY6j4yrVI" Guid="{5EF6A397-8559-44EC-B252-8579C6689FB6}">
+                <File Id="fil5x3__K27iUPQWObzj7I20HkrPEY" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)\de-DE\"  Name="MWindowDialogLib.resources.dll" />
+            </Component>
+            <Component Id="cmppFtrvpgj3AwArrJ2RmXDYYOJcUU" Directory="direEzoKvjSIb5VIwdl3DqY6j4yrVI" Guid="{BECB2C34-0826-4438-8159-4C27530AAA34}">
+                <File Id="fil4vsA0wCDZOBkfm96nFOwh_i0A7Q" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)\de-DE\"  Name="UserNotification.resources.dll" />
+            </Component>
+            <Component Id="cmpO6i0votFoz2KPKS1K3GZ7i1qxBc" Directory="direEzoKvjSIb5VIwdl3DqY6j4yrVI" Guid="{6D7FE3B5-3315-4523-A500-D92011C079A1}">
+                <File Id="fil5w_L2p56K4m3Bdexia5zkeuRxos" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)\de-DE\"  Name="WPFProcessingLib.resources.dll" />
+            </Component>
+            <Component Id="cmptWqLZ3yvmWlNxqMoAOVd6dUbJaU" Directory="dir0OutGCABngzZa82R1W_xmftrwOU" Guid="{603AF145-4407-4A71-BFDC-5E91384DFCF2}">
+                <File Id="filjDHuGblXS5hLUR9eBqOgowq4cH0" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)\es-ES\"  Name="FileSystemModels.resources.dll" />
+            </Component>
+            <Component Id="cmpSm5fc5QnNegZT1y1qh_Qw5n0blY" Directory="dir0OutGCABngzZa82R1W_xmftrwOU" Guid="{DA25A7C6-DEA6-48CF-82B6-30BADFBE30F6}">
+                <File Id="filGnTdXGdSWcHEi8cXPLS0kHdefbI" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)\es-ES\"  Name="MWindowDialogLib.resources.dll" />
+            </Component>
+            <Component Id="cmpT.UPOMtPbuAsRgrEOk1c3lt.vSc" Directory="dir0OutGCABngzZa82R1W_xmftrwOU" Guid="{64D52EFF-E722-4B0C-92AB-E4CA491AA59A}">
+                <File Id="filEByIZICGMHov_Ms1cWJDKog9FWY" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)\es-ES\"  Name="UserNotification.resources.dll" />
+            </Component>
+            <Component Id="cmpKtjxmyq8kTzs_1UqcNOzsFVz40c" Directory="dirT9NNNlR8yxaGDsD1xchj2U9HYgo" Guid="{65A89891-6368-4BBC-8335-5817AA8C3CAE}">
+                <File Id="filGQoVu1S6HWN9nWp3HuomsNZ5WMM" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)\fr-FR\"  Name="FileSystemModels.resources.dll" />
+            </Component>
+            <Component Id="cmp_PGQQDKywyrb3Uu1Ee3Hbc.a.XU" Directory="dirT9NNNlR8yxaGDsD1xchj2U9HYgo" Guid="{D0181367-F797-4152-8B08-E78831053AC7}">
+                <File Id="filB2sxXC.4WLoFTPo1kEdG6mf0WXY" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)fr-FR\"  Name="MWindowDialogLib.resources.dll" />
+            </Component>
+            <Component Id="cmpzgLcQsikMQUOu0OMrHg9vTxSphk" Directory="dirT9NNNlR8yxaGDsD1xchj2U9HYgo" Guid="{6571478C-B2AD-42D7-83DE-8369777EF459}">
+                <File Id="filCqxHBAKrxM44M0z8kEBjxBxomMg" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)\fr-FR\"  Name="UserNotification.resources.dll" />
+            </Component>
+            <Component Id="cmpvlsuOiSO8yMf_tvR8KCe7LWkCVA" Directory="diru_yFr9xAiOEdXaEMrgwUWLUMx5k" Guid="{5D7C03C9-A0B0-4B07-93E8-EDE6D8A1E5BA}">
+                <File Id="filmBqfugJGvoF77437PmbFEgT4s6g" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)\hi\"  Name="MWindowDialogLib.resources.dll" />
+            </Component>
+            <Component Id="cmpSencL52LeLNMwjbJuAyFNyi1eEc" Directory="diru_yFr9xAiOEdXaEMrgwUWLUMx5k" Guid="{3D581BFE-AA87-48CD-98F6-2C10B55C7DAD}">
+                <File Id="filNURERqv3m5ObCtTxqmSrekA8UsY" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)\hi\"  Name="UserNotification.resources.dll" />
+            </Component>
+            <Component Id="cmp5ZlhIsaqy92uKCxV0ni.Pajgibw" Directory="dirahk7.7BpJPiblcCTetCawJODDB0" Guid="{3BE2D1B3-1764-41FF-8767-81AB7B914314}">
+                <File Id="fileRCb4AYk7c4JecT7R5xsGUT1Bvg" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)\hi-IN\"  Name="FileSystemModels.resources.dll" />
+            </Component>
+            <Component Id="cmp3iP0sD6RiZTQFD2ylptbep9Q_d8" Directory="dir8tNEsIHoas.aSf2Ms_.fGqXxf.M" Guid="{E7AA960E-20AB-4647-A795-2F72EE13022B}">
+                <File Id="fil4KKbreco2Tp2RN9_AFd9vYJkZbY" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)\it-IT\"  Name="FileSystemModels.resources.dll" />
+            </Component>
+            <Component Id="cmprhK0xeDEHq9s6td33AoFwICuMr4" Directory="dir8tNEsIHoas.aSf2Ms_.fGqXxf.M" Guid="{AE65542C-499A-4FD8-BB1E-3423C15045BD}">
+                <File Id="filfVMTyvgzXnQ18FiBMrM6Z4AmtTE" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)\it-IT\"  Name="MWindowDialogLib.resources.dll" />
+            </Component>
+            <Component Id="cmpsal6d0AAu7eD.ni4fmCTk_TmDyQ" Directory="dir8tNEsIHoas.aSf2Ms_.fGqXxf.M" Guid="{4C484B3B-CBFF-4A88-822D-E34C31950C51}">
+                <File Id="fil..DOp7885eCMlvsn7bg8Z.9elq8" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)\it-IT\"  Name="UserNotification.resources.dll" />
+            </Component>
+            <Component Id="cmpOwSM.J8Z2lUloEx7V8g8_5q45J0" Directory="dir1sWGDIleaYEUtU5dyc13iLDLCzU" Guid="{434A58E3-090D-45C7-A439-71F53816885A}">
+                <File Id="filOcQGDI048y0eWij01uLr1x9Rw8I" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)\ja-JP\"  Name="FileSystemModels.resources.dll" />
+            </Component>
+            <Component Id="cmpH.Sf3iAbTEjfSinWKHOCZ_EEIC4" Directory="dirgxU5LQDH.4z9I1OQGcYFDNXuWf4" Guid="{B0E24AC6-C3CD-4B0F-A77A-3AE8667B8344}">
+                <File Id="filymS627MJ4C1H.ris2IX5RUs662A" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)\nl-NL\"  Name="MWindowDialogLib.resources.dll" />
+            </Component>
+            <Component Id="cmpw_juiKd7j0EiWlihCybwWKUlBYs" Directory="dirgxU5LQDH.4z9I1OQGcYFDNXuWf4" Guid="{5F1E25DB-679B-4FE4-A268-61D66233547F}">
+                <File Id="filZ.PW.3lo3EOJVaVSW6b7njIpNNk" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)\nl-NL\"  Name="UserNotification.resources.dll" />
+            </Component>
+            <Component Id="cmpnBm5QoZvjqfqiVVpzdf_cx2dy08" Directory="dirsdCDEOg753n11IQlMm05RuirUEU" Guid="{B7B0860D-796A-46C3-A073-F6B289D26BF7}">
+                <File Id="filbtt7gjXLVwLGTAw_sJnVrfzko78" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)\ru-RU\"  Name="FileSystemModels.resources.dll" />
+            </Component>
+            <Component Id="cmpP0iJclrVsl0pbLlWxfwMgg05W1M" Directory="dirY4HV9_EhHd3mIp13v1bBkFO6vEI" Guid="{B9173CD4-FDE4-45D5-B0E0-8E028D395CAE}">
+                <File Id="filgpplg2yIZdb2tcgl9OeRgPZ9rio" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)\zh-CHS\"  Name="FileSystemModels.resources.dll" />
+            </Component>
+            <Component Id="cmpU4Zc3PeYiRbzLiPMOPo7tUuG7oI" Directory="dirzb4fZCweRHfwYED7otpG5Zf38wg" Guid="{14868D59-6B6D-4CC0-8894-ADAB204888AE}">
+                <File Id="fil4YzikRfpF7UGnOm9bxgpZGtCNkM" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)\zh-Hans\"  Name="MWindowDialogLib.resources.dll" />
+            </Component>
+            <Component Id="cmpHPUC6XS7nuPneyton6YXi9EKixY" Directory="dirzb4fZCweRHfwYED7otpG5Zf38wg" Guid="{31A82AD3-34FF-4E44-8EAF-CD2DC9BA5225}">
+                <File Id="filARpJ31Il0Y_flCuEG6QCHUHb0GA" KeyPath="yes" Source="$(var.PDF Binder.TargetDir)\zh-Hans\"  Name="UserNotification.resources.dll" />
+            </Component>
+        </ComponentGroup>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="INSTALLFOLDER">
+            <Directory Id="dir0OutGCABngzZa82R1W_xmftrwOU" Name="es-ES" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="INSTALLFOLDER">
+            <Directory Id="dir1sWGDIleaYEUtU5dyc13iLDLCzU" Name="ja-JP" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="INSTALLFOLDER">
+            <Directory Id="dir8tNEsIHoas.aSf2Ms_.fGqXxf.M" Name="it-IT" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="INSTALLFOLDER">
+            <Directory Id="dirahk7.7BpJPiblcCTetCawJODDB0" Name="hi-IN" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="INSTALLFOLDER">
+            <Directory Id="direEzoKvjSIb5VIwdl3DqY6j4yrVI" Name="de-DE" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="INSTALLFOLDER">
+            <Directory Id="dirgxU5LQDH.4z9I1OQGcYFDNXuWf4" Name="nl-NL" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="INSTALLFOLDER">
+            <Directory Id="dirsdCDEOg753n11IQlMm05RuirUEU" Name="ru-RU" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="INSTALLFOLDER">
+            <Directory Id="dirT9NNNlR8yxaGDsD1xchj2U9HYgo" Name="fr-FR" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="INSTALLFOLDER">
+            <Directory Id="diru_yFr9xAiOEdXaEMrgwUWLUMx5k" Name="hi" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="INSTALLFOLDER">
+            <Directory Id="dirY4HV9_EhHd3mIp13v1bBkFO6vEI" Name="zh-CHS" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="INSTALLFOLDER">
+            <Directory Id="dirzb4fZCweRHfwYED7otpG5Zf38wg" Name="zh-Hans" />
+        </DirectoryRef>
+    </Fragment>
+</Wix>

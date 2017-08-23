@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    >
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/WatermarkControlsDemo;component/Themes/Dark/TabControl.xaml" />
+        <ResourceDictionary Source="/WatermarkControlsDemo;component/Themes/Dark/ComboBox.xaml" />
+        <ResourceDictionary Source="/WatermarkControlsDemo;component/Themes/Dark/GroupBox.xaml" />
+        <ResourceDictionary Source="/WatermarkControlsDemo;component/Themes/Dark/CheckBox.xaml" />
+        <ResourceDictionary Source="/WatermarkControlsDemo;component/Themes/Dark/TextBlock.xaml" />
+        <ResourceDictionary Source="/WatermarkControlsDemo;component/Themes/Dark/TextBox.xaml" />
+
+        <ResourceDictionary Source="/WatermarkControlsLib;component/Themes/Dark.xaml" />
+
+    </ResourceDictionary.MergedDictionaries>
+    
+    <SolidColorBrush x:Key="WindowBackgroundColor" Color="#000000" />
+
+</ResourceDictionary>

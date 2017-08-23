@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+	
+<!--
+Generate file references in PDFBinderCore.wxs
+enter cmd:
+
+set %WIX%="C:\Program Files (x86)\WiX Toolset v4.0\bin\"
+
+-> navigate to Release directory of PDF_Binder application
+-> remove pdb files from release directory
+-> and generate wxs file with this command
+%WIX%\heat dir Release -gg -cg PDFBinderCore -out PDFBinderCore.wxs
+
+-> Search/Replace Source and Name attributes to contain only:
+   Source="$(var.PDF Binder.TargetDir)"  
+   Name="Filenme.exe"
+
+-> Search/Replace
+   Directory="ProgramFilesFolder"
+   with
+   Directory="INSTALLFOLDER"
+-->
+  <Product Id="8a84debb-c07e-4f21-b12b-c8c31148b7bf"
+           Name="!(wix.Product)"
+           Language="1033"
+           Version="1.0.0.0"
+           Manufacturer="!(wix.Manufacturer)"
+           UpgradeCode="00615dc3-574a-4086-9b46-6ce75a156443">
+
+		<Package InstallerVersion="200"
+             Compressed="yes"
+             InstallScope="perMachine"
+             Manufacturer="!(wix.Manufacturer)"
+             Description="!(wix.ProductDesc)"
+             Platform='x64'
+             />
+
+    <!-- Embed Cab file into msi file (result: generate just 1 file) -->
+    <Media Id='1' Cabinet='CoreFiles.cab' EmbedCab='yes' />
+
+    <!-- WixVariable Id="UpgradeCode" Value="XXX"/ -->
+    <WixVariable Id="Manufacturer" Value="https://github.com/Dirkster99"/>
+    <WixVariable Id="Product" Value="PDF Binder 1.0.0.0"/>
+    <WixVariable Id="ProductDesc" Value="Open source PDF Binder Application"/>
+    <WixVariable Id="ProductIcon" Value="pdfbinder_logo_128.ico"/>
+    <WixVariable Id="WixSubFiles" Value=".\ProductIcon"/>
+
+    <Icon Id="pdfbinder_logo_128.ico" SourceFile="!(wix.WixSubFiles)\!(wix.ProductIcon)"/>
+
+    <!-- Property Id="ARPNOMODIFY" Value="0" / -->
+    <Property Id="ARPPRODUCTICON" Value="!(wix.ProductIcon)" />
+    <Property Id='DiskPrompt' Value="Edi Installation [1]" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<!-- <MediaTemplate /> -->
+
+		<Feature Id="ProductFeature" Title="PDF Binder Setup" Level="1">
+      <ComponentGroupRef Id="PDFBinderCore" />
+      
+      <!-- Create Desktop Short-cut-->
+      <ComponentRef Id="ProgramMenuDir" />
+    </Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+      
+      <!-- Create Desktop Short-cut start -->
+      <Directory Id="ProgramMenuFolder" Name="Programs">
+        <Directory Id="ProgramMenuDir" Name="PDF Binder">
+          <Component Id="ProgramMenuDir" Guid="60a2e822-f6b6-4eda-ab12-e3c0b4c3e160">
+            <RemoveFolder Id='ProgramMenuDir' On='uninstall' />
+            <RegistryValue Root='HKCU' Key='Software\[Manufacturer]\[ProductName]' Type='string' Value='' KeyPath='yes' />
+          </Component>
+        </Directory>
+      </Directory>
+
+      <Directory Id="DesktopFolder" Name="Desktop" />
+      <!-- Create Desktop Short-cut end - see shortcut entry for "PDF Binder.exe" in file/component section -->
+      
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="PDF Binder" />        
+      </Directory>
+    </Directory>
+
+	</Fragment>
+</Wix>

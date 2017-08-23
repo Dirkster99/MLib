@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" InitialTargets="EnsureWixToolsetInstalled" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>3.9</ProductVersion>
+    <ProjectGuid>6dc46b33-769c-4537-abae-8aa07996aefa</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>PDF_Binder_Setup</OutputName>
+    <OutputType>Package</OutputType>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\WiX Toolset\v4\wix.targets</WixTargetsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>Debug</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="PDFBinderCore.wxs" />
+    <Compile Include="PDFBinder.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Components\BindToMLib\BindToMLib.csproj">
+      <Name>BindToMLib</Name>
+      <Project>{dec77495-6e48-4f66-b22b-e9ba2ca6e257}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Components\MLib\MLib.csproj">
+      <Name>MLib</Name>
+      <Project>{87a9302d-c6a7-4507-82d5-d83a40e899e2}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Components\MWindowDialogLib\MWindowDialogLib.csproj">
+      <Name>MWindowDialogLib</Name>
+      <Project>{ef9c4ab3-61d7-4c10-a2e6-5c205764f0ec}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Components\MWindowInterfacesLib\MWindowInterfacesLib.csproj">
+      <Name>MWindowInterfacesLib</Name>
+      <Project>{37633896-6066-49c5-b76a-0e5d5d6d1d23}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Components\MWindowLib\MWindowLib.csproj">
+      <Name>MWindowLib</Name>
+      <Project>{be4c8126-e5c8-405e-958f-4de9f686089b}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MDemo\MDemo.csproj">
+      <Name>MDemo</Name>
+      <Project>{84d31f14-d7a8-4c89-a9bb-22bc778929a2}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\More_Components\fs3_Components\FileSystemModels\FileSystemModels.csproj">
+      <Name>FileSystemModels</Name>
+      <Project>{391639c4-5c43-4391-9465-27686e82c33f}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\More_Components\fs3_Components\FolderBrowser\FolderBrowser.csproj">
+      <Name>FolderBrowser</Name>
+      <Project>{7d4bd5f8-a98e-4966-abbd-cbe202dfbef7}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\More_Components\fs3_Components\FsCore\FsCore.csproj">
+      <Name>FsCore</Name>
+      <Project>{8391f556-c4cb-4aa9-9874-bf665fb2b072}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\More_Components\fs3_Components\InplaceEditBoxLib\InplaceEditBoxLib.csproj">
+      <Name>InplaceEditBoxLib</Name>
+      <Project>{b1f5cf22-f192-4dae-bdf3-c0c604a29c88}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\More_Components\fs3_Components\UserNotification\UserNotification.csproj">
+      <Name>UserNotification</Name>
+      <Project>{af255663-9320-4eba-92cf-d0d6aac951c0}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\More_Components\ServiceLocator\ServiceLocator.csproj">
+      <Name>ServiceLocator</Name>
+      <Project>{252126d1-e1d9-49c3-910b-fcf2266265ef}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\More_Components\Settings\SettingsModel\SettingsModel.csproj">
+      <Name>SettingsModel</Name>
+      <Project>{9b0ba841-5a2f-4ed3-a908-253dbca70e77}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\More_Components\Settings\Settings\Settings.csproj">
+      <Name>Settings _More_Components\Settings\Settings_</Name>
+      <Project>{2807b493-cc2e-402e-901a-eb138698fedc}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\Components\Doc\Doc.csproj">
+      <Name>Doc</Name>
+      <Project>{e4aa9a89-efa8-40a1-9fa7-5b4a03e473d4}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\Components\ExplorerLib\ExplorerLib.csproj">
+      <Name>ExplorerLib</Name>
+      <Project>{c1d141f7-4962-45f3-9eda-a7900deed1c7}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\Components\WatermarkControlsLib\Lib\WatermarkControlsLib.csproj">
+      <Name>WatermarkControlsLib</Name>
+      <Project>{1df7e22d-622d-437a-9100-2d586ebf4019}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\PDF Binder\PDF Binder.csproj">
+      <Name>PDF Binder</Name>
+      <Project>{4bb0c891-c854-4737-9079-9ee11c9d7376}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\PDFBinderLib\PDFBinderLib.csproj">
+      <Name>PDFBinderLib</Name>
+      <Project>{35d0ca7f-fc07-4515-82f2-7ddc14b8437b}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ProductIcon" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ProductIcon\pdfbinder_logo_128.ico" />
+  </ItemGroup>
+  <Import Project="$(WixTargetsPath)" Condition=" Exists('$(WixTargetsPath)') " />
+  <Target Name="EnsureWixToolsetInstalled" Condition=" !Exists('$(WixTargetsPath)') ">
+    <Error Text="The WiX Toolset v4 build tools must be installed to build this project. To download the WiX Toolset v4, see http://wixtoolset.org/releases/" />
+  </Target>
+  <!--
+	To modify your build process, add your task inside one of the targets below and uncomment it.
+	Other similar extension points exist, see Wix.targets.
+	<Target Name="BeforeBuild">
+	</Target>
+	<Target Name="AfterBuild">
+	</Target>
+	-->
+</Project>
