@@ -1,3 +1,4 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/mhg80nk8ywbk9dat?svg=true)](https://ci.appveyor.com/project/Dirkster99/mlib)
 # MLib
 MLib is a set of WPF theming libraries based on MahApps.Metro and MUI
 
