@@ -180,10 +180,6 @@
       <Project>{be4c8126-e5c8-405e-958f-4de9f686089b}</Project>
       <Name>MWindowLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\More_Components\DropDownButtonLib\DropDownButtonLib\DropDownButtonLib.csproj">
-      <Project>{386cfc32-9bb3-4f42-9164-4900e099e93c}</Project>
-      <Name>DropDownButtonLib</Name>
-    </ProjectReference>
     <ProjectReference Include="..\More_Components\fs3_Components\FileSystemModels\FileSystemModels.csproj">
       <Project>{391639c4-5c43-4391-9465-27686e82c33f}</Project>
       <Name>FileSystemModels</Name>

@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.15
+VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDemo", "MDemo\MDemo.csproj", "{84D31F14-D7A8-4C89-A9BB-22BC778929A2}"
 EndProject
@@ -59,12 +59,6 @@ EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "PDF_Binder_Setup", "PDF Binder\PDF_Binder_Setup\PDF_Binder_Setup.wixproj", "{6DC46B33-769C-4537-ABAE-8AA07996AEFA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FsContentDialogDemo", "FsContentDialogDemo\FsContentDialogDemo.csproj", "{58BD0E02-6BFF-43F0-9B93-D3371E97794B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DropDownButtonLib", "More_Components\DropDownButtonLib\DropDownButtonLib\DropDownButtonLib.csproj", "{386CFC32-9BB3-4F42-9164-4900E099E93C}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DropDownButtonLib", "DropDownButtonLib", "{90161169-A91C-40AD-A19F-AD1F4E2DFCDE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DropDownButtonTest", "More_Components\DropDownButtonLib\DropDownButtonTest\DropDownButtonTest.csproj", "{E5F032E0-CC7A-40A0-B11D-98D1F5A67775}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -348,30 +342,6 @@ Global
 		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Release|x64.Build.0 = Release|Any CPU
 		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Release|x86.ActiveCfg = Release|Any CPU
 		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Release|x86.Build.0 = Release|Any CPU
-		{386CFC32-9BB3-4F42-9164-4900E099E93C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{386CFC32-9BB3-4F42-9164-4900E099E93C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{386CFC32-9BB3-4F42-9164-4900E099E93C}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{386CFC32-9BB3-4F42-9164-4900E099E93C}.Debug|x64.Build.0 = Debug|Any CPU
-		{386CFC32-9BB3-4F42-9164-4900E099E93C}.Debug|x86.ActiveCfg = Debug|x86
-		{386CFC32-9BB3-4F42-9164-4900E099E93C}.Debug|x86.Build.0 = Debug|x86
-		{386CFC32-9BB3-4F42-9164-4900E099E93C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{386CFC32-9BB3-4F42-9164-4900E099E93C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{386CFC32-9BB3-4F42-9164-4900E099E93C}.Release|x64.ActiveCfg = Release|Any CPU
-		{386CFC32-9BB3-4F42-9164-4900E099E93C}.Release|x64.Build.0 = Release|Any CPU
-		{386CFC32-9BB3-4F42-9164-4900E099E93C}.Release|x86.ActiveCfg = Release|x86
-		{386CFC32-9BB3-4F42-9164-4900E099E93C}.Release|x86.Build.0 = Release|x86
-		{E5F032E0-CC7A-40A0-B11D-98D1F5A67775}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E5F032E0-CC7A-40A0-B11D-98D1F5A67775}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E5F032E0-CC7A-40A0-B11D-98D1F5A67775}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{E5F032E0-CC7A-40A0-B11D-98D1F5A67775}.Debug|x64.Build.0 = Debug|Any CPU
-		{E5F032E0-CC7A-40A0-B11D-98D1F5A67775}.Debug|x86.ActiveCfg = Debug|x86
-		{E5F032E0-CC7A-40A0-B11D-98D1F5A67775}.Debug|x86.Build.0 = Debug|x86
-		{E5F032E0-CC7A-40A0-B11D-98D1F5A67775}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E5F032E0-CC7A-40A0-B11D-98D1F5A67775}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E5F032E0-CC7A-40A0-B11D-98D1F5A67775}.Release|x64.ActiveCfg = Release|Any CPU
-		{E5F032E0-CC7A-40A0-B11D-98D1F5A67775}.Release|x64.Build.0 = Release|Any CPU
-		{E5F032E0-CC7A-40A0-B11D-98D1F5A67775}.Release|x86.ActiveCfg = Release|x86
-		{E5F032E0-CC7A-40A0-B11D-98D1F5A67775}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -400,8 +370,8 @@ Global
 		{AF255663-9320-4EBA-92CF-D0D6AAC951C0} = {03C284DA-4C51-4E53-96FD-1004EFE15D7A}
 		{DEC77495-6E48-4F66-B22B-E9BA2CA6E257} = {EBFA2E1E-92FF-4DF9-9212-398D1FEF617B}
 		{6DC46B33-769C-4537-ABAE-8AA07996AEFA} = {3E91F05C-AD87-4913-8EA9-76D327B72544}
-		{386CFC32-9BB3-4F42-9164-4900E099E93C} = {90161169-A91C-40AD-A19F-AD1F4E2DFCDE}
-		{90161169-A91C-40AD-A19F-AD1F4E2DFCDE} = {5E416F15-E4AB-485A-A644-1E370A49C740}
-		{E5F032E0-CC7A-40A0-B11D-98D1F5A67775} = {90161169-A91C-40AD-A19F-AD1F4E2DFCDE}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9D297277-843F-450D-BBEF-C08CF6377603}
 	EndGlobalSection
 EndGlobal

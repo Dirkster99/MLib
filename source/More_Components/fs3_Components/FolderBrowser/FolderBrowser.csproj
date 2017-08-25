@@ -67,6 +67,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DropDownButtonLib, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Dirkster.DropDownButtonLib.1.0.2.1\lib\net4\DropDownButtonLib.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\..\00_Binaries\log4net.dll</HintPath>
     </Reference>
@@ -150,10 +153,6 @@
     <ProjectReference Include="..\..\..\Components\MWindowLib\MWindowLib.csproj">
       <Project>{be4c8126-e5c8-405e-958f-4de9f686089b}</Project>
       <Name>MWindowLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\DropDownButtonLib\DropDownButtonLib\DropDownButtonLib.csproj">
-      <Project>{386cfc32-9bb3-4f42-9164-4900e099e93c}</Project>
-      <Name>DropDownButtonLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\FileSystemModels\FileSystemModels.csproj">
       <Project>{391639c4-5c43-4391-9465-27686e82c33f}</Project>
@@ -284,6 +283,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DesignOverview.cd" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

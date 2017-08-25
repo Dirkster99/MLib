@@ -75,8 +75,8 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="itextsharp, Version=5.5.11.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\iTextSharp.5.5.11\lib\itextsharp.dll</HintPath>
+    <Reference Include="itextsharp, Version=5.5.12.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\iTextSharp.5.5.12\lib\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\00_Binaries\log4net.dll</HintPath>
@@ -238,10 +238,6 @@
     <ProjectReference Include="..\..\Components\MWindowLib\MWindowLib.csproj">
       <Project>{be4c8126-e5c8-405e-958f-4de9f686089b}</Project>
       <Name>MWindowLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\More_Components\DropDownButtonLib\DropDownButtonLib\DropDownButtonLib.csproj">
-      <Project>{386cfc32-9bb3-4f42-9164-4900e099e93c}</Project>
-      <Name>DropDownButtonLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\More_Components\fs3_Components\FileSystemModels\FileSystemModels.csproj">
       <Project>{391639c4-5c43-4391-9465-27686e82c33f}</Project>
