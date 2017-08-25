@@ -11,7 +11,7 @@
   >
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/FolderBrowser;component/Images/MetroLightIcons.xaml" />
-        <ResourceDictionary Source="/UserNotification;component/Themes/LightBrush.xaml" />
+        <ResourceDictionary Source="/UserNotification;component/Themes/LightBrushs.xaml" />
         <ResourceDictionary Source="/InplaceEditBoxLib;component/Themes/LightBrushs.xaml" />
     </ResourceDictionary.MergedDictionaries>
 

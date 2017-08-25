@@ -10,7 +10,6 @@
         #region private fields
         private string _Path;
         private ICommand _ShowConententDialogCommand;
-        private string _TestMethod;
         private IBookmarkedLocationsViewModel _BookmarkedLocation;
         #endregion private fields
 

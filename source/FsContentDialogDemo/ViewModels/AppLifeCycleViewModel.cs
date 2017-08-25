@@ -131,7 +131,7 @@
                     ////new Uri("/FolderBrowser;component/Themes/MetroDark.xaml", UriKind.RelativeOrAbsolute)
                      new Uri("/FsCore;component/Images/Metro/MetroDarkIcons.xaml", UriKind.RelativeOrAbsolute)
                     ,new Uri("/FolderBrowser;component/Themes/MetroDark.xaml", UriKind.RelativeOrAbsolute)
-                    ,new Uri("/UserNotification;component/Themes/DarkBrush.xaml", UriKind.RelativeOrAbsolute)
+                    ,new Uri("/UserNotification;component/Themes/DarkBrushs.xaml", UriKind.RelativeOrAbsolute)
                     ,new Uri("/InplaceEditBoxLib;component/Themes/DarkBrushs.xaml", UriKind.RelativeOrAbsolute)
 
                    ,new Uri("/MWindowDialogLib;component/Themes/DarkIcons.xaml", UriKind.RelativeOrAbsolute)
@@ -153,7 +153,7 @@
                     ////new Uri("/FolderBrowser;component/Themes/MetroLight.xaml", UriKind.RelativeOrAbsolute)
                      new Uri("/FsCore;component/Images/Metro/MetroLightIcons.xaml", UriKind.RelativeOrAbsolute)
                     ,new Uri("/FolderBrowser;component/Themes/MetroLight.xaml", UriKind.RelativeOrAbsolute)
-                    ,new Uri("/UserNotification;component/Themes/LightBrush.xaml", UriKind.RelativeOrAbsolute)
+                    ,new Uri("/UserNotification;component/Themes/LightBrushs.xaml", UriKind.RelativeOrAbsolute)
                     ,new Uri("/InplaceEditBoxLib;component/Themes/LightBrushs.xaml", UriKind.RelativeOrAbsolute)
 
                    ,new Uri("/MWindowDialogLib;component/Themes/LightIcons.xaml", UriKind.RelativeOrAbsolute)

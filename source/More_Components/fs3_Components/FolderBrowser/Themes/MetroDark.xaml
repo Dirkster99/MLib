@@ -11,7 +11,7 @@
   >
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/FolderBrowser;component/Images/MetroDarkIcons.xaml" />
-        <ResourceDictionary Source="/UserNotification;component/Themes/DarkBrush.xaml" />
+        <ResourceDictionary Source="/UserNotification;component/Themes/DarkBrushs.xaml" />
         <ResourceDictionary Source="/InplaceEditBoxLib;component/Themes/DarkBrushs.xaml" />
     </ResourceDictionary.MergedDictionaries>
 

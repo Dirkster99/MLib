@@ -104,14 +104,6 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
-    <ProjectReference Include="..\..\More_Components\fs3_Components\UserNotification\UserNotification.csproj">
-      <Name>UserNotification</Name>
-      <Project>{af255663-9320-4eba-92cf-d0d6aac951c0}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
     <ProjectReference Include="..\..\More_Components\ServiceLocator\ServiceLocator.csproj">
       <Name>ServiceLocator</Name>
       <Project>{252126d1-e1d9-49c3-910b-fcf2266265ef}</Project>
