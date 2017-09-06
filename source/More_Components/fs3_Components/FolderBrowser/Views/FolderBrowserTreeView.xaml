@@ -123,6 +123,7 @@
                                             HorizontalAlignment="Left"
                                             IsReadOnly="{Binding IsReadOnly}"
                                             RenameCommand="{Binding Path=Data.RenameCommand, Source={StaticResource DataContextProxy}}"
+                                            RenameCommandParameter="{Binding}"
                                             ToolTipService.ShowOnDisabled="True"
 
                                             InvalidInputCharacters="{x:Static loc:Strings.ForbiddenRenameKeys}"
