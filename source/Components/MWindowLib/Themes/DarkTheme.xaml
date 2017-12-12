@@ -6,6 +6,7 @@
         <ResourceDictionary Source="pack://application:,,,/MWindowLib;component/Styles/WindowButtonStyle.xaml" />
         <!-- ResourceDictionary Source="pack://application:,,,/MWindowLib;component/Controls/Accent/BaseDark.xaml" / -->
         <ResourceDictionary Source="pack://application:,,,/MWindowLib;component/Themes/DarkBrushs.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MWindowLib;component/SimpleMetroWindowy.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MWindowLib;component/MetroWindow.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

@@ -92,8 +92,15 @@
   <ItemGroup>
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Internal\MetroWindowServiceImpl.cs" />
+    <Compile Include="SimpleMetroWindowy.xaml.cs">
+      <DependentUpon>SimpleMetroWindowy.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Util\WindowSizing.cs" />
     <Compile Include="Util\InvokeExtensions.cs" />
+    <Page Include="SimpleMetroWindowy.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MetroWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
