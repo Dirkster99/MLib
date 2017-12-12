@@ -128,9 +128,13 @@
                 // Add additional Dark resources to those theme resources added above
                 appearance.AddThemeResources("Dark", new List<Uri>
                 {
-                    new Uri("/MWindowDialogLib;component/Themes/DarkIcons.xaml", UriKind.RelativeOrAbsolute)
-                   ,new Uri("/MWindowDialogLib;component/Themes/DarkBrushs.xaml", UriKind.RelativeOrAbsolute)
-                   ,new Uri("/BindToMLib;component/DarkBrushs.xaml", UriKind.RelativeOrAbsolute)
+                     new Uri("/Mlib;component/Themes/DarkTheme.xaml", UriKind.RelativeOrAbsolute)
+                   , new Uri("/MWindowLib;component/Themes/DarkTheme.xaml", UriKind.RelativeOrAbsolute)
+                   , new Uri("/TreeViewDemo;component/BindToMLib/MWindowLib/DarkBrushs.xaml", UriKind.RelativeOrAbsolute)
+
+////                    new Uri("/MWindowDialogLib;component/Themes/DarkIcons.xaml", UriKind.RelativeOrAbsolute)
+////                   ,new Uri("/MWindowDialogLib;component/Themes/DarkBrushs.xaml", UriKind.RelativeOrAbsolute)
+////                   ,new Uri("/BindToMLib;component/DarkBrushs.xaml", UriKind.RelativeOrAbsolute)
                 }, settings.Themes);
             }
             catch
@@ -142,9 +146,13 @@
                 // Add additional Light resources to those theme resources added above
                 appearance.AddThemeResources("Light", new List<Uri>
                 {
-                    new Uri("/MWindowDialogLib;component/Themes/DarkIcons.xaml", UriKind.RelativeOrAbsolute)
-                   ,new Uri("/MWindowDialogLib;component/Themes/DarkBrushs.xaml", UriKind.RelativeOrAbsolute)
-                   ,new Uri("/BindToMLib;component/DarkBrushs.xaml", UriKind.RelativeOrAbsolute)
+                     new Uri("/Mlib;component/Themes/LightTheme.xaml", UriKind.RelativeOrAbsolute)
+                   , new Uri("/MWindowLib;component/Themes/LightTheme.xaml", UriKind.RelativeOrAbsolute)
+                   , new Uri("/TreeViewDemo;component/BindToMLib/MWindowLib/LightBrushs.xaml", UriKind.RelativeOrAbsolute)
+
+ ////                   new Uri("/MWindowDialogLib;component/Themes/DarkIcons.xaml", UriKind.RelativeOrAbsolute)
+ ////                  ,new Uri("/MWindowDialogLib;component/Themes/DarkBrushs.xaml", UriKind.RelativeOrAbsolute)
+ ////                  ,new Uri("/BindToMLib;component/DarkBrushs.xaml", UriKind.RelativeOrAbsolute)
                 }, settings.Themes);
             }
             catch

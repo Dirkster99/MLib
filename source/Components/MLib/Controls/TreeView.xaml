@@ -89,7 +89,7 @@
 
     <Style x:Key="MetroTreeViewItem" TargetType="{x:Type TreeViewItem}">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlTextBrushKey}}" />
-        <Setter Property="Background" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlNormalBackgroundBrushKey}}" />
+        <Setter Property="Background" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlInputBackgroundKey}}" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
         <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
@@ -183,10 +183,10 @@
     </Style>
 
     <Style x:Key="MetroTreeView" TargetType="{x:Type TreeView}">
-        <Setter Property="Background" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlNormalBackgroundBrushKey}}" />
+        <Setter Property="Background" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlInputBackgroundKey}}" />
         <Setter Property="BorderBrush" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlButtonBorderKey}}" />
         <!--  default to 0  -->
-        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Padding" Value="1" />

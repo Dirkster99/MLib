@@ -78,9 +78,14 @@
     <Reference Include="log4net">
       <HintPath>..\00_Binaries\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -129,6 +134,14 @@
     <Compile Include="Demos\ViewModels\DemoViewModel.cs" />
     <Compile Include="ViewModels\ThemeDefinitionViewModel.cs" />
     <Compile Include="ViewModels\ThemeViewModel.cs" />
+    <Page Include="BindToMLib\MWindowLib\DarkBrushs.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BindToMLib\MWindowLib\LightBrushs.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="FolderBrowserTreeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -166,6 +179,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -183,10 +197,6 @@
     <ProjectReference Include="..\Components\MLib\MLib.csproj">
       <Project>{87A9302D-C6A7-4507-82D5-D83A40E899E2}</Project>
       <Name>MLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Components\MWindowDialogLib\MWindowDialogLib.csproj">
-      <Project>{ef9c4ab3-61d7-4c10-a2e6-5c205764f0ec}</Project>
-      <Name>MWindowDialogLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\Components\MWindowInterfacesLib\MWindowInterfacesLib.csproj">
       <Project>{37633896-6066-49c5-b76a-0e5d5d6d1d23}</Project>

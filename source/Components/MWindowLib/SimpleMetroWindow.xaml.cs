@@ -2,22 +2,17 @@
 {
     using Controls;  //Extensions
     using Microsoft.Windows.Shell.Standard;
-    using MWindowInterfacesLib.Interfaces;
     using Native;
     using System;
     using System.ComponentModel;
-    using System.Linq;
     using System.Reflection;
-    using System.Threading.Tasks;
     using System.Windows;
-    using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
     using System.Windows.Interop;
-    using System.Windows.Media.Animation;
 
     /// <summary>
-    /// The <seealso cref="SimpleMetroWindowy"/> class is a CustonControl that inherites from Window.
+    /// The <seealso cref="SimpleMetroWindow"/> class is a CustonControl that inherites from Window.
     /// 
     /// Remarks:
     /// CustomControl Window is based on this source:
@@ -25,11 +20,11 @@
     /// 
     /// and of course MahApps.Metro http://mahapps.com/
     /// </summary>
-////    [TemplatePart(Name = PART_OverlayBox, Type = typeof(Grid))]
-////    [TemplatePart(Name = PART_MetroActiveDialogContainer, Type = typeof(Grid))]
-////    [TemplatePart(Name = PART_MetroInactiveDialogsContainer, Type = typeof(Grid))]
+    ////    [TemplatePart(Name = PART_OverlayBox, Type = typeof(Grid))]
+    ////    [TemplatePart(Name = PART_MetroActiveDialogContainer, Type = typeof(Grid))]
+    ////    [TemplatePart(Name = PART_MetroInactiveDialogsContainer, Type = typeof(Grid))]
     [TemplatePart(Name = PART_WindowTitleThumb, Type = typeof(Thumb))]
-    public class SimpleMetroWindowy : Window
+    public class SimpleMetroWindow : Window
     {
         #region fields
 ////        internal Grid _OverlayBox;
@@ -50,15 +45,15 @@
         /// <summary>
         /// Static constructor
         /// </summary>
-        static SimpleMetroWindowy()
+        static SimpleMetroWindow()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(SimpleMetroWindowy), new FrameworkPropertyMetadata(typeof(SimpleMetroWindowy)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(SimpleMetroWindow), new FrameworkPropertyMetadata(typeof(SimpleMetroWindow)));
         }
 
         /// <summary>
         /// Class constructor
         /// </summary>
-        public SimpleMetroWindowy()
+        public SimpleMetroWindow()
         {
             this.CommandBindings.Add(new CommandBinding(SystemCommands.CloseWindowCommand, this.OnCloseWindow));
             this.CommandBindings.Add(new CommandBinding(SystemCommands.MaximizeWindowCommand, this.OnMaximizeWindow, this.OnCanResizeWindow));
@@ -89,7 +84,7 @@
 ////        public static readonly DependencyProperty MetroDialogOptionsProperty =
 ////            DependencyProperty.Register("MetroDialogOptions"
 ////                  , typeof(MWindowInterfacesLib.Interfaces.IMessageDialogSettings)
-////                  , typeof(SimpleMetroWindowy)
+////                  , typeof(SimpleMetroWindow)
 ////                , new PropertyMetadata(new MWindowInterfacesLib.MetroDialogSettings()));
 ////
 ////        /// <summary>
@@ -108,7 +103,7 @@
         #region Window Icon
         private static readonly DependencyProperty ShowIconProperty =
             DependencyProperty.Register("ShowIcon",
-                typeof(bool), typeof(SimpleMetroWindowy), new PropertyMetadata(true));
+                typeof(bool), typeof(SimpleMetroWindow), new PropertyMetadata(true));
 
         /// <summary>
         /// Gets/sets if the close button is visible.
@@ -123,7 +118,7 @@
         #region Window Title
         private static readonly DependencyProperty ShowTitleProperty =
             DependencyProperty.Register("ShowTitle",
-                typeof(bool), typeof(SimpleMetroWindowy), new PropertyMetadata(true));
+                typeof(bool), typeof(SimpleMetroWindow), new PropertyMetadata(true));
 
         /// <summary>
         /// Gets/sets if the close button is visible.
@@ -138,7 +133,7 @@
         #region Window Min Button
         private static readonly DependencyProperty ShowMinButtonProperty =
             DependencyProperty.Register("ShowMinButton",
-                typeof(bool), typeof(SimpleMetroWindowy), new PropertyMetadata(true));
+                typeof(bool), typeof(SimpleMetroWindow), new PropertyMetadata(true));
 
         /// <summary>
         /// Gets/sets if the close button is visible.
@@ -153,7 +148,7 @@
         #region Window Max Button
         private static readonly DependencyProperty ShowMaxButtonProperty =
             DependencyProperty.Register("ShowMaxButton",
-                typeof(bool), typeof(SimpleMetroWindowy), new PropertyMetadata(true));
+                typeof(bool), typeof(SimpleMetroWindow), new PropertyMetadata(true));
 
         /// <summary>
         /// Gets/sets if the close button is visible.
@@ -168,7 +163,7 @@
         #region Window Close Button
         private static readonly DependencyProperty ShowCloseButtonProperty =
             DependencyProperty.Register("ShowCloseButton",
-                typeof(bool), typeof(SimpleMetroWindowy), new PropertyMetadata(true));
+                typeof(bool), typeof(SimpleMetroWindow), new PropertyMetadata(true));
 
         /// <summary>
         /// Gets/sets if the close button is visible.
@@ -183,7 +178,7 @@
         #region Show TitleBar
         private static readonly DependencyProperty ShowTitleBarProperty =
             DependencyProperty.Register("ShowTitleBar",
-                typeof(bool), typeof(SimpleMetroWindowy), new PropertyMetadata(true, OnShowTitleBarPropertyChangedCallback, OnShowTitleBarCoerceValueCallback));
+                typeof(bool), typeof(SimpleMetroWindow), new PropertyMetadata(true, OnShowTitleBarPropertyChangedCallback, OnShowTitleBarCoerceValueCallback));
 
         /// <summary>
         /// Gets/sets whether the TitleBar is visible or not.
@@ -196,7 +191,7 @@
 
         private static void OnShowTitleBarPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var window = (SimpleMetroWindowy)d;
+            var window = (SimpleMetroWindow)d;
             if (e.NewValue != e.OldValue)
             {
                 window.SetVisibiltyForAllTitleElements((bool)e.NewValue);
@@ -206,7 +201,7 @@
         private static object OnShowTitleBarCoerceValueCallback(DependencyObject d, object value)
         {
             // if UseNoneWindowStyle = true no title bar should be shown
-            if (((SimpleMetroWindowy)d).UseNoneWindowStyle)
+            if (((SimpleMetroWindow)d).UseNoneWindowStyle)
             {
                 return false;
             }
@@ -217,11 +212,11 @@
         #region UseNoneWindowStyleMyRegion
         private static readonly DependencyProperty UseNoneWindowStyleProperty =
             DependencyProperty.Register("UseNoneWindowStyle",
-                typeof(bool), typeof(SimpleMetroWindowy), new PropertyMetadata(false, OnUseNoneWindowStylePropertyChangedCallback));
+                typeof(bool), typeof(SimpleMetroWindow), new PropertyMetadata(false, OnUseNoneWindowStylePropertyChangedCallback));
 
         /// <summary>
         /// Gets/sets whether the WindowStyle is None or not.
-        /// Setting UseNoneWindowStyle="True" on a <seealso cref="SimpleMetroWindowy"/>
+        /// Setting UseNoneWindowStyle="True" on a <seealso cref="SimpleMetroWindow"/>
         /// is equivalent to not showing the titlebar of the window.
         /// </summary>
         public bool UseNoneWindowStyle
@@ -236,7 +231,7 @@
             {
                 // if UseNoneWindowStyle = true no title bar should be shown
                 var useNoneWindowStyle = (bool)e.NewValue;
-                var window = (SimpleMetroWindowy)d;
+                var window = (SimpleMetroWindow)d;
                 window.ToggleNoneWindowStyle(useNoneWindowStyle);
             }
         }
@@ -263,7 +258,7 @@
         #region ShowDialogsOverTitleBar
         private static readonly DependencyProperty ShowDialogsOverTitleBarProperty =
             DependencyProperty.Register("ShowDialogsOverTitleBar",
-                typeof(bool), typeof(SimpleMetroWindowy), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
+                typeof(bool), typeof(SimpleMetroWindow), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
 
         /// <summary>
         /// Get/sets whether dialogs show over the title bar.
@@ -276,7 +271,7 @@
         #endregion ShowDialogsOverTitleBar
 
         #region IsWindowDraggable
-        private static readonly DependencyProperty IsWindowDraggableProperty = DependencyProperty.Register("IsWindowDraggable", typeof(bool), typeof(SimpleMetroWindowy), new PropertyMetadata(true));
+        private static readonly DependencyProperty IsWindowDraggableProperty = DependencyProperty.Register("IsWindowDraggable", typeof(bool), typeof(SimpleMetroWindow), new PropertyMetadata(true));
 
         public bool IsWindowDraggable
         {
@@ -286,7 +281,7 @@
         #endregion IsWindowDraggable
 
         #region ShowSystemMenuOnRightClick
-        private static readonly DependencyProperty ShowSystemMenuOnRightClickProperty = DependencyProperty.Register("ShowSystemMenuOnRightClick", typeof(bool), typeof(SimpleMetroWindowy), new PropertyMetadata(true));
+        private static readonly DependencyProperty ShowSystemMenuOnRightClickProperty = DependencyProperty.Register("ShowSystemMenuOnRightClick", typeof(bool), typeof(SimpleMetroWindow), new PropertyMetadata(true));
 
         /// <summary>
         /// Gets/sets if the the system menu should popup on right click.
@@ -300,7 +295,7 @@
 
         #region IsContentDialogVisible
         /// <summary>
-        /// Determine whether a ContentDialog is currenlty shown inside the <seealso cref="SimpleMetroWindowy"/> or not.
+        /// Determine whether a ContentDialog is currenlty shown inside the <seealso cref="SimpleMetroWindow"/> or not.
         /// </summary>
         public bool IsContentDialogVisible
         {
@@ -309,10 +304,10 @@
         }
 
         /// <summary>
-        /// Determine whether a ContentDialog is currenlty shown inside the <seealso cref="SimpleMetroWindowy"/> or not.
+        /// Determine whether a ContentDialog is currenlty shown inside the <seealso cref="SimpleMetroWindow"/> or not.
         /// </summary>
         private static readonly DependencyProperty IsContentDialogVisibleProperty =
-            DependencyProperty.Register("IsContentDialogVisible", typeof(bool), typeof(SimpleMetroWindowy), new PropertyMetadata(false));
+            DependencyProperty.Register("IsContentDialogVisible", typeof(bool), typeof(SimpleMetroWindow), new PropertyMetadata(false));
         #endregion IsContentDialogVisible
         #endregion properties
 
@@ -331,12 +326,12 @@
 
         #region Overlay Methods
         /// <summary>
-        /// Begins to show the SimpleMetroWindowy's overlay effect.
+        /// Begins to show the SimpleMetroWindow's overlay effect.
         /// </summary>
         /// <returns>A task representing the process.</returns>
 ////        public System.Threading.Tasks.Task ShowOverlayAsync()
 ////        {
-////            if (_OverlayBox == null) throw new InvalidOperationException("OverlayBox can not be founded in this SimpleMetroWindowy's template. Are you calling this before the window has loaded?");
+////            if (_OverlayBox == null) throw new InvalidOperationException("OverlayBox can not be founded in this SimpleMetroWindow's template. Are you calling this before the window has loaded?");
 ////
 ////            var tcs = new System.Threading.Tasks.TaskCompletionSource<object>();
 ////
@@ -381,13 +376,13 @@
 ////        }
 
         /// <summary>
-        /// Begins to hide the SimpleMetroWindowy's overlay effect.
+        /// Begins to hide the SimpleMetroWindow's overlay effect.
         /// </summary>
         /// <returns>A task representing the process.</returns>
 ////        public System.Threading.Tasks.Task HideOverlayAsync()
 ////        {
 ////            if (_OverlayBox == null)
-////                throw new InvalidOperationException("OverlayBox can not be founded in this SimpleMetroWindowy's template. Are you calling this before the window has loaded?");
+////                throw new InvalidOperationException("OverlayBox can not be founded in this SimpleMetroWindow's template. Are you calling this before the window has loaded?");
 ////
 ////            var tcs = new System.Threading.Tasks.TaskCompletionSource<object>();
 ////
@@ -433,7 +428,7 @@
 ////        public bool IsOverlayVisible()
 ////        {
 ////            if (_OverlayBox == null)
-////                throw new InvalidOperationException("OverlayBox can not be founded in this SimpleMetroWindowy's template. Are you calling this before the window has loaded?");
+////                throw new InvalidOperationException("OverlayBox can not be founded in this SimpleMetroWindow's template. Are you calling this before the window has loaded?");
 ////
 ////            return _OverlayBox.Visibility == Visibility.Visible && _OverlayBox.Opacity >= 0.7;
 ////        }
@@ -587,7 +582,7 @@
         }
 
         #region WindowTitleThumbEvents
-        internal static void DoWindowTitleThumbOnPreviewMouseLeftButtonUp(SimpleMetroWindowy window, MouseButtonEventArgs mouseButtonEventArgs)
+        internal static void DoWindowTitleThumbOnPreviewMouseLeftButtonUp(SimpleMetroWindow window, MouseButtonEventArgs mouseButtonEventArgs)
         {
             if (mouseButtonEventArgs.Source == mouseButtonEventArgs.OriginalSource)
             {
@@ -595,7 +590,7 @@
             }
         }
 
-        internal static void DoWindowTitleThumbMoveOnDragDelta(IMetroThumb thumb, SimpleMetroWindowy window, DragDeltaEventArgs dragDeltaEventArgs)
+        internal static void DoWindowTitleThumbMoveOnDragDelta(IMetroThumb thumb, SimpleMetroWindow window, DragDeltaEventArgs dragDeltaEventArgs)
         {
             if (thumb == null)
             {
@@ -655,7 +650,7 @@
             NativeMethods.SendMessage(criticalHandle, WM.LBUTTONUP, IntPtr.Zero, IntPtr.Zero);
         }
 
-        internal static void DoWindowTitleThumbChangeWindowStateOnMouseDoubleClick(SimpleMetroWindowy window, MouseButtonEventArgs mouseButtonEventArgs)
+        internal static void DoWindowTitleThumbChangeWindowStateOnMouseDoubleClick(SimpleMetroWindow window, MouseButtonEventArgs mouseButtonEventArgs)
         {
             // restore/maximize only with left button
             if (mouseButtonEventArgs.ChangedButton == MouseButton.Left)
@@ -694,7 +689,7 @@
                 UnsafeNativeMethods.PostMessage(hwnd, Constants.SYSCOMMAND, new IntPtr(cmd), IntPtr.Zero);
         }
 
-        internal static void DoWindowTitleThumbSystemMenuOnMouseRightButtonUp(SimpleMetroWindowy window, MouseButtonEventArgs e)
+        internal static void DoWindowTitleThumbSystemMenuOnMouseRightButtonUp(SimpleMetroWindow window, MouseButtonEventArgs e)
         {
             if (window.ShowSystemMenuOnRightClick)
             {

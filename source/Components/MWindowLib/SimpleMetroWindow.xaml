@@ -9,7 +9,7 @@
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
     <!-- This ControlTemplate is also used to show a dialog window externally outside of the main window -->
-    <ControlTemplate x:Key="SimpleMetroWindowyTemplate" TargetType="{x:Type local:SimpleMetroWindowy}">
+    <ControlTemplate x:Key="SimpleMetroWindowTemplate" TargetType="{x:Type local:SimpleMetroWindow}">
         <Border x:Name="WindowBorder"
                 Margin="{Binding Source={x:Static SystemParameters.WindowNonClientFrameThickness}}"
                 Background="{DynamicResource {x:Static reskeys:ResourceKeys.ControlNormalBackgroundBrushKey}}">
@@ -285,7 +285,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style TargetType="{x:Type local:SimpleMetroWindowy}"
+    <Style TargetType="{x:Type local:SimpleMetroWindow}"
             xmlns:Behaviours="clr-namespace:MWindowLib.Behaviours"
            >
         <Setter Property="Behaviours:StylizedBehaviors.Behaviors">
@@ -308,7 +308,7 @@
         <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
         <Setter Property="MinHeight" Value="{Binding Source={x:Static SystemParameters.MinimumWindowHeight}}" />
         <Setter Property="MinWidth" Value="{Binding Source={x:Static SystemParameters.MinimumWindowWidth}}" />
-        <Setter Property="Template" Value="{StaticResource SimpleMetroWindowyTemplate}" />
+        <Setter Property="Template" Value="{StaticResource SimpleMetroWindowTemplate}" />
         <Setter Property="WindowChrome.WindowChrome">
             <Setter.Value>
                 <WindowChrome CornerRadius="0" GlassFrameThickness="1" UseAeroCaptionButtons="False" />

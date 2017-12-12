@@ -15,8 +15,8 @@
     <Grid>
         <Grid.Resources>
             <!-- Source: https://social.msdn.microsoft.com/Forums/vstudio/en-US/f260871d-1318-43fb-abfb-188832e3eedd/treeview-virtualizingstackpanel-problem-with-scrollviewer?forum=wpf -->
-            <Style x:Key="TreeViewStyle">
-                <Setter Property="TreeView.Background" Value="Transparent"/>
+            <!-- Style x:Key="TreeViewStyle" TargetType="{x:Type TreeView}">
+                - Setter Property="TreeView.Background" Value="Transparent"/ -
                 <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="True"/>
                 <Setter Property="VirtualizingStackPanel.VirtualizationMode" Value="Recycling"/>
                 <Setter Property="TreeView.SnapsToDevicePixels" Value="True" />
@@ -31,18 +31,23 @@
                 <Setter Property="TreeView.Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="TreeView">
-                            <ScrollViewer Focusable="False" CanContentScroll="True" Padding="3">
-                                <ItemsPresenter HorizontalAlignment="Stretch"/>
+                            <ScrollViewer Focusable="False"
+                                          CanContentScroll="True"
+                                          Padding="3">
+                                <ItemsPresenter HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch"/>
                             </ScrollViewer>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
-            </Style>
+            </Style -->
         </Grid.Resources>
 
+        <!-- Style="{StaticResource TreeViewStyle}" -->
         <TreeView Grid.Column="0"
                   ItemsSource="{Binding Computer}"
-                  Style="{StaticResource TreeViewStyle}"
+                  VirtualizingPanel.IsVirtualizing="True"
+                  VirtualizingPanel.VirtualizationMode="Recycling"
             >
             <TreeView.Resources>
                 <!-- Use a proxy to bind items to root properties of this collection -->
