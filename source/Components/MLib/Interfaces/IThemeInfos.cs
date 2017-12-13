@@ -1,4 +1,4 @@
-﻿namespace Settings.Interfaces
+﻿namespace MLib.Interfaces
 {
     using System;
     using System.Collections.Generic;

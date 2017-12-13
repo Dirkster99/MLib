@@ -1,4 +1,4 @@
-﻿namespace Settings.Themes
+﻿namespace MLib.Internal.Models
 {
     using Interfaces;
     using System;
@@ -7,7 +7,7 @@
     /// <summary>
     /// Manages a set of theminfo entries.
     /// </summary>
-    internal class ThemeInfos : IThemeInfos
+    public class ThemeInfos : IThemeInfos
     {
         Dictionary<string, ThemeInfo> mDic = new Dictionary<string, ThemeInfo>();
 

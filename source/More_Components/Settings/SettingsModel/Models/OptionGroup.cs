@@ -113,9 +113,9 @@
         }
 
         /// <summary>
-        /// Gets the requested option and returns it as typed <T> value.
+        /// Gets the requested option and returns it as typed &lt;T> value.
         /// The method throws an exception if:
-        ///  - requested option value is not stored as typed <T> or
+        ///  - requested option value is not stored as typed &lt;T> or
         ///  - the <seealso cref="OptionGroup"/> and option name does not exist.
         /// </summary>
         /// <param name="optionName"></param>
@@ -135,7 +135,7 @@
         /// Sets the value of a given option in this option table.
         /// </summary>
         /// <param name="optionName"></param>
-        /// <param name="outresult"></param>
+        /// <param name="newValue"></param>
         /// <returns></returns>
         public bool SetValue(string optionName, object newValue)
         {

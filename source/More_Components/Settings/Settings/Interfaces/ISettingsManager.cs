@@ -1,7 +1,7 @@
 ﻿namespace Settings.Interfaces
 {
     using Settings.ProgramSettings;
-    using Settings.Themes;
+    using MLib.Interfaces;
     using System.Collections.Generic;
     using System.Xml.Serialization;
 

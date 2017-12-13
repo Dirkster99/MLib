@@ -105,7 +105,7 @@
         /// from an XML <seealso cref="TextReader"/> object as hinted by <paramref name="reader"/>.
         /// Use this method to read XML from strings via <seealso cref="StringReader"/> class.
         /// </summary>
-        /// <param name="fileName"></param>
+        /// <param name="reader"></param>
         /// <param name="engine"></param>
         public void ReadXML(TextReader reader, IEngine engine)
         {
@@ -262,7 +262,7 @@
         }
 
         /// <summary>
-        /// Creates a <seealso cref="DataTable"/> for a given <seealso cref="IOptionsGroup"/>
+        /// Creates a <seealso cref="DataTable"/>.
         /// and adds corresponding column definitions.
         /// </summary>
         /// <param name="tableSchema"></param>
@@ -345,7 +345,6 @@
         /// </summary>
         /// <param name="engine"></param>
         /// <param name="tableName"></param>
-        /// <param name="groupName"></param>
         /// <param name="optionName"></param>
         /// <returns></returns>
         private IOptionGroup FindOptionsGroup(IEngine engine,

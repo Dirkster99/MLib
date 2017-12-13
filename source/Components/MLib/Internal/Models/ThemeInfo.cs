@@ -1,4 +1,4 @@
-﻿namespace Settings.Themes
+﻿namespace MLib.Internal.Models
 {
     using Interfaces;
     using System;

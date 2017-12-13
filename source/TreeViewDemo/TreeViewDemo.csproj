@@ -190,10 +190,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Components\BindToMLib\BindToMLib.csproj">
-      <Project>{dec77495-6e48-4f66-b22b-e9ba2ca6e257}</Project>
-      <Name>BindToMLib</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Components\MLib\MLib.csproj">
       <Project>{87A9302D-C6A7-4507-82D5-D83A40E899E2}</Project>
       <Name>MLib</Name>

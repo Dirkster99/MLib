@@ -205,9 +205,9 @@
         }
 
         /// <summary>
-        /// Gets the requested option and returns it as typed <T> value.
+        /// Gets the requested option and returns it as typed &lt;T> value.
         /// The method throws an exception if:
-        ///  - requested option value is not stored as typed <T> or
+        ///  - requested option value is not stored as typed &lt;T> or
         ///  - the <seealso cref="OptionGroup"/> and option name does not exist.
         /// </summary>
         /// <param name="nameOfOptionGroup"></param>
@@ -230,9 +230,9 @@
         /// <param name="nameOfOptionGroup"></param>
         /// <param name="optionName"></param>
         /// <param name="newOptValue"></param>
-        /// <param name="outresult"></param>
         /// <returns></returns>
-        public bool SetOptionValue(string nameOfOptionGroup, string optionName, object newOptValue)
+        public bool SetOptionValue(string nameOfOptionGroup,
+            string optionName, object newOptValue)
         {
             var optionGroup = GetOptionGroup(nameOfOptionGroup);
 

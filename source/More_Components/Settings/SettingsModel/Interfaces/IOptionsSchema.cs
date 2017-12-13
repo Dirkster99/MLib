@@ -9,6 +9,9 @@
     /// </summary>
     public interface IOptionsSchema
     {
+        /// <summary>
+        /// Gets the type of schema (list or single value)
+        /// </summary>
         OptionSchemaType SchemaType { get; }
 
         /// <summary>
@@ -46,7 +49,8 @@
         /// <param name="key">The key of the element to remove.</param>
         /// <returns>
         /// true if the element is successfully found and removed; otherwise, false.
-        /// This method returns false if key is not found in the System.Collections.Generic.Dictionary<TKey,TValue>.
+        /// This method returns false if key is not found in
+        /// the System.Collections.Generic.Dictionary&lt;TKey,TValue>.
         /// 
         /// Exceptions:
         ///   System.ArgumentNullException:
@@ -66,7 +70,7 @@
         ///     value parameter. This parameter is passed uninitialized.
         /// </param>
         /// <returns>
-        ///     true if the System.Collections.Generic.Dictionary<TKey,TValue> contains an
+        ///     true if the System.Collections.Generic.Dictionary&lt;TKey,TValue> contains an
         ///     element with the specified key; otherwise, false.
         ///
         /// Exceptions:
@@ -78,15 +82,17 @@
         /// <summary>
         /// Sets the value of a given option in this option object.
         /// </summary>
-        /// <param name="outresult"></param>
+        /// <param name="newValue"></param>
         /// <returns>true if data actually changed (for dirty state tracking).
         /// Otherwise, false if requested value was already present.</returns>
+        /// <param name="newValue"></param>
         bool SetValue(object newValue);
 
         /// <summary>
         /// Add a list item in a list schema
         /// </summary>
-        /// <param name="newValue"></param>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
         /// <returns>
         /// Returns true if item was succesfully added or false
         /// if schema is not a list schema.

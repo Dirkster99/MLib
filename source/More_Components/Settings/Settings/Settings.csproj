@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Settings</RootNamespace>
     <AssemblyName>Settings</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -87,19 +87,15 @@
   <ItemGroup>
     <Compile Include="Interfaces\IOptions.cs" />
     <Compile Include="Interfaces\IOptionsPanel.cs" />
+    <Compile Include="Interfaces\IProfile.cs" />
+    <Compile Include="Interfaces\ISettingsManager.cs" />
+    <Compile Include="Interfaces\IViewPosSizeModel.cs" />
     <Compile Include="Manager\SettingsManagerImpl.cs" />
     <Compile Include="ProgramSettings\LanguageCollection.cs" />
     <Compile Include="ProgramSettings\OptionsPanel.cs" />
     <Compile Include="SerializableDictionary.cs" />
     <Compile Include="SettingsManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Interfaces\ISettingsManager.cs" />
-    <Compile Include="Interfaces\IProfile.cs" />
-    <Compile Include="Interfaces\IViewPosSizeModel.cs" />
-    <Compile Include="Interfaces\IThemeInfo.cs" />
-    <Compile Include="Interfaces\IThemeInfos.cs" />
-    <Compile Include="Themes\ThemeInfo.cs" />
-    <Compile Include="Themes\ThemeInfos.cs" />
     <Compile Include="UserProfile\IViewSize.cs" />
     <Compile Include="UserProfile\LocalizabilityAttribute.cs" />
     <Compile Include="UserProfile\Profile.cs" />
@@ -107,6 +103,10 @@
     <Compile Include="UserProfile\ViewSize.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Components\MLib\MLib.csproj">
+      <Project>{87a9302d-c6a7-4507-82d5-d83a40e899e2}</Project>
+      <Name>MLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SettingsModel\SettingsModel.csproj">
       <Project>{9b0ba841-5a2f-4ed3-a908-253dbca70e77}</Project>
       <Name>SettingsModel</Name>

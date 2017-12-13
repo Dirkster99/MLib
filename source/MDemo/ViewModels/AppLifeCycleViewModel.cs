@@ -1,6 +1,6 @@
 ﻿namespace MDemo.ViewModels
 {
-    using MLib;
+    using MLib.Interfaces;
     using Models;
     using Settings.Interfaces;
     using Settings.UserProfile;

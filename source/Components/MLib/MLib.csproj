@@ -96,7 +96,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppearanceManager.cs" />
     <Compile Include="Behaviors\MergeStyleBehaviour.cs" />
     <Compile Include="Controls\Metro\Extensions.cs" />
     <Compile Include="Controls\Metro\MetroProgressBar.cs" />
@@ -105,10 +104,14 @@
     <Compile Include="Converters\ToUpperConverter.cs" />
     <Compile Include="Converters\TreeViewMarginConverter.cs" />
     <Compile Include="Events\ColorChangedEventArgs.cs" />
+    <Compile Include="Interfaces\IThemeInfo.cs" />
+    <Compile Include="Interfaces\IThemeInfos.cs" />
+    <Compile Include="Internal\Models\ThemeInfo.cs" />
+    <Compile Include="Internal\Models\ThemeInfos.cs" />
     <Compile Include="Util\InvokeExtensions.cs" />
-    <Compile Include="Internal\AppearanceManagerImp.cs" />
+    <Compile Include="AppearanceManager.cs" />
     <Compile Include="Util\BindingProxy.cs" />
-    <Compile Include="IAppearanceManager.cs" />
+    <Compile Include="Interfaces\IAppearanceManager.cs" />
     <Compile Include="Controls\ContentControlEx.cs" />
     <Compile Include="Themes\MenuKeys.cs" />
     <Compile Include="Themes\ResourceKeys.cs" />
@@ -254,12 +257,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\More_Components\Settings\Settings\Settings.csproj">
-      <Project>{2807B493-CC2E-402E-901A-EB138698FEDC}</Project>
-      <Name>Settings</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -2,7 +2,7 @@
 {
     using Settings.Interfaces;
     using Settings.ProgramSettings;
-    using Settings.Themes;
+    using MLib.Interfaces;
     using Settings.UserProfile;
     using SettingsModel.Interfaces;
     using System;
@@ -10,6 +10,7 @@
     using System.IO;
     using System.Xml;
     using System.Xml.Serialization;
+    using MLib.Internal.Models;
 
     /// <summary>
     /// This class keeps track of program options and user profile (session) data.

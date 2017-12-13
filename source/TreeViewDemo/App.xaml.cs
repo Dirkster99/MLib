@@ -2,7 +2,7 @@
 {
     using log4net;
     using log4net.Config;
-    using MLib;
+    using MLib.Interfaces;
     using Models;
     using MWindowInterfacesLib.Interfaces;
     using Settings.Interfaces;

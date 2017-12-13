@@ -1,6 +1,7 @@
 ﻿namespace TreeViewDemo
 {
     using MLib;
+    using MLib.Interfaces;
     using ServiceLocator;
     using Settings;
     using Settings.Interfaces;
@@ -20,7 +21,7 @@
 ////            ServiceContainer.Instance.AddService<IContentDialogService>(ContentDialogService.Instance);
 
             ServiceContainer.Instance.AddService<ISettingsManager>(SettingsManager.Instance);
-            ServiceContainer.Instance.AddService<IAppearanceManager>(AppearanceManager.Instance);
+            ServiceContainer.Instance.AddService<IAppearanceManager>(new AppearanceManager());
 
             return ServiceContainer.Instance;
         }

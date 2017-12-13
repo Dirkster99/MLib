@@ -1,6 +1,7 @@
 ﻿namespace MDemo.ViewModels
 {
     using MLib;
+    using MLib.Interfaces;
     using MLib.Themes;
     using Settings.Interfaces;
     using System.Collections.Generic;

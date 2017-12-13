@@ -1,7 +1,7 @@
-﻿namespace MLib
+﻿namespace MLib.Interfaces
 {
     using Events;
-    using Settings.Interfaces;
+    using MLib.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Windows.Media;

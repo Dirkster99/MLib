@@ -37,6 +37,7 @@
         /// <param name="typeOfOptionValue"></param>
         /// <param name="isOptional"></param>
         /// <param name="defaultValue"></param>
+        /// <param name="schemaType"></param>
         public OptionsSchema(string optionName,
                              Type typeOfOptionValue,
                              bool isOptional,
@@ -125,7 +126,7 @@
         /// <param name="key">The key of the element to remove.</param>
         /// <returns>
         /// true if the element is successfully found and removed; otherwise, false.
-        /// This method returns false if key is not found in the System.Collections.Generic.Dictionary<TKey,TValue>.
+        /// This method returns false if key is not found in the System.Collections.Generic.Dictionary&lt;TKey,TValue>.
         /// 
         /// Exceptions:
         ///   System.ArgumentNullException:
@@ -151,7 +152,7 @@
         ///     value parameter. This parameter is passed uninitialized.
         /// </param>
         /// <returns>
-        ///     true if the System.Collections.Generic.Dictionary<TKey,TValue> contains an
+        ///     true if the System.Collections.Generic.Dictionary&lt;TKey,TValue> contains an
         ///     element with the specified key; otherwise, false.
         ///
         /// Exceptions:
@@ -171,7 +172,7 @@
         /// <summary>
         /// Sets the value of a given option in this option object.
         /// </summary>
-        /// <param name="outresult"></param>
+        /// <param name="newValue"></param>
         /// <returns>true if data actually changed (for dirty state tracking).
         /// Otherwise, false if requested value was already present.</returns>
         public bool SetValue(object newValue)
@@ -198,7 +199,8 @@
         /// <summary>
         /// Add a list item in a list schema
         /// </summary>
-        /// <param name="newValue"></param>
+        /// <param name="value"></param>
+        /// <param name="name"></param>
         /// <returns>
         /// Returns true if item was succesfully added or false
         /// if schema is not a list schema.

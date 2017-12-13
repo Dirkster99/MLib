@@ -3,6 +3,10 @@
     using System;
     using System.Collections.Generic;
 
+    /// <summary>
+    /// An option group is a logical group of options
+    /// (setting values or preferences) of an application.
+    /// </summary>
     public interface IOptionGroup
     {
         /// <summary>
@@ -46,9 +50,9 @@
         object GetValue(string optionName);
 
         /// <summary>
-        /// Gets the requested option and returns it as typed <T> value.
+        /// Gets the requested option and returns it as typed &lt;T> value.
         /// The method throws an exception if:
-        ///  - requested option value is not stored as typed <T> or
+        ///  - requested option value is not stored as typed &lt;T> or
         ///  - the <seealso cref="OptionGroup"/> and option name does not exist.
         /// </summary>
         /// <param name="optionName"></param>
@@ -58,8 +62,8 @@
         /// <summary>
         /// Sets the value of a given option in this option table.
         /// </summary>
-        /// <param name="keyName"></param>
-        /// <param name="outresult"></param>
+        /// <param name="optionName"></param>
+        /// <param name="newValue"></param>
         /// <returns></returns>
         bool SetValue(string optionName, object newValue);
 

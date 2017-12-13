@@ -4,6 +4,7 @@
     using Doc.DocManager.Interfaces;
     using ExplorerLib;
     using MLib;
+    using MLib.Interfaces;
     using MWindowDialogLib;
     using MWindowInterfacesLib.Interfaces;
     using ServiceLocator;
@@ -28,7 +29,7 @@
             ServiceContainer.Instance.AddService<IVMManager>(VMManagerService.Instance);
             ServiceContainer.Instance.AddService<IFileManager>(FileManagerService.Instance);
             ServiceContainer.Instance.AddService<ISettingsManager>(SettingsManager.Instance);
-            ServiceContainer.Instance.AddService<IAppearanceManager>(AppearanceManager.Instance);
+            ServiceContainer.Instance.AddService<IAppearanceManager>(new AppearanceManager());
             ServiceContainer.Instance.AddService<IExplorer>(new Explorer());
 
             return ServiceContainer.Instance;

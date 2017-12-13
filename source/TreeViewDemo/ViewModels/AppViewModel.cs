@@ -2,7 +2,7 @@
 {
     using Base;
     using Demos.ViewModels;
-    using MLib;
+    using MLib.Interfaces;
     using Settings.Interfaces;
     using System;
     using System.Windows;

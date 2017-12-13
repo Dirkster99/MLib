@@ -60,9 +60,9 @@ using System.Collections.Generic;
         object GetOptionValue(string nameOfOptionGroup, string optionName);
 
         /// <summary>
-        /// Gets the requested option and returns it as typed <T> value.
+        /// Gets the requested option and returns it as typed &lt;T> value.
         /// The method throws an exception if:
-        ///  - requested option value is not stored as typed <T> or
+        ///  - requested option value is not stored as typed &lt;T> or
         ///  - the <seealso cref="OptionGroup"/> and option name does not exist.
         /// </summary>
         /// <param name="nameOfOptionGroup"></param>
@@ -70,6 +70,13 @@ using System.Collections.Generic;
         /// <returns>current value of this option.</returns>
         T GetOptionValue<T>(string nameOfOptionGroup, string optionName);
 
+        /// <summary>
+        /// Set an option to a given value.
+        /// </summary>
+        /// <param name="nameOfOptionGroup"></param>
+        /// <param name="optionName"></param>
+        /// <param name="newValue"></param>
+        /// <returns></returns>
         bool SetOptionValue(string nameOfOptionGroup, string optionName, object newValue);
 
         /// <summary>
@@ -92,6 +99,10 @@ using System.Collections.Generic;
         /// <param name="fileName"></param>
         void WriteXML(string fileName);
 
+        /// <summary>
+        /// Write settings into an XML string.
+        /// </summary>
+        /// <returns></returns>
         string WriteXML();
 
         /// <summary>
@@ -143,6 +154,9 @@ using System.Collections.Generic;
         /// <returns></returns>
         bool RemoveOption(string nameOfOptionGroup, string optionName);
 
+        /// <summary>
+        /// Removes all options from the current model.
+        /// </summary>
         void RemoveAllOptions();
     }
 }

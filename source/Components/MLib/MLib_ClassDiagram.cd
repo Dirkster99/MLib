@@ -3,37 +3,23 @@
   <Class Name="MLib.AppearanceManager">
     <Position X="6" Y="0.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
-      <FileName>AppearanceManager.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="MLib.Internal.AppearanceManagerImp" BaseTypeListCollapsed="true">
-    <Position X="0.5" Y="0.5" Width="2.5" />
-    <TypeIdentifier>
       <HashCode>AADAAQAAAQAAAAACAABAQABAAECAAAAAAAAQAAgAABA=</HashCode>
-      <FileName>Internal\AppearanceManagerImp.cs</FileName>
+      <FileName>AppearanceManager.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="MLib.Properties.Settings">
-    <Position X="6" Y="3.75" Width="2.5" />
+    <Position X="3" Y="0.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="MLib.Themes.ThemeDefinition">
-    <Position X="0.5" Y="5" Width="2.5" />
+    <Position X="3" Y="3" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAQAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Themes\ThemeDefinition.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="MLib.IAppearanceManager">
-    <Position X="3.25" Y="0.5" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>AADAAQAAAQAAAAAAAABAQAAAAEAAAAAAAAAAAAgAAAA=</HashCode>
-      <FileName>IAppearanceManager.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
