@@ -28,8 +28,11 @@
             ServiceContainer.Instance.AddService<IContentDialogService>(ContentDialogService.Instance);
             ServiceContainer.Instance.AddService<IVMManager>(VMManagerService.Instance);
             ServiceContainer.Instance.AddService<IFileManager>(FileManagerService.Instance);
-            ServiceContainer.Instance.AddService<ISettingsManager>(SettingsManager.Instance);
-            ServiceContainer.Instance.AddService<IAppearanceManager>(new AppearanceManager());
+
+            var appearance = AppearanceManager.GetInstance();
+            ServiceContainer.Instance.AddService<ISettingsManager>(SettingsManager.GetInstance(appearance.CreateThemeInfos()));
+            ServiceContainer.Instance.AddService<IAppearanceManager>(appearance);
+
             ServiceContainer.Instance.AddService<IExplorer>(new Explorer());
 
             return ServiceContainer.Instance;

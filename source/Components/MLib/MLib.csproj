@@ -96,6 +96,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppearanceManager.cs" />
     <Compile Include="Behaviors\MergeStyleBehaviour.cs" />
     <Compile Include="Controls\Metro\Extensions.cs" />
     <Compile Include="Controls\Metro\MetroProgressBar.cs" />
@@ -109,7 +110,7 @@
     <Compile Include="Internal\Models\ThemeInfo.cs" />
     <Compile Include="Internal\Models\ThemeInfos.cs" />
     <Compile Include="Util\InvokeExtensions.cs" />
-    <Compile Include="AppearanceManager.cs" />
+    <Compile Include="Internal\AppearanceManagerImpl.cs" />
     <Compile Include="Util\BindingProxy.cs" />
     <Compile Include="Interfaces\IAppearanceManager.cs" />
     <Compile Include="Controls\ContentControlEx.cs" />

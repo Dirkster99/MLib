@@ -1,37 +1,30 @@
 ﻿namespace Settings
 {
+    using MLib.Interfaces;
     using Settings.Interfaces;
+    using Settings.Internal;
 
     /// <summary>
-    /// This class keeps track of program options and user profile (session) data.
-    /// Both data items can be added and are loaded on application start to restore
-    /// the program state of the last user session or to implement the default
-    /// application state when starting the application for the very first time.
+    /// Helper class to initialize an
+    /// <see cref="ISettingsManager"/> service interface.
     /// </summary>
-    public class SettingsManager
+    public sealed class SettingsManager
     {
-        #region fields
-        private static readonly ISettingsManager _instance = null;
-        #endregion fields
-
-        #region constructors
-        static SettingsManager()
-        {
-            _instance = new Manager.SettingsManagerImpl();
-        }
-        #endregion
-
-        #region properties
         /// <summary>
-        /// Implement <seealso cref="IOptionsPanel"/> method to query options from model container.
+        /// Hidden default constructor.
         /// </summary>
-        public static ISettingsManager Instance
+        private SettingsManager()
         {
-            get
-            {
-                return _instance;
-            }
         }
-        #endregion properties
+
+        /// <summary>
+        /// Gets an instance of an object that implements the
+        /// <see cref="ISettingsManager"/> interface.
+        /// </summary>
+        /// <returns></returns>
+        public static ISettingsManager GetInstance(IThemeInfos themeInfos)
+        {
+            return new SettingsManagerImpl(themeInfos);
+        }
     }
 }

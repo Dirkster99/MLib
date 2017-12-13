@@ -1,4 +1,4 @@
-﻿namespace Settings.Manager
+﻿namespace Settings.Internal
 {
     using Settings.Interfaces;
     using Settings.ProgramSettings;
@@ -10,7 +10,6 @@
     using System.IO;
     using System.Xml;
     using System.Xml.Serialization;
-    using MLib.Internal.Models;
 
     /// <summary>
     /// This class keeps track of program options and user profile (session) data.
@@ -31,12 +30,19 @@
         /// <summary>
         /// Class cosntructor
         /// </summary>
-        public SettingsManagerImpl()
+        public SettingsManagerImpl(IThemeInfos themeinfos)
+            : this()
+        {
+            Themes = themeinfos;
+        }
+
+        /// <summary>
+        /// Hidden default constructor.
+        /// </summary>
+        protected SettingsManagerImpl()
         {
             mSettingsDataPanel = new OptionsPanel();
             SessionData = new Profile();
-
-            Themes = new ThemeInfos();
         }
         #endregion constructor
 

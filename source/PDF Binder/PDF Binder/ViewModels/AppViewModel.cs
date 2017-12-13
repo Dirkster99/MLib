@@ -5,7 +5,7 @@
     using ExplorerLib;
     using FolderBrowser;
     using FolderBrowser.Dialogs.Interfaces;
-    using MLib;
+    using MLib.Interfaces;
     using MLib.Themes;
     using MWindowInterfacesLib.Interfaces;
     using MWindowInterfacesLib.MsgBox.Enums;

@@ -3,7 +3,7 @@
     using Doc.DocManager.Interfaces;
     using log4net;
     using log4net.Config;
-    using MLib;
+    using MLib.Interfaces;
     using Models;
     using Settings.Interfaces;
     using Settings.UserProfile;

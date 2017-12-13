@@ -1,6 +1,6 @@
 ﻿namespace PDF_Binder.ViewModels
 {
-    using MLib;
+    using MLib.Interfaces;
     using Models;
     using MWindowInterfacesLib.Interfaces;
     using MWindowInterfacesLib.MsgBox.Enums;

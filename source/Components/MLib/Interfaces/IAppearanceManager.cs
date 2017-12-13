@@ -64,6 +64,13 @@
         void AddThemeResources(string themeName
                                 , List<Uri> additionalResource
                                 , IThemeInfos themes);
+
+        /// <summary>
+        /// Creates a new instance of an object that adheres to the
+        /// <see cref="IThemeInfos"/> interface.
+        /// </summary>
+        /// <returns></returns>
+        IThemeInfos CreateThemeInfos();
         #endregion methods
     }
 }

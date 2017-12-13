@@ -7,7 +7,7 @@
     /// <summary>
     /// Manages a set of theminfo entries.
     /// </summary>
-    public class ThemeInfos : IThemeInfos
+    internal class ThemeInfos : IThemeInfos
     {
         Dictionary<string, ThemeInfo> mDic = new Dictionary<string, ThemeInfo>();
 
