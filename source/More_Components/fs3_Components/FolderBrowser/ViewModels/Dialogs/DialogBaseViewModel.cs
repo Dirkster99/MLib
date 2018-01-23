@@ -4,7 +4,6 @@ namespace FolderBrowser.Dialogs.ViewModels
     using FolderBrowser.Interfaces;
     using FolderBrowser.ViewModels;
     using FsCore.ViewModels.Base;
-    using MWindowInterfacesLib.MsgBox;
 
     /// <summary>
     /// A base class for implementing a viewmodel that can drive dialogs
@@ -22,12 +21,11 @@ namespace FolderBrowser.Dialogs.ViewModels
         /// <summary>
         /// Class constructor
         /// </summary>
-        public DialogBaseViewModel(IMessageBoxService msgBox,
-                                   IBrowserViewModel treeBrowser = null,
+        public DialogBaseViewModel(IBrowserViewModel treeBrowser = null,
                                    IBookmarkedLocationsViewModel recentLocations = null)
         {
             if (treeBrowser == null)
-                TreeBrowser = new BrowserViewModel(msgBox);
+                TreeBrowser = new BrowserViewModel();
             else
                 TreeBrowser = treeBrowser;
 

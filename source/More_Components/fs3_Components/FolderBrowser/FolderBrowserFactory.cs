@@ -4,7 +4,6 @@
     using FolderBrowser.Dialogs.ViewModels;
     using FolderBrowser.Interfaces;
     using FolderBrowser.ViewModels;
-    using MWindowInterfacesLib.MsgBox;
 
     /// <summary>
     /// Implements a factory for generating internal classes that are otherwise
@@ -23,12 +22,11 @@
         /// <param name="resultCallback"></param>
         /// <returns></returns>
         public static IDropDownViewModel CreateDropDownViewModel(
-            IMessageBoxService msgBox,
             IBrowserViewModel treeBrowser,
             IBookmarkedLocationsViewModel recentLocations,
             DropDownClosedResult resultCallback)
         {
-            return new DropDownViewModel(msgBox, treeBrowser, recentLocations, resultCallback);
+            return new DropDownViewModel(treeBrowser, recentLocations, resultCallback);
         }
 
         /// <summary>
@@ -39,16 +37,15 @@
         /// displaying messages to the user</param>
         /// <returns></returns>
         public static IBrowserViewModel CreateBrowserViewModel(
-             IMessageBoxService msgBox
-            ,bool specialFolderVisibility = true
+             bool specialFolderVisibility = true
             ,string initialPath = null)
         {
             BrowserViewModel treeBrowserVM = null;
 
             if (initialPath != null)
-                treeBrowserVM = new BrowserViewModel(msgBox) { InitialPath = initialPath };
+                treeBrowserVM = new BrowserViewModel() { InitialPath = initialPath };
             else
-                treeBrowserVM = new BrowserViewModel(msgBox);
+                treeBrowserVM = new BrowserViewModel();
 
             treeBrowserVM.SetSpecialFoldersVisibility(specialFolderVisibility);
 
@@ -63,11 +60,10 @@
         /// <param name="recentLocations"></param>
         /// <returns></returns>
         public static IDialogViewModel CreateDialogViewModel(
-            IMessageBoxService msgBox,
             IBrowserViewModel treeBrowser = null,
             IBookmarkedLocationsViewModel recentLocations = null)
         {
-            return new DialogViewModel(msgBox, treeBrowser, recentLocations);
+            return new DialogViewModel(treeBrowser, recentLocations);
         }
 
         /// <summary>

@@ -493,10 +493,8 @@
                 {
                     mSelectFolderCommand = new RelayCommand<object>((p) =>
                     {
-                        var msgBox = GetService<IContentDialogService>().MsgBox;
-
                         // See Loaded event in FolderBrowserTreeView_Loaded methid to understand initial load
-                        var treeBrowserVM = FolderBrowserFactory.CreateBrowserViewModel(msgBox);
+                        var treeBrowserVM = FolderBrowserFactory.CreateBrowserViewModel();
 
                         // Switch updates to view of by default to speed up load of view
                         // Loading the view will kick-off the browsing via View.Loaded Event
@@ -512,8 +510,8 @@
 
                         treeBrowserVM.SetSpecialFoldersVisibility(true);
 
-                        var dlgVM = FolderBrowserFactory.CreateDialogViewModel(
-                            msgBox, treeBrowserVM, BookmarkedLocations);
+                        var dlgVM = FolderBrowserFactory.CreateDialogViewModel(treeBrowserVM,
+                                                                               BookmarkedLocations);
 
                         ////bool? bResult = dlg.ShowDialog();
 

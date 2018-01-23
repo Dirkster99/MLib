@@ -2,10 +2,7 @@ namespace FolderBrowser.Dialogs.ViewModels
 {
     using FolderBrowser.Dialogs.Interfaces;
     using FolderBrowser.Interfaces;
-    using FolderBrowser.ViewModels;
     using FsCore.ViewModels;
-    using FsCore.ViewModels.Base;
-    using MWindowInterfacesLib.MsgBox;
     using System.Windows.Input;
 
     /// <summary>
@@ -32,11 +29,10 @@ namespace FolderBrowser.Dialogs.ViewModels
         /// Class constructor
         /// </summary>
         public DropDownViewModel(
-            IMessageBoxService msgBox,
             IBrowserViewModel treeBrowser,
             IBookmarkedLocationsViewModel recentLocations,
             DropDownClosedResult resultCallback)
-            : base (msgBox, treeBrowser, recentLocations)
+            : base (treeBrowser, recentLocations)
         {
             ResultCallback = resultCallback;
         }

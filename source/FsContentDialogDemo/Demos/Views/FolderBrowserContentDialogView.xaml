@@ -31,7 +31,6 @@
                 <!--
                     FontSize="{Binding DialogMessageFontSize, RelativeSource={RelativeSource AncestorType=Dialogs:ProgressDialog, Mode=FindAncestor}, UpdateSourceTrigger=PropertyChanged}"
                  -->
-
                 <views:FolderBrowserDialogView Grid.Row="0" DataContext="{Binding FolderBrowser}" />
 
                 <Grid Grid.Row="1" HorizontalAlignment="Right">

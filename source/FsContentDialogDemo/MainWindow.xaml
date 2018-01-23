@@ -13,35 +13,57 @@
                      
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid
-          xmlns:fbviews="clr-namespace:FolderBrowser.Views;assembly=FolderBrowser"
+    <Grid xmlns:fbviews="clr-namespace:FolderBrowser.Views;assembly=FolderBrowser"
         >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Margin="3,3,24,3" HorizontalAlignment="Left">
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
             <TextBlock Text="Themes" />
-            <ComboBox ItemsSource="{Binding AppTheme.ListOfThemes}"
+            <ComboBox Grid.Row="1" ItemsSource="{Binding AppTheme.ListOfThemes}"
                       DisplayMemberPath="Model.Name"
                       SelectedItem="{Binding AppTheme.SelectedTheme, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
                       behav:SelectionChangedCommand.ChangedCommand="{Binding ThemeSelectionChangedCommand}"
                       IsEnabled="{Binding AppTheme.IsEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     />
-        </StackPanel>
+        </Grid>
 
-        <Grid Grid.Row="1">
+        <TextBlock Grid.Column="1" TextWrapping="WrapWithOverflow" Margin="9,3">
+            This is a simple demo program for a directory picker control.
+            Select an initial path below and click one of the the test buttons
+                to see the control in action.
+        </TextBlock>
+
+        <Grid Grid.Column="1" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Grid DataContext="{Binding Demo}" Grid.Row="0" Margin="3">
+            <Grid DataContext="{Binding Demo}" Grid.Row="0" Margin="3"
+                  xmlns:ctrls="clr-namespace:DropDownButtonLib.Controls;assembly=DropDownButtonLib"
+                  >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
                 <fbviews:BookmarkFolderDropDown Grid.Column="0" Margin="3"
                                                 MinHeight="35"
@@ -53,12 +75,34 @@
                         Content="Broswer Demo"
                         Command="{Binding ShowConententDialogCommand}"
                         CommandParameter="{Binding Path}"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center" />
+                        HorizontalAlignment="Stretch" VerticalAlignment="Center" />
 
                 <TextBox Grid.Column="2" Margin="3" Text="{Binding Path}"
                          VerticalAlignment="Center" />
+
+                <Button Content="Test Folder Browser"
+                        Command="{Binding SelectFolderCommand}"
+                        Grid.Column="1" Grid.Row="2"
+                        MinHeight="25" MinWidth="75"
+                        Margin="3"
+                        HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+
+                <ctrls:DropDownButton Grid.Column="1" Grid.Row="3"
+                                  MinWidth="150" MinHeight="25"
+                                  IsEnabled="True"
+                                  Content="{Binding DropDownBrowser.ButtonLabel,FallbackValue='Binding Failed'}"                              
+                                  IsOpen="{Binding DropDownBrowser.IsOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  HorizontalAlignment="Left"
+                                  Margin="3" 
+                                >
+                    <ctrls:DropDownButton.DropDownContent>
+                        <StackPanel xmlns:views="clr-namespace:FolderBrowser.Views;assembly=FolderBrowser" IsHitTestVisible="True" Focusable="True">
+                            <views:DropDownView DataContext="{Binding DropDownBrowser}" />
+                        </StackPanel>
+                    </ctrls:DropDownButton.DropDownContent>
+                </ctrls:DropDownButton>
             </Grid>
+
         </Grid>
     </Grid>
 </MWindow:MetroWindow>

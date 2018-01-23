@@ -11,6 +11,8 @@
         private string _Path;
         private ICommand _ShowConententDialogCommand;
         private IBookmarkedLocationsViewModel _BookmarkedLocation;
+        private ICommand mSelectFolderCommand;
+        private IDropDownViewModel mDropDownBrowser = null;
         #endregion private fields
 
         #region constructors
@@ -21,6 +23,8 @@
         {
             _Path = @"C:\Program Files\Microsoft SQL Server\90\Shared\Resources\1028";
             BookmarkedLocations = ConstructBookmarks();
+
+            DropDownBrowser = InitializeDropDownBrowser(Path);
 
             BookmarkedLocations.RequestChangeOfDirectory += BookmarkedLocations_RequestChangeOfDirectory;
         }
@@ -93,6 +97,77 @@
                 return _ShowConententDialogCommand;
             }
         }
+
+        /// <summary>
+        /// Gets a command to demo the folder browser dialog...
+        /// </summary>
+        public ICommand SelectFolderCommand
+        {
+            get
+            {
+                if (mSelectFolderCommand == null)
+                {
+                    mSelectFolderCommand = new RelayCommand<object>((p) =>
+                    {
+                        // See Loaded event in FolderBrowserTreeView_Loaded methid to understand initial load
+                        var treeBrowser = FolderBrowserFactory.CreateBrowserViewModel();
+
+                        // Switch updates to view of by default to speed up load of view
+                        // Loading the view will kick-off the browsing via View.Loaded Event
+                        // and that in turn will switch on view updates ...
+                        treeBrowser.UpdateView = false;
+
+                        var initialPath = p as string;
+
+                        if (initialPath != null)
+                            treeBrowser.InitialPath = initialPath;
+                        else
+                            treeBrowser.InitialPath = this.Path;
+
+                        treeBrowser.SetSpecialFoldersVisibility(true);
+
+                        var dlgVM = FolderBrowserFactory.CreateDialogViewModel(treeBrowser,
+                                                                               BookmarkedLocations);
+
+                        var dlg = new Demos.Views.FolderBrowserDialog();
+                        dlg.DataContext = dlgVM;
+
+                        bool? bResult = dlg.ShowDialog();
+
+                        if (dlgVM.DialogCloseResult == true || bResult == true)
+                        {
+                            Path = dlgVM.TreeBrowser.SelectedFolder;
+
+                            if (dlgVM.BookmarkedLocations != null)
+                                this.BookmarkedLocations = dlgVM.BookmarkedLocations.Copy();
+                        }
+                    });
+                }
+
+                return mSelectFolderCommand;
+            }
+        }
+
+        /// <summary>
+        /// Gets a viewmodel object that can be used to drive a folder browser
+        /// displayed inside a drop down button element.
+        /// </summary>
+        public IDropDownViewModel DropDownBrowser
+        {
+            get
+            {
+                return mDropDownBrowser;
+            }
+
+            private set
+            {
+                if (mDropDownBrowser != value)
+                {
+                    mDropDownBrowser = value;
+                    RaisePropertyChanged(() => DropDownBrowser);
+                }
+            }
+        }
         #endregion properties
 
         #region methods
@@ -134,6 +209,71 @@
         private void BookmarkedLocations_RequestChangeOfDirectory(object sender, FolderBrowser.Events.FolderChangedEventArgs e)
         {
             this.Path = e.Folder.Path;
+        }
+        /// <summary>
+        /// Method configures a drop down element to show a
+        /// folder picker dialog on opening up.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        private IDropDownViewModel InitializeDropDownBrowser(string path)
+        {
+            // See Loaded event in FolderBrowserTreeView_Loaded method to understand initial load
+            var treeBrowser = FolderBrowserFactory.CreateBrowserViewModel();
+
+            // Switch updates to view of by default to speed up load of view
+            // Loading the view will kick-off the browsing via View.Loaded Event
+            // and that in turn will switch on view updates ...
+            treeBrowser.UpdateView = false;
+
+            if (string.IsNullOrEmpty(path) == false)
+                treeBrowser.InitialPath = path;
+            else
+                treeBrowser.InitialPath = this.Path;
+
+            treeBrowser.SetSpecialFoldersVisibility(true);
+
+            var dlgVM = FolderBrowserFactory.CreateDropDownViewModel(
+                treeBrowser, BookmarkedLocations, this.DropDownClosedResult);
+
+            dlgVM.UpdateInitialPath = this.UpdateCurrentPath;
+            dlgVM.UpdateInitialBookmarks = this.UpdateBookmarks;
+
+            dlgVM.ButtonLabel = "Select a Folder";
+
+            return dlgVM;
+        }
+
+        private string UpdateCurrentPath()
+        {
+            return this.Path;
+        }
+
+        private IBookmarkedLocationsViewModel UpdateBookmarks()
+        {
+            return this.BookmarkedLocations;
+        }
+
+        /// <summary>
+        /// Method is invoked when drop element is closed.
+        /// </summary>
+        /// <param name="bookmarks"></param>
+        /// <param name="selectedPath"></param>
+        /// <param name="result"></param>
+        private void DropDownClosedResult(IBookmarkedLocationsViewModel bookmarks,
+                                          string selectedPath,
+                                          FolderBrowser.Dialogs.Interfaces.Result result)
+        {
+            if (result == FolderBrowser.Dialogs.Interfaces.Result.OK)
+            {
+                if (bookmarks != null)
+                    this.BookmarkedLocations = bookmarks.Copy();
+
+                if (string.IsNullOrEmpty(selectedPath) == false)
+                    this.Path = selectedPath;
+                else
+                    this.Path = @"C:\\";
+            }
         }
         #endregion methods
     }

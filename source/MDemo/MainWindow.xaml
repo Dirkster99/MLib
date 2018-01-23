@@ -56,7 +56,8 @@
                                     <Setter Property="IsChecked" Value="{Binding IsSelected, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" />
                                     <Setter Property="IsCheckable" Value="True"/>
                                     <Setter Property="Command" Value="{Binding Path=Data.ThemeSelectionChangedCommand, Source={StaticResource MenuItemsProxy}}" />
-                                    <Setter Property="CommandParameter" Value="{Binding}" /> <!-- Send this item for processing to the bound command -->
+                                    <Setter Property="CommandParameter" Value="{Binding}" />
+                                    <!-- Send this item for processing to the bound command -->
                                     <Setter Property="ThemeBehav:MergeStyleBehaviour.AutoMergeStyle" Value="True"/>
                                 </Style>
                             </MenuItem.ItemContainerStyle>
@@ -68,10 +69,10 @@
                         <!-- MenuItem Header="Use Accent?"
                             IsCheckable="True"
                             IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type MWindow:MetroWindow}}, Path=UseAccentForDialogs}" / -->
-                    <MenuItem Header="Show Dialogs over TitleBar"
+                        <MenuItem Header="Show Dialogs over TitleBar"
                             IsCheckable="True"
                             IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type MWindow:MetroWindow}}, Path=ShowDialogsOverTitleBar}" />
-                    <Separator />
+                        <Separator />
                         <MenuItem Click="ShowInputDialog" Header="Show InputDialog" />
                         <MenuItem Click="ShowLoginDialog" Header="Show LoginDialog" />
                         <!-- MenuItem Click="ShowLoginDialogPasswordPreview" Header="Show Password Preview LoginDialog" / -->
@@ -93,7 +94,7 @@
 
                             <Separator/>
                             <MenuItem Click="Show2CancelableProgressCloseDialogDemo" Header="Show 2 Progressings in one dialog" />
-                            
+
                         </MenuItem>
                         <MenuItem Click="ShowCustomDialog" Header="Show CustomDialog" />
                         <MenuItem Click="ShowAwaitCustomDialog" Header="Await CustomDialog" />
@@ -102,7 +103,7 @@
                         <MenuItem Click="ShowLoginDialogOutside" Header="Show Login Dialog Externally" />
                         <MenuItem Click="ShowMessageDialogOutside" Header="Show Message Dialog Externally" />
                         <MenuItem Click="ShowProgressDialogOutside" Header="Show Progress Dialog Externally" />
-                        
+
                         <!-- MenuItem Click="ShowDialogOutside" Header="Show CustomDialog Externally" / -->
                         <Separator />
                         <MenuItem Command="{Binding Demo.ShowInputDialogCommand}" Header="Show InputDialog via VM" />
@@ -115,7 +116,7 @@
                         </MenuItem>
 
                         <MenuItem Command="{Binding Demo.ShowProgressDialogCommand}" Header="Show ProgressDialog via VM" />
-                        
+
                         <MenuItem Command="{Binding Demo.ShowCustomDialogCommand}" Header="Show CustomDialog via VM" />
                     </MenuItem>
                 </Menu>
@@ -163,507 +164,499 @@
             <Grid Grid.Row="2" Margin="3"
               xmlns:SampleConv="clr-namespace:MDemo.Demos.Converters"
               >
-                <TabControl DataContext="{Binding Demo}">
-                    <TabControl.Resources>
+
+                <Grid DataContext="{Binding Demo}">
+                    <Grid.Resources>
                         <SampleConv:SampleParametersConverter x:Key="sampleParametersConverter" />
-                    </TabControl.Resources>
+                    </Grid.Resources>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
 
-                    <TabItem Header="File System Control Tests" xmlns:fscdemos="clr-namespace:MDemo.Demos.fsc" >
-                        <fscdemos:FolderBrowserView DataContext="{Binding FileSystemControlsDemo}" />
-                    </TabItem>
-                    
-                    <TabItem Header="Pre-defined MsgBox Tests">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-
-                            <StackPanel Margin="10"
+                    <StackPanel Margin="10"
                                         Grid.Row="0" Grid.Column="0"  Grid.ColumnSpan="2">
-                                <TextBlock TextWrapping="Wrap">
+                        <TextBlock TextWrapping="Wrap">
           The samples on this page demonstrate the usage of the WPF message box. Press <Bold>CNTR-C</Bold>
           to copy the twxt displayed in a message box.
-                                </TextBlock>
-                                <TextBlock TextWrapping="Wrap">          
+                        </TextBlock>
+                        <TextBlock TextWrapping="Wrap">          
             Click one of the <Bold>Sample buttons</Bold> below to invoke a sample message box.
-                                </TextBlock>
+                        </TextBlock>
 
-                                <StackPanel HorizontalAlignment="Right" Margin="6">
-                                    <RadioButton IsChecked="{Binding Path=MsgBoxModes, Mode=TwoWay,
+                        <StackPanel HorizontalAlignment="Right" Margin="6">
+                            <RadioButton IsChecked="{Binding Path=MsgBoxModes, Mode=TwoWay,
                                                  Converter={StaticResource enumConverter},
                                                  ConverterParameter=InternalFixed}"
                                                  Content="Internal Fixed" />
 
-                                    <RadioButton IsChecked="{Binding Path=MsgBoxModes, Mode=TwoWay,
+                            <RadioButton IsChecked="{Binding Path=MsgBoxModes, Mode=TwoWay,
                                                  Converter={StaticResource enumConverter},
                                                  ConverterParameter=ExternalFixed}"
                                                  Content="External Fixed" />
 
-                                    <RadioButton IsChecked="{Binding Path=MsgBoxModes, Mode=TwoWay, 
+                            <RadioButton IsChecked="{Binding Path=MsgBoxModes, Mode=TwoWay, 
                                                  Converter={StaticResource enumConverter},
                                                  ConverterParameter=ExternalMoveable}"
                                                  Content="External Moveable" />
-                                </StackPanel>
-                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
 
-                            <Grid Grid.Column="0" Grid.Row="1"
+                    <Grid Grid.Column="0" Grid.Row="1"
                                   HorizontalAlignment="Left" Margin="10">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
-                                <TextBlock Grid.Column="0" Margin="3"><Bold>Test Describtion</Bold></TextBlock>
-                                <TextBlock Grid.Column="1" Margin="3"><Bold>Async Test</Bold></TextBlock>
-                                <TextBlock Grid.Column="2" Margin="3"><Bold>Sync Test</Bold></TextBlock>
+                        <TextBlock Grid.Column="0" Margin="3"><Bold>Test Describtion</Bold></TextBlock>
+                        <TextBlock Grid.Column="1" Margin="3"><Bold>Async Test</Bold></TextBlock>
+                        <TextBlock Grid.Column="2" Margin="3"><Bold>Sync Test</Bold></TextBlock>
 
-                                <TextBlock Text="Message box with only message" VerticalAlignment="Center" Margin="3" Grid.Row="1" />
-                                <Button Height="24" Width="90" Content="Sample 1" Margin="3" 
+                        <TextBlock Text="Message box with only message" VerticalAlignment="Center" Margin="3" Grid.Row="1" />
+                        <Button Height="24" Width="90" Content="Sample 1" Margin="3" 
                                         Grid.Row="1" HorizontalAlignment="Left" Grid.Column="1" 
                                         VerticalAlignment="Center" Name="Sample1Async" Command="{Binding TestSampleMsgBoxAsyncCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample1Async"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
-                                <Button Height="24" Width="90" Content="Sample 1" Margin="3" 
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample1Async"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button Height="24" Width="90" Content="Sample 1" Margin="3" 
                                         Grid.Row="1" HorizontalAlignment="Left" Grid.Column="2" 
                                         VerticalAlignment="Center" Name="Sample1" Command="{Binding TestSampleMsgBoxCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample1"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample1"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
 
-                                <TextBlock Text="Message box with title and message" VerticalAlignment="Center" Margin="3" Grid.Row="2" />
-                                <Button Height="24" Width="90" Content="Sample 2" Margin="3" Grid.Row="2" 
+                        <TextBlock Text="Message box with title and message" VerticalAlignment="Center" Margin="3" Grid.Row="2" />
+                        <Button Height="24" Width="90" Content="Sample 2" Margin="3" Grid.Row="2" 
                                         HorizontalAlignment="Left" Grid.Column="1" 
                                         VerticalAlignment="Center" Name="Sample2Async" Command="{Binding TestSampleMsgBoxAsyncCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample2Async"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
-                                <Button Height="24" Width="90" Content="Sample 2" Margin="3" Grid.Row="2" 
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample2Async"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button Height="24" Width="90" Content="Sample 2" Margin="3" Grid.Row="2" 
                                         HorizontalAlignment="Left" Grid.Column="2" 
                                         VerticalAlignment="Center" Name="Sample2" Command="{Binding TestSampleMsgBoxCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample2"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample2"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
 
-                                <TextBlock Text="Message box with YES, NO button" VerticalAlignment="Center" Margin="3" Grid.Row="3" />
-                                <Button Height="24" Width="90" Content="Sample 3" Margin="3" Grid.Row="3" 
+                        <TextBlock Text="Message box with YES, NO button" VerticalAlignment="Center" Margin="3" Grid.Row="3" />
+                        <Button Height="24" Width="90" Content="Sample 3" Margin="3" Grid.Row="3" 
                                         HorizontalAlignment="Left" Grid.Column="1" 
                                         VerticalAlignment="Center" Name="Sample3Async" Command="{Binding TestSampleMsgBoxAsyncCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample3Async"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
-                                <Button Height="24" Width="90" Content="Sample 3" Margin="3" Grid.Row="3" 
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample3Async"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button Height="24" Width="90" Content="Sample 3" Margin="3" Grid.Row="3" 
                                         HorizontalAlignment="Left" Grid.Column="2" 
                                         VerticalAlignment="Center" Name="Sample3" Command="{Binding TestSampleMsgBoxCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample3"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample3"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
 
-                                <TextBlock Text="Message box with OK Button and details" VerticalAlignment="Center" Margin="3" Grid.Row="4" />
-                                <Button Height="24" Width="90" Content="Sample 4" Margin="3" Grid.Row="4" 
+                        <TextBlock Text="Message box with OK Button and details" VerticalAlignment="Center" Margin="3" Grid.Row="4" />
+                        <Button Height="24" Width="90" Content="Sample 4" Margin="3" Grid.Row="4" 
                                         HorizontalAlignment="Left" Grid.Column="1" 
                                         VerticalAlignment="Center" Name="Sample4Async" Command="{Binding TestSampleMsgBoxAsyncCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample4Async"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
-                                <Button Height="24" Width="90" Content="Sample 4" Margin="3" Grid.Row="4" 
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample4Async"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button Height="24" Width="90" Content="Sample 4" Margin="3" Grid.Row="4" 
                                         HorizontalAlignment="Left" Grid.Column="2" 
                                         VerticalAlignment="Center" Name="Sample4" Command="{Binding TestSampleMsgBoxCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample4"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample4"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
 
-                                <TextBlock Text="Message box with Question" VerticalAlignment="Center" Margin="3" Grid.Row="5" />
-                                <Button Height="24" Width="90" Content="Sample 5" Margin="3" Grid.Row="5" 
+                        <TextBlock Text="Message box with Question" VerticalAlignment="Center" Margin="3" Grid.Row="5" />
+                        <Button Height="24" Width="90" Content="Sample 5" Margin="3" Grid.Row="5" 
                                         HorizontalAlignment="Left" Grid.Column="1" 
                                         VerticalAlignment="Center" Name="Sample5Async" Command="{Binding TestSampleMsgBoxAsyncCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample5Async"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
-                                <Button Height="24" Width="90" Content="Sample 5" Margin="3" Grid.Row="5" 
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample5Async"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button Height="24" Width="90" Content="Sample 5" Margin="3" Grid.Row="5" 
                                         HorizontalAlignment="Left" Grid.Column="2" 
                                         VerticalAlignment="Center" Name="Sample5" Command="{Binding TestSampleMsgBoxCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample5"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample5"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
 
-                                <TextBlock Text="Message box with Question and No Default button" VerticalAlignment="Center" Margin="3" Grid.Row="6" />
-                                <Button Height="24" Width="90" Content="Sample 6" Margin="3" Grid.Row="6" 
+                        <TextBlock Text="Message box with Question and No Default button" VerticalAlignment="Center" Margin="3" Grid.Row="6" />
+                        <Button Height="24" Width="90" Content="Sample 6" Margin="3" Grid.Row="6" 
                                         HorizontalAlignment="Left" Grid.Column="1" 
                                         VerticalAlignment="Center" Name="Sample6Async" Command="{Binding TestSampleMsgBoxAsyncCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample6Async"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
-                                <Button Height="24" Width="90" Content="Sample 6" Margin="3" Grid.Row="6" 
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample6Async"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button Height="24" Width="90" Content="Sample 6" Margin="3" Grid.Row="6" 
                                         HorizontalAlignment="Left" Grid.Column="2" 
                                         VerticalAlignment="Center" Name="Sample6" Command="{Binding TestSampleMsgBoxCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample6"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample6"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
 
-                                <TextBlock Text="Message box with Question, No default button, and Hyperlink" VerticalAlignment="Center" Margin="3" Grid.Row="7" />
-                                <Button Height="24" Width="90" Content="Sample 7" Margin="3" Grid.Row="7" 
+                        <TextBlock Text="Message box with Question, No default button, and Hyperlink" VerticalAlignment="Center" Margin="3" Grid.Row="7" />
+                        <Button Height="24" Width="90" Content="Sample 7" Margin="3" Grid.Row="7" 
                                         HorizontalAlignment="Left" Grid.Column="1" 
                                         VerticalAlignment="Center" Name="Sample7Async" Command="{Binding TestSampleMsgBoxAsyncCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample7Async"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
-                                <Button Height="24" Width="90" Content="Sample 7" Margin="3" Grid.Row="7" 
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample7Async"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button Height="24" Width="90" Content="Sample 7" Margin="3" Grid.Row="7" 
                                         HorizontalAlignment="Left" Grid.Column="2" 
                                         VerticalAlignment="Center" Name="Sample7" Command="{Binding TestSampleMsgBoxCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample7"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample7"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
 
-                                <TextBlock Text="Message box with Question, No default button, and Custom Hyperlink Navigation"
+                        <TextBlock Text="Message box with Question, No default button, and Custom Hyperlink Navigation"
                                             TextWrapping="WrapWithOverflow"
                                             VerticalAlignment="Center" Margin="3" Grid.Row="8" />
-                                <Button Height="24" Width="90" Content="Sample 8" Margin="3" Grid.Row="8" 
+                        <Button Height="24" Width="90" Content="Sample 8" Margin="3" Grid.Row="8" 
                                         HorizontalAlignment="Left" Grid.Column="1" 
                                         VerticalAlignment="Center" Name="Sample8Async" Command="{Binding TestSampleMsgBoxAsyncCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample8Async"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
-                                <Button Height="24" Width="90" Content="Sample 8" Margin="3" Grid.Row="8" 
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample8Async"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button Height="24" Width="90" Content="Sample 8" Margin="3" Grid.Row="8" 
                                         HorizontalAlignment="Left" Grid.Column="2" 
                                         VerticalAlignment="Center" Name="Sample8" Command="{Binding TestSampleMsgBoxCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample8"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample8"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
 
-                                <TextBlock Text="Message box with Question (OK, Cancel) and NO Copy Message button"
+                        <TextBlock Text="Message box with Question (OK, Cancel) and NO Copy Message button"
                                             TextWrapping="WrapWithOverflow"
                                             VerticalAlignment="Center" Margin="3" Grid.Row="9" />
-                                <Button Height="24" Width="90" Content="Sample 9" Margin="3" Grid.Row="9" 
+                        <Button Height="24" Width="90" Content="Sample 9" Margin="3" Grid.Row="9" 
                                         HorizontalAlignment="Left" Grid.Column="1" 
                                         VerticalAlignment="Center" Name="Sample9Async" Command="{Binding TestSampleMsgBoxAsyncCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample9Async"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
-                                <Button Height="24" Width="90" Content="Sample 9" Margin="3" Grid.Row="9" 
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample9Async"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button Height="24" Width="90" Content="Sample 9" Margin="3" Grid.Row="9" 
                                     HorizontalAlignment="Left" Grid.Column="2" 
                                     VerticalAlignment="Center"  Name="Sample9" Command="{Binding TestSampleMsgBoxCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample9"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample9"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
 
-                                <TextBlock Text="Message box with Question and NO Default button"
+                        <TextBlock Text="Message box with Question and NO Default button"
                                             TextWrapping="WrapWithOverflow"
                                             VerticalAlignment="Center" Margin="3" Grid.Row="10" />
-                                <Button Height="24" Width="90" Content="Sample 10" Margin="3" Grid.Row="10" 
+                        <Button Height="24" Width="90" Content="Sample 10" Margin="3" Grid.Row="10" 
                                         HorizontalAlignment="Left" Grid.Column="1" 
                                         VerticalAlignment="Center" Name="Sample10Async" Command="{Binding TestSampleMsgBoxAsyncCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample10Async"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
-                                <Button Height="24" Width="90" Content="Sample 10" Margin="3" Grid.Row="10" 
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample10Async"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button Height="24" Width="90" Content="Sample 10" Margin="3" Grid.Row="10" 
                                         HorizontalAlignment="Left" Grid.Column="2" 
                                         VerticalAlignment="Center" Name="Sample10" Command="{Binding TestSampleMsgBoxCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample10"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample10"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
 
-                                <TextBlock Text="Message box with Question and NO Default button"
+                        <TextBlock Text="Message box with Question and NO Default button"
                                         TextWrapping="WrapWithOverflow"
                                         VerticalAlignment="Center" Margin="3" Grid.Row="11" />
-                                <Button Height="24" Width="90" Content="Sample 11" Margin="3" Grid.Row="11" 
+                        <Button Height="24" Width="90" Content="Sample 11" Margin="3" Grid.Row="11" 
                                         HorizontalAlignment="Left" Grid.Column="1" 
                                         VerticalAlignment="Center" Name="Sample11Async" Command="{Binding TestSampleMsgBoxAsyncCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample11Async"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
-                                <Button Height="24" Width="90" Content="Sample 11" Margin="3" Grid.Row="11" 
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample11Async"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button Height="24" Width="90" Content="Sample 11" Margin="3" Grid.Row="11" 
                                         HorizontalAlignment="Left" Grid.Column="2" 
                                         VerticalAlignment="Center" Name="Sample11" Command="{Binding TestSampleMsgBoxCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample11"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample11"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
 
-                                <TextBlock Text="Working with exceptions"
+                        <TextBlock Text="Working with exceptions"
                                             TextWrapping="WrapWithOverflow"
                                             VerticalAlignment="Center" Margin="3" Grid.Row="12" />
-                                <Button Height="24" Width="90" Content="Sample 12" Margin="3" Grid.Row="12" 
+                        <Button Height="24" Width="90" Content="Sample 12" Margin="3" Grid.Row="12" 
                                         HorizontalAlignment="Left" Grid.Column="1" 
                                         VerticalAlignment="Center" Name="Sample12Async" Command="{Binding TestSampleMsgBoxAsyncCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample12Async"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
-                                <Button Height="24" Width="90" Content="Sample 12" Margin="3" Grid.Row="12" 
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample12Async"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button Height="24" Width="90" Content="Sample 12" Margin="3" Grid.Row="12" 
                                         HorizontalAlignment="Left" Grid.Column="2" 
                                         VerticalAlignment="Center" Name="Sample12" Command="{Binding TestSampleMsgBoxCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample12"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample12"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
 
-                                <TextBlock Text="Working with exceptions (labeling problem above message tree)"
+                        <TextBlock Text="Working with exceptions (labeling problem above message tree)"
                                             TextWrapping="WrapWithOverflow"
                                             VerticalAlignment="Center" Margin="3" Grid.Row="13" />
-                                <Button Height="24" Width="90" Content="Sample 13" Margin="3" Grid.Row="13" 
+                        <Button Height="24" Width="90" Content="Sample 13" Margin="3" Grid.Row="13" 
                                         HorizontalAlignment="Left" Grid.Column="1" 
                                         VerticalAlignment="Center" Name="Sample13Async" Command="{Binding TestSampleMsgBoxAsyncCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample13Async"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
-                                <Button Height="24" Width="90" Content="Sample 13" Margin="3" Grid.Row="13" 
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample13Async"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button Height="24" Width="90" Content="Sample 13" Margin="3" Grid.Row="13" 
                                         HorizontalAlignment="Left" Grid.Column="2" 
                                         VerticalAlignment="Center" Name="Sample13" Command="{Binding TestSampleMsgBoxCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample13"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample13"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
 
-                                <TextBlock Text="Display a message box with explicit reference to owning window."
+                        <TextBlock Text="Display a message box with explicit reference to owning window."
                                             TextWrapping="WrapWithOverflow"
                                             VerticalAlignment="Center" Margin="3" Grid.Row="14" />
-                                <Button Height="24" Width="90" Content="Sample 14" Margin="3" Grid.Row="14" 
+                        <Button Height="24" Width="90" Content="Sample 14" Margin="3" Grid.Row="14" 
                                         HorizontalAlignment="Left" Grid.Column="1" 
                                         VerticalAlignment="Center" Name="Sample14Async" Command="{Binding TestSampleMsgBoxAsyncCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample14Async"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
-                                <Button Height="24" Width="90" Content="Sample 14" Margin="3" Grid.Row="14" 
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample14Async"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button Height="24" Width="90" Content="Sample 14" Margin="3" Grid.Row="14" 
                                         HorizontalAlignment="Left" Grid.Column="2" 
                                         VerticalAlignment="Center" Name="Sample14" Command="{Binding TestSampleMsgBoxCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample14"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample14"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
 
-                                <TextBlock Text="Display a message box with a default image."
+                        <TextBlock Text="Display a message box with a default image."
                                             TextWrapping="WrapWithOverflow"
                                             VerticalAlignment="Center" Margin="3" Grid.Row="15" />
-                                <Button Height="24" Width="90" Content="Sample 15" Margin="3" Grid.Row="15" 
+                        <Button Height="24" Width="90" Content="Sample 15" Margin="3" Grid.Row="15" 
                                         HorizontalAlignment="Left" Grid.Column="1" 
                                         VerticalAlignment="Center" Name="Sample15Async" Command="{Binding TestSampleMsgBoxAsyncCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample15Async"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
-                                <Button Height="24" Width="90" Content="Sample 15" Margin="3" Grid.Row="15" 
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample15Async"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button Height="24" Width="90" Content="Sample 15" Margin="3" Grid.Row="15" 
                                         HorizontalAlignment="Left" Grid.Column="2" 
                                         VerticalAlignment="Center" Name="Sample15" Command="{Binding TestSampleMsgBoxCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample15"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample15"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
 
-                                <TextBlock TextWrapping="WrapWithOverflow"
+                        <TextBlock TextWrapping="WrapWithOverflow"
                                             VerticalAlignment="Center" Margin="3" Grid.Row="16">
         Display a message box that will not close via<LineBreak/>
         Esc, F4, or Window Close (x) button.
-                                </TextBlock>
-                                <Button Height="24" Width="90" Content="Sample 16" Margin="3" Grid.Row="16" 
+                        </TextBlock>
+                        <Button Height="24" Width="90" Content="Sample 16" Margin="3" Grid.Row="16" 
                                         HorizontalAlignment="Left" Grid.Column="1" 
                                         VerticalAlignment="Center" Name="Sample16Async" Command="{Binding TestSampleMsgBoxAsyncCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample16Async"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
-                                <Button Height="24" Width="90" Content="Sample 16" Margin="3" Grid.Row="16" 
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample16Async"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button Height="24" Width="90" Content="Sample 16" Margin="3" Grid.Row="16" 
                                         HorizontalAlignment="Left" Grid.Column="2" 
                                         VerticalAlignment="Center" Name="Sample16" Command="{Binding TestSampleMsgBoxCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample16"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample16"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
 
-                                <TextBlock TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Margin="3" Grid.Row="17">
+                        <TextBlock TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Margin="3" Grid.Row="17">
             Display a message box that WILL CLOSE<LineBreak/>
             via Esc, F4, or Window Close (x) button leaving with a No result.
-                                </TextBlock>
-                                <Button Height="24" Width="90" Content="Sample 17" Margin="3" Grid.Row="17" 
+                        </TextBlock>
+                        <Button Height="24" Width="90" Content="Sample 17" Margin="3" Grid.Row="17" 
                                         HorizontalAlignment="Left" Grid.Column="1" 
                                         VerticalAlignment="Center" Name="Sample17Async" Command="{Binding TestSampleMsgBoxAsyncCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample17Async"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
-                                <Button Height="24" Width="90" Content="Sample 17" Margin="3" Grid.Row="17" 
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample17Async"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button Height="24" Width="90" Content="Sample 17" Margin="3" Grid.Row="17" 
                                         HorizontalAlignment="Left" Grid.Column="2" 
                                         VerticalAlignment="Center" Name="Sample17" Command="{Binding TestSampleMsgBoxCommand}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource sampleParametersConverter}">
-                                            <Binding ElementName="Sample17"/>
-                                            <Binding ElementName="SamplesMainWindow"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
-                            </Grid>
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource sampleParametersConverter}">
+                                    <Binding ElementName="Sample17"/>
+                                    <Binding ElementName="SamplesMainWindow"/>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
+                    </Grid>
 
-                            <Grid Grid.Column="1" Grid.Row="1"
+                    <Grid Grid.Column="1" Grid.Row="1"
                                   HorizontalAlignment="Left" Margin="3">
 
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
-                                <Label Grid.Column="0" Grid.Row="0" Content="Test:" Margin="3" />
-                                <Label Grid.Column="1" Grid.Row="0" Content="{Binding TestMethod}" Margin="0,3" />
+                        <Label Grid.Column="0" Grid.Row="0" Content="Test:" Margin="3" />
+                        <Label Grid.Column="1" Grid.Row="0" Content="{Binding TestMethod}" Margin="0,3" />
 
-                                <Label Grid.Column="0" Grid.Row="1" Content="Result:" Margin="3" />
-                                <Label Grid.Column="1" Grid.Row="1" Content="{Binding Result}" Margin="0,3" />
-                            </Grid>
-                        </Grid>
-                    </TabItem>
-                </TabControl>
+                        <Label Grid.Column="0" Grid.Row="1" Content="Result:" Margin="3" />
+                        <Label Grid.Column="1" Grid.Row="1" Content="{Binding Result}" Margin="0,3" />
+                    </Grid>
+                </Grid>
             </Grid>
         </Grid>
     </ScrollViewer>

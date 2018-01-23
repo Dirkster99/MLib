@@ -152,14 +152,6 @@
     <Compile Include="Views\SpecialFolderMarkUpExtension.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Components\MWindowInterfacesLib\MWindowInterfacesLib.csproj">
-      <Project>{37633896-6066-49c5-b76a-0e5d5d6d1d23}</Project>
-      <Name>MWindowInterfacesLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Components\MWindowLib\MWindowLib.csproj">
-      <Project>{be4c8126-e5c8-405e-958f-4de9f686089b}</Project>
-      <Name>MWindowLib</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FileSystemModels\FileSystemModels.csproj">
       <Project>{391639c4-5c43-4391-9465-27686e82c33f}</Project>
       <Name>FileSystemModels</Name>

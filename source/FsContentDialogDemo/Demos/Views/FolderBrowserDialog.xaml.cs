@@ -1,12 +1,12 @@
-﻿namespace FolderBrowser.Views
+﻿namespace FsContentDialogDemo.Demos.Views
 {
-    using FolderBrowser.Dialogs.ViewModels;
+    using FolderBrowser.Dialogs.Interfaces;
     using System.Windows;
 
     /// <summary>
     /// Interaction logic for FolderBrowserDialog.xaml
     /// </summary>
-    public partial class FolderBrowserDialog : Window
+    public partial class FolderBrowserDialog : MWindowLib.MetroWindow
     {
         #region constructor
         /// <summary>
@@ -22,7 +22,7 @@
         private void FolderBrowserDialog_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             // Make sure that dialog cannot be closed while task is being processed...
-            var dlg = DataContext as DialogViewModel;
+            var dlg = DataContext as IDialogViewModel;
 
             if (dlg == null)
                 return;

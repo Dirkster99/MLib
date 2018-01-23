@@ -2,8 +2,6 @@ namespace FolderBrowser.Dialogs.ViewModels
 {
     using FolderBrowser.Dialogs.Interfaces;
     using FolderBrowser.Interfaces;
-    using FolderBrowser.ViewModels;
-    using MWindowInterfacesLib.MsgBox;
 
     /// <summary>
     /// A dialog viewmodel in MVVM style to drive a folder browser
@@ -18,10 +16,9 @@ namespace FolderBrowser.Dialogs.ViewModels
         /// <summary>
         /// Class constructor
         /// </summary>
-        public DialogViewModel(IMessageBoxService msgBox,
-                               IBrowserViewModel treeBrowser = null,
+        public DialogViewModel(IBrowserViewModel treeBrowser = null,
                                IBookmarkedLocationsViewModel recentLocations = null)
-            : base (msgBox, treeBrowser, recentLocations)
+            : base (treeBrowser, recentLocations)
         {
         }
 

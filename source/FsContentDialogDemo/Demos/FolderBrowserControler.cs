@@ -55,11 +55,8 @@
             , bool progressIsFinite
             )
         {
-            var msgBox = GetService<IContentDialogService>().MsgBox;
-
             // See Loaded event in FolderBrowserTreeView_Loaded method to understand initial load
-            var treeBrowserVM = FolderBrowserFactory.CreateBrowserViewModel(msgBox
-                                                                          , _SpecialFolderVisibility
+            var treeBrowserVM = FolderBrowserFactory.CreateBrowserViewModel(_SpecialFolderVisibility
                                                                           , _InitialPath);
 
             // Switch updates to view of by default to speed up load of view
@@ -67,7 +64,7 @@
             // and that in turn will switch on view updates ...
             treeBrowserVM.UpdateView = false;
 
-            var fsDlg = FolderBrowserFactory.CreateDialogViewModel(msgBox, treeBrowserVM, _FBB_Bookmarks);
+            var fsDlg = FolderBrowserFactory.CreateDialogViewModel(treeBrowserVM, _FBB_Bookmarks);
 
             var customDialog = CreatBrowseProgressDialog(new ViewModels.FolderBrowserContentDialogViewModel(fsDlg));
 

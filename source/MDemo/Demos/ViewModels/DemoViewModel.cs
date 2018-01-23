@@ -1,6 +1,5 @@
 ﻿namespace MDemo.Demos.ViewModels
 {
-    using fsc;
     using MDemo.ViewModels.Base;
     using MWindowInterfacesLib.Enums;
     using MWindowInterfacesLib.Interfaces;
@@ -283,18 +282,6 @@
                 }
 
                 return _ShowCustomDialogCommand;
-            }
-        }
-
-        private FolderBrowserViewModel _FileSystemControlsDemo = null;
-        public FolderBrowserViewModel FileSystemControlsDemo
-        {
-            get
-            {
-                if (_FileSystemControlsDemo == null)
-                    _FileSystemControlsDemo = new FolderBrowserViewModel();
-
-                return _FileSystemControlsDemo;
             }
         }
         #endregion Properties

@@ -123,10 +123,6 @@
     <Compile Include="Demos\Converters\IntToIsDefaultConverter.cs" />
     <Compile Include="Demos\Converters\SampleParametersConverter.cs" />
     <Compile Include="Demos\CustomDialogDemos.cs" />
-    <Compile Include="Demos\fsc\FolderBrowserView.xaml.cs">
-      <DependentUpon>FolderBrowserView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Demos\fsc\FolderBrowserViewModel.cs" />
     <Compile Include="Demos\ProgressDialogDemos.cs" />
     <Compile Include="Demos\LoginDialogDemos.cs" />
     <Compile Include="Demos\InputDialogDemos.cs" />
@@ -166,10 +162,6 @@
     <Compile Include="Demos\ViewModels\DemoViewModel.cs" />
     <Compile Include="ViewModels\ThemeDefinitionViewModel.cs" />
     <Compile Include="ViewModels\ThemeViewModel.cs" />
-    <Page Include="Demos\fsc\FolderBrowserView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Demos\Views\Dialogs.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

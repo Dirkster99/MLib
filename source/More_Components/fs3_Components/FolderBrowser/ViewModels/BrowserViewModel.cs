@@ -9,7 +9,6 @@
     using FolderBrowser.ViewModels.Messages;
     using FsCore.Collections;
     using FsCore.ViewModels;
-    using MWindowInterfacesLib.MsgBox;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -52,7 +51,6 @@
 
         private bool mIsExpanding = false;
 
-        private readonly IMessageBoxService mMsgBox = null;
         private string mInitalPath;
         private bool _UpdateView;
         private bool _IsBrowseViewEnabled;
@@ -60,18 +58,9 @@
 
         #region constructor
         /// <summary>
-        /// Class constructor
-        /// </summary>
-        public BrowserViewModel(IMessageBoxService msgBox)
-            : this()
-        {
-            mMsgBox = msgBox;
-        }
-
-        /// <summary>
         /// Standard class constructor
         /// </summary>
-        protected BrowserViewModel()
+        public BrowserViewModel()
         {
             DisplayMessage = new DisplayMessageViewModel();
             BookmarkFolder = new AddFolderBookmark();
