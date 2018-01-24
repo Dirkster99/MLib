@@ -97,7 +97,7 @@ namespace FolderBrowser.Dialogs.ViewModels
                 // The recentlocations drop down is optionanl
                 // Its component and add/remove context menu accessibility in the treeview
                 // is only shown if caller supplied this object
-                this.BookmarkedLocations = recentLocations.Copy();
+                this.BookmarkedLocations = recentLocations.CloneBookmark();
             }
             else
                 this.BookmarkedLocations = FolderBrowser.FolderBrowserFactory.CreateReceentLocationsViewModel();

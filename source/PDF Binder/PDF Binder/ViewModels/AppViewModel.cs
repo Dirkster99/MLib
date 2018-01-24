@@ -528,7 +528,7 @@
                             TargetFile.Path = dlgVM.TreeBrowser.SelectedFolder;
 
                             if (dlgVM.BookmarkedLocations != null)
-                                this.BookmarkedLocations = dlgVM.BookmarkedLocations.Copy();
+                                this.BookmarkedLocations = dlgVM.BookmarkedLocations.CloneBookmark();
                         }
                     });
                 }

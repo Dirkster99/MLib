@@ -8,7 +8,7 @@
     /// <summary>
     /// Define an interface to a class that manages recently visited folder entries,
     /// </summary>
-    public interface IBookmarkedLocationsViewModel
+    public interface IBookmarkedLocationsViewModel : ICloneable
     {
         /// <summary>
         /// Event is fired whenever a change of the current directory is requested.
@@ -53,7 +53,7 @@
         /// and their handlers are not copied.
         /// </summary>
         /// <returns></returns>
-        IBookmarkedLocationsViewModel Copy();
+        IBookmarkedLocationsViewModel CloneBookmark();
 
         /// <summary>
         /// Add a recent folder location into the collection of recent folders.

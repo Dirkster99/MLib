@@ -11,7 +11,7 @@
         #region Fields
         private bool _SpecialFolderVisibility;
         private string _InitialPath;
-        private IBookmarkedLocationsViewModel _FBB_Bookmarks;
+        private IBookmarkedLocationsViewModel _BookmarkedLocations;
         #endregion Fields
 
         #region ctor
@@ -29,8 +29,7 @@
             _SpecialFolderVisibility = specialFolderVisibility;
             _InitialPath = initialPath;
 
-            if (bookmarks != null)
-                _FBB_Bookmarks = bookmarks.Copy();
+            BookmarkedLocations = bookmarks;
         }
 
         /// <summary>
@@ -40,9 +39,30 @@
         {
             _SpecialFolderVisibility = true;
             _InitialPath = string.Empty;
-            _FBB_Bookmarks = null;
+            _BookmarkedLocations = null;
         }
         #endregion ctor
+
+        #region properties
+        /// <summary>
+        /// Gets a bookmark folder property to manage bookmarked folders.
+        /// </summary>
+        public IBookmarkedLocationsViewModel BookmarkedLocations
+        {
+            get
+            {
+                return _BookmarkedLocations;
+            }
+
+            private set
+            {
+                if (value == null)
+                    _BookmarkedLocations = null;
+                else
+                    _BookmarkedLocations = value.CloneBookmark();
+            }
+        }
+        #endregion  properties
 
         #region methods
         /// <summary>
@@ -64,9 +84,9 @@
             // and that in turn will switch on view updates ...
             treeBrowserVM.UpdateView = false;
 
-            var fsDlg = FolderBrowserFactory.CreateDialogViewModel(treeBrowserVM, _FBB_Bookmarks);
+            var fsDlg = FolderBrowserFactory.CreateDialogViewModel(treeBrowserVM, BookmarkedLocations);
 
-            var customDialog = CreatBrowseProgressDialog(new ViewModels.FolderBrowserContentDialogViewModel(fsDlg));
+            var customDialog = CreateFolderBrowserDialog(new ViewModels.FolderBrowserContentDialogViewModel(fsDlg));
 
             var coord = GetService<IContentDialogService>().Coordinator;
             var manager = GetService<IContentDialogService>().Manager;
@@ -83,16 +103,20 @@
                 }
             );
 
+            if (fsDlg.BookmarkedLocations != null)
+                this.BookmarkedLocations = fsDlg.BookmarkedLocations.CloneBookmark();
+
             return returnPath;
         }
 
         /// <summary>
-        /// Creates a <seealso cref="MWindowDialogLib.Dialogs.CustomDialog"/> that contains a <seealso cref="ProgressView"/>
-        /// in its content and has a <seealso cref="ProgressViewModel"/> attached to its datacontext,
+        /// Creates a <seealso cref="MWindowDialogLib.Dialogs.CustomDialog"/> frame that contains a
+        /// <seealso cref="Demos.Views.FolderBrowserContentDialogView"/> with a
+        /// in its content and has a <param name="viewModel"/> attached to its datacontext.
         /// </summary>
         /// <param name="viewModel"></param>
         /// <returns></returns>
-        private CustomDialog CreatBrowseProgressDialog(object viewModel)
+        private CustomDialog CreateFolderBrowserDialog(object viewModel)
         {
             var dlg = new CustomDialog(new Demos.Views.FolderBrowserContentDialogView(),viewModel);
 

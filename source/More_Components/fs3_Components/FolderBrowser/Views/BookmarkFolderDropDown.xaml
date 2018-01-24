@@ -21,7 +21,9 @@
                     xmlns:bindLocal="clr-namespace:FolderBrowser.Views"
                 >
             <ctrls:SplitItemsButton.Content>
-                <Border BorderBrush="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Border BorderBrush="Transparent"
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Stretch">
                     <Image Source="{DynamicResource FLV_Image_IsFoldersVisible}" Width="16" Margin="3"/>
                 </Border>
             </ctrls:SplitItemsButton.Content>
@@ -31,7 +33,7 @@
             </ctrls:DropDownItemsButton.Resources>
             <ctrls:DropDownItemsButton.ItemTemplate>
                 <DataTemplate>
-                    <Grid Name="MyBorder" Margin="3">
+                    <Grid Name="MyBorder" Margin="0" Background="Transparent">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
@@ -41,11 +43,50 @@
                                 ToolTip="Remove Folder Bookmark"
                                 Command="{Binding Path=Data.RemoveFolderBookmark, Source={StaticResource DropDownItemsButtonProxy}}"
                                 CommandParameter="{Binding}"
-                                HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" Padding="0"
-                                MinWidth="16" MinHeight="16" x:Name="RemoveFolderBookmarkButton"
-                                />
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch" Margin="0" Padding="3,0"
+                                MinWidth="16" MinHeight="16"
+                                x:Name="RemoveFolderBookmarkButton">
+                        </Button>
 
-                        <TextBlock Margin="0,0,3,0" Grid.Column="1">
+                        <Button Content="{Binding DisplayName}"
+                                Command="{Binding Path=Data.ChangeOfDirectoryCommand, Source={StaticResource DropDownItemsButtonProxy}}"
+                                CommandParameter="{Binding}"
+                                Grid.Column="1"
+                                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                HorizontalContentAlignment="Left"
+                                BorderBrush="Transparent"
+                                Foreground="{DynamicResource {x:Static reskeys:ResourceKeys.DialogForegroundKey}}"
+                                ToolTip="{Binding FullPath}"
+                                Margin="3,0,0,0"
+                                >
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Background="{TemplateBinding Background}"
+                                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                                        Padding="3,0"
+                                                        >
+                                                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                                      />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="true">
+                                            <Setter Property="Background" Value="{DynamicResource {x:Static dbthemes:ResourceKeys.ButtonMouseOverBackgroundKey}}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                        <!-- TextBlock Margin="0,0,3,0" Grid.Column="1" HorizontalAlignment="Stretch">
                             <TextBlock.Resources>
                                 <Style TargetType="{x:Type Hyperlink}" x:Key="FolderBookmarkHyperlinkStyle">
                                     <Style.Triggers>
@@ -74,17 +115,17 @@
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>
-                            </TextBlock.Style>
+                            </TextBlock.Style -->
 
-                            <!-- A hyperlink in disguise without change of mouse pointer or underline indicator  -->
+                        <!-- A hyperlink in disguise without change of mouse pointer or underline indicator  -
                             <Hyperlink Command="{Binding Path=Data.ChangeOfDirectoryCommand, Source={StaticResource DropDownItemsButtonProxy}}"
-                                        CommandParameter="{Binding}"
-                                        Style="{StaticResource FolderBookmarkHyperlinkStyle}"><!-- Send this item for processing to the bound command -->
+                                       CommandParameter="{Binding}"
+                                       Style="{StaticResource FolderBookmarkHyperlinkStyle}">- Send this item for processing to the bound command -
                                 <TextBlock Text="{Binding DisplayName}"
                                             Foreground="{DynamicResource {x:Static reskeys:ResourceKeys.DialogForegroundKey}}"
                                             ToolTip="{Binding FullPath}" Margin="6,0,3,0" />
                             </Hyperlink>                        
-                            </TextBlock>
+                            </TextBlock-->
                     </Grid>
 
                     <DataTemplate.Triggers>

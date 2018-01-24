@@ -38,7 +38,7 @@
 
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Value.Folders}">
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Background="Transparent">
                         <StackPanel.InputBindings>
                             <KeyBinding Key="F2"
                               Command="{Binding Path=Data.StartRenameCommand, Source={StaticResource DataContextProxy}}"

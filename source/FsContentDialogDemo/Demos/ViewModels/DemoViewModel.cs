@@ -32,7 +32,7 @@
 
         #region properties
         /// <summary>
-        /// Gets/sets a bookmark folder property to manage bookmarked folders.
+        /// Gets a bookmark folder property to manage bookmarked folders.
         /// </summary>
         public IBookmarkedLocationsViewModel BookmarkedLocations
         {
@@ -67,6 +67,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets a command to demo the content folder browser dialog...
+        /// </summary>
         public ICommand ShowConententDialogCommand
         {
             get
@@ -80,16 +83,15 @@
                         if (string.IsNullOrEmpty(initialPath) == true)
                             initialPath = this.GetDefaultPath(FsContentDialogDemo.ViewModels.AppLifeCycleViewModel.MyDocumentsUserDir);
 
-                        var bookmark = FolderBrowser.FolderBrowserFactory.CreateReceentLocationsViewModel();
-                        bookmark.AddFolder(@"c:\windows");
+                        FolderBrowserControler DlgDemo = new FolderBrowserControler(
+                            initialPath, this.BookmarkedLocations);
 
-                        FolderBrowserControler progressDlgDemo = new FolderBrowserControler(
-                            initialPath, bookmark);
-
-                        var path = await progressDlgDemo.ShowContentDialogFromVM(this, true);
+                        var path = await DlgDemo.ShowContentDialogFromVM(this, true);
 
                         if (string.IsNullOrEmpty(path) == false)
                             this.Path = path;
+
+                        CloneBookMarks(DlgDemo.BookmarkedLocations);
                     },
                     (p) => { return true; });
                 }
@@ -99,7 +101,7 @@
         }
 
         /// <summary>
-        /// Gets a command to demo the folder browser dialog...
+        /// Gets a command to demo the folder modal browser dialog...
         /// </summary>
         public ICommand SelectFolderCommand
         {
@@ -135,12 +137,9 @@
                         bool? bResult = dlg.ShowDialog();
 
                         if (dlgVM.DialogCloseResult == true || bResult == true)
-                        {
                             Path = dlgVM.TreeBrowser.SelectedFolder;
 
-                            if (dlgVM.BookmarkedLocations != null)
-                                this.BookmarkedLocations = dlgVM.BookmarkedLocations.Copy();
-                        }
+                        CloneBookMarks(dlgVM.BookmarkedLocations);
                     });
                 }
 
@@ -266,14 +265,25 @@
         {
             if (result == FolderBrowser.Dialogs.Interfaces.Result.OK)
             {
-                if (bookmarks != null)
-                    this.BookmarkedLocations = bookmarks.Copy();
+                CloneBookMarks(bookmarks);
 
                 if (string.IsNullOrEmpty(selectedPath) == false)
                     this.Path = selectedPath;
                 else
                     this.Path = @"C:\\";
             }
+        }
+
+        private void CloneBookMarks(IBookmarkedLocationsViewModel bookmarkedLocations)
+        {
+            if (bookmarkedLocations == null)
+                return;
+
+            BookmarkedLocations.RequestChangeOfDirectory -= BookmarkedLocations_RequestChangeOfDirectory;
+
+            this.BookmarkedLocations = bookmarkedLocations.CloneBookmark();
+
+            BookmarkedLocations.RequestChangeOfDirectory += BookmarkedLocations_RequestChangeOfDirectory;
         }
         #endregion methods
     }

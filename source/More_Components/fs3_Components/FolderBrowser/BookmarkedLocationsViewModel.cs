@@ -171,9 +171,19 @@
         /// and their handlers are not copied.
         /// </summary>
         /// <returns></returns>
-        public IBookmarkedLocationsViewModel Copy()
+        public IBookmarkedLocationsViewModel CloneBookmark()
         {
             return new BookmarkedLocationsViewModel(this);
+        }
+
+        /// <summary>
+        /// Gets a data copy of the current object. Object specific fields, like events
+        /// and their handlers are not copied.
+        /// </summary>
+        /// <returns></returns>
+        public object Clone()
+        {
+            return CloneBookmark();
         }
 
         /// <summary>
