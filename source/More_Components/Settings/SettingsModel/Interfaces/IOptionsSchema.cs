@@ -82,7 +82,6 @@
         /// <summary>
         /// Sets the value of a given option in this option object.
         /// </summary>
-        /// <param name="newValue"></param>
         /// <returns>true if data actually changed (for dirty state tracking).
         /// Otherwise, false if requested value was already present.</returns>
         /// <param name="newValue"></param>
