@@ -12,7 +12,7 @@
     /// bookmark events to a related class which is responsible for viewing
     /// bookmarks (for example in a drop down button).
     /// </summary>
-    internal class AddFolderBookmark : FolderBrowser.BookmarkFolder.IAddFolderBookmark
+    internal class EditFolderBookmark : FolderBrowser.BookmarkFolder.IAddFolderBookmark
     {
         #region fields
         private ICommand mRecentFolderAddCommand;
@@ -95,9 +95,11 @@
             if (item == null)
                 return;
 
+            // Tell client via event to get rid of this entry
             if (this.RequestEditBookmarkedFolders != null)
-                this.RequestEditBookmarkedFolders(this, new RecentFolderEvent(new PathModel(item.FolderPath, FSItemType.Folder),
-                                                                           RecentFolderEvent.RecentFolderAction.Remove));
+                this.RequestEditBookmarkedFolders(this,
+                    new RecentFolderEvent(new PathModel(item.FolderPath, FSItemType.Folder),
+                    RecentFolderEvent.RecentFolderAction.Remove));
         }
 
         private void RecentFolderAdd_Executed(object param)
@@ -107,9 +109,11 @@
             if (item == null)
                 return;
 
+            // Tell client via event to add this entry
             if (this.RequestEditBookmarkedFolders != null)
-                this.RequestEditBookmarkedFolders(this, new RecentFolderEvent(new PathModel(item.FolderPath, FSItemType.Folder),
-                                                                           RecentFolderEvent.RecentFolderAction.Add));
+                this.RequestEditBookmarkedFolders(this,
+                    new RecentFolderEvent(new PathModel(item.FolderPath, FSItemType.Folder),
+                    RecentFolderEvent.RecentFolderAction.Add));
         }
         #endregion methods
     }

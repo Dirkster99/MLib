@@ -94,7 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookmarkedLocationsViewModel.cs" />
-    <Compile Include="BookmarkFolder\AddFolderBookmark.cs" />
+    <Compile Include="BookmarkFolder\EditFolderBookmark.cs" />
     <Compile Include="BookmarkFolder\IAddFolderBookmark.cs" />
     <Compile Include="BookmarkFolder\RecentFolderEvent.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter .cs" />

@@ -63,7 +63,7 @@
         public BrowserViewModel()
         {
             DisplayMessage = new DisplayMessageViewModel();
-            BookmarkFolder = new AddFolderBookmark();
+            BookmarkFolder = new EditFolderBookmark();
             InitializeSpecialFolders();
 
             mOpenInWindowsCommand = null;

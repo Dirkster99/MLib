@@ -126,7 +126,7 @@ namespace FolderBrowser.Dialogs.ViewModels
             switch (e.Action)
             {
                 case FolderBrowser.BookmarkFolder.RecentFolderEvent.RecentFolderAction.Remove:
-                    BookmarkedLocations.AddFolder(e.Folder.Path);
+                    BookmarkedLocations.RemoveFolder(e.Folder.Path);
                     break;
 
                 case FolderBrowser.BookmarkFolder.RecentFolderEvent.RecentFolderAction.Add:
