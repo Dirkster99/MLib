@@ -54,6 +54,7 @@
         private string mInitalPath;
         private bool _UpdateView;
         private bool _IsBrowseViewEnabled;
+        private SortableObservableDictionaryCollection _Root;
         #endregion fields
 
         #region constructor
@@ -69,7 +70,7 @@
             mOpenInWindowsCommand = null;
             mCopyPathCommand = null;
 
-            Folders = new ObservableSortedDictionary<string, IFolderViewModel>();
+            _Root = new SortableObservableDictionaryCollection();
 
             mExpandProcessor = ProcessFactory.CreateProcessViewModel();
             mProcessor = ProcessFactory.CreateProcessViewModel();
@@ -157,10 +158,12 @@
         /// <summary>
         /// Gets the list of drives and folders for display in treeview structure control.
         /// </summary>
-        public ObservableSortedDictionary<string, IFolderViewModel> Folders
+        public IEnumerable<IFolderViewModel> Root
         {
-            get;
-            private set;
+            get
+            {
+                return _Root;
+            }
         }
 
         /// <summary>
@@ -309,6 +312,9 @@
                 {
                     mExpandCommand = new RelayCommand<object>((p) =>
                     {
+                        if (IsBrowsing == true) // This can is probably not relevant since the
+                            return;            // viewmodel is currently driving the view ...
+
                         var expandedItem = p as IFolderViewModel;
 
                         if (expandedItem != null && mIsExpanding == false)
@@ -431,7 +437,7 @@
         }
 
         /// <summary>
-        /// Get/set command to select the current folder.
+        /// Gets command to select the current folder.
         /// 
         /// This binding can be used for browsing to a certain folder
         /// e.g. Users Document folder.
@@ -451,39 +457,12 @@
                             string path = p as string;
 
                             if (string.IsNullOrEmpty(path) == true)
-                            {
-                                // Tell subscribers that we started browsing this directory
-                                if (this.BrowsingChanged != null)
-                                    this.BrowsingChanged(this, new BrowsingChangedEventArgs(new PathModel(path, FSItemType.Folder), false));
-
-                                var item = p as FolderViewModel;
-
-                                if (item != null)
-                                    path = item.FolderPath;
-
-                                if (string.IsNullOrEmpty(path) == true)
-                                    return;
-                            }
+                                return;
 
                             if (IsBrowsing == true)
                                 return;
 
-                            //// Set new path if it changed in comparison to old path
-                            //// this.SetSelectedFolder(PathModel.NormalizePath(path), true);
-
-                            mProcessor.StartCancelableProcess(cts =>
-                            {
-                                try
-                                {
-                                    IsBrowseViewEnabled = UpdateView = false;
-                                    BrowsePath(path, false, cts);
-                                }
-                                finally
-                                {
-                                    IsBrowseViewEnabled = UpdateView = true;
-                                }
-
-                            }, ProcessinishedEvent, "This process is already running.");
+                            BrowsePath(path, false);
                         }
                         catch
                         {
@@ -671,9 +650,8 @@
         /// </summary>
         /// <param name="path"></param>
         /// <param name="ResetBrowserStatus"></param>
-        public void BrowsePath(
-            string path,
-            bool ResetBrowserStatus = true)
+        public void BrowsePath(string path,
+                               bool ResetBrowserStatus = true)
         {
 
             // Tell subscribers that we started browsing this directory
@@ -687,16 +665,12 @@
                     IsBrowseViewEnabled = UpdateView = false;
                     
                     ClearFoldersCollections();
-
-                    if (cts != null)
-                        cts.Token.ThrowIfCancellationRequested();
-
                     SetInitialDrives(cts);
 
                     if (cts != null)
                         cts.Token.ThrowIfCancellationRequested();
 
-                    BrowsePath(path, ResetBrowserStatus, cts);
+                    InternalBrowsePath(path, ResetBrowserStatus, cts);
                 }
                 finally
                 {
@@ -704,7 +678,7 @@
                     IsBrowseViewEnabled = UpdateView = true;
                 }
 
-            }, ProcessinishedEvent, "This process is already running.");
+            }, ProcessFinishedEvent, "This process is already running.");
         }
 
         /// <summary>
@@ -717,9 +691,9 @@
             this.IsSpecialFoldersVisisble = visible;
         }
 
-        private bool BrowsePath(string path,
-                                 bool ResetBrowserStatus,
-                                 CancellationTokenSource cts = null)
+        private bool InternalBrowsePath(string path,
+                                        bool ResetBrowserStatus,
+                                        CancellationTokenSource cts = null)
         {
             if (ResetBrowserStatus == true)
                 ClearBrowserStates();
@@ -742,7 +716,7 @@
         {
            Application.Current.Dispatcher.Invoke(() =>
            {
-                Folders.Add(name.ToLower(), folder);
+                _Root.AddItem(folder);
             });
         }
 
@@ -770,25 +744,29 @@
         /// </summary>
         private void SetInitialDrives(CancellationTokenSource cts = null)
         {
-            foreach (var item in DriveModel.GetLogicalDrives())
+            Application.Current.Dispatcher.Invoke(() =>
             {
-                if (cts != null)
-                    cts.Token.ThrowIfCancellationRequested();
+                _Root.Clear();
 
-                var vmItem = CreateFolderItem(item.Model);
+                var items = DriveModel.GetLogicalDrives().ToList();
 
-                Application.Current.Dispatcher.Invoke(new Action(() =>
+                foreach (var item in items)
                 {
-                    Folders.Add(item.Model.Name.ToLower(), vmItem);
-                }));
-            }
+                    if (cts != null)
+                        cts.Token.ThrowIfCancellationRequested();
+
+                    var vmItem = CreateFolderItem(item.Model);
+
+                    _Root.AddItem(vmItem);
+                }
+            });
         }
 
         private void ClearFoldersCollections()
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                Folders.Clear();
+                _Root.Clear();
             });
         }
 
@@ -801,10 +779,10 @@
             if (dirs == null)
                 return;
 
-            IFolderViewModel root;
+            IFolderViewModel root = _Root.TryGet(dirs[0]);
 
             // Find drive in which we will have to insert this
-            if (Folders.TryGetValue(dirs[0].ToLower(), out root) == false)
+            if (root == null)
             {
                 // Looks like this is a new drive - lets create it then ...
                 root = CreateFolderItem(new PathModel(dirs[0], FSItemType.LogicalDrive));
@@ -822,7 +800,19 @@
                     cts.Token.ThrowIfCancellationRequested();
 
                 var folder1 = (PathItems[i] as FolderViewModel);
-                folder1.IsExpanded = true;
+
+                if (folder1.ChildFolderIsDummy == false)
+                    folder1.IsExpanded = true;
+                else
+                {
+                    folder1.LoadFolders();
+
+                    if (folder1.ChildFolderIsDummy == false)
+                        folder1.IsExpanded = true;
+                    else
+                        folder1.ClearFolders();
+
+                }
             }
 
             ////PathItems[PathItems.Count - 1].IsExpanded = true;
@@ -843,12 +833,16 @@
             {
                 accumulatedPath = accumulatedPath + "/" + dirs[i];
 
-                if (root.Folders.TryGetValue(dirs[i].ToLower(), out nextRoot) == false)
+                nextRoot = root.TryGet(dirs[i]);
+
+                if (nextRoot == null)
                 {
                     (root as FolderViewModel).LoadFolders();     // Refresh children of this node
 
+                    nextRoot = root.TryGet(dirs[i]);
+
                     // Find Folder in which we will have to insert this
-                    if (root.Folders.TryGetValue(dirs[i].ToLower(), out nextRoot) == false)
+                    if (nextRoot == null)
                         return root;
                 }
 
@@ -886,7 +880,7 @@
                 });
             }
         }
-
+/***
         /// <summary>
         /// Get all child entries for a given path entry
         /// </summary>
@@ -936,7 +930,7 @@
 
             return null;
         }
-
+***/
         /// <summary>
         /// Clear states of browser control (hide error message and other things that may not apply now)
         /// </summary>
@@ -946,7 +940,7 @@
             DisplayMessage.IsErrorMessageAvailable = false;
         }
 
-        private void ProcessinishedEvent(bool processWasSuccessful, Exception exp, string caption)
+        private void ProcessFinishedEvent(bool processWasSuccessful, Exception exp, string caption)
         {
             IsBrowsing = false;
 

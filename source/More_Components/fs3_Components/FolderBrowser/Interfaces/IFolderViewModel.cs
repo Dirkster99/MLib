@@ -2,6 +2,7 @@
 {
     using FolderBrowser.ViewModels;
     using InplaceEditBoxLib.Events;
+    using System.Collections.Generic;
     using UserNotification.ViewModel;
 
     public interface IFolderViewModel
@@ -34,7 +35,7 @@
         /// <summary>
         /// Gets a collection of sub-folders (if any) that are contained within this folder.
         /// </summary>
-        FsCore.Collections.ObservableSortedDictionary<string, IFolderViewModel> Folders { get; }
+        IEnumerable<IFolderViewModel> Folders { get; }
 
         /// <summary>
         /// Gets whether this folder is currently expanded or not.
@@ -77,6 +78,8 @@
         /// Remove all sub-folders from a given folder.
         /// </summary>
         void ClearFolders();
+
+        IFolderViewModel TryGet(string folderName);
         #endregion methods
     }
 }

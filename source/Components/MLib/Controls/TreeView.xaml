@@ -59,10 +59,23 @@
                             <Setter TargetName="ExpandPath" Property="Fill" Value="{DynamicResource {x:Static reskeys:ResourceKeys.Gray5BrushKey}}" />
                             <Setter TargetName="ExpandPath" Property="Stroke" Value="{DynamicResource {x:Static reskeys:ResourceKeys.Gray5BrushKey}}" />
                         </MultiTrigger>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="ExpandPath" Property="Fill" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentBrushKey}}" />
-                            <Setter TargetName="ExpandPath" Property="Stroke" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentBrushKey}}" />
-                        </Trigger>
+                        <!-- FillEpandPath with inverse color depending on its state and mouse over -->
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsEnabled" Value="True" />
+                                <Condition Property="IsMouseOver" Value="True" />
+                                <Condition Property="IsChecked" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="ExpandPath" Property="Fill" Value="{DynamicResource {x:Static reskeys:ResourceKeys.Gray5BrushKey}}" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsEnabled" Value="True" />
+                                <Condition Property="IsMouseOver" Value="True" />
+                                <Condition Property="IsChecked" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="ExpandPath" Property="Fill" Value="{DynamicResource {x:Static reskeys:ResourceKeys.Gray1BrushKey}}" />
+                        </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

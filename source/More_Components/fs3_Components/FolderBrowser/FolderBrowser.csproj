@@ -123,6 +123,7 @@
     <Compile Include="Interfaces\ICustomFolderItemViewModel.cs" />
     <Compile Include="ViewModels\Messages\DisplayMessageViewModel.cs" />
     <Compile Include="ViewModels\Messages\IDisplayMessageViewModel.cs" />
+    <Compile Include="ViewModels\SortableObservableDictionaryCollection.cs" />
     <Compile Include="Views\Behaviours\DialogCloser.cs" />
     <Compile Include="Views\Behaviours\SelectTextOnFocus .cs" />
     <Compile Include="Views\Behaviours\TextChangedCommand.cs" />

@@ -3,9 +3,9 @@
     using FileSystemModels.Models;
     using FileSystemModels.Models.FSItems;
     using FolderBrowser.Interfaces;
-    using FsCore.Collections;
     using InplaceEditBoxLib.ViewModels;
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Windows;
@@ -22,7 +22,7 @@
 
         private PathModel mModel;
 
-        private ObservableSortedDictionary<string, IFolderViewModel> mFolders;
+        private SortableObservableDictionaryCollection mFolders;
         private string mVolumeLabel;
 
         private object mLockObject = new object();
@@ -55,8 +55,8 @@
             mModel = null;
 
             // Add dummy folder by default to make tree view show expander by default
-            mFolders = new ObservableSortedDictionary<string, IFolderViewModel>();
-            mFolders.Add(string.Empty, new FolderViewModel(string.Empty, FSItemType.DummyEntry));
+            mFolders = new SortableObservableDictionaryCollection();
+            mFolders.AddItem(new FolderViewModel(string.Empty, FSItemType.DummyEntry));
 
             mVolumeLabel = null;
         }
@@ -77,7 +77,7 @@
             mModel = new PathModel(path, type);
 
             // Add dummy folder by default to make tree view show expander by default
-            mFolders = new ObservableSortedDictionary<string, IFolderViewModel>();
+            mFolders = new SortableObservableDictionaryCollection();
 
             mVolumeLabel = null;
         }
@@ -159,7 +159,7 @@
         /// <summary>
         /// Get/set observable collection of sub-folders of this folder.
         /// </summary>
-        public ObservableSortedDictionary<string, IFolderViewModel> Folders
+        public IEnumerable<IFolderViewModel> Folders
         {
             get
             {
@@ -236,9 +236,9 @@
         {
             get
             {
-                if (Folders.Count == 1)
+                if (mFolders.Count == 1)
                 {
-                    var item = Folders.Values.First<IFolderViewModel>();
+                    var item = Folders.First<IFolderViewModel>();
                     if (item.ItemType == FSItemType.DummyEntry)
                         return true;
                 }
@@ -257,7 +257,7 @@
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                Folders.Add(item.FolderName.ToLower(), item);
+                mFolders.AddItem(item);
             });
         }
 
@@ -297,6 +297,14 @@
             }
         }
 
+        public IFolderViewModel TryGet(string folderName)
+        {
+            if (ChildFolderIsDummy == true)
+                return null;
+
+            return mFolders.TryGet(folderName);
+        }
+
         /// <summary>
         /// Create a new folder with a standard name
         /// 'New folder n' underneath this folder.
@@ -316,7 +324,7 @@
                     if (newSubFolder != null)
                     {
                         var newFolder = new FolderViewModel(newSubFolder);
-                        Folders.Add(newFolder.FolderName, newFolder);
+                        mFolders.AddItem(newFolder);
 
                         return newFolder;
                     }
@@ -396,7 +404,7 @@
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                Folders.Clear();
+                mFolders.Clear();
             });
         }
 

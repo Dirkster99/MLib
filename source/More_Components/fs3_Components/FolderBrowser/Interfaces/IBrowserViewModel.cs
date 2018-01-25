@@ -5,6 +5,7 @@
     using FolderBrowser.ViewModels.Messages;
     using FsCore.Collections;
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Windows.Input;
 
@@ -43,7 +44,7 @@
         /// <summary>
         /// Gets the list of drives and folders for display in treeview structure control.
         /// </summary>
-        ObservableSortedDictionary<string, IFolderViewModel> Folders { get; }
+        IEnumerable<IFolderViewModel> Root { get; }
 
         /// <summary>
         /// Get/set property to indicate the initial path when control

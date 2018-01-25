@@ -57,7 +57,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <!-- Display a progress bar and Cancel button when Machine based translation is executed -->
+            <!-- Display a progress bar and Cancel button when processing is executed -->
             <ProgressBar Grid.Row="0" IsIndeterminate="True" Height="8" Margin="3"
                      Visibility="{Binding Path=TreeBrowser.IsBrowsing, Converter={StaticResource BoolToVis}}"/>
 

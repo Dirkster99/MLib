@@ -57,35 +57,22 @@ namespace FolderBrowser.Views.Behaviours
             if (uiElement == null)
                 return;
 
-            IFolderViewModel f = null;
-
-            if (uiElement.DataContext is KeyValuePair<string, IFolderViewModel>)
-            {
-                var item = ((KeyValuePair<string, IFolderViewModel>)uiElement.DataContext);
-
-                f = item.Value;
-
-                // Message Expand only for those who have 1 dummy folder below
-                if(f.ChildFolderIsDummy == false)
-                    return;
-            }
-
             ICommand changedCommand = TreeViewItemExpanded.GetCommand(uiElement);
 
             // There may not be a command bound to this after all
-            if (changedCommand == null || f == null)
+            if (changedCommand == null)
                 return;
 
             // Check whether this attached behaviour is bound to a RoutedCommand
             if (changedCommand is RoutedCommand)
             {
                 // Execute the routed command
-                (changedCommand as RoutedCommand).Execute(f, uiElement);
+                (changedCommand as RoutedCommand).Execute(uiElement.DataContext, uiElement);
             }
             else
             {
                 // Execute the Command as bound delegate
-                changedCommand.Execute(f);
+                changedCommand.Execute(uiElement.DataContext);
             }
         }
         #endregion methods
