@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:TreeViewDemo"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              
@@ -13,36 +12,6 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
             >
     <Grid>
-        <Grid.Resources>
-            <!-- Source: https://social.msdn.microsoft.com/Forums/vstudio/en-US/f260871d-1318-43fb-abfb-188832e3eedd/treeview-virtualizingstackpanel-problem-with-scrollviewer?forum=wpf -->
-            <!-- Style x:Key="TreeViewStyle" TargetType="{x:Type TreeView}">
-                - Setter Property="TreeView.Background" Value="Transparent"/ -
-                <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="True"/>
-                <Setter Property="VirtualizingStackPanel.VirtualizationMode" Value="Recycling"/>
-                <Setter Property="TreeView.SnapsToDevicePixels" Value="True" />
-                <Setter Property="TreeView.OverridesDefaultStyle" Value="True" />
-                <Setter Property="ItemsControl.ItemsPanel">
-                    <Setter.Value>
-                        <ItemsPanelTemplate>
-                            <VirtualizingStackPanel IsItemsHost="True"/>
-                        </ItemsPanelTemplate>
-                    </Setter.Value>
-                </Setter>
-                <Setter Property="TreeView.Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="TreeView">
-                            <ScrollViewer Focusable="False"
-                                          CanContentScroll="True"
-                                          Padding="3">
-                                <ItemsPresenter HorizontalAlignment="Stretch"
-                                                VerticalAlignment="Stretch"/>
-                            </ScrollViewer>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style -->
-        </Grid.Resources>
-
         <!-- Style="{StaticResource TreeViewStyle}" -->
         <TreeView Grid.Column="0"
                   ItemsSource="{Binding Computer}"
@@ -72,7 +41,7 @@
                 </HierarchicalDataTemplate>
 
                 <HierarchicalDataTemplate DataType="{x:Type viewmodels:FolderViewModel}" 
-                                              ItemsSource="{Binding Children}"
+                                          ItemsSource="{Binding Children}"
                                               >
                     <StackPanel Orientation="Horizontal">
                         <!-- Image Width="16" Height="16" Margin="3,0" Source="Images\Region.png" / -->
@@ -85,7 +54,6 @@
             </i:Interaction.Behaviors>
             <TreeView.ItemContainerStyle>
                 <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource {x:Type TreeViewItem}}">
-                    <Setter Property="behav:TreeViewItemBehaviour.IsBroughtIntoViewWhenSelected" Value="True" />
                     <Setter Property="behav:TreeViewItemExpanded.Command" Value="{Binding Path=Data.ExpandCommand, Source={StaticResource DataContextProxy}}" />
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
                     <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />

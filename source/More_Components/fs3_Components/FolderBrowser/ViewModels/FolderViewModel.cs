@@ -22,7 +22,8 @@
 
         private PathModel mModel;
 
-        private SortableObservableDictionaryCollection mFolders;
+        private readonly SortableObservableDictionaryCollection mFolders;
+        private readonly IFolderViewModel _Parent;
         private string mVolumeLabel;
 
         private object mLockObject = new object();
@@ -34,9 +35,10 @@
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public FolderViewModel(PathModel model)
+        public FolderViewModel(PathModel model, IFolderViewModel parent)
             : this()
         {
+            _Parent = parent;
             mModel = new PathModel(model);
 
             // Names of Logical drives cannot be changed with this
@@ -109,6 +111,17 @@
                     return mModel.Path;
 
                 return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Gets the parent object where this object is the child in the treeview.
+        /// </summary>
+        public IFolderViewModel Parent
+        {
+            get
+            {
+                return _Parent;
             }
         }
 
@@ -323,7 +336,7 @@
 
                     if (newSubFolder != null)
                     {
-                        var newFolder = new FolderViewModel(newSubFolder);
+                        var newFolder = new FolderViewModel(newSubFolder, this);
                         mFolders.AddItem(newFolder);
 
                         return newFolder;
@@ -354,7 +367,7 @@
         /// <returns></returns>
         internal static FolderViewModel ConstructDriveFolderViewModel(string driveLetter)
         {
-            return new FolderViewModel(new PathModel(driveLetter, FSItemType.LogicalDrive));
+            return new FolderViewModel(new PathModel(driveLetter, FSItemType.LogicalDrive), null);
         }
 
         /// <summary>
@@ -363,9 +376,11 @@
         /// </summary>
         /// <param name="dir"></param>
         /// <returns></returns>
-        internal static FolderViewModel ConstructFolderFolderViewModel(string dir)
+        internal static FolderViewModel ConstructFolderFolderViewModel(
+            string dir,
+            IFolderViewModel parent)
         {
-            return new FolderViewModel(new PathModel(dir, FSItemType.Folder));
+            return new FolderViewModel(new PathModel(dir, FSItemType.Folder), parent);
         }
 
         /// <summary>
@@ -423,7 +438,7 @@
                 // create the sub-structure only if this is not a hidden directory
                 if ((di.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
                 {
-                    var newFolder = FolderViewModel.ConstructFolderFolderViewModel(dir);
+                    var newFolder = FolderViewModel.ConstructFolderFolderViewModel(dir, this);
 
                     AddFolder(newFolder);
 

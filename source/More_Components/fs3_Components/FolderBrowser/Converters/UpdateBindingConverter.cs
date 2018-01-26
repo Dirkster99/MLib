@@ -39,18 +39,26 @@
             if (inputValues == null)
                 return Binding.DoNothing;
 
-            if (inputValues.Length != 2)
+            if (inputValues.Length != 3)
                 return Binding.DoNothing;
 
-            if (inputValues[0] is bool == false)
+            // IsLoaded Binding: Is the view loaded, yet ???
+            if (inputValues[0] is bool == false)  // Updates that are not drawn should not be 
+                return Binding.DoNothing;        // hidden from view
+                                                //- since init can otherwise fail for pop-ups etc
+
+            if (((bool)inputValues[0]) == false)
+                return inputValues[2];           // Lets update the view since it isn't loaded yet
+
+            if (inputValues[1] is bool == false)
                 return Binding.DoNothing;
 
-            var UpdateYesNo = (bool)inputValues[0];
+            var UpdateYesNo = (bool)inputValues[2];
 
-            if (UpdateYesNo == false)
+            if (UpdateYesNo == false)      // These binding changes are not shown to the view
                 return Binding.DoNothing;
 
-            return inputValues[1];
+            return inputValues[2];       // Return the ItemSource binding for updates since processing is done
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

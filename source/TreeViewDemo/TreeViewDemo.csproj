@@ -108,7 +108,6 @@
     <Compile Include="Demos\Behaviors\DependencyObjectExtensions.cs" />
     <Compile Include="Demos\Behaviors\NodeTreeSelectionBehavior .cs" />
     <Compile Include="Demos\Behaviors\SelectionChangedBehavior.cs .cs" />
-    <Compile Include="Demos\Behaviors\TreeViewItemBehaviour.cs" />
     <Compile Include="Demos\Behaviors\TreeViewItemExpanded.cs" />
     <Compile Include="Demos\Interfaces\IFolderViewModel.cs" />
     <Compile Include="Demos\Models\FSItems\Base\FileSystemModel.cs" />

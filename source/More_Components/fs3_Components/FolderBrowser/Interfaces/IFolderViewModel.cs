@@ -1,11 +1,8 @@
 ﻿namespace FolderBrowser.Interfaces
 {
-    using FolderBrowser.ViewModels;
-    using InplaceEditBoxLib.Events;
     using System.Collections.Generic;
-    using UserNotification.ViewModel;
 
-    public interface IFolderViewModel
+    public interface IFolderViewModel : IParent
     {
         #region properties
         /// <summary>

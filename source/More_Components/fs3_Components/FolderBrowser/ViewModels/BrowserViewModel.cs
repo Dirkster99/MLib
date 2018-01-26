@@ -7,7 +7,6 @@
     using FolderBrowser.Events;
     using FolderBrowser.Interfaces;
     using FolderBrowser.ViewModels.Messages;
-    using FsCore.Collections;
     using FsCore.ViewModels;
     using System;
     using System.Collections.Generic;
@@ -55,6 +54,7 @@
         private bool _UpdateView;
         private bool _IsBrowseViewEnabled;
         private SortableObservableDictionaryCollection _Root;
+        private IFolderViewModel _SelectedItem = null;
         #endregion fields
 
         #region constructor
@@ -168,6 +168,9 @@
 
         /// <summary>
         /// Get/set currently selected folder.
+        /// 
+        /// This property is used as output of the current path
+        /// but also used as a parameter when browsing to a new path.
         /// </summary>
         public string SelectedFolder
         {
@@ -182,6 +185,31 @@
                 {
                     this.mSelectedFolder = value;
                     this.RaisePropertyChanged(() => this.SelectedFolder);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the currently selected viewmodel object (if any).
+        /// </summary>
+        public IFolderViewModel SelectedItem
+        {
+            get
+            {
+                return _SelectedItem;
+            }
+
+            private set
+            {
+                if (_SelectedItem != value)
+                {
+                    _SelectedItem = value;
+                    RaisePropertyChanged(() => SelectedItem);
+
+                    if (_SelectedItem != null)
+                        SelectedFolder = _SelectedItem.FolderPath;
+                    else
+                        SelectedFolder = string.Empty;
                 }
             }
         }
@@ -288,12 +316,7 @@
                 {
                     mSelectedFolderChangedCommand = new RelayCommand<object>((p) =>
                     {
-                        if (p is KeyValuePair<string, IFolderViewModel> == false)
-                            return;
-
-                        var item = (KeyValuePair<string, IFolderViewModel>)p;
-
-                        SelectedFolder = item.Value.FolderPath;
+                        SelectedItem = (p as IFolderViewModel);
                     });
                 }
 
@@ -452,25 +475,17 @@
                 {
                     this.mFolderSelectedCommand = new RelayCommand<object>(p =>
                     {
-                        try
-                        {
-                            string path = p as string;
+                        string path = p as string;
 
-                            if (string.IsNullOrEmpty(path) == true)
-                                return;
+                        if (string.IsNullOrEmpty(path) == true)
+                            return;
 
-                            if (IsBrowsing == true)
-                                return;
+                        if (IsBrowsing == true)
+                            return;
 
-                            BrowsePath(path, false);
-                        }
-                        catch
-                        {
-                        }
-                    }, (p) =>
-                        {
-                            return ! IsBrowsing;
-                        });
+                        BrowsePath(path, false);
+                    },
+                    (p) => { return ! IsBrowsing; });
                 }
 
                 return this.mFolderSelectedCommand;
@@ -731,9 +746,9 @@
             SpecialFolders.Add(new CustomFolderItemViewModel(Environment.SpecialFolder.MyVideos));
         }
 
-        private FolderViewModel CreateFolderItem(PathModel model)
+        private FolderViewModel CreateFolderItem(PathModel model, IFolderViewModel parent)
         {
-            var f = new FolderViewModel(model);
+            var f = new FolderViewModel(model, parent);
 
             return f;
         }
@@ -755,7 +770,7 @@
                     if (cts != null)
                         cts.Token.ThrowIfCancellationRequested();
 
-                    var vmItem = CreateFolderItem(item.Model);
+                    var vmItem = CreateFolderItem(item.Model, null);
 
                     _Root.AddItem(vmItem);
                 }
@@ -785,14 +800,13 @@
             if (root == null)
             {
                 // Looks like this is a new drive - lets create it then ...
-                root = CreateFolderItem(new PathModel(dirs[0], FSItemType.LogicalDrive));
+                root = CreateFolderItem(new PathModel(dirs[0], FSItemType.LogicalDrive), null);
 
                 AddFolder(root.FolderName, root);
             }
 
             PathItems.Add(root);
             var folderItem = MergeFolders(root, dirs, dirs[0], PathItems);
-            ////PathItems[PathItems.Count - 1].IsArmed = false;
 
             for (int i = 0; i < PathItems.Count; i++)
             {
@@ -817,8 +831,8 @@
 
             ////PathItems[PathItems.Count - 1].IsExpanded = true;
             var folder = PathItems[PathItems.Count - 1] as FolderViewModel;
+            SelectedItem = folder;
             folder.IsSelected = true;
-            SelectedFolder = PathItems[PathItems.Count - 1].FolderPath;
         }
 
         private IFolderViewModel MergeFolders(IFolderViewModel root,
@@ -880,57 +894,7 @@
                 });
             }
         }
-/***
-        /// <summary>
-        /// Get all child entries for a given path entry
-        /// </summary>
-        /// <param name="childFolders"></param>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        private static IFolderViewModel Expand(ObservableSortedDictionary<string, IFolderViewModel> childFolders, string path)
-        {
-            if (string.IsNullOrEmpty(path) || childFolders.Count == 0)
-            {
-                return null;
-            }
 
-            string folderName = path;
-            if (path.Contains('/') || path.Contains('\\'))
-            {
-                int idx = path.IndexOfAny(new char[] { '/', '\\' });
-                folderName = path.Substring(0, idx);
-                path = path.Substring(idx + 1);
-            }
-            else
-            {
-                path = null;
-            }
-
-            // bugfix: Folder names on windows are case insensitiv
-            //var results = childFolders.Where<IFolderViewModel>(folder => string.Compare(folder.FolderName, folderName, true) == 0);
-            IFolderViewModel results;
-            childFolders.TryGetValue(folderName.ToLower(), out results);
-            if (results != null)
-            {
-                IFolderViewModel fvm = results;
-
-                var folder = fvm as FolderViewModel;  // Cast this to access internal setter
-                folder.IsExpanded = true;
-
-                var retVal = BrowserViewModel.Expand(fvm.Folders, path);
-                if (retVal != null)
-                {
-                    return retVal;
-                }
-                else
-                {
-                    return fvm;
-                }
-            }
-
-            return null;
-        }
-***/
         /// <summary>
         /// Clear states of browser control (hide error message and other things that may not apply now)
         /// </summary>

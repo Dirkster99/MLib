@@ -105,8 +105,10 @@
     <Compile Include="Events\BrowsingChangedEventArgs.cs" />
     <Compile Include="Events\FolderChangedEventArgs.cs" />
     <Compile Include="Interfaces\FileSystem\IFSItemViewModel.cs" />
+    <Compile Include="Interfaces\IParent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Themes\ResourceKeys.cs" />
+    <Compile Include="Views\Behaviours\TreeViewVirtualItemBehaviour.cs" />
     <Compile Include="ViewModels\BrowserViewModel.cs" />
     <Compile Include="ViewModels\CustomFolderItemViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\DialogBaseViewModel.cs" />
@@ -128,7 +130,6 @@
     <Compile Include="Views\Behaviours\SelectTextOnFocus .cs" />
     <Compile Include="Views\Behaviours\TextChangedCommand.cs" />
     <Compile Include="Views\Behaviours\TextEnterCommand.cs" />
-    <Compile Include="Views\Behaviours\TreeViewItemBehaviour.cs" />
     <Compile Include="Views\Behaviours\TreeViewItemExpanded.cs" />
     <Compile Include="Views\Behaviours\TreeViewSelectionChangedBehavior.cs" />
     <Compile Include="Views\BindingProxy.cs" />
