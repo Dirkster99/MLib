@@ -17,6 +17,7 @@
     internal class FolderViewModel : EditInPlaceViewModel, IFolderViewModel
     {
         #region fields
+        private static readonly IFolderViewModel DummyChild = new FolderViewModel();
         private bool mIsSelected;
         private bool mIsExpanded;
 
@@ -39,11 +40,23 @@
             : this()
         {
             _Parent = parent;
+            mFolders.AddItem(DummyChild);
             mModel = new PathModel(model);
 
             // Names of Logical drives cannot be changed with this
             if (mModel.PathType == FSItemType.LogicalDrive)
                 this.IsReadOnly = true;
+        }
+
+        /// <summary>
+        /// Construct a <seealso cref="FolderViewModel"/> item that represents a Windows
+        /// file system folder object (eg.: FolderPath = 'C:\Temp\', FolderName = 'Temp').
+        /// </summary>
+        /// <param name="dir"></param>
+        /// <returns></returns>
+        protected FolderViewModel(string dir, IFolderViewModel parent)
+           : this(new PathModel(dir, FSItemType.Folder), parent)
+        {
         }
 
         /// <summary>
@@ -55,28 +68,6 @@
             mIsExpanded = mIsSelected = false;
 
             mModel = null;
-
-            // Add dummy folder by default to make tree view show expander by default
-            mFolders = new SortableObservableDictionaryCollection();
-            mFolders.AddItem(new FolderViewModel(string.Empty, FSItemType.DummyEntry));
-
-            mVolumeLabel = null;
-        }
-
-        /// <summary>
-        /// Construct dummy folder
-        /// </summary>
-        /// <param name="path"></param>
-        /// <param name="type"></param>
-        protected FolderViewModel(string path, FSItemType type)
-        {
-            // Names of Logical drives cannot be changed with this
-            if (type == FSItemType.LogicalDrive)
-                this.IsReadOnly = true;
-
-            mIsExpanded = mIsSelected = false;
-
-            mModel = new PathModel(path, type);
 
             // Add dummy folder by default to make tree view show expander by default
             mFolders = new SortableObservableDictionaryCollection();
@@ -245,15 +236,17 @@
         /// Determine whether child is a dummy (must be evaluated and replaced
         /// with real data) or not.
         /// </summary>
-        public bool ChildFolderIsDummy
+        public bool HasDummyChild
         {
             get
             {
-                if (mFolders.Count == 1)
+                if (this.mFolders != null)
                 {
-                    var item = Folders.First<IFolderViewModel>();
-                    if (item.ItemType == FSItemType.DummyEntry)
-                        return true;
+                    if (this.mFolders.Count == 1)
+                    {
+                        if (this.mFolders[0] == DummyChild)
+                            return true;
+                    }
                 }
 
                 return false;
@@ -310,9 +303,15 @@
             }
         }
 
+        /// <summary>
+        /// Attempts to find an item with the given name in the list of child items
+        /// below this item and returns it or null.
+        /// </summary>
+        /// <param name="folderName"></param>
+        /// <returns></returns>
         public IFolderViewModel TryGet(string folderName)
         {
-            if (ChildFolderIsDummy == true)
+            if (HasDummyChild == true)
                 return null;
 
             return mFolders.TryGet(folderName);
@@ -371,19 +370,6 @@
         }
 
         /// <summary>
-        /// Construct a <seealso cref="FolderViewModel"/> item that represents a Windows
-        /// file system folder object (eg.: FolderPath = 'C:\Temp\', FolderName = 'Temp').
-        /// </summary>
-        /// <param name="dir"></param>
-        /// <returns></returns>
-        internal static FolderViewModel ConstructFolderFolderViewModel(
-            string dir,
-            IFolderViewModel parent)
-        {
-            return new FolderViewModel(new PathModel(dir, FSItemType.Folder), parent);
-        }
-
-        /// <summary>
         /// Load all sub-folders into the Folders collection.
         /// </summary>
         public void LoadFolders()
@@ -438,7 +424,7 @@
                 // create the sub-structure only if this is not a hidden directory
                 if ((di.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
                 {
-                    var newFolder = FolderViewModel.ConstructFolderFolderViewModel(dir, this);
+                    var newFolder = new FolderViewModel(dir, this);
 
                     AddFolder(newFolder);
 
@@ -457,6 +443,12 @@
             return null;
         }
 
+        /// <summary>
+        /// Method executes when item is renamed
+        /// -> model name is required to be renamed and dependend
+        /// properties are updated.
+        /// </summary>
+        /// <param name="model"></param>
         private void ResetModel(PathModel model)
         {
             var oldModel = mModel;

@@ -9,7 +9,7 @@
         /// Determine whether child is a dummy (must be evaluated and replaced
         /// with real data) or not.
         /// </summary>
-        bool ChildFolderIsDummy { get; }
+        bool HasDummyChild { get; }
 
         /// <summary>
         /// Gets a string that is to be displayed for this item.

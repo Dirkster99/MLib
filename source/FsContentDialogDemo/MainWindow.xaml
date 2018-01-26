@@ -24,7 +24,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Column="0">
+        <Grid Grid.Column="0" Margin="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -88,13 +88,13 @@
                         HorizontalAlignment="Stretch" VerticalAlignment="Center" />
 
                 <ctrls:DropDownButton Grid.Column="1" Grid.Row="3"
-                                  MinWidth="150" MinHeight="25"
-                                  IsEnabled="True"
-                                  Content="{Binding DropDownBrowser.ButtonLabel,FallbackValue='Binding Failed'}"                              
-                                  IsOpen="{Binding DropDownBrowser.IsOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  HorizontalAlignment="Left"
-                                  Margin="3" 
-                                >
+                                      MinWidth="150" MinHeight="25"
+                                      IsEnabled="True"
+                                      Content="{Binding DropDownBrowser.ButtonLabel,FallbackValue='Binding Failed'}"                              
+                                      IsOpen="{Binding DropDownBrowser.IsOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      HorizontalAlignment="Left"
+                                      Margin="3" 
+                                    >
                     <ctrls:DropDownButton.DropDownContent>
                         <StackPanel xmlns:views="clr-namespace:FolderBrowser.Views;assembly=FolderBrowser" IsHitTestVisible="True" Focusable="True">
                             <views:DropDownView DataContext="{Binding DropDownBrowser}" />

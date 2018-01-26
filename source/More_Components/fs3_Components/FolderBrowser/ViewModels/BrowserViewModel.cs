@@ -342,7 +342,7 @@
 
                         if (expandedItem != null && mIsExpanding == false)
                         {
-                            if (expandedItem.ChildFolderIsDummy == true)
+                            if (expandedItem.HasDummyChild == true)
                                 ExpandDummyFolder(expandedItem);
                         }
                     });
@@ -446,7 +446,7 @@
                             folder.IsExpanded = true;
 
                             // Refresh child items if this has been expanded for the 1st time
-                            if (folder.ChildFolderIsDummy == true)
+                            if (folder.HasDummyChild == true)
                             {
                                 var x = await RequeryChildItems(folder);
                             }
@@ -544,7 +544,7 @@
         {
             if (expandedItem != null && mIsExpanding == false)
             {
-                if (expandedItem.ChildFolderIsDummy == true)
+                if (expandedItem.HasDummyChild == true)
                 {
                     mIsExpanding = true;
 
@@ -815,13 +815,13 @@
 
                 var folder1 = (PathItems[i] as FolderViewModel);
 
-                if (folder1.ChildFolderIsDummy == false)
+                if (folder1.HasDummyChild == false)
                     folder1.IsExpanded = true;
                 else
                 {
                     folder1.LoadFolders();
 
-                    if (folder1.ChildFolderIsDummy == false)
+                    if (folder1.HasDummyChild == false)
                         folder1.IsExpanded = true;
                     else
                         folder1.ClearFolders();
