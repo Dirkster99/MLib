@@ -30,31 +30,31 @@
     internal class BrowserViewModel : FsCore.ViewModels.Base.ViewModelBase, IBrowserViewModel
     {
         #region fields
-        private string mSelectedFolder;
-        private bool mIsSpecialFoldersVisisble;
+        private string _SelectedFolder;
+        private bool _IsSpecialFoldersVisisble;
 
-        private ICommand mExpandCommand;
-        private ICommand mFolderSelectedCommand = null;
-        private ICommand mSelectedFolderChangedCommand;
-        private ICommand mOpenInWindowsCommand = null;
-        private ICommand mCopyPathCommand = null;
-        private ICommand mRenameCommand;
-        private ICommand mStartRenameCommand;
-        private ICommand mCreateFolderCommand;
-        private ICommand mCancelBrowsingCommand;
-        private ICommand mRefreshViewCommand;
+        private ICommand _ExpandCommand;
+        private ICommand _FolderSelectedCommand = null;
+        private ICommand _SelectedFolderChangedCommand;
+        private ICommand _OpenInWindowsCommand = null;
+        private ICommand _CopyPathCommand = null;
+        private ICommand _RenameCommand;
+        private ICommand _StartRenameCommand;
+        private ICommand _CreateFolderCommand;
+        private ICommand _CancelBrowsingCommand;
+        private ICommand _RefreshViewCommand;
 
-        private bool mIsBrowsing = true;
-        private IProcessViewModel mProcessor = null;
-        private readonly IProcessViewModel mExpandProcessor = null;
+        private bool _IsBrowsing = true;
+        private IProcessViewModel _Processor = null;
+        private readonly IProcessViewModel _ExpandProcessor = null;
 
-        private bool mIsExpanding = false;
+        private bool _IsExpanding = false;
 
-        private string mInitalPath;
+        private string _InitalPath;
         private bool _UpdateView;
         private bool _IsBrowseViewEnabled;
         private SortableObservableDictionaryCollection _Root;
-        private IFolderViewModel _SelectedItem = null;
+        private IItemViewModel _SelectedItem = null;
         #endregion fields
 
         #region constructor
@@ -67,13 +67,13 @@
             BookmarkFolder = new EditFolderBookmark();
             InitializeSpecialFolders();
 
-            mOpenInWindowsCommand = null;
-            mCopyPathCommand = null;
+            _OpenInWindowsCommand = null;
+            _CopyPathCommand = null;
 
             _Root = new SortableObservableDictionaryCollection();
 
-            mExpandProcessor = ProcessFactory.CreateProcessViewModel();
-            mProcessor = ProcessFactory.CreateProcessViewModel();
+            _ExpandProcessor = ProcessFactory.CreateProcessViewModel();
+            _Processor = ProcessFactory.CreateProcessViewModel();
 
             InitialPath = string.Empty;
 
@@ -142,14 +142,14 @@
         {
             get
             {
-                return mIsBrowsing;
+                return _IsBrowsing;
             }
 
             private set
             {
-                if (mIsBrowsing != value)
+                if (_IsBrowsing != value)
                 {
-                    mIsBrowsing = value;
+                    _IsBrowsing = value;
                     RaisePropertyChanged(() => IsBrowsing);
                 }
             }
@@ -158,7 +158,7 @@
         /// <summary>
         /// Gets the list of drives and folders for display in treeview structure control.
         /// </summary>
-        public IEnumerable<IFolderViewModel> Root
+        public IEnumerable<IItemViewModel> Root
         {
             get
             {
@@ -176,14 +176,14 @@
         {
             get
             {
-                return this.mSelectedFolder;
+                return this._SelectedFolder;
             }
 
             set
             {
-                if (this.mSelectedFolder != value)
+                if (this._SelectedFolder != value)
                 {
-                    this.mSelectedFolder = value;
+                    this._SelectedFolder = value;
                     this.RaisePropertyChanged(() => this.SelectedFolder);
                 }
             }
@@ -192,7 +192,7 @@
         /// <summary>
         /// Gets the currently selected viewmodel object (if any).
         /// </summary>
-        public IFolderViewModel SelectedItem
+        public IItemViewModel SelectedItem
         {
             get
             {
@@ -207,7 +207,7 @@
                     RaisePropertyChanged(() => SelectedItem);
 
                     if (_SelectedItem != null)
-                        SelectedFolder = _SelectedItem.FolderPath;
+                        SelectedFolder = _SelectedItem.ItemPath;
                     else
                         SelectedFolder = string.Empty;
                 }
@@ -221,29 +221,29 @@
         {
             get
             {
-                if (mCancelBrowsingCommand == null)
+                if (_CancelBrowsingCommand == null)
                 {
-                    mCancelBrowsingCommand = new RelayCommand<object>((p) =>
+                    _CancelBrowsingCommand = new RelayCommand<object>((p) =>
                     {
-                        if (mProcessor != null)
+                        if (_Processor != null)
                         {
-                            if (mProcessor.IsCancelable == true)
-                                mProcessor.Cancel();
+                            if (_Processor.IsCancelable == true)
+                                _Processor.Cancel();
                         }
                     },
                     (p) =>
                     {
                         if (IsBrowsing == true)
                         {
-                            if (mProcessor.IsCancelable == true)
-                                return mProcessor.IsProcessing;
+                            if (_Processor.IsCancelable == true)
+                                return _Processor.IsProcessing;
                         }
 
                         return false;
                     });
                 }
 
-                return mCancelBrowsingCommand;
+                return _CancelBrowsingCommand;
             }
         }
 
@@ -257,22 +257,22 @@
         {
             get
             {
-                if (mOpenInWindowsCommand == null)
-                    mOpenInWindowsCommand = new RelayCommand<object>(
+                if (_OpenInWindowsCommand == null)
+                    _OpenInWindowsCommand = new RelayCommand<object>(
                       (p) =>
                       {
-                          var vm = p as FolderViewModel;
+                          var vm = p as IItemViewModel;
 
                           if (vm == null)
                               return;
 
-                          if (string.IsNullOrEmpty(vm.FolderPath) == true)
+                          if (string.IsNullOrEmpty(vm.ItemPath) == true)
                               return;
 
-                          FileSystemCommands.OpenContainingFolder(vm.FolderPath);
+                          FileSystemCommands.OpenContainingFolder(vm.ItemPath);
                       });
 
-                return mOpenInWindowsCommand;
+                return _OpenInWindowsCommand;
             }
         }
 
@@ -284,22 +284,22 @@
         {
             get
             {
-                if (mCopyPathCommand == null)
-                    mCopyPathCommand = new RelayCommand<object>(
+                if (_CopyPathCommand == null)
+                    _CopyPathCommand = new RelayCommand<object>(
                       (p) =>
                       {
-                          var vm = p as FolderViewModel;
+                          var vm = p as IItemViewModel;
 
                           if (vm == null)
                               return;
 
-                          if (string.IsNullOrEmpty(vm.FolderPath) == true)
+                          if (string.IsNullOrEmpty(vm.ItemPath) == true)
                               return;
 
-                          FileSystemCommands.CopyPath(vm.FolderPath);
+                          FileSystemCommands.CopyPath(vm.ItemPath);
                       });
 
-                return mCopyPathCommand;
+                return _CopyPathCommand;
             }
         }
 
@@ -312,15 +312,15 @@
         {
             get
             {
-                if (mSelectedFolderChangedCommand == null)
+                if (_SelectedFolderChangedCommand == null)
                 {
-                    mSelectedFolderChangedCommand = new RelayCommand<object>((p) =>
+                    _SelectedFolderChangedCommand = new RelayCommand<object>((p) =>
                     {
-                        SelectedItem = (p as IFolderViewModel);
+                        SelectedItem = (p as IItemViewModel);
                     });
                 }
 
-                return mSelectedFolderChangedCommand;
+                return _SelectedFolderChangedCommand;
             }
         }
 
@@ -331,16 +331,16 @@
         {
             get
             {
-                if (mExpandCommand == null)
+                if (_ExpandCommand == null)
                 {
-                    mExpandCommand = new RelayCommand<object>((p) =>
+                    _ExpandCommand = new RelayCommand<object>((p) =>
                     {
                         if (IsBrowsing == true) // This can is probably not relevant since the
                             return;            // viewmodel is currently driving the view ...
 
-                        var expandedItem = p as IFolderViewModel;
+                        var expandedItem = p as IItemViewModel;
 
-                        if (expandedItem != null && mIsExpanding == false)
+                        if (expandedItem != null && _IsExpanding == false)
                         {
                             if (expandedItem.HasDummyChild == true)
                                 ExpandDummyFolder(expandedItem);
@@ -348,13 +348,13 @@
                     });
                 }
 
-                return mExpandCommand;
+                return _ExpandCommand;
             }
         }
 
         /// <summary>
-        /// Starts the rename folder process by that renames the folder
-        /// that is represented by this viewmodel.
+        /// Starts the rename folder process on the CommandParameter
+        /// which must be FolderViewModel item that represented the to be renamed folder.
         /// 
         /// This command implements an event that triggers the actual rename
         /// process in the connected view.
@@ -363,13 +363,15 @@
         {
             get
             {
-                if (this.mStartRenameCommand == null)
-                    this.mStartRenameCommand = new RelayCommand<object>(it =>
+                if (this._StartRenameCommand == null)
+                    this._StartRenameCommand = new RelayCommand<object>(it =>
                     {
                         var folder = it as FolderViewModel;
 
                         if (folder != null)
+                        {
                             folder.RequestEditMode(InplaceEditBoxLib.Events.RequestEditEvent.StartEditMode);
+                        }
                     },
                     (it) =>
                     {
@@ -384,21 +386,22 @@
                         return true;
                     });
 
-                return this.mStartRenameCommand;
+                return this._StartRenameCommand;
             }
         }
 
         /// <summary>
         /// Renames the folder that is represented by this viewmodel.
         /// This command should be called directly by the implementing view
-        /// since the new name of the folder is delivered as string.
+        /// since the new name of the folder is delivered in the
+        /// CommandParameter as a string.
         /// </summary>
         public ICommand RenameCommand
         {
             get
             {
-                if (this.mRenameCommand == null)
-                    this.mRenameCommand = new RelayCommand<object>(it =>
+                if (this._RenameCommand == null)
+                    this._RenameCommand = new RelayCommand<object>(it =>
                     {
                         var tuple = it as Tuple<string, object>;
 
@@ -406,37 +409,50 @@
                         {
                             var folderVM = tuple.Item2 as FolderViewModel;
 
-                            if (tuple.Item1 != null && folderVM != null)
+                            var newFolderName = tuple.Item1;
+
+                            if (folderVM == null)
+                                return;
+
+                            if (string.IsNullOrEmpty(newFolderName) == false &&
+                                folderVM != null)
                             {
-                                folderVM.RenameFolder(tuple.Item1);
-                                this.SelectedFolder = folderVM.FolderPath;
+                                var parent = folderVM.Parent;
+                                if (parent != null)
+                                {
+                                    parent.ChildRename(folderVM.ItemName, newFolderName);
+
+                                    this.SelectedFolder = folderVM.ItemPath;
+                                }
                             }
                         }
                     });
 
-                return this.mRenameCommand;
+                return this._RenameCommand;
             }
         }
 
         /// <summary>
         /// Starts the create folder process by creating a new folder
         /// in the given location. The location is supplied as <seealso cref="System.Windows.Input.ICommandSource.CommandParameter"/>
-        /// which is a <seealso cref="IFolderViewModel"/> item. So, the <seealso cref="IFolderViewModel"/> item
-        /// is the parent of the new folder and the new folder is created with a standard name:
-        /// 'New Folder n'. The new folder n is selected and in rename mode such that users can edit
-        /// the name of the new folder right away.
+        /// which is a <seealso cref="IItemViewModel"/> item.
         /// 
-        /// This command implements an event that triggers the actual rename
-        /// process in the connected view.
+        /// So, the <seealso cref="IItemViewModel"/> item is the parent of the new folder
+        /// <seealso cref="IFolderViewModel"/> and the new folder is created with a standard
+        /// name: 'New Folder n'. The new folder n is selected and in rename mode such that
+        /// users can edit the name of the new folder right away.
+        /// 
+        /// This command implements an event that triggers the actual rename process in the
+        /// connected view.
         /// </summary>
         public ICommand CreateFolderCommand
         {
             get
             {
-                if (this.mCreateFolderCommand == null)
-                    this.mCreateFolderCommand = new RelayCommand<object>(async it =>
+                if (this._CreateFolderCommand == null)
+                    this._CreateFolderCommand = new RelayCommand<object>(async it =>
                     {
-                        var folder = it as FolderViewModel;
+                        var folder = it as ItemViewModel;
 
                         if (folder == null)
                             return;
@@ -455,7 +471,7 @@
                         this.CreateFolderCommandNewFolder(folder);
                     });
 
-                return this.mCreateFolderCommand;
+                return this._CreateFolderCommand;
             }
         }
 
@@ -471,9 +487,9 @@
         {
             get
             {
-                if (this.mFolderSelectedCommand == null)
+                if (this._FolderSelectedCommand == null)
                 {
-                    this.mFolderSelectedCommand = new RelayCommand<object>(p =>
+                    this._FolderSelectedCommand = new RelayCommand<object>(p =>
                     {
                         string path = p as string;
 
@@ -488,13 +504,13 @@
                     (p) => { return ! IsBrowsing; });
                 }
 
-                return this.mFolderSelectedCommand;
+                return this._FolderSelectedCommand;
             }
         }
 
         /// <summary>
         /// Gets a command that will reload the folder view up to the
-        /// selected path that is expected as <seealso cref="FolderViewModel"/>
+        /// selected path that is expected as <seealso cref="IItemViewModel"/>
         /// in the CommandParameter.
         /// 
         /// This command is particularly useful when users create/delete a folder
@@ -504,24 +520,24 @@
         {
             get
             {
-                if (this.mRefreshViewCommand == null)
+                if (this._RefreshViewCommand == null)
                 {
-                    this.mRefreshViewCommand = new RelayCommand<object>(p =>
+                    this._RefreshViewCommand = new RelayCommand<object>(p =>
                     {
                         try
                         {
-                            var item = p as FolderViewModel;
+                            var item = p as IItemViewModel;
 
                             if (item == null)
                                 return;
 
-                            if (string.IsNullOrEmpty(item.FolderPath) == true)
+                            if (string.IsNullOrEmpty(item.ItemPath) == true)
                                 return;
 
                             if (IsBrowsing == true)
                                 return;
 
-                            BrowsePath(item.FolderPath);
+                            BrowsePath(item.ItemPath);
                         }
                         catch
                         {
@@ -532,7 +548,7 @@
                         });
                 }
 
-                return this.mRefreshViewCommand;
+                return this._RefreshViewCommand;
             }
         }
 
@@ -540,18 +556,18 @@
         /// Expand folder for the very first time (using the process background viewmodel).
         /// </summary>
         /// <param name="expandedItem"></param>
-        private void ExpandDummyFolder(IFolderViewModel expandedItem)
+        private void ExpandDummyFolder(IItemViewModel expandedItem)
         {
-            if (expandedItem != null && mIsExpanding == false)
+            if (expandedItem != null && _IsExpanding == false)
             {
                 if (expandedItem.HasDummyChild == true)
                 {
-                    mIsExpanding = true;
+                    _IsExpanding = true;
 
-                    mExpandProcessor.StartProcess(() =>
+                    _ExpandProcessor.StartProcess(() =>
                     {
                         expandedItem.ClearFolders();                    // Requery sub-folders of this item
-                        (expandedItem as FolderViewModel).LoadFolders();
+                        (expandedItem as ItemViewModel).LoadFolders();
 
                         ////expandedItem.IsSelected = true;
                         ////SelectedFolder = expandedItem.FolderPath;
@@ -569,7 +585,7 @@
         /// <param name="caption"></param>
         private void ExpandProcessinishedEvent(bool processWasSuccessful, Exception exp, string caption)
         {
-            mIsExpanding = false;
+            _IsExpanding = false;
         }
 
         /// <summary>
@@ -581,7 +597,7 @@
         /// </summary>
         /// <param name="expandedItem"></param>
         /// <returns></returns>
-        private async Task<bool> RequeryChildItems(FolderViewModel expandedItem)
+        private async Task<bool> RequeryChildItems(ItemViewModel expandedItem)
         {
             await Task.Run(() => 
             {
@@ -617,14 +633,14 @@
         {
             get
             {
-                return mIsSpecialFoldersVisisble;
+                return _IsSpecialFoldersVisisble;
             }
 
             private set
             {
-                if (mIsSpecialFoldersVisisble != value)
+                if (_IsSpecialFoldersVisisble != value)
                 {
-                    mIsSpecialFoldersVisisble = value;
+                    _IsSpecialFoldersVisisble = value;
                     RaisePropertyChanged(() => IsSpecialFoldersVisisble);
                 }
             }
@@ -642,15 +658,15 @@
         {
             get
             {
-                return mInitalPath;
+                return _InitalPath;
 
             }
 
             set
             {
-                if (mInitalPath != value)
+                if (_InitalPath != value)
                 {
-                    mInitalPath = value;
+                    _InitalPath = value;
                     RaisePropertyChanged(() => InitialPath);
                 }
             }
@@ -673,7 +689,7 @@
             if (this.BrowsingChanged != null)
                 this.BrowsingChanged(this, new BrowsingChangedEventArgs(new PathModel(path, FSItemType.Folder), false));
 
-            mProcessor.StartCancelableProcess(cts =>
+            _Processor.StartCancelableProcess(cts =>
             {
                 try
                 {
@@ -727,7 +743,7 @@
             return true;
         }
 
-        private void AddFolder(string name, IFolderViewModel folder)
+        private void AddFolder(string name, IItemViewModel folder)
         {
            Application.Current.Dispatcher.Invoke(() =>
            {
@@ -746,7 +762,7 @@
             SpecialFolders.Add(new CustomFolderItemViewModel(Environment.SpecialFolder.MyVideos));
         }
 
-        private FolderViewModel CreateFolderItem(PathModel model, IFolderViewModel parent)
+        private FolderViewModel CreateFolderItem(PathModel model, IItemViewModel parent)
         {
             var f = new FolderViewModel(model, parent);
 
@@ -770,7 +786,7 @@
                     if (cts != null)
                         cts.Token.ThrowIfCancellationRequested();
 
-                    var vmItem = CreateFolderItem(item.Model, null);
+                    var vmItem = new DriveViewModel(item.Model, null);
 
                     _Root.AddItem(vmItem);
                 }
@@ -789,20 +805,20 @@
                                      CancellationTokenSource cts = null)
         {
             string[] dirs = PathModel.GetDirectories(path.Path);
-            List<IFolderViewModel> PathItems = new List<IFolderViewModel>();
+            List<IItemViewModel> PathItems = new List<IItemViewModel>();
 
             if (dirs == null)
                 return;
 
-            IFolderViewModel root = _Root.TryGet(dirs[0]);
+            IItemViewModel root = _Root.TryGet(dirs[0]);
 
             // Find drive in which we will have to insert this
             if (root == null)
             {
                 // Looks like this is a new drive - lets create it then ...
-                root = CreateFolderItem(new PathModel(dirs[0], FSItemType.LogicalDrive), null);
+                root = new DriveViewModel(new PathModel(dirs[0], FSItemType.LogicalDrive), null);
 
-                AddFolder(root.FolderName, root);
+                AddFolder(root.ItemName, root);
             }
 
             PathItems.Add(root);
@@ -813,7 +829,7 @@
                 if (cts != null)
                     cts.Token.ThrowIfCancellationRequested();
 
-                var folder1 = (PathItems[i] as FolderViewModel);
+                var folder1 = (PathItems[i] as ItemViewModel);
 
                 if (folder1.HasDummyChild == false)
                     folder1.IsExpanded = true;
@@ -830,30 +846,30 @@
             }
 
             ////PathItems[PathItems.Count - 1].IsExpanded = true;
-            var folder = PathItems[PathItems.Count - 1] as FolderViewModel;
+            var folder = PathItems[PathItems.Count - 1] as ItemViewModel;
             SelectedItem = folder;
             folder.IsSelected = true;
         }
 
-        private IFolderViewModel MergeFolders(IFolderViewModel root,
-                                              string[] dirs,
-                                              string accumulatedPath,
-                                              List<IFolderViewModel> PathItems)
+        private IItemViewModel MergeFolders(IItemViewModel root,
+                                            string[] dirs,
+                                            string accumulatedPath,
+                                            List<IItemViewModel> PathItems)
         {
-            IFolderViewModel nextRoot = null;
+            IItemViewModel nextRoot = null;
 
             int i = 1;
             for (; i < dirs.Length; i++)
             {
                 accumulatedPath = accumulatedPath + "/" + dirs[i];
 
-                nextRoot = root.TryGet(dirs[i]);
+                nextRoot = root.ChildTryGet(dirs[i]);
 
                 if (nextRoot == null)
                 {
-                    (root as FolderViewModel).LoadFolders();     // Refresh children of this node
+                    (root as ItemViewModel).LoadFolders();     // Refresh children of this node
 
-                    nextRoot = root.TryGet(dirs[i]);
+                    nextRoot = root.ChildTryGet(dirs[i]);
 
                     // Find Folder in which we will have to insert this
                     if (nextRoot == null)
@@ -873,13 +889,15 @@
         /// in editing mode to give users a chance for renaming it right away.
         /// </summary>
         /// <param name="parentFolder"></param>
-        private void CreateFolderCommandNewFolder(FolderViewModel parentFolder)
+        private void CreateFolderCommandNewFolder(ItemViewModel parentFolder)
         {
             if (parentFolder == null)
                 return;
 
             // Cast this to access internal methods and setters
-            var newSubFolder = parentFolder.CreateNewDirectory() as FolderViewModel;
+            var item = parentFolder.CreateNewDirectory();
+            var newSubFolder = item as FolderViewModel;
+            SelectedItem = newSubFolder;
 
             ////this.SelectedFolder = newSubFolder.FolderPath;
             ////this.SetSelectedFolder(newSubFolder.FolderPath, true);

@@ -2,6 +2,7 @@
 {
     using FileSystemModels.Models;
     using FileSystemModels.Models.FSItems;
+    using FolderBrowser.Interfaces;
     using FolderBrowser.ViewModels;
     using FsCore.ViewModels;
     using System;
@@ -79,7 +80,7 @@
         {
             if (this.RequestEditBookmarkedFolders != null)
             {
-                var item = param as FolderViewModel;
+                var item = param as IItemViewModel;
 
                 if (item != null)
                     return true;
@@ -90,7 +91,7 @@
 
         private void RecentFolderRemove_Executed(object param)
         {
-            var item = param as FolderViewModel;
+            var item = param as IItemViewModel;
 
             if (item == null)
                 return;
@@ -98,13 +99,13 @@
             // Tell client via event to get rid of this entry
             if (this.RequestEditBookmarkedFolders != null)
                 this.RequestEditBookmarkedFolders(this,
-                    new RecentFolderEvent(new PathModel(item.FolderPath, FSItemType.Folder),
+                    new RecentFolderEvent(new PathModel(item.ItemPath, FSItemType.Folder),
                     RecentFolderEvent.RecentFolderAction.Remove));
         }
 
         private void RecentFolderAdd_Executed(object param)
         {
-            var item = param as FolderViewModel;
+            var item = param as IItemViewModel;
 
             if (item == null)
                 return;
@@ -112,7 +113,7 @@
             // Tell client via event to add this entry
             if (this.RequestEditBookmarkedFolders != null)
                 this.RequestEditBookmarkedFolders(this,
-                    new RecentFolderEvent(new PathModel(item.FolderPath, FSItemType.Folder),
+                    new RecentFolderEvent(new PathModel(item.ItemPath, FSItemType.Folder),
                     RecentFolderEvent.RecentFolderAction.Add));
         }
         #endregion methods

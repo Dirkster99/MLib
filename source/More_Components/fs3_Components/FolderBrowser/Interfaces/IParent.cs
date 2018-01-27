@@ -9,6 +9,6 @@
         /// <summary>
         /// Gets the parent object where this object is the child in the treeview.
         /// </summary>
-        IFolderViewModel Parent { get; }
+        IItemViewModel Parent { get; }
     }
 }
