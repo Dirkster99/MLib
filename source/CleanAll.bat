@@ -13,6 +13,7 @@ ECHO Components/MLib
 ECHO Components/MWindowLib
 ECHO Components/MWindowInterfacesLib
 ECHO Components/MWindowDialogLib
+ECHO Components/BindToMLib
 ECHO.
 ECHO More_Components/Settings/Settings
 ECHO More_Components/Settings/SettingsModel
@@ -83,6 +84,12 @@ ECHO Deleting BIN and OBJ Folders in MWindowDialogLib
 ECHO.
 RMDIR /S /Q Components\MWindowDialogLib\bin
 RMDIR /S /Q Components\MWindowDialogLib\obj
+
+ECHO.
+ECHO Deleting BIN and OBJ Folders in BindToMLib
+ECHO.
+RMDIR /S /Q Components\BindToMLib\bin
+RMDIR /S /Q Components\BindToMLib\obj
 
 ECHO.
 ECHO Deleting BIN and OBJ Folders in Components/Settings/Settings
