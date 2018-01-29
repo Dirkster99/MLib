@@ -1,6 +1,6 @@
 ﻿namespace FolderBrowser.ViewModels
 {
-    using FileSystemModels.Models;
+    using FileSystemModels.Models.FSItems.Base;
     using FolderBrowser.Interfaces;
     using FsCore.ViewModels.Base;
 

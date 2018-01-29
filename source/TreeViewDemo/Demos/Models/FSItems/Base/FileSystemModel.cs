@@ -1,5 +1,6 @@
 ﻿namespace TreeViewDemo.Demos.Models.FSItems.Base
 {
+    using FileSystemModels.Models.FSItems.Base;
     using System.Diagnostics;
 
     /// <summary>

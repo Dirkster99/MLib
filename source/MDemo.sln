@@ -24,7 +24,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MWindowDialogLib", "Compone
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "fsc", "fsc", "{03C284DA-4C51-4E53-96FD-1004EFE15D7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFProcessingLib", "More_Components\fs3_Components\WPFProcessingLib\WPFProcessingLib\WPFProcessingLib.csproj", "{077C358B-9731-4C5E-9EA7-F2CD7487ACBE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFProcessingLib", "More_Components\fs3_Components\WPFProcessingLib\WPFProcessingLib.csproj", "{077C358B-9731-4C5E-9EA7-F2CD7487ACBE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileSystemModels", "More_Components\fs3_Components\FileSystemModels\FileSystemModels.csproj", "{391639C4-5C43-4391-9465-27686E82C33F}"
 EndProject
@@ -53,6 +53,8 @@ EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "PDF_Binder_Setup", "PDF Binder\PDF_Binder_Setup\PDF_Binder_Setup.wixproj", "{6DC46B33-769C-4537-ABAE-8AA07996AEFA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FsContentDialogDemo", "FsContentDialogDemo\FsContentDialogDemo.csproj", "{58BD0E02-6BFF-43F0-9B93-D3371E97794B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFileSystemModels", "More_Components\fs3_Components\TestFileSystemModels\TestFileSystemModels.csproj", "{B0E0DBC0-4F7B-4B85-A1D8-510308AD0BA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -300,6 +302,18 @@ Global
 		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Release|x64.Build.0 = Release|Any CPU
 		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Release|x86.ActiveCfg = Release|Any CPU
 		{58BD0E02-6BFF-43F0-9B93-D3371E97794B}.Release|x86.Build.0 = Release|Any CPU
+		{B0E0DBC0-4F7B-4B85-A1D8-510308AD0BA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0E0DBC0-4F7B-4B85-A1D8-510308AD0BA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0E0DBC0-4F7B-4B85-A1D8-510308AD0BA1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B0E0DBC0-4F7B-4B85-A1D8-510308AD0BA1}.Debug|x64.Build.0 = Debug|Any CPU
+		{B0E0DBC0-4F7B-4B85-A1D8-510308AD0BA1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B0E0DBC0-4F7B-4B85-A1D8-510308AD0BA1}.Debug|x86.Build.0 = Debug|Any CPU
+		{B0E0DBC0-4F7B-4B85-A1D8-510308AD0BA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0E0DBC0-4F7B-4B85-A1D8-510308AD0BA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0E0DBC0-4F7B-4B85-A1D8-510308AD0BA1}.Release|x64.ActiveCfg = Release|Any CPU
+		{B0E0DBC0-4F7B-4B85-A1D8-510308AD0BA1}.Release|x64.Build.0 = Release|Any CPU
+		{B0E0DBC0-4F7B-4B85-A1D8-510308AD0BA1}.Release|x86.ActiveCfg = Release|Any CPU
+		{B0E0DBC0-4F7B-4B85-A1D8-510308AD0BA1}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -325,6 +339,7 @@ Global
 		{35D0CA7F-FC07-4515-82F2-7DDC14B8437B} = {3E91F05C-AD87-4913-8EA9-76D327B72544}
 		{DEC77495-6E48-4F66-B22B-E9BA2CA6E257} = {EBFA2E1E-92FF-4DF9-9212-398D1FEF617B}
 		{6DC46B33-769C-4537-ABAE-8AA07996AEFA} = {3E91F05C-AD87-4913-8EA9-76D327B72544}
+		{B0E0DBC0-4F7B-4B85-A1D8-510308AD0BA1} = {03C284DA-4C51-4E53-96FD-1004EFE15D7A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9D297277-843F-450D-BBEF-C08CF6377603}

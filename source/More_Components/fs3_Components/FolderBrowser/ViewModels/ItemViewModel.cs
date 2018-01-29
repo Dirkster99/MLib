@@ -1,7 +1,6 @@
 ﻿namespace FolderBrowser.ViewModels
 {
-    using FileSystemModels.Models;
-    using FileSystemModels.Models.FSItems;
+    using FileSystemModels.Models.FSItems.Base;
     using FolderBrowser.Interfaces;
     using InplaceEditBoxLib.ViewModels;
     using System;
@@ -290,15 +289,19 @@
             {
                 try
                 {
-                    if (newFolderName != null)
-                    {
-                        PathModel sourceDir = new PathModel(ItemPath, FSItemType.Folder);
-                        PathModel newFolderPath;
+                    // Old and new name strings are exactly the same
+                    if (string.Compare(newFolderName, ItemName, false) == 0)
+                        return;
 
-                        if (PathModel.RenameFileOrDirectory(sourceDir, newFolderName, out newFolderPath) == true)
-                        {
-                            ResetModel(newFolderPath);
-                        }
+                    if (string.IsNullOrEmpty(newFolderName) == true)
+                        throw new Exception("New folder name cannot be empty.");
+
+                    PathModel sourceDir = new PathModel(ItemPath, FSItemType.Folder);
+                    PathModel newFolderPath;
+
+                    if (PathModel.RenameFileOrDirectory(sourceDir, newFolderName, out newFolderPath) == true)
+                    {
+                        ResetModel(newFolderPath);
                     }
                 }
                 catch (Exception exp)

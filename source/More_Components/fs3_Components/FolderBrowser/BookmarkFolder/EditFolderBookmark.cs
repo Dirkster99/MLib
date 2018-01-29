@@ -2,6 +2,7 @@
 {
     using FileSystemModels.Models;
     using FileSystemModels.Models.FSItems;
+    using FileSystemModels.Models.FSItems.Base;
     using FolderBrowser.Interfaces;
     using FolderBrowser.ViewModels;
     using FsCore.ViewModels;

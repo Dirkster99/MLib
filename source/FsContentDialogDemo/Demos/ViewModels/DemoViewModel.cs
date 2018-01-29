@@ -114,9 +114,9 @@
                         // See Loaded event in FolderBrowserTreeView_Loaded methid to understand initial load
                         var treeBrowser = FolderBrowserFactory.CreateBrowserViewModel();
 
-                        // Switch updates to view of by default to speed up load of view
+                        // Switch updates to view off by default to speed up load of view
                         // Loading the view will kick-off the browsing via View.Loaded Event
-                        // and that in turn will switch on view updates ...
+                        // and that in turn will switch on view updates when browser is done...
                         treeBrowser.UpdateView = false;
 
                         var initialPath = p as string;
@@ -209,6 +209,7 @@
         {
             this.Path = e.Folder.Path;
         }
+
         /// <summary>
         /// Method configures a drop down element to show a
         /// folder picker dialog on opening up.

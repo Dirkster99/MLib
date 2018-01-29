@@ -1,6 +1,6 @@
 namespace FolderBrowser.Converters
 {
-    using FileSystemModels.Models.FSItems;
+    using FileSystemModels.Models.FSItems.Base;
     using System;
     using System.Windows;
     using System.Windows.Data;

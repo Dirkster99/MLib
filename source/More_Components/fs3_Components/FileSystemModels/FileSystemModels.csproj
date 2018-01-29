@@ -131,8 +131,8 @@
     <Compile Include="Models\FSItems\DriveModel.cs" />
     <Compile Include="Models\FSItems\FileModel.cs" />
     <Compile Include="Models\FSItems\FolderModel.cs" />
-    <Compile Include="Models\FSItems\FSItemType.cs" />
-    <Compile Include="Models\PathModel.cs" />
+    <Compile Include="Models\FSItems\Base\FSItemType.cs" />
+    <Compile Include="Models\FSItems\Base\PathModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\DirectoryInfoExtension.cs" />
     <Compile Include="Utils\IconExtractor.cs" />
@@ -167,6 +167,7 @@
     <EmbeddedResource Include="Local\Strings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Local\Strings.ru-RU.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -1,6 +1,5 @@
 ﻿namespace FileSystemModels.Models.FSItems.Base
 {
-    using FileSystemModels.Models;
     using System.Diagnostics;
 
     /// <summary>

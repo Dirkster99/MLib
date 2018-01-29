@@ -1,4 +1,4 @@
-﻿namespace TreeViewDemo.Demos.Models.FSItems
+﻿namespace FileSystemModels.Models.FSItems.Base
 {
     /// <summary>
     /// Determine whether a file system item is a folder or a file.
@@ -25,7 +25,7 @@
         /// </summary>
         File = 3,
 
-        DummyEntry = 4
+        ////DummyEntry = 4
 
         ////Computer = 4,
         ////NetworkShare = 5,

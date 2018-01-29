@@ -1,5 +1,6 @@
 ﻿namespace FileSystemModels.Models.FSItems
 {
+    using FileSystemModels.Models.FSItems.Base;
     using System;
     using System.Collections.Generic;
     using System.IO;

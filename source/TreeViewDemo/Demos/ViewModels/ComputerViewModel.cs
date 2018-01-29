@@ -8,6 +8,7 @@
     using System.Windows;
     using System.Windows.Threading;
     using Interfaces;
+    using FileSystemModels.Models.FSItems.Base;
 
     public class ComputerViewModel : TreeViewItemViewModel
     {

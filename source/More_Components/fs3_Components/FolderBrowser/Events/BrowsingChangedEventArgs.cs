@@ -1,7 +1,7 @@
 namespace FolderBrowser.Events
 {
     using System;
-    using FileSystemModels.Models;
+    using FileSystemModels.Models.FSItems.Base;
 
     /// <summary>
     /// A simple event based state model that informs the subscriber about the

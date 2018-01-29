@@ -1,5 +1,6 @@
 ﻿namespace TreeViewDemo.Demos.Models.FSItems
 {
+    using FileSystemModels.Models.FSItems.Base;
     using System;
     using System.Collections.Generic;
     using System.IO;

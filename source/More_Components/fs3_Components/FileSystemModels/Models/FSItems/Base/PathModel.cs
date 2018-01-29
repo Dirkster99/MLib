@@ -1,17 +1,15 @@
-namespace TreeViewDemo.Demos.Models
+namespace FileSystemModels.Models.FSItems.Base
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Threading.Tasks;
     using System.Xml.Serialization;
-    using TreeViewDemo.Demos.Models.FSItems;
 
     /// <summary>
     /// Class implements basic properties and behaviours
     /// of elements related to a path. Such elements are,
-    /// virtual folders, drives, network drives, folder, files,
-    /// and shortcuts.
+    /// virtual folders, drives, network drives, folder, files, and shortcuts.
     /// </summary>
     [Serializable]
     public class PathModel
@@ -34,29 +32,17 @@ namespace TreeViewDemo.Demos.Models
             {
                 case FSItemType.Folder:
                 case FSItemType.LogicalDrive:
-                    mPath = PathModel.NormalizeDirectoryPath(path);
-                    break;
-
                 case FSItemType.File:
                     mPath = PathModel.NormalizePath(path);
                     break;
 
-                case FSItemType.DummyEntry:
-                    break;
+////                case FSItemType.DummyEntry:
+////                    break;
 
                 case FSItemType.Unknown:
                 default:
                     throw new NotImplementedException(string.Format("Enumeration member: '{0}' not supported.", itemType));
             }
-        }
-
-        public void Copy(PathModel pathModelCopy)
-        {
-            if (pathModelCopy == null)
-                return;
-
-            mItemType = pathModelCopy.mItemType;
-            mPath = pathModelCopy.mPath;
         }
 
         /// <summary>
@@ -227,46 +213,48 @@ namespace TreeViewDemo.Demos.Models
         /// </summary>
         /// <param name="dirOrFilePath"></param>
         /// <returns></returns>
-        public static string NormalizePath(string dirOrFilePath)
+        public static string NormalizePath(string dirOrfilePath)
         {
-            if (dirOrFilePath == null)
+            if (string.IsNullOrEmpty(dirOrfilePath) == true)
                 return null;
 
             // The dirinfo constructor will not work with 'C:' but does work with 'C:\'
-            if (dirOrFilePath.Length == 2)
+            if (dirOrfilePath.Length < 2)
+                return null;
+
+            if (dirOrfilePath.Length == 2)
             {
-                if (dirOrFilePath[dirOrFilePath.Length - 1] == ':')
-                    dirOrFilePath += System.IO.Path.DirectorySeparatorChar;
+                if (dirOrfilePath[dirOrfilePath.Length - 1] == ':')
+                    return dirOrfilePath + System.IO.Path.DirectorySeparatorChar;
             }
 
-            return dirOrFilePath;
-        }
+            if (dirOrfilePath.Length == 3)
+            {
+                if (dirOrfilePath[dirOrfilePath.Length - 2] == ':' &&
+                    dirOrfilePath[dirOrfilePath.Length - 1] == System.IO.Path.DirectorySeparatorChar)
+                    return dirOrfilePath;
 
-        /// <summary>
-        /// Normalizes the input string string into a standard (output) notation.
-        /// 
-        /// Mormalization refers to using backslashes at the end of all directory
-        /// path references: 'C:' -> 'C:\' or 'C:\' or 'C:\Temp\'
-        /// </summary>
-        /// <param name="dirPath"></param>
-        /// <returns></returns>
-        public static string NormalizeDirectoryPath(string dirPath)
-        {
-            if (dirPath == null)
-                return null;
+                return "" + dirOrfilePath[0] + dirOrfilePath[1] +
+                            System.IO.Path.DirectorySeparatorChar + dirOrfilePath[2];
+            }
 
-            // The dirinfo constructor will not work with 'C:' but does work with 'C:\'
-            if (dirPath.Length < 2)
-                return null;
+            // Insert a backslash in 3rd character position if not already present
+            // C:Temp\myfile -> C:\Temp\myfile
+            if (dirOrfilePath.Length >= 3)
+            {
+                if (char.ToUpper(dirOrfilePath[0]) >= 'A' && char.ToUpper(dirOrfilePath[0]) <= 'Z' &&
+                    dirOrfilePath[1] == ':' &&
+                    dirOrfilePath[2] != '\\')
+                {
+                    dirOrfilePath = dirOrfilePath.Substring(0, 2) + "\\" + dirOrfilePath.Substring(2);
+                }
+            }
 
             // This will normalize directory and drive references into 'C:' or 'C:\Temp'
-////            if (dirPath[dirPath.Length - 1] == System.IO.Path.DirectorySeparatorChar)
-////                dirPath = dirPath.Trim(System.IO.Path.DirectorySeparatorChar);
+            if (dirOrfilePath[dirOrfilePath.Length - 1] == System.IO.Path.DirectorySeparatorChar)
+                dirOrfilePath = dirOrfilePath.Trim(System.IO.Path.DirectorySeparatorChar);
 
-            if (dirPath[dirPath.Length - 1] != System.IO.Path.DirectorySeparatorChar)
-                dirPath = dirPath + System.IO.Path.DirectorySeparatorChar;
-
-            return dirPath;
+            return dirOrfilePath;
         }
 
         /// <summary>
@@ -292,7 +280,7 @@ namespace TreeViewDemo.Demos.Models
             }
 
             if (bExists == true)
-                return PathModel.NormalizeDirectoryPath(dirPath);
+                return PathModel.NormalizePath(dirPath);
             else
             {
                 bExists = false;
@@ -315,7 +303,7 @@ namespace TreeViewDemo.Demos.Models
                     return null;
 
                 if (bExists == true)
-                    return PathModel.NormalizeDirectoryPath(path);
+                    return PathModel.NormalizePath(path);
 
                 return null;
             }
@@ -363,20 +351,25 @@ namespace TreeViewDemo.Demos.Models
             if (string.IsNullOrEmpty(folder) == true)
                 return null;
 
+            folder = PathModel.NormalizePath(folder);
+
             string[] dirs = null;
 
             try
             {
                 dirs = folder.Split(new char[] { System.IO.Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries);
+
+                if (dirs != null)
+                {
+                    if (dirs[0].Length == 2)       // Normalizing Drive representation
+                    {                             // from 'C:' to 'C:\'
+                        if (dirs[0][1] == ':')   // to ensure correct processing
+                            dirs[0] += '\\';    // since 'C:' technically invalid(!)
+                    }
+                }
             }
             catch
             {
-            }
-
-            if (dirs.Length > 0)   // Normalize drive reference from 'C:' to 'C:\'
-            {
-                if (dirs[0].Contains(":") == true)
-                    dirs[0] = PathModel.NormalizeDirectoryPath(dirs[0]);
             }
 
             return dirs;
@@ -435,9 +428,13 @@ namespace TreeViewDemo.Demos.Models
             return PathModel.DirectoryPathExists(mPath);
         }
 
-        public Task<bool> DirectoryPathExistsAsync()
+        /// <summary>
+        /// Async version to determine whether a given path is an exeisting directory or not.
+        /// </summary>
+        /// <returns>true if this directory exists and otherwise false</returns>
+        public async Task<bool> DirectoryPathExistsAsync()
         {
-            return Task.Run(() => { return DirectoryPathExists(); });
+            return await Task.Run(() => DirectoryPathExists());
         }
 
         /// <summary>
@@ -547,48 +544,24 @@ namespace TreeViewDemo.Demos.Models
         }
 
         /// <summary>
-        /// Load all sub-folders into the Folders collection.
+        /// Load all sub-folders into the Folders collection via
+        /// IEnumerable/Yield.
         /// </summary>
         public static IEnumerable<PathModel> LoadFolders(string fullPath)
         {
-////        try
-////        {
-////                string fullPath = Path.Combine(FolderPath, FolderName);
-////
-////                if (FolderName.Contains(':'))                  // This is a drive
-////                    fullPath = string.Concat(FolderName, "\\");
-////                else
-////                    fullPath = FolderPath;
-
-                foreach (string dir in Directory.GetDirectories(fullPath))
-                {
-                    var item = new PathModel(dir, FSItemType.Folder);
-                    yield return item;
-                }
-////            }
-////            catch (UnauthorizedAccessException ae)
-////            {
-////                throw ae;
-////                ////this.ShowNotification(FileSystemModels.Local.Strings.STR_MSG_UnknownError, ae.Message);
-////            }
-////            catch (IOException ie)
-////            {
-////                throw ie;
-////                ////this.ShowNotification(FileSystemModels.Local.Strings.STR_MSG_UnknownError, ie.Message);
-////            }
+            foreach (string dir in Directory.GetDirectories(fullPath))
+            {
+                var item = new PathModel(dir, FSItemType.Folder);
+                yield return item;
+            }
         }
 
+        /// <summary>
+        /// Load all sub-folders into the Folders collection via
+        /// Async method with complete list return.
+        /// </summary>
         public static async Task<IEnumerable<PathModel>> LoadFoldersAsync(string fullPath)
         {
-            ////        try
-            ////        {
-            ////                string fullPath = Path.Combine(FolderPath, FolderName);
-            ////
-            ////                if (FolderName.Contains(':'))                  // This is a drive
-            ////                    fullPath = string.Concat(FolderName, "\\");
-            ////                else
-            ////                    fullPath = FolderPath;
-
             var items = await Task.Run(() =>
             {
                 try
@@ -607,18 +580,6 @@ namespace TreeViewDemo.Demos.Models
                 ret.Add(new PathModel(dir, FSItemType.Folder));
 
             return ret;
-
-            ////            }
-            ////            catch (UnauthorizedAccessException ae)
-            ////            {
-            ////                throw ae;
-            ////                ////this.ShowNotification(FileSystemModels.Local.Strings.STR_MSG_UnknownError, ae.Message);
-            ////            }
-            ////            catch (IOException ie)
-            ////            {
-            ////                throw ie;
-            ////                ////this.ShowNotification(FileSystemModels.Local.Strings.STR_MSG_UnknownError, ie.Message);
-            ////            }
         }
         #endregion methods
     }

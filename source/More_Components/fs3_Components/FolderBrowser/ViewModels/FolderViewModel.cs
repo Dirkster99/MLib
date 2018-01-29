@@ -1,15 +1,9 @@
 ﻿namespace FolderBrowser.ViewModels
 {
-    using FileSystemModels.Models;
-    using FileSystemModels.Models.FSItems;
+    using FileSystemModels.Models.FSItems.Base;
     using FolderBrowser.Interfaces;
-    using InplaceEditBoxLib.ViewModels;
     using System;
-    using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
-    using System.Windows;
-    using System.Windows.Media.Imaging;
 
     /// <summary>
     /// Implment the viewmodel for one folder entry for a collection of folders.
@@ -66,16 +60,21 @@
             {
                 parentItem.ClearFolders();
 
-                string fullPath = Path.Combine(parentItem.ItemPath,
-                                               parentItem.ItemName);
-
-                if (parentItem.ItemName.Contains(':'))    // This is a drive
-                    fullPath = string.Concat(parentItem.ItemName, "\\");
-                else
-                    fullPath = parentItem.ItemPath;
-
-                foreach (string dir in Directory.GetDirectories(fullPath))
-                    FolderViewModel.AddFolder(dir, parentItem);
+                foreach (string dir in Directory.GetDirectories(parentItem.ItemPath))
+                {
+                    try
+                    {
+                        FolderViewModel.AddFolder(dir, parentItem);
+                    }
+                    catch (UnauthorizedAccessException ae)
+                    {
+                        parentItem.ShowNotification(FileSystemModels.Local.Strings.STR_MSG_UnknownError, ae.Message);
+                    }
+                    catch (IOException ie)
+                    {
+                        parentItem.ShowNotification(FileSystemModels.Local.Strings.STR_MSG_UnknownError, ie.Message);
+                    }
+                }
             }
             catch (UnauthorizedAccessException ae)
             {

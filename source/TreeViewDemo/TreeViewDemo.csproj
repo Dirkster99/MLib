@@ -114,8 +114,6 @@
     <Compile Include="Demos\Models\FSItems\DriveModel.cs" />
     <Compile Include="Demos\Models\FSItems\FileModel.cs" />
     <Compile Include="Demos\Models\FSItems\FolderModel.cs" />
-    <Compile Include="Demos\Models\FSItems\FSItemType.cs" />
-    <Compile Include="Demos\Models\PathModel.cs" />
     <Compile Include="Demos\ViewModels\ComputerViewModel.cs" />
     <Compile Include="Demos\ViewModels\FolderViewModel.cs" />
     <Compile Include="Demos\ViewModels\DriveViewModel.cs" />
@@ -200,6 +198,10 @@
     <ProjectReference Include="..\Components\MWindowLib\MWindowLib.csproj">
       <Project>{be4c8126-e5c8-405e-958f-4de9f686089b}</Project>
       <Name>MWindowLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\More_Components\fs3_Components\FileSystemModels\FileSystemModels.csproj">
+      <Project>{391639c4-5c43-4391-9465-27686e82c33f}</Project>
+      <Name>FileSystemModels</Name>
     </ProjectReference>
     <ProjectReference Include="..\More_Components\ServiceLocator\ServiceLocator.csproj">
       <Project>{252126D1-E1D9-49C3-910B-FCF2266265EF}</Project>

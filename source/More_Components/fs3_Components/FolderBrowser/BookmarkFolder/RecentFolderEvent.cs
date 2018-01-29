@@ -1,6 +1,7 @@
 namespace FolderBrowser.BookmarkFolder
 {
     using FileSystemModels.Models;
+    using FileSystemModels.Models.FSItems.Base;
     using System;
 
   /// <summary>

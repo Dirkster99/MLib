@@ -2,6 +2,7 @@ namespace FolderBrowser.Events
 {
     using System;
     using FileSystemModels.Models;
+    using FileSystemModels.Models.FSItems.Base;
 
     /// <summary>
     /// Class implements an event that signals that

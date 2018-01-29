@@ -166,7 +166,7 @@
       <Project>{8391f556-c4cb-4aa9-9874-bf665fb2b072}</Project>
       <Name>FsCore</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WPFProcessingLib\WPFProcessingLib\WPFProcessingLib.csproj">
+    <ProjectReference Include="..\WPFProcessingLib\WPFProcessingLib.csproj">
       <Project>{077c358b-9731-4c5e-9ea7-f2cd7487acbe}</Project>
       <Name>WPFProcessingLib</Name>
     </ProjectReference>
@@ -281,7 +281,9 @@
     <None Include="DesignOverview.cd" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="FileSystemModels\Models\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

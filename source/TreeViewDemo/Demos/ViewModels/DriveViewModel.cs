@@ -1,8 +1,7 @@
 ﻿namespace TreeViewDemo.Demos.ViewModels
 {
+    using FileSystemModels.Models.FSItems.Base;
     using Interfaces;
-    using Models;
-    using Models.FSItems;
     using System;
     using System.Threading.Tasks;
     using System.Windows;

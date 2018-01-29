@@ -1,9 +1,7 @@
 ﻿namespace FolderBrowser.FileSystem.ViewModels
 {
-    using FileSystemModels.Models;
-    using FileSystemModels.Models.FSItems;
+    using FileSystemModels.Models.FSItems.Base;
     using FileSystemModels.Utils;
-    using InplaceEditBoxLib.ViewModels;
     using System;
     using System.IO;
     using System.Windows.Media;
@@ -11,7 +9,8 @@
     /// <summary>
     /// The Viewmodel for file system items
     /// </summary>
-    internal class FSItemViewModel : FsCore.ViewModels.Base.ViewModelBase , FolderBrowser.FileSystem.Interfaces.IFSItemViewModel
+    internal class FSItemViewModel : FsCore.ViewModels.Base.ViewModelBase ,
+                                     FolderBrowser.FileSystem.Interfaces.IFSItemViewModel
     {
         #region fields
         /// <summary>

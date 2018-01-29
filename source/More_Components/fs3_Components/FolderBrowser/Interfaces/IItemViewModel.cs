@@ -1,5 +1,6 @@
 ﻿namespace FolderBrowser.Interfaces
 {
+    using FileSystemModels.Models.FSItems.Base;
     using System.Collections.Generic;
     using System.Windows.Media.Imaging;
 
@@ -49,7 +50,7 @@
         /// Gets the type of the underlying model that is represented by this object.
         /// The underlying can be LogicalDrive, Folder, or some other item.
         /// </summary>
-        FileSystemModels.Models.FSItems.FSItemType ItemType { get; }
+        FSItemType ItemType { get; }
         #endregion properties
 
         #region methods
