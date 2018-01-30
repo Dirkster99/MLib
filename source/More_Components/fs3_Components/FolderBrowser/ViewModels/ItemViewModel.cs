@@ -12,7 +12,8 @@
     using System.Windows.Media.Imaging;
 
     /// <summary>
-    /// Implment the viewmodel for one folder entry for a collection of folders.
+    /// Implement the base viewmodel for one entry for a collection of items
+    /// (drives, folders, files etc...).
     /// </summary>
     internal class ItemViewModel : EditInPlaceViewModel, IItemViewModel
     {

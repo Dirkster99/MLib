@@ -1,0 +1,461 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FolderBrowser.ViewModels.BookmarkedLocationsViewModel" BaseTypeListCollapsed="true">
+    <Position X="6.5" Y="8.25" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>pAAgAAQAAAAAAJAACAQAAABAAACAAAAAAhAgBAAMADA=</HashCode>
+      <FileName>BookmarkedLocationsViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FolderBrowser.ViewModels.BrowserViewModel" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="10.75" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>gEgIUQJQBYAYEPAAACAEIEAEsAZWAIAI4VCQARAhAKA=</HashCode>
+      <FileName>ViewModels\BrowserViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FolderBrowser.ViewModels.CustomFolderItemViewModel" BaseTypeListCollapsed="true">
+    <Position X="21" Y="6" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\CustomFolderItemViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FolderBrowser.ViewModels.DriveViewModel">
+    <Position X="18.75" Y="1.75" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAIAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\DriveViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FolderBrowser.ViewModels.FolderViewModel">
+    <Position X="21" Y="1.75" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAIAAAAAAAAAAQAAAAAAAAACA=</HashCode>
+      <FileName>ViewModels\FolderViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FolderBrowser.ViewModels.ItemViewModel" Collapsed="true">
+    <Position X="20.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEgQAhAoAAEAIEAAAAYAEAAAAAAAIQQAAQABCQguA=</HashCode>
+      <FileName>ViewModels\ItemViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FolderBrowser.ViewModels.SortableObservableDictionaryCollection" Collapsed="true">
+    <Position X="28" Y="10.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAgAAAAAAEAAABAADAAAA=</HashCode>
+      <FileName>ViewModels\SortableObservableDictionaryCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FolderBrowser.BookmarkFolder.EditFolderBookmark" BaseTypeListCollapsed="true">
+    <Position X="12.25" Y="2.5" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAEAAIIAgAAQAAAAACAAAAAAAAAAAAgAAEAAAAAAAQA=</HashCode>
+      <FileName>BookmarkFolder\EditFolderBookmark.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FolderBrowser.Converters.BoolToVisibilityConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="28" Y="3.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgQAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Converters\BoolToVisibilityConverter .cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FolderBrowser.Converters.BrowseItemTypeToImageConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="28" Y="4.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AABgCAAAAAIAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Converters\BrowseItemTypeToImageConverter .cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FolderBrowser.Converters.InverseBooleanConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="28" Y="2.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Converters\InverseBooleanConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FolderBrowser.Converters.SpecialFolderToImageResourceConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="28" Y="1.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\SpecialFolderToImageConverter .cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FolderBrowser.Converters.UpdateBindingConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="28" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\UpdateBindingConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FolderBrowser.Events.BrowsingChangedEventArgs">
+    <Position X="3" Y="18.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Events\BrowsingChangedEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FolderBrowser.Events.FolderChangedEventArgs">
+    <Position X="9.25" Y="7.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Events\FolderChangedEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FolderBrowser.Events.RecentFolderEvent">
+    <Position X="15" Y="1.75" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="FolderBrowser.Events.RecentFolderEvent.RecentFolderAction" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Events\RecentFolderEvent.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAQ=</HashCode>
+      <FileName>Events\RecentFolderEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FolderBrowser.FolderBrowserFactory" Collapsed="true">
+    <Position X="31.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAQAA=</HashCode>
+      <FileName>FolderBrowserFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FolderBrowser.Themes.ResourceKeys" Collapsed="true">
+    <Position X="31.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAgAAAAIAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Themes\ResourceKeys.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FolderBrowser.Dialogs.ViewModels.DialogBaseViewModel">
+    <Position X="21" Y="12.75" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAhAAABIAAAAAAAAAAAAAAABAAEAAAAAAA=</HashCode>
+      <FileName>ViewModels\Dialogs\DialogBaseViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FolderBrowser.Dialogs.ViewModels.DialogViewModel">
+    <Position X="18.75" Y="12.75" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>ViewModels\Dialogs\DialogViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FolderBrowser.Dialogs.ViewModels.DropDownViewModel">
+    <Position X="21" Y="9" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>YAAgCAAQRFAABAACAAAAAEBAAAAAAAAAABQAAAAABAI=</HashCode>
+      <FileName>ViewModels\Dialogs\DropDownViewModel .cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FolderBrowser.FileSystem.ViewModels.FSItemViewModel" BaseTypeListCollapsed="true">
+    <Position X="3.25" Y="7.75" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>CAAAEAQAEAKBAFBEAAAAAAAABAgAAAAAAQAAAAAQAAA=</HashCode>
+      <FileName>ViewModels\FileSystem\FSItemViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FolderBrowser.ViewModels.Messages.DisplayMessageViewModel" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="28" Y="12.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AEAAAABAAAAAAAAAAAAAAAIAAAAAAAAAAAABIAAAAAA=</HashCode>
+      <FileName>ViewModels\Messages\DisplayMessageViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FolderBrowser.Views.Behaviours.DialogCloser" Collapsed="true">
+    <Position X="31.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAQAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Views\Behaviours\DialogCloser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FolderBrowser.Views.Behaviours.SelectTextOnFocus">
+    <Position X="28" Y="6.75" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAEAAAEAAAAAAAIAAAAAAAAEAAAAAAAAAAAKAIAAAAA=</HashCode>
+      <FileName>Views\Behaviours\SelectTextOnFocus .cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FolderBrowser.Views.Behaviours.TextChangedCommand" Collapsed="true">
+    <Position X="31.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAQAAAAAQAAAAAgAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Views\Behaviours\TextChangedCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FolderBrowser.Views.Behaviours.TextEnterCommand" Collapsed="true">
+    <Position X="31.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MAAIAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Views\Behaviours\TextEnterCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FolderBrowser.Views.Behaviours.TreeViewItemExpanded" Collapsed="true">
+    <Position X="31.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgIAAAAAAAAAAAAIAAAAAQAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Views\Behaviours\TreeViewItemExpanded.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FolderBrowser.Views.Behaviours.TreeViewSelectionChangedBehavior" Collapsed="true">
+    <Position X="31.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAABAAAQAAAAAgAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Behaviours\TreeViewSelectionChangedBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FolderBrowser.Views.Behaviours.TreeViewVirtualItemBehaviour" Collapsed="true">
+    <Position X="28" Y="9.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAIgAAAAAAAAAAAAAAAABACAACAAABAAAQAAAAA=</HashCode>
+      <FileName>Views\Behaviours\TreeViewVirtualItemBehaviour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FolderBrowser.Views.BindingProxy" Collapsed="true">
+    <Position X="28" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAgACA=</HashCode>
+      <FileName>Views\BindingProxy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FolderBrowser.Views.BookmarkFolderDropDown" BaseTypeListCollapsed="true">
+    <Position X="12.25" Y="6" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\BookmarkFolderDropDown.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FolderBrowser.Views.BrowseDirectoriesView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="28" Y="11.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\BrowseDirectoriesView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FolderBrowser.Views.DropDownView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="28" Y="14.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Views\DropDownView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FolderBrowser.Views.FolderBrowserDialog" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="28" Y="16" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\FolderBrowserDialog.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FolderBrowser.Views.FolderBrowserDialogView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="28" Y="17" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\FolderBrowserDialogView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FolderBrowser.Views.FolderBrowserTreeView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="28" Y="13.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\FolderBrowserTreeView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FolderBrowser.Views.SpecialFolderMarkUpExtension" Collapsed="true">
+    <Position X="31.25" Y="5.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\SpecialFolderMarkUpExtension.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FolderBrowser.Dialogs.ViewModels.CopyOfDropDownViewModel">
+    <Position X="23.5" Y="12.75" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>YAAgCAAQRFAABAACAAAAAEBAAAAAAAAAABQAAAAABAI=</HashCode>
+      <FileName>ViewModels\Dialogs\DropDownViewModel .cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="FolderBrowser.Dialogs.Interfaces.IDialogViewModel">
+    <Position X="18.75" Y="10.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAIAA=</HashCode>
+      <FileName>Interfaces\Dialogs\IDialogViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FolderBrowser.Dialogs.Interfaces.IDropDownViewModel">
+    <Position X="23.5" Y="9.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>YAAACAAABEAAAAAAAAAAAEAAAAAAAAAAABQAAAAABAA=</HashCode>
+      <FileName>Interfaces\Dialogs\IDropDownViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FolderBrowser.Dialogs.Interfaces.IBookmarkedLocationsViewModel">
+    <Position X="6.5" Y="4.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>oAAAAAAAAAAAAIAAAAQAAAAAAACAAAAAAhAgBAAAACA=</HashCode>
+      <FileName>Interfaces\Dialogs\IRecentLocationsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FolderBrowser.FileSystem.Interfaces.IFSItemViewModel">
+    <Position X="3.25" Y="4.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAEAQAAACBAEBAAAAAAAAAAAgAAAAAAQAAAAAQAAA=</HashCode>
+      <FileName>Interfaces\FileSystem\IFSItemViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FolderBrowser.Interfaces.IAddFolderBookmark">
+    <Position X="12.25" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Interfaces\IAddFolderBookmark.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FolderBrowser.Interfaces.IBrowserViewModel">
+    <Position X="0.5" Y="4.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AEgAEQJQAAAAECAAAAAEIAAAgAREAAAAgQCQAQABACA=</HashCode>
+      <FileName>Interfaces\IBrowserViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FolderBrowser.Interfaces.ICustomFolderItemViewModel">
+    <Position X="21" Y="4.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ICustomFolderItemViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FolderBrowser.Interfaces.IDriveViewModel" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IDriveViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FolderBrowser.Interfaces.IFolderViewModel" Collapsed="true">
+    <Position X="2.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IFolderViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FolderBrowser.Interfaces.IItemViewModel" Collapsed="true">
+    <Position X="1.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAQAgAoAAEAIEAAAAIAAAAAAAAAAAQAAQAAAQgkA=</HashCode>
+      <FileName>Interfaces\IItemViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FolderBrowser.Interfaces.IParent" Collapsed="true">
+    <Position X="1.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IParent.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FolderBrowser.ViewModels.Messages.IDisplayMessageViewModel">
+    <Position X="4.75" Y="2" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABIAAAAAA=</HashCode>
+      <FileName>ViewModels\Messages\IDisplayMessageViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FolderBrowser.ViewModels.Messages.ISetMessageDisplay">
+    <Position X="4.75" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Messages\IDisplayMessageViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="FolderBrowser.Dialogs.Interfaces.Result">
+    <Position X="11.75" Y="12.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAABA=</HashCode>
+      <FileName>Interfaces\Dialogs\IDropDownViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Delegate Name="FolderBrowser.Dialogs.Interfaces.UpdateCurrentPath" Collapsed="true">
+    <Position X="16.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\Dialogs\IDropDownViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="FolderBrowser.Dialogs.Interfaces.UpdateBookmarks">
+    <Position X="14" Y="10.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\Dialogs\IDropDownViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="FolderBrowser.Dialogs.Interfaces.DropDownClosedResult">
+    <Position X="11.75" Y="10.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAUA=</HashCode>
+      <FileName>Interfaces\Dialogs\IDropDownViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

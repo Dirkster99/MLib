@@ -1,9 +1,7 @@
 ﻿namespace FolderBrowser.Interfaces
 {
-    using FolderBrowser.BookmarkFolder;
     using FolderBrowser.Events;
     using FolderBrowser.ViewModels.Messages;
-    using FsCore.Collections;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;

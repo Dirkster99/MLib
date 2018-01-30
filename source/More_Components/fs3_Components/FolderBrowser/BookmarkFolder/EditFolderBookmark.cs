@@ -2,6 +2,7 @@
 {
     using FileSystemModels;
     using FileSystemModels.Models.FSItems.Base;
+    using FolderBrowser.Events;
     using FolderBrowser.Interfaces;
     using FsCore.ViewModels;
     using System;
@@ -12,7 +13,7 @@
     /// bookmark events to a related class which is responsible for viewing
     /// bookmarks (for example in a drop down button).
     /// </summary>
-    internal class EditFolderBookmark : FolderBrowser.BookmarkFolder.IAddFolderBookmark
+    internal class EditFolderBookmark : IAddFolderBookmark
     {
         #region fields
         private ICommand mRecentFolderAddCommand;

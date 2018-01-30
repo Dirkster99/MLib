@@ -95,8 +95,8 @@
   <ItemGroup>
     <Compile Include="BookmarkedLocationsViewModel.cs" />
     <Compile Include="BookmarkFolder\EditFolderBookmark.cs" />
-    <Compile Include="BookmarkFolder\IAddFolderBookmark.cs" />
-    <Compile Include="BookmarkFolder\RecentFolderEvent.cs" />
+    <Compile Include="Interfaces\IAddFolderBookmark.cs" />
+    <Compile Include="Events\RecentFolderEvent.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter .cs" />
     <Compile Include="Converters\BrowseItemTypeToImageConverter .cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
@@ -172,6 +172,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ClassDiagram1.png" />
     <Content Include="Images\Generic\BrowseButton\arrow-right-b.svg" />
     <Content Include="Images\Generic\BrowseButton\close-round.svg" />
     <Content Include="Images\Generic\BrowseButton\ios7-refresh-empty.svg" />
@@ -278,12 +279,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="DesignOverview.cd" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="FileSystemModels\Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

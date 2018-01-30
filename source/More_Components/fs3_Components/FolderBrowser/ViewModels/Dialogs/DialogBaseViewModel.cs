@@ -1,6 +1,7 @@
 namespace FolderBrowser.Dialogs.ViewModels
 {
     using FolderBrowser.Dialogs.Interfaces;
+    using FolderBrowser.Events;
     using FolderBrowser.Interfaces;
     using FolderBrowser.ViewModels;
     using FsCore.ViewModels.Base;
@@ -87,7 +88,7 @@ namespace FolderBrowser.Dialogs.ViewModels
             if (this.BookmarkedLocations != null)
             {
                 this.BookmarkedLocations.RequestChangeOfDirectory -= RecentLocations_RequestChangeOfDirectory;
-                
+
                 if (TreeBrowser != null)
                     TreeBrowser.BookmarkFolder.RequestEditBookmarkedFolders -= BookmarkFolder_RequestEditBookmarkedFolders;
             }
@@ -121,15 +122,15 @@ namespace FolderBrowser.Dialogs.ViewModels
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void BookmarkFolder_RequestEditBookmarkedFolders(object sender, BookmarkFolder.RecentFolderEvent e)
+        private void BookmarkFolder_RequestEditBookmarkedFolders(object sender, RecentFolderEvent e)
         {
             switch (e.Action)
             {
-                case FolderBrowser.BookmarkFolder.RecentFolderEvent.RecentFolderAction.Remove:
+                case RecentFolderEvent.RecentFolderAction.Remove:
                     BookmarkedLocations.RemoveFolder(e.Folder.Path);
                     break;
 
-                case FolderBrowser.BookmarkFolder.RecentFolderEvent.RecentFolderAction.Add:
+                case RecentFolderEvent.RecentFolderAction.Add:
                     BookmarkedLocations.AddFolder(e.Folder.Path);
                     break;
 

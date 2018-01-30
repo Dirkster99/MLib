@@ -1,5 +1,6 @@
-﻿namespace FolderBrowser.BookmarkFolder
+﻿namespace FolderBrowser.Interfaces
 {
+    using FolderBrowser.Events;
     using System;
     using System.Windows.Input;
 
