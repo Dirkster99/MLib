@@ -1,6 +1,6 @@
 ﻿namespace TreeViewDemo.Demos.Models.FSItems
 {
-    using FileSystemModels.Models.FSItems.Base;
+    using FileSystemModels.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -19,7 +19,7 @@
         /// </summary>
         /// <param name="model"></param>
         [SecuritySafeCritical]
-        public FolderModel(PathModel model)
+        public FolderModel(IPathModel model)
           : base(model)
         {
             mDir = new DirectoryInfo(model.Path);

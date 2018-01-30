@@ -1,6 +1,7 @@
 ﻿namespace FolderBrowser.ViewModels
 {
     using FileSystemModels;
+    using FileSystemModels.Interfaces;
     using FileSystemModels.Models.FSItems;
     using FileSystemModels.Models.FSItems.Base;
     using FolderBrowser.BookmarkFolder;
@@ -687,7 +688,8 @@
 
             // Tell subscribers that we started browsing this directory
             if (this.BrowsingChanged != null)
-                this.BrowsingChanged(this, new BrowsingChangedEventArgs(new PathModel(path, FSItemType.Folder), false));
+                this.BrowsingChanged(this,
+                    new BrowsingChangedEventArgs(PathFactory.Create(path, FSItemType.Folder), false));
 
             _Processor.StartCancelableProcess(cts =>
             {
@@ -738,7 +740,7 @@
                 return false;
             }
 
-            SelectDirectory(new PathModel(path, FSItemType.Folder), cts);
+            SelectDirectory(PathFactory.Create(path, FSItemType.Folder), cts);
 
             return true;
         }
@@ -762,7 +764,8 @@
             SpecialFolders.Add(new CustomFolderItemViewModel(Environment.SpecialFolder.MyVideos));
         }
 
-        private FolderViewModel CreateFolderItem(PathModel model, IItemViewModel parent)
+        private FolderViewModel CreateFolderItem(IPathModel model,
+                                                 IItemViewModel parent)
         {
             var f = new FolderViewModel(model, parent);
 
@@ -801,10 +804,10 @@
             });
         }
 
-        private void SelectDirectory(PathModel path,
+        private void SelectDirectory(IPathModel path,
                                      CancellationTokenSource cts = null)
         {
-            string[] dirs = PathModel.GetDirectories(path.Path);
+            string[] dirs = PathFactory.GetDirectories(path.Path);
             List<IItemViewModel> PathItems = new List<IItemViewModel>();
 
             if (dirs == null)
@@ -816,7 +819,7 @@
             if (root == null)
             {
                 // Looks like this is a new drive - lets create it then ...
-                root = new DriveViewModel(new PathModel(dirs[0], FSItemType.LogicalDrive), null);
+                root = new DriveViewModel(PathFactory.Create(dirs[0], FSItemType.LogicalDrive), null);
 
                 AddFolder(root.ItemName, root);
             }
@@ -928,7 +931,8 @@
 
             // Tell subscribers that we finished browsing this directory
             if (this.BrowsingChanged != null)
-                this.BrowsingChanged(this, new BrowsingChangedEventArgs( new PathModel(this.SelectedFolder, FSItemType.Folder), false));
+                this.BrowsingChanged(this,
+                    new BrowsingChangedEventArgs(PathFactory.Create(this.SelectedFolder, FSItemType.Folder), false));
         }
         #endregion methods
     }

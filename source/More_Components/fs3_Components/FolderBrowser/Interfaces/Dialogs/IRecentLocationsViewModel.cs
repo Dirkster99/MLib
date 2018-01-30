@@ -1,6 +1,6 @@
 ﻿namespace FolderBrowser.Dialogs.Interfaces
 {
-    using FileSystemModels.Models.FSItems.Base;
+    using FileSystemModels.Interfaces;
     using FolderBrowser.FileSystem.Interfaces;
     using System;
     using System.Collections.ObjectModel;
@@ -76,7 +76,7 @@
         /// list to store user specific customized folder short-cuts.
         /// </summary>
         /// <param name="folderPath"></param>
-        void RemoveFolder(PathModel folderPath);
+        void RemoveFolder(IPathModel folderPath);
 
         /// <summary>
         /// Removes all data items from the current collection of recent folders.

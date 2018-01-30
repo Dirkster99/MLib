@@ -1,7 +1,7 @@
 namespace FolderBrowser.Events
 {
     using System;
-    using FileSystemModels.Models.FSItems.Base;
+    using FileSystemModels.Interfaces;
 
     /// <summary>
     /// A simple event based state model that informs the subscriber about the
@@ -12,7 +12,7 @@ namespace FolderBrowser.Events
         /// <summary>
         /// Event type class constructor from parameter
         /// </summary>
-        public BrowsingChangedEventArgs(PathModel path, bool isBrowsing)
+        public BrowsingChangedEventArgs(IPathModel path, bool isBrowsing)
         : this()
         {
             this.Folder = path;
@@ -32,7 +32,7 @@ namespace FolderBrowser.Events
         /// <summary>
         /// Path we are browsing to or being arrived at.
         /// </summary>
-        public PathModel Folder { get; private set; }
+        public IPathModel Folder { get; private set; }
 
         /// <summary>
         /// Determines if we are:

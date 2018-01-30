@@ -1,68 +1,68 @@
 ﻿namespace FileSystemModels.Models.FSItems
 {
-    using FileSystemModels.Models.FSItems.Base;
+    using FileSystemModels.Interfaces;
     using System.IO;
     using System.Security;
 
     public class FileModel : Base.FileSystemModel
-  {
-    #region fields
-    FileInfo mFile;
-    #endregion fields
-
-    #region constructors
-    /// <summary>
-    /// Parameterized class  constructor
-    /// </summary>
-    /// <param name="model"></param>
-    [SecuritySafeCritical]
-    public FileModel(PathModel model)
-      : base(model)
     {
-            mFile = new FileInfo(model.Path);
-    }
-    #endregion constructors
+        #region fields
+        private readonly FileInfo _File;
+        #endregion fields
 
-    #region properties
-    public DirectoryInfo Directory
-    {
-      get
-      {
-        return mFile.Directory;
-      }
-    }
+        #region constructors
+        /// <summary>
+        /// Parameterized class  constructor
+        /// </summary>
+        /// <param name="model"></param>
+        [SecuritySafeCritical]
+        public FileModel(IPathModel model)
+          : base(model)
+        {
+            _File = new FileInfo(model.Path);
+        }
+        #endregion constructors
 
-    public string DirectoryName
-    {
-      get
-      {
-        return mFile.DirectoryName;
-      }
-    }
+        #region properties
+        public DirectoryInfo Directory
+        {
+            get
+            {
+                return _File.Directory;
+            }
+        }
 
-    public bool Exists
-    {
-      get
-      {
-        return mFile.Exists;
-      }
-    }
+        public string DirectoryName
+        {
+            get
+            {
+                return _File.DirectoryName;
+            }
+        }
 
-    public bool IsReadOnly
-    {
-      get
-      {
-        return mFile.IsReadOnly;
-      }
-    }
+        public bool Exists
+        {
+            get
+            {
+                return _File.Exists;
+            }
+        }
 
-    public long Length
-    {
-      get
-      {
-        return mFile.Length;
-      }
+        public bool IsReadOnly
+        {
+            get
+            {
+                return _File.IsReadOnly;
+            }
+        }
+
+        public long Length
+        {
+            get
+            {
+                return _File.Length;
+            }
+        }
+        #endregion properties
     }
-    #endregion properties
-  }
 }

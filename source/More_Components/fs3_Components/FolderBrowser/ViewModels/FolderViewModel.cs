@@ -1,5 +1,7 @@
 ﻿namespace FolderBrowser.ViewModels
 {
+    using FileSystemModels;
+    using FileSystemModels.Interfaces;
     using FileSystemModels.Models.FSItems.Base;
     using FolderBrowser.Interfaces;
     using System;
@@ -20,7 +22,7 @@
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public FolderViewModel(PathModel model, IItemViewModel parent)
+        public FolderViewModel(IPathModel model, IItemViewModel parent)
             : base(model, parent)
         {
         }
@@ -32,7 +34,7 @@
         /// <param name="dir"></param>
         /// <returns></returns>
         internal FolderViewModel(string dir, IItemViewModel parent)
-           : this(new PathModel(dir, FSItemType.Folder), parent)
+           : this(PathFactory.Create(dir, FSItemType.Folder), parent)
         {
         }
 
@@ -143,8 +145,8 @@
                 try
                 {
                     string defaultFolderName = FileSystemModels.Local.Strings.STR_NEW_DEFAULT_FOLDER_NAME;
-                    var model = new PathModel(ItemPath, FSItemType.Folder);
-                    var newSubFolder = PathModel.CreateDir(model, defaultFolderName);
+                    var model = PathFactory.Create(ItemPath, FSItemType.Folder);
+                    var newSubFolder = PathFactory.CreateDir(model, defaultFolderName);
 
                     if (newSubFolder != null)
                     {

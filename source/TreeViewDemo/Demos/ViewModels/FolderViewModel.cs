@@ -1,5 +1,7 @@
 ﻿namespace TreeViewDemo.Demos.ViewModels
 {
+    using FileSystemModels;
+    using FileSystemModels.Interfaces;
     using FileSystemModels.Models.FSItems.Base;
     using Interfaces;
     using System;
@@ -10,9 +12,9 @@
 
     public class FolderViewModel : TreeViewItemViewModel, IFolder
     {
-        readonly PathModel _folder;
+        private readonly IPathModel _folder;
 
-        public FolderViewModel(PathModel folder, TreeViewItemViewModel folderParent)
+        public FolderViewModel(IPathModel folder, TreeViewItemViewModel folderParent)
             : base(folderParent, folder.Name, true)
         {
             _folder = folder;
@@ -22,9 +24,9 @@
         {
             this.Children.Clear();
 
-            foreach (var item in PathModel.GetDirectories(_folder.Name))
+            foreach (var item in PathFactory.GetDirectories(_folder.Name))
             {
-                base.Children.Add(new FolderViewModel(new PathModel(item, FSItemType.Folder), this));
+                base.Children.Add(new FolderViewModel(PathFactory.Create(item, FSItemType.Folder), this));
             }
         }
 
@@ -60,7 +62,7 @@
 
         internal async static Task<List<FolderViewModel>> LoadSubFolderAsync(string path, TreeViewItemViewModel parent)
         {
-            var items = await PathModel.LoadFoldersAsync(path);
+            var items = await PathFactory.LoadFoldersAsync(path);
             var viewmodelItems = new List<FolderViewModel>();
 
             foreach (var item in items)

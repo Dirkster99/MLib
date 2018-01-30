@@ -1,8 +1,7 @@
 namespace FolderBrowser.Events
 {
     using System;
-    using FileSystemModels.Models;
-    using FileSystemModels.Models.FSItems.Base;
+    using FileSystemModels.Interfaces;
 
     /// <summary>
     /// Class implements an event that signals that
@@ -13,7 +12,7 @@ namespace FolderBrowser.Events
         /// <summary>
         /// Event type class constructor from parameter
         /// </summary>
-        public FolderChangedEventArgs(PathModel path)
+        public FolderChangedEventArgs(IPathModel path)
         : this()
         {
             this.Folder = path;
@@ -31,6 +30,6 @@ namespace FolderBrowser.Events
         /// <summary>
         /// Path to this directory...
         /// </summary>
-        public PathModel Folder { get; private set; }
+        public IPathModel Folder { get; private set; }
     }
 }

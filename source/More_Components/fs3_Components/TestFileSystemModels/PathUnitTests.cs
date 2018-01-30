@@ -1,4 +1,5 @@
-﻿using FileSystemModels.Models.FSItems.Base;
+﻿using FileSystemModels;
+using FileSystemModels.Models.FSItems.Base;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TestFileSystemModels
@@ -13,11 +14,11 @@ namespace TestFileSystemModels
         [TestMethod]
         public void TestPathNormalization()
         {
-            var ret = PathModel.NormalizePath("C");
+            var ret = PathFactory.NormalizePath("C");
 
-            var ret1 = PathModel.NormalizePath(string.Empty);
+            var ret1 = PathFactory.NormalizePath(string.Empty);
 
-            var ret2 = PathModel.NormalizePath(null);
+            var ret2 = PathFactory.NormalizePath(null);
 
             Assert.AreEqual(ret, ret1);
             Assert.AreEqual(ret1, ret2);
@@ -31,9 +32,9 @@ namespace TestFileSystemModels
         [TestMethod]
         public void TestDrivePathNormalization()
         {
-            var ret = PathModel.NormalizePath("C:");
+            var ret = PathFactory.NormalizePath("C:");
 
-            var ret1 = PathModel.NormalizePath(@"C:\");
+            var ret1 = PathFactory.NormalizePath(@"C:\");
 
             Assert.AreEqual(ret, ret1);
             Assert.AreEqual(ret1, @"C:\");
@@ -46,14 +47,14 @@ namespace TestFileSystemModels
         [TestMethod]
         public void TestFolderPathNormalization()
         {
-            var ret = PathModel.NormalizePath(@"C:\t");
-            var ret1 = PathModel.NormalizePath(@"C:t");
+            var ret = PathFactory.NormalizePath(@"C:\t");
+            var ret1 = PathFactory.NormalizePath(@"C:t");
 
             Assert.AreEqual(ret, ret1);
             Assert.AreEqual(ret1, @"C:\t");
 
-            ret = PathModel.NormalizePath(@"C:\temp\mytest");
-            ret1 = PathModel.NormalizePath(@"C:temp\mytest");
+            ret = PathFactory.NormalizePath(@"C:\temp\mytest");
+            ret1 = PathFactory.NormalizePath(@"C:temp\mytest");
 
             Assert.AreEqual(ret, ret1);
             Assert.AreEqual(ret1, @"C:\temp\mytest");
@@ -67,20 +68,20 @@ namespace TestFileSystemModels
         [TestMethod]
         public void TestDirectoryPathBackslashTrim()
         {
-            var ret = PathModel.NormalizePath(@"C:\t\");
-            var ret1 = PathModel.NormalizePath(@"C:t");
-            var ret2 = PathModel.NormalizePath(@"C:\t");
-            var ret3 = PathModel.NormalizePath(@"C:\t\");
+            var ret = PathFactory.NormalizePath(@"C:\t\");
+            var ret1 = PathFactory.NormalizePath(@"C:t");
+            var ret2 = PathFactory.NormalizePath(@"C:\t");
+            var ret3 = PathFactory.NormalizePath(@"C:\t\");
 
             Assert.AreEqual(ret, ret1);
             Assert.AreEqual(ret1, ret2);
             Assert.AreEqual(ret2, ret3);
             Assert.AreEqual(ret3, @"C:\t");
 
-            ret = PathModel.NormalizePath(@"C:\temp\mytest\");
-            ret1 = PathModel.NormalizePath(@"C:temp\mytest");
-            ret2 = PathModel.NormalizePath(@"C:\temp\mytest");
-            ret3 = PathModel.NormalizePath(@"C:\temp\mytest\");
+            ret = PathFactory.NormalizePath(@"C:\temp\mytest\");
+            ret1 = PathFactory.NormalizePath(@"C:temp\mytest");
+            ret2 = PathFactory.NormalizePath(@"C:\temp\mytest");
+            ret3 = PathFactory.NormalizePath(@"C:\temp\mytest\");
 
             Assert.AreEqual(ret, ret1);
             Assert.AreEqual(ret1, @"C:\temp\mytest");
@@ -95,7 +96,7 @@ namespace TestFileSystemModels
         [TestMethod]
         public void TestSplitPathNormalization()
         {
-            var ret = PathModel.GetDirectories(@"c:temp\test\");
+            var ret = PathFactory.GetDirectories(@"c:temp\test\");
 
             Assert.AreNotEqual(ret, null);
             Assert.AreEqual(ret.Length, 3);

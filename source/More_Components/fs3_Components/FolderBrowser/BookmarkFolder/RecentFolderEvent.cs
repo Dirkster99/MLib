@@ -1,20 +1,19 @@
 namespace FolderBrowser.BookmarkFolder
 {
-    using FileSystemModels.Models;
-    using FileSystemModels.Models.FSItems.Base;
+    using FileSystemModels.Interfaces;
     using System;
 
-  /// <summary>
-  /// Class implements an event for messaging operations
-  /// on a recent folder collection.
-  /// </summary>
-  public class RecentFolderEvent : EventArgs
+    /// <summary>
+    /// Class implements an event for messaging operations
+    /// on a recent folder collection.
+    /// </summary>
+    public class RecentFolderEvent : EventArgs
   {
     #region constructor
     /// <summary>
     /// Event type class constructor from parameter
     /// </summary>
-    public RecentFolderEvent(PathModel path,
+    public RecentFolderEvent(IPathModel path,
                              RecentFolderAction action = RecentFolderAction.Add)
     : this()
     {
@@ -55,7 +54,7 @@ namespace FolderBrowser.BookmarkFolder
     /// <summary>
     /// Path to this directory...
     /// </summary>
-    public PathModel Folder { get; set; }
+    public IPathModel Folder { get; set; }
 
     /// <summary>
     /// Gets/sets the type of recent folder action (eg Add/Remove).

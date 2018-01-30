@@ -1,5 +1,7 @@
 ﻿namespace FolderBrowser.ViewModels
 {
+    using FileSystemModels;
+    using FileSystemModels.Interfaces;
     using FileSystemModels.Models.FSItems.Base;
     using FolderBrowser.Interfaces;
     using InplaceEditBoxLib.ViewModels;
@@ -19,7 +21,7 @@
         private bool _IsSelected;
         private bool _IsExpanded;
 
-        private PathModel _Model;
+        private IPathModel _Model;
 
         private readonly SortableObservableDictionaryCollection _Folders;
         private readonly IItemViewModel _Parent;
@@ -34,12 +36,12 @@
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public ItemViewModel(PathModel model, IItemViewModel parent)
+        public ItemViewModel(IPathModel model, IItemViewModel parent)
             : this()
         {
             _Parent = parent;
             _Folders.AddItem(DummyChild);
-            _Model = new PathModel(model);
+            _Model = model.Clone() as IPathModel;
 
             // Names of Logical drives cannot be changed with this
             if (_Model.PathType == FSItemType.LogicalDrive)
@@ -47,7 +49,7 @@
         }
 
         protected ItemViewModel(string dir, FSItemType ItemType, IItemViewModel parent)
-           : this(new PathModel(dir, ItemType), parent)
+           : this(PathFactory.Create(dir, ItemType), parent)
         {
         }
 
@@ -296,10 +298,10 @@
                     if (string.IsNullOrEmpty(newFolderName) == true)
                         throw new Exception("New folder name cannot be empty.");
 
-                    PathModel sourceDir = new PathModel(ItemPath, FSItemType.Folder);
-                    PathModel newFolderPath;
+                    IPathModel sourceDir = PathFactory.Create(ItemPath, FSItemType.Folder);
+                    IPathModel newFolderPath;
 
-                    if (PathModel.RenameFileOrDirectory(sourceDir, newFolderName, out newFolderPath) == true)
+                    if (PathFactory.RenameFileOrDirectory(sourceDir, newFolderName, out newFolderPath) == true)
                     {
                         ResetModel(newFolderPath);
                     }
@@ -347,7 +349,7 @@
         /// <returns></returns>
         internal static FolderViewModel ConstructDriveFolderViewModel(string driveLetter)
         {
-            return new FolderViewModel(new PathModel(driveLetter, FSItemType.LogicalDrive), null);
+            return new FolderViewModel(PathFactory.Create(driveLetter, FSItemType.LogicalDrive), null);
         }
 
         /// <summary>
@@ -385,11 +387,11 @@
         /// properties are updated.
         /// </summary>
         /// <param name="model"></param>
-        private void ResetModel(PathModel model)
+        private void ResetModel(IPathModel model)
         {
             var oldModel = _Model;
 
-            _Model = new PathModel(model);
+            _Model =  model.Clone() as IPathModel;
 
             if (oldModel == null && model == null)
                 return;

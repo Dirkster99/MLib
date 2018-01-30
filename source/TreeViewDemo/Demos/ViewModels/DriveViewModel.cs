@@ -1,5 +1,7 @@
 ﻿namespace TreeViewDemo.Demos.ViewModels
 {
+    using FileSystemModels;
+    using FileSystemModels.Interfaces;
     using FileSystemModels.Models.FSItems.Base;
     using Interfaces;
     using System;
@@ -8,9 +10,9 @@
 
     public class DriveViewModel : TreeViewItemViewModel, IFolder
     {
-        readonly PathModel _Model;
+        private readonly IPathModel _Model;
 
-        public DriveViewModel(PathModel _model
+        public DriveViewModel(IPathModel _model
                             , ComputerViewModel computerParent)
             : base(computerParent, _model.Name, true)
         {
@@ -19,9 +21,9 @@
 
         protected override void LoadChildren()
         {
-            foreach (var item in PathModel.GetDirectories(_Model.Name))
+            foreach (var item in PathFactory.GetDirectories(_Model.Name))
             {
-                base.Children.Add(new FolderViewModel(new PathModel(item, FSItemType.Folder), this));
+                base.Children.Add(new FolderViewModel(PathFactory.Create(item, FSItemType.Folder), this));
             }
         }
 

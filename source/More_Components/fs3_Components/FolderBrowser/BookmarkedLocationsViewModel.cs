@@ -1,7 +1,7 @@
 ﻿namespace FolderBrowser.ViewModels
 {
-    using FileSystemModels.Models;
-    using FileSystemModels.Models.FSItems;
+    using FileSystemModels;
+    using FileSystemModels.Interfaces;
     using FileSystemModels.Models.FSItems.Base;
     using FileSystemModels.Utils;
     using FolderBrowser.Dialogs.Interfaces;
@@ -12,7 +12,6 @@
     using System;
     using System.Collections.ObjectModel;
     using System.Linq;
-    using System.Threading;
     using System.Windows.Input;
 
     /// <summary>
@@ -199,7 +198,7 @@
         {
             lock (this.mLockObject)
             {
-                if ((folderPath = PathModel.ExtractDirectoryRoot(folderPath)) == null)
+                if ((folderPath = PathFactory.ExtractDirectoryRoot(folderPath)) == null)
                     return;
 
                 // select this path if its already there
@@ -232,7 +231,7 @@
         /// list to store user specific customized folder short-cuts.
         /// </summary>
         /// <param name="folderPath"></param>
-        public void RemoveFolder(PathModel folderPath)
+        public void RemoveFolder(IPathModel folderPath)
         {
             lock (this.mLockObject)
             {
@@ -262,7 +261,7 @@
         {
             try
             {
-                this.RemoveFolder(new PathModel(path, FSItemType.Folder));
+                this.RemoveFolder(PathFactory.Create(path, FSItemType.Folder));
             }
             catch
             {
@@ -278,7 +277,8 @@
             this.SelectedItem = path;
 
             if (this.RequestChangeOfDirectory != null)
-                this.RequestChangeOfDirectory(this, new FolderChangedEventArgs(new PathModel(path.FullPath, FSItemType.Folder)));
+                this.RequestChangeOfDirectory(this,
+                    new FolderChangedEventArgs(PathFactory.Create(path.FullPath, FSItemType.Folder)));
         }
 
         private FSItemViewModel CreateFSItemVMFromString(string folderPath)

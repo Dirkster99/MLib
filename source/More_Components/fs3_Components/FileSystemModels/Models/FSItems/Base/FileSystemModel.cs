@@ -1,5 +1,6 @@
 ﻿namespace FileSystemModels.Models.FSItems.Base
 {
+    using FileSystemModels.Interfaces;
     using System.Diagnostics;
 
     /// <summary>
@@ -9,16 +10,16 @@
     public abstract class FileSystemModel
     {
         #region fields
-        PathModel mModel;
+        private readonly IPathModel _Model;
         #endregion fields
 
         #region constructors
         /// <summary>
         /// Parameterized class constructor
         /// </summary>
-        public FileSystemModel(PathModel model)
+        public FileSystemModel(IPathModel model)
         {
-            mModel = model;
+            _Model = model;
             Debug.Assert(model != null, "Construction of FSItem without PathModel is not supported!");
         }
 
@@ -27,7 +28,7 @@
         /// </summary>
         protected FileSystemModel()
         {
-            mModel = null;
+            _Model = null;
         }
         #endregion constructors
 
@@ -35,11 +36,11 @@
         /// <summary>
         /// Gets the path model for this filesystem item.
         /// </summary>
-        public PathModel Model
+        public IPathModel Model
         {
             get
             {
-                return mModel;
+                return _Model;
             }
         }
 
@@ -51,7 +52,7 @@
         {
             get
             {
-                return mModel.PathType;
+                return _Model.PathType;
             }
         }
 
@@ -63,7 +64,7 @@
         {
             get
             {
-                return mModel.Name;
+                return _Model.Name;
             }
         }
         #endregion properties

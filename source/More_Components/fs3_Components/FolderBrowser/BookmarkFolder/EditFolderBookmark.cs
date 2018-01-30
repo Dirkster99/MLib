@@ -1,10 +1,8 @@
 ﻿namespace FolderBrowser.BookmarkFolder
 {
-    using FileSystemModels.Models;
-    using FileSystemModels.Models.FSItems;
+    using FileSystemModels;
     using FileSystemModels.Models.FSItems.Base;
     using FolderBrowser.Interfaces;
-    using FolderBrowser.ViewModels;
     using FsCore.ViewModels;
     using System;
     using System.Windows.Input;
@@ -100,7 +98,7 @@
             // Tell client via event to get rid of this entry
             if (this.RequestEditBookmarkedFolders != null)
                 this.RequestEditBookmarkedFolders(this,
-                    new RecentFolderEvent(new PathModel(item.ItemPath, FSItemType.Folder),
+                    new RecentFolderEvent(PathFactory.Create(item.ItemPath, FSItemType.Folder),
                     RecentFolderEvent.RecentFolderAction.Remove));
         }
 
@@ -114,7 +112,7 @@
             // Tell client via event to add this entry
             if (this.RequestEditBookmarkedFolders != null)
                 this.RequestEditBookmarkedFolders(this,
-                    new RecentFolderEvent(new PathModel(item.ItemPath, FSItemType.Folder),
+                    new RecentFolderEvent(PathFactory.Create(item.ItemPath, FSItemType.Folder),
                     RecentFolderEvent.RecentFolderAction.Add));
         }
         #endregion methods

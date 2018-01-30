@@ -9,6 +9,7 @@
     using System.Windows.Threading;
     using Interfaces;
     using FileSystemModels.Models.FSItems.Base;
+    using FileSystemModels;
 
     public class ComputerViewModel : TreeViewItemViewModel
     {
@@ -51,7 +52,7 @@
             try
             {
                 // Check if a given path exists
-                var exists = await PathModel.DirectoryPathExistsAsync(inputPath);
+                var exists = await PathFactory.DirectoryPathExistsAsync(inputPath);
 
                 if (exists == false)
                     return null;
@@ -59,7 +60,7 @@
                 // Transform string into array of normalized path elements
                 // Drive 'C:\' , 'Folder', 'SubFolder', etc...
                 //
-                var folders = PathModel.GetDirectories(inputPath);
+                var folders = PathFactory.GetDirectories(inputPath);
 
                 // Find the drive that is the root of this path
                 var drive = this.FindChildByName(folders[0]);

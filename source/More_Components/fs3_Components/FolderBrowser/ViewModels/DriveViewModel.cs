@@ -1,5 +1,7 @@
 ﻿namespace FolderBrowser.ViewModels
 {
+    using FileSystemModels;
+    using FileSystemModels.Interfaces;
     using FileSystemModels.Models.FSItems.Base;
     using FolderBrowser.Interfaces;
     using System;
@@ -14,7 +16,7 @@
         /// <summary>
         /// Constructs a drive's viewmodel.
         /// </summary>
-        public DriveViewModel(PathModel model, IItemViewModel parent)
+        public DriveViewModel(IPathModel model, IItemViewModel parent)
            : base(model, parent)
         {
         }
@@ -43,8 +45,8 @@
                 try
                 {
                     string defaultFolderName = FileSystemModels.Local.Strings.STR_NEW_DEFAULT_FOLDER_NAME;
-                    var model = new PathModel(ItemPath, FSItemType.Folder);
-                    var newSubFolder = PathModel.CreateDir(model, defaultFolderName);
+                    var model = PathFactory.Create(ItemPath, FSItemType.Folder);
+                    var newSubFolder = PathFactory.CreateDir(model, defaultFolderName);
 
                     if (newSubFolder != null)
                     {

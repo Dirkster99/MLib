@@ -1,5 +1,7 @@
 ﻿namespace TreeViewDemo.Demos.Models.FSItems
 {
+    using FileSystemModels;
+    using FileSystemModels.Interfaces;
     using FileSystemModels.Models.FSItems.Base;
     using System;
     using System.Collections.Generic;
@@ -10,7 +12,7 @@
     public class DriveModel : Base.FileSystemModel
     {
         #region fields
-        PathModel _Model;
+        private readonly IPathModel _Model;
         #endregion fields
 
         #region constructors
@@ -19,10 +21,10 @@
         /// </summary>
         /// <param name="model"></param>
         [SecuritySafeCritical]
-        public DriveModel(PathModel model)
+        public DriveModel(IPathModel model)
           : base(model)
         {
-            _Model = new PathModel(model);
+            _Model = model.Clone() as IPathModel;
         }
         #endregion constructors
 
@@ -100,13 +102,13 @@
         #endregion properties
 
         #region methods
-        public static IEnumerable<PathModel> GetLogicalDrives()
+        public static IEnumerable<IPathModel> GetLogicalDrives()
         {
             foreach (var item in Environment.GetLogicalDrives())
-                yield return new PathModel(item, FSItemType.LogicalDrive);
+                yield return PathFactory.Create(item, FSItemType.LogicalDrive);
         }
 
-        public static Task<IEnumerable<PathModel>> GetLogicalDrivesAsync()
+        public static Task<IEnumerable<IPathModel>> GetLogicalDrivesAsync()
         {
             return Task.Run(() => { return GetLogicalDrives(); });
         }

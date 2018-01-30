@@ -1,6 +1,6 @@
 ﻿namespace FileSystemModels.Models.FSItems
 {
-    using FileSystemModels.Models.FSItems.Base;
+    using FileSystemModels.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -10,7 +10,7 @@
     public class FolderModel : Base.FileSystemModel
     {
         #region fields
-        DirectoryInfo mDir;
+        private readonly DirectoryInfo _Dir;
         #endregion fields
 
         #region constructors
@@ -19,10 +19,10 @@
         /// </summary>
         /// <param name="model"></param>
         [SecuritySafeCritical]
-        public FolderModel(PathModel model)
+        public FolderModel(IPathModel model)
           : base(model)
         {
-            mDir = new DirectoryInfo(model.Path);
+            _Dir = new DirectoryInfo(model.Path);
         }
         #endregion constructors
 
@@ -34,7 +34,7 @@
         {
             get
             {
-                return mDir.Exists;
+                return _Dir.Exists;
             }
         }
 
@@ -45,7 +45,7 @@
         {
             get
             {
-                return mDir.Parent;
+                return _Dir.Parent;
             }
         }
 
@@ -56,7 +56,7 @@
         {
             get
             {
-                return mDir.Root;
+                return _Dir.Root;
             }
         }
         #endregion properties

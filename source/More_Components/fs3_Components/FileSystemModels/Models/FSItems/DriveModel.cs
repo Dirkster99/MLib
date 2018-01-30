@@ -1,7 +1,7 @@
 ﻿namespace FileSystemModels.Models.FSItems
 {
     using Base;
-    using Models;
+    using FileSystemModels.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -19,7 +19,7 @@
         /// </summary>
         /// <param name="model"></param>
         [SecuritySafeCritical]
-        public DriveModel(PathModel model)
+        public DriveModel(IPathModel model)
           : base(model)
         {
             mDrive = new DriveInfo(model.Path);

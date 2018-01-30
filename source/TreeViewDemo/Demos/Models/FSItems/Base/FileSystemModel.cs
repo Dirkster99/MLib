@@ -1,5 +1,6 @@
 ﻿namespace TreeViewDemo.Demos.Models.FSItems.Base
 {
+    using FileSystemModels.Interfaces;
     using FileSystemModels.Models.FSItems.Base;
     using System.Diagnostics;
 
@@ -10,14 +11,14 @@
     public abstract class FileSystemModel
     {
         #region fields
-        PathModel mModel;
+        private readonly IPathModel mModel;
         #endregion fields
 
         #region constructors
         /// <summary>
         /// Parameterized class constructor
         /// </summary>
-        public FileSystemModel(PathModel model)
+        public FileSystemModel(IPathModel model)
         {
             mModel = model;
             Debug.Assert(model != null, "Construction of FSItem without PathModel is not supported!");
@@ -36,7 +37,7 @@
         /// <summary>
         /// Gets the path model for this filesystem item.
         /// </summary>
-        public PathModel Model
+        public IPathModel Model
         {
             get
             {

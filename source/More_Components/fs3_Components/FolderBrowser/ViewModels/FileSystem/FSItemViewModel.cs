@@ -1,5 +1,7 @@
 ﻿namespace FolderBrowser.FileSystem.ViewModels
 {
+    using FileSystemModels;
+    using FileSystemModels.Interfaces;
     using FileSystemModels.Models.FSItems.Base;
     using FileSystemModels.Utils;
     using System;
@@ -20,7 +22,7 @@
 
         private string mDisplayName;
         private ImageSource mDisplayIcon;
-        private PathModel mPathObject;
+        private IPathModel mPathObject;
         private string mVolumeLabel;
         #endregion fields
 
@@ -56,7 +58,7 @@
                         int indentation = 0)
             : this()
         {
-            this.mPathObject = new PathModel(curdir, itemType);
+            this.mPathObject = PathFactory.Create(curdir, itemType);
             this.DisplayName = displayName;
             this.Indentation = indentation;
         }
@@ -76,7 +78,7 @@
             if (copyThis.mDisplayIcon != null)
                 mDisplayIcon = copyThis.mDisplayIcon.Clone();
 
-            mPathObject = new PathModel(copyThis.mPathObject);
+            mPathObject = copyThis.mPathObject.Clone() as IPathModel;
             mVolumeLabel = copyThis.mVolumeLabel;
 
             ShowToolTip = copyThis.ShowToolTip;
@@ -141,13 +143,13 @@
         }
 
         /// <summary>
-        /// Gets a copy of the internal <seealso cref="PathModel"/> object.
+        /// Gets a copy of the internal <seealso cref="IPathModel"/> object.
         /// </summary>
-        public PathModel GetModel
+        public IPathModel GetModel
         {
             get
             {
-                return new PathModel(this.mPathObject);
+                return this.mPathObject.Clone() as IPathModel;
             }
         }
 
