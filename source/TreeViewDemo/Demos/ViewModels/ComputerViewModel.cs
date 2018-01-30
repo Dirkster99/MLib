@@ -1,6 +1,5 @@
 ﻿namespace TreeViewDemo.Demos.ViewModels
 {
-    using Models;
     using Models.FSItems;
     using System;
     using System.Linq;
@@ -8,7 +7,6 @@
     using System.Windows;
     using System.Windows.Threading;
     using Interfaces;
-    using FileSystemModels.Models.FSItems.Base;
     using FileSystemModels;
 
     public class ComputerViewModel : TreeViewItemViewModel
@@ -22,12 +20,12 @@
         {
             var drives = await DriveModel.GetLogicalDrivesAsync();
 
-            await Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            Application.Current.Dispatcher.Invoke(() =>
             {
                 foreach (var drive in drives)
                     base.Children.Add(new DriveViewModel(drive, this));
-            }),
-            DispatcherPriority.Background, new object[0]);
+            }
+            ,DispatcherPriority.Background);
 
             return drives.Count();
         }
@@ -38,11 +36,6 @@
 
             await LoadChildrenAsync();    // Load Root items below the Computer item
             this.IsExpanded = true;       // Make Children (drives) visible
-
-////            bool exists = await PathModel.DirectoryPathExistsAsync(path);
-////
-////            if (exists == false)
-////                return false;
 
             return true;
         }

@@ -9,10 +9,6 @@
 
     public class FolderModel : Base.FileSystemModel
     {
-        #region fields
-        private readonly DirectoryInfo _Dir;
-        #endregion fields
-
         #region constructors
         /// <summary>
         /// Parameterized class  constructor
@@ -22,7 +18,6 @@
         public FolderModel(IPathModel model)
           : base(model)
         {
-            _Dir = new DirectoryInfo(model.Path);
         }
         #endregion constructors
 
@@ -34,7 +29,8 @@
         {
             get
             {
-                return _Dir.Exists;
+                var dir = GetDirInfo();
+                return (dir != null ? dir.Exists : false);
             }
         }
 
@@ -45,7 +41,8 @@
         {
             get
             {
-                return _Dir.Parent;
+                var dir = GetDirInfo();
+                return (dir != null ? dir.Parent : null);
             }
         }
 
@@ -56,7 +53,8 @@
         {
             get
             {
-                return _Dir.Root;
+                var dir = GetDirInfo();
+                return (dir != null ? dir.Root : null);
             }
         }
         #endregion properties
@@ -150,7 +148,7 @@
 */
         /// <summary>
         /// Method implements an extension that lets us filter files
-        /// with multiple filter aruments.
+        /// with multiple filter arguments.
         /// </summary>
         /// <param name="dir">Points at the folder that is queried for files and folder entries.</param>
         /// <param name="extensions">Contains the extension that we want to filter for, eg: string[]{"*.*"} or string[]{"*.tex", "*.txt"}</param>
@@ -199,7 +197,6 @@
                 Console.WriteLine(@"Could not process path '{0}\{1} ({2})'.", dir.Parent.FullName, dir.Name, ptle.Message);
                 yield break;
             }
-
 
             ////      try
             ////      {
@@ -285,6 +282,20 @@
                 if (file as DirectoryInfo != null)
                     yield return file as DirectoryInfo;
             }
+        }
+
+        private DirectoryInfo GetDirInfo()
+        {
+            try
+            {
+                var drive = new DirectoryInfo(Model.Path);
+                return drive;
+            }
+            catch
+            {
+            }
+
+            return null;
         }
         #endregion methods
     }

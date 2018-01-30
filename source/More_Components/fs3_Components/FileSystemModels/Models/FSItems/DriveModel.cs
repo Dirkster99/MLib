@@ -9,10 +9,6 @@
 
     public class DriveModel : Base.FileSystemModel
     {
-        #region fields
-        DriveInfo mDrive;
-        #endregion fields
-
         #region constructors
         /// <summary>
         /// Parameterized class  constructor
@@ -22,24 +18,41 @@
         public DriveModel(IPathModel model)
           : base(model)
         {
-            mDrive = new DriveInfo(model.Path);
         }
         #endregion constructors
 
         #region properties
+        /// <summary>
+        /// Indicates the amount of available free space on a drive, in bytes
+        /// or 0, if there is no space available or drive is not ready.
+        /// </summary>
         public long AvailableFreeSpace
         {
             get
             {
-                return mDrive.AvailableFreeSpace;
+                var drv = GetDriveInfo();
+
+                if (drv != null)
+                    return drv.AvailableFreeSpace;
+
+                return 0;
             }
         }
 
+        /// <summary>
+        /// Gets the name of the file system, such as NTFS or FAT32,
+        /// or string.Empty, if there is no space available or drive is not ready.
+        /// </summary>
         public string DriveFormat
         {
             get
             {
-                return mDrive.DriveFormat;
+                var drv = GetDriveInfo();
+
+                if (drv != null)
+                    return drv.DriveFormat;
+
+                return string.Empty;
             }
         }
 
@@ -51,57 +64,118 @@
         ////      }
         ////    }
 
+        /// <summary>
+        /// Gets a true value indicating whether the drive root directory exists,
+        /// or false, if there is no space available or drive is not ready.
+        /// </summary>
         public bool Exists
         {
             get
             {
-                return mDrive.RootDirectory.Exists;
+                var drv = GetDriveInfo();
+
+                if (drv != null)
+                    return drv.RootDirectory.Exists;
+
+                return false;
             }
         }
 
+        /// <summary>
+        /// Gets a true value that indicates whether a drive is ready,
+        /// or false, if there is no space available or drive is not ready.
+        /// </summary>
         public bool IsReady
         {
             get
             {
-                return mDrive.IsReady;
+                var drv = GetDriveInfo();
+
+                if (drv != null)
+                    return drv.IsReady;
+
+                return false;
             }
         }
 
+        /// <summary>
+        /// Gets the total amount of free space available on a drive, in bytes,
+        /// or 0, if there is no space available or drive is not ready.
+        /// </summary>
         public long TotalFreeSpace
         {
             get
             {
-                return mDrive.TotalFreeSpace;
+                var drv = GetDriveInfo();
+
+                if (drv != null)
+                    return drv.TotalFreeSpace;
+
+                return 0;
             }
         }
 
+        /// <summary>
+        /// Gets the total size of storage space on a drive, in bytes,
+        /// or 0, if there is no space available or drive is not ready.
+        /// </summary>
         public long TotalSize
         {
             get
             {
-                return mDrive.TotalSize;
+                var drv = GetDriveInfo();
+
+                if (drv != null)
+                    return drv.TotalSize;
+
+                return 0;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the volume label of a drive,
+        /// or string.Empty, if there is no space available or drive is not ready.
+        /// </summary>
         public string VolumeLabel
         {
             get
             {
-                return mDrive.VolumeLabel;
+                var drv = GetDriveInfo();
+
+                if (drv != null)
+                    return drv.VolumeLabel;
+
+                return string.Empty;
             }
         }
         #endregion properties
 
         #region methods
+        /// <summary>
+        /// Gets all drives that are currently attached/registered on a given computer.
+        /// </summary>
+        /// <returns></returns>
         public static IEnumerable<FileSystemModel> GetLogicalDrives()
         {
             foreach (var item in Environment.GetLogicalDrives())
             {
-                string driveLetter = item.TrimEnd('\\');
-
-                if (string.IsNullOrEmpty(driveLetter) == false)
-                    yield return new DriveModel(new PathModel(driveLetter, FSItemType.LogicalDrive));
+                if (string.IsNullOrEmpty(item) == false)
+                    yield return new DriveModel(new PathModel(item, FSItemType.LogicalDrive));
             }
+        }
+
+        private DriveInfo GetDriveInfo()
+        {
+            try
+            {
+                var drive = new DriveInfo(Model.Path);
+                return drive;
+            }
+            catch
+            {
+            }
+
+            return null;
         }
         #endregion methods
     }
