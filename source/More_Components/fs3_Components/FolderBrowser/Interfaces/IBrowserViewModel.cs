@@ -1,6 +1,6 @@
 ﻿namespace FolderBrowser.Interfaces
 {
-    using FolderBrowser.Events;
+    using FileSystemModels.Events;
     using FolderBrowser.ViewModels.Messages;
     using System;
     using System.Collections.Generic;
@@ -17,6 +17,10 @@
     public interface IBrowserViewModel
     {
         #region events
+        /// <summary>
+        /// Indicates when the viewmodel starts heading off somewhere else
+        /// and when its done browsing to a new location.
+        /// </summary>
         event EventHandler<BrowsingChangedEventArgs> BrowsingChanged;
         #endregion events
 

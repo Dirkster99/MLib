@@ -96,14 +96,11 @@
     <Compile Include="BookmarkedLocationsViewModel.cs" />
     <Compile Include="BookmarkFolder\EditFolderBookmark.cs" />
     <Compile Include="Interfaces\IAddFolderBookmark.cs" />
-    <Compile Include="Events\RecentFolderEvent.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter .cs" />
     <Compile Include="Converters\BrowseItemTypeToImageConverter .cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\SpecialFolderToImageConverter .cs" />
     <Compile Include="Converters\UpdateBindingConverter.cs" />
-    <Compile Include="Events\BrowsingChangedEventArgs.cs" />
-    <Compile Include="Events\FolderChangedEventArgs.cs" />
     <Compile Include="Interfaces\FileSystem\IFSItemViewModel.cs" />
     <Compile Include="Interfaces\IDriveViewModel.cs" />
     <Compile Include="Interfaces\IItemViewModel.cs" />

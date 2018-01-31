@@ -1,8 +1,8 @@
 ﻿namespace FolderBrowser.BookmarkFolder
 {
     using FileSystemModels;
+    using FileSystemModels.Events;
     using FileSystemModels.Models.FSItems.Base;
-    using FolderBrowser.Events;
     using FolderBrowser.Interfaces;
     using FsCore.ViewModels;
     using System;

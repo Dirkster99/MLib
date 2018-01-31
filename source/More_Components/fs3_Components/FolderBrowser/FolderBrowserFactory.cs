@@ -71,9 +71,15 @@
         /// recently visited file system folder entries.
         /// </summary>
         /// <returns></returns>
-        public static IBookmarkedLocationsViewModel CreateReceentLocationsViewModel()
+        public static IBookmarkedLocationsViewModel CreateRecentLocationsViewModel()
         {
             return new BookmarkedLocationsViewModel() as IBookmarkedLocationsViewModel;
+        }
+
+        public static ICustomFolderItemViewModel CreateCustomFolderItemViewModel(
+            System.Environment.SpecialFolder specialFolder)
+        {
+            return new CustomFolderItemViewModel(specialFolder);
         }
     }
 }

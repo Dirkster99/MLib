@@ -1,4 +1,4 @@
-namespace FolderBrowser.Events
+namespace FileSystemModels.Events
 {
     using FileSystemModels.Interfaces;
     using System;

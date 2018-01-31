@@ -1,7 +1,7 @@
 namespace FolderBrowser.Dialogs.ViewModels
 {
+    using FileSystemModels.Events;
     using FolderBrowser.Dialogs.Interfaces;
-    using FolderBrowser.Events;
     using FolderBrowser.Interfaces;
     using FolderBrowser.ViewModels;
     using FsCore.ViewModels.Base;
@@ -85,9 +85,9 @@ namespace FolderBrowser.Dialogs.ViewModels
         /// <param name="recentLocations"></param>
         protected void ResetBookmarks(IBookmarkedLocationsViewModel recentLocations)
         {
-            if (this.BookmarkedLocations != null)
+            if (BookmarkedLocations != null)
             {
-                this.BookmarkedLocations.RequestChangeOfDirectory -= RecentLocations_RequestChangeOfDirectory;
+                BookmarkedLocations.RequestChangeOfDirectory -= RecentLocations_RequestChangeOfDirectory;
 
                 if (TreeBrowser != null)
                     TreeBrowser.BookmarkFolder.RequestEditBookmarkedFolders -= BookmarkFolder_RequestEditBookmarkedFolders;
@@ -98,21 +98,21 @@ namespace FolderBrowser.Dialogs.ViewModels
                 // The recentlocations drop down is optionanl
                 // Its component and add/remove context menu accessibility in the treeview
                 // is only shown if caller supplied this object
-                this.BookmarkedLocations = recentLocations.CloneBookmark();
+                BookmarkedLocations = recentLocations.CloneBookmark();
             }
             else
-                this.BookmarkedLocations = FolderBrowser.FolderBrowserFactory.CreateReceentLocationsViewModel();
+                BookmarkedLocations = FolderBrowserFactory.CreateRecentLocationsViewModel();
 
-            if (this.BookmarkedLocations != null)
+            if (BookmarkedLocations != null)
             {
-                this.BookmarkedLocations.RequestChangeOfDirectory += RecentLocations_RequestChangeOfDirectory;
+                BookmarkedLocations.RequestChangeOfDirectory += RecentLocations_RequestChangeOfDirectory;
             }
 
             TreeBrowser.BookmarkFolder.RequestEditBookmarkedFolders += BookmarkFolder_RequestEditBookmarkedFolders;
         }
 
         private void RecentLocations_RequestChangeOfDirectory(object sender,
-                                                              FolderBrowser.Events.FolderChangedEventArgs e)
+                                                              FolderChangedEventArgs e)
         {
             TreeBrowser.BrowsePath(e.Folder.Path, false);
         }

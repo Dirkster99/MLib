@@ -1,12 +1,17 @@
 ﻿namespace FolderBrowser.Interfaces
 {
-    using FolderBrowser.Events;
+    using FileSystemModels.Events;
     using System;
     using System.Windows.Input;
 
+    /// <summary>
+    /// Defines an interface to Add/Remove Bookmark entries from
+    /// a list of bookmarked items.
+    /// </summary>
     public interface IAddFolderBookmark
     {
-        ICommand RecentFolderAddCommand { get; }
         event EventHandler<RecentFolderEvent> RequestEditBookmarkedFolders;
+
+        ICommand RecentFolderAddCommand { get; }
     }
 }

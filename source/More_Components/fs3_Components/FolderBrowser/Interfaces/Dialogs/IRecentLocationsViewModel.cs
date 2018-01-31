@@ -1,5 +1,6 @@
 ﻿namespace FolderBrowser.Dialogs.Interfaces
 {
+    using FileSystemModels.Events;
     using FileSystemModels.Interfaces;
     using FolderBrowser.FileSystem.Interfaces;
     using System;
@@ -14,7 +15,7 @@
         /// <summary>
         /// Event is fired whenever a change of the current directory is requested.
         /// </summary>
-        event EventHandler<FolderBrowser.Events.FolderChangedEventArgs> RequestChangeOfDirectory;
+        event EventHandler<FolderChangedEventArgs> RequestChangeOfDirectory;
 
         #region properties
         /// <summary>

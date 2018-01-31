@@ -1,11 +1,11 @@
 ﻿namespace FolderBrowser.ViewModels
 {
     using FileSystemModels;
+    using FileSystemModels.Events;
     using FileSystemModels.Interfaces;
     using FileSystemModels.Models.FSItems;
     using FileSystemModels.Models.FSItems.Base;
     using FolderBrowser.BookmarkFolder;
-    using FolderBrowser.Events;
     using FolderBrowser.Interfaces;
     using FolderBrowser.ViewModels.Messages;
     using FsCore.ViewModels;

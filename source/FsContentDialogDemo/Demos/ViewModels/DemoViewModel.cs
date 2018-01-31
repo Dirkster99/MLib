@@ -1,5 +1,6 @@
 ﻿namespace FsContentDialogDemo.Demos.ViewModels
 {
+    using FileSystemModels.Events;
     using FolderBrowser;
     using FolderBrowser.Dialogs.Interfaces;
     using FsContentDialogDemo.ViewModels.Base;
@@ -189,7 +190,7 @@
         /// <returns></returns>
         private IBookmarkedLocationsViewModel ConstructBookmarks()
         {
-            IBookmarkedLocationsViewModel ret = FolderBrowserFactory.CreateReceentLocationsViewModel();
+            IBookmarkedLocationsViewModel ret = FolderBrowserFactory.CreateRecentLocationsViewModel();
 
             ret.AddFolder(@"C:\Windows");
             ret.AddFolder(@"C:\Users");
@@ -205,7 +206,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void BookmarkedLocations_RequestChangeOfDirectory(object sender, FolderBrowser.Events.FolderChangedEventArgs e)
+        private void BookmarkedLocations_RequestChangeOfDirectory(object sender, FolderChangedEventArgs e)
         {
             this.Path = e.Folder.Path;
         }
