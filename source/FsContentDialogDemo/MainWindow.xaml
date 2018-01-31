@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 
+        xmlns:reskeys="clr-namespace:MLib.Themes;assembly=MLib"
         xmlns:MWindow="clr-namespace:MWindowLib;assembly=MWindowLib"
-        
         xmlns:behav="clr-namespace:FsContentDialogDemo.Demos.Behaviors"
 
         xmlns:Dialog="clr-namespace:MWindowDialogLib.Dialogs;assembly=MWindowDialogLib"
@@ -96,13 +96,19 @@
                                       Margin="3" 
                                     >
                     <ctrls:DropDownButton.DropDownContent>
-                        <StackPanel xmlns:views="clr-namespace:FolderBrowser.Views;assembly=FolderBrowser" IsHitTestVisible="True" Focusable="True">
-                            <views:DropDownView DataContext="{Binding DropDownBrowser}" />
+                        <StackPanel xmlns:views="clr-namespace:FolderBrowser.Views;assembly=FolderBrowser"
+                                    IsHitTestVisible="True"
+                                    Focusable="True"
+                                    Background="{DynamicResource {x:Static reskeys:ResourceKeys.ControlPopupBackgroundBrushKey}}"
+                                    >
+                            <views:DropDownView
+                                    Background="Transparent"
+                                    Margin="6"
+                                    DataContext="{Binding DropDownBrowser}" />
                         </StackPanel>
                     </ctrls:DropDownButton.DropDownContent>
                 </ctrls:DropDownButton>
             </Grid>
-
         </Grid>
     </Grid>
 </MWindow:MetroWindow>
