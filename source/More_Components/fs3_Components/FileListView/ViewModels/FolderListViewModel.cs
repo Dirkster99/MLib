@@ -10,7 +10,7 @@ namespace FileListView.ViewModels
     /// Class implements a folder/file view model class
     /// that can be used to dispaly filesystem related content in an ItemsControl.
     /// </summary>
-    public class FolderListViewModel : Base.ViewModelBase, IFolderListViewModel
+    internal class FolderListViewModel : Base.ViewModelBase, IFolderListViewModel
     {
         #region fields
         private string mSelectedFolder = string.Empty;
@@ -23,7 +23,7 @@ namespace FileListView.ViewModels
         /// Custom class constructor
         /// </summary>
         /// <param name="onFileOpenMethod"></param>
-        public FolderListViewModel(System.EventHandler<FileSystemModels.Events.FileOpenEventArgs> onFileOpenMethod)
+        public FolderListViewModel(System.EventHandler<FileOpenEventArgs> onFileOpenMethod)
           : this()
         {
             // Remove the standard constructor event that is fired when a user opens a file
