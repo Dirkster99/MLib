@@ -62,18 +62,21 @@
                      Visibility="{Binding Path=TreeBrowser.IsBrowsing, Converter={StaticResource BoolToVis}}"/>
 
             <Grid Grid.Row="1"
-                  xmlns:ctrls="clr-namespace:DropDownButtonLib.Controls;assembly=DropDownButtonLib">
+                  xmlns:ctrls="clr-namespace:DropDownButtonLib.Controls;assembly=DropDownButtonLib"
+                  xmlns:dbthemes="clr-namespace:DropDownButtonLib.Themes;assembly=DropDownButtonLib"
+                  xmlns:reskeys="clr-namespace:FolderBrowser.Themes"
+                  xmlns:bindLocal="clr-namespace:FolderBrowser.Views"
+                  >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <views:BookmarkFolderDropDown Grid.Column="0"
+                <!-- views:BookmarkFolderDropDown Grid.Column="0"
                                               DataContext="{Binding BookmarkedLocations}"
-                                              Margin="3" />
+                                              Margin="3" / -->
 
-                <TextBox DataContext="{Binding TreeBrowser}" Grid.Column="1"
+                <TextBox DataContext="{Binding TreeBrowser}" Grid.Column="0"
                          Text="{Binding Path=SelectedFolder, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                          behav:SelectTextOnFocus.Active="True"
                          behav:TextEnterCommand.Command="{Binding FolderSelectedCommand}"
@@ -82,13 +85,99 @@
                          Margin="3"
                          VerticalContentAlignment="Center" FontSize="16" x:Name="BrowserAddress" />
 
-                <Button Grid.Column="2" Margin="3"
-                        Command="{Binding TreeBrowser.FolderSelectedCommand}"
-                        CommandParameter="{Binding ElementName=BrowserAddress,Path=Text}"
-                        Visibility="{Binding Path=TreeBrowser.IsBrowsing, Converter={StaticResource BoolToVis2}}">
-                    <Image Source="{DynamicResource GoButton_Image_Go}" Width="16" />
-                </Button>
-                <Button Grid.Column="2" Margin="3"
+                <ctrls:SplitItemsButton
+                              ToolTip="{Binding BookmarkedLocations.SelectedItem,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,FallbackValue='Add a bookmark to quick access it here'}"
+                              ItemsSource="{Binding BookmarkedLocations.DropDownItems}"
+                              Command="{Binding TreeBrowser.FolderSelectedCommand}"
+                              CommandParameter="{Binding ElementName=BrowserAddress,Path=Text}"
+                              IsOpen="{Binding BookmarkedLocations.IsOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              DropDownMaxHeight="300"
+                              Padding="12,0"
+                              Visibility="{Binding Path=TreeBrowser.IsBrowsing, Converter={StaticResource BoolToVis2}}"
+                              Grid.Column="1"
+                              Margin="3"
+                        >
+                    <ctrls:SplitItemsButton.Content>
+                        <Border BorderBrush="Transparent"
+                                VerticalAlignment="Stretch"
+                                HorizontalAlignment="Stretch">
+                            <Image Source="{DynamicResource GoButton_Image_Go}" Width="16" />
+                        </Border>
+                    </ctrls:SplitItemsButton.Content>
+                    <ctrls:DropDownItemsButton.Resources>
+                        <!-- Use a proxy to bind items to root object of this collection -->
+                        <bindLocal:BindingProxy  x:Key="DropDownItemsButtonProxy" Data="{Binding BookmarkedLocations}" />
+                    </ctrls:DropDownItemsButton.Resources>
+                    <ctrls:DropDownItemsButton.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Name="MyBorder" Margin="0" Background="Transparent">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Button Content="-" Grid.Column="0"
+                                        ToolTip="Remove Folder Bookmark"
+                                        Command="{Binding Path=Data.RemoveFolderBookmark, Source={StaticResource DropDownItemsButtonProxy}}"
+                                        CommandParameter="{Binding}"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch" Margin="0" Padding="3,0"
+                                        MinWidth="16" MinHeight="16"
+                                        x:Name="RemoveFolderBookmarkButton">
+                                </Button>
+
+                                <Button Content="{Binding DisplayName}"
+                                        Command="{Binding Path=Data.ChangeOfDirectoryCommand, Source={StaticResource DropDownItemsButtonProxy}}"
+                                        CommandParameter="{Binding}"
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                        HorizontalContentAlignment="Left"
+                                        BorderBrush="Transparent"
+                                        Foreground="{DynamicResource {x:Static reskeys:ResourceKeys.DialogForegroundKey}}"
+                                        ToolTip="{Binding FullPath}"
+                                        Margin="3,0,0,0"
+                                        >
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                                            <Setter Property="Background" Value="Transparent"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border Background="{TemplateBinding Background}"
+                                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                                Padding="3,0"
+                                                                >
+                                                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                                      />
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="true">
+                                                    <Setter Property="Background" Value="{DynamicResource {x:Static dbthemes:ResourceKeys.ButtonMouseOverBackgroundKey}}" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                            </Grid>
+
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=MyBorder, Path=IsMouseOver}" Value="True" >
+                                    <Setter TargetName="RemoveFolderBookmarkButton" Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=MyBorder, Path=IsMouseOver}" Value="False" >
+                                    <Setter TargetName="RemoveFolderBookmarkButton" Property="Visibility" Value="Hidden" />
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ctrls:DropDownItemsButton.ItemTemplate>
+                </ctrls:SplitItemsButton>
+                <Button Grid.Column="1" Margin="3"
+                        Padding="12,0"
                         Command="{Binding TreeBrowser.CancelBrowsingCommand, FallbackValue={x:Null}}"
                         Visibility="{Binding Path=TreeBrowser.IsBrowsing, Converter={StaticResource BoolToVis}}">
                     <Image Source="{DynamicResource GoButton_Image_Cancel}" Width="16" />

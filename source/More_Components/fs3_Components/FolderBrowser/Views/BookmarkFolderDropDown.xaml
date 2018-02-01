@@ -5,11 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
-             
-             xmlns:reskeys="clr-namespace:FolderBrowser.Themes"
              >
     <Grid xmlns:ctrls="clr-namespace:DropDownButtonLib.Controls;assembly=DropDownButtonLib"
           xmlns:dbthemes="clr-namespace:DropDownButtonLib.Themes;assembly=DropDownButtonLib"
+          xmlns:reskeys="clr-namespace:FolderBrowser.Themes"
           >
         <ctrls:SplitItemsButton
                     ToolTip="{Binding SelectedItem,FallbackValue='Add a recent folder to quick access it here'}"
@@ -86,46 +85,6 @@
                                 </Style>
                             </Button.Style>
                         </Button>
-                        <!-- TextBlock Margin="0,0,3,0" Grid.Column="1" HorizontalAlignment="Stretch">
-                            <TextBlock.Resources>
-                                <Style TargetType="{x:Type Hyperlink}" x:Key="FolderBookmarkHyperlinkStyle">
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="true">
-                                            <Setter Property="Foreground" Value="Black" />
-                                            <Setter Property="Cursor"     Value="Arrow"/>
-                                        </Trigger>
-                                        <Trigger Property="IsEnabled"   Value="false">
-                                            <Setter Property="Cursor" Value="Arrow"/>
-                                            <Setter Property="Foreground" Value="Black"/>
-                                        </Trigger>
-                                        <Trigger Property="IsEnabled" Value="true">
-                                            <Setter Property="Cursor" Value="Arrow"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                    <Setter Property="TextBlock.TextDecorations" Value="{x:Null}" />
-                                    <Setter Property="Foreground" Value="Black" />
-                                </Style>
-                            </TextBlock.Resources>
-                            <TextBlock.Style>
-                                <Style TargetType="{x:Type TextBlock}">
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="true">
-                                            <Setter Property="Cursor" Value="Arrow"/>
-                                            <Setter Property="Background" Value="{DynamicResource {x:Static dbthemes:ResourceKeys.ButtonMouseOverBackgroundKey}}" />
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style -->
-
-                        <!-- A hyperlink in disguise without change of mouse pointer or underline indicator  -
-                            <Hyperlink Command="{Binding Path=Data.ChangeOfDirectoryCommand, Source={StaticResource DropDownItemsButtonProxy}}"
-                                       CommandParameter="{Binding}"
-                                       Style="{StaticResource FolderBookmarkHyperlinkStyle}">- Send this item for processing to the bound command -
-                                <TextBlock Text="{Binding DisplayName}"
-                                            Foreground="{DynamicResource {x:Static reskeys:ResourceKeys.DialogForegroundKey}}"
-                                            ToolTip="{Binding FullPath}" Margin="6,0,3,0" />
-                            </Hyperlink>                        
-                            </TextBlock-->
                     </Grid>
 
                     <DataTemplate.Triggers>
