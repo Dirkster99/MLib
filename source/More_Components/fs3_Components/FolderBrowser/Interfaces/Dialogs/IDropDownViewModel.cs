@@ -1,9 +1,10 @@
 ﻿namespace FolderBrowser.Dialogs.Interfaces
 {
+    using FileSystemModels.Interfaces.Bookmark;
     using System.Windows.Input;
 
     public delegate string UpdateCurrentPath();
-    public delegate IBookmarkedLocationsViewModel UpdateBookmarks();
+    public delegate IBookmarksViewModel UpdateBookmarks();
 
     /// <summary>
     /// Specifies the event on which the drop had been closed.
@@ -35,7 +36,7 @@
     /// <param name="bookmarks"></param>
     /// <param name="selectedPath"></param>
     /// <param name="result"></param>
-    public delegate void DropDownClosedResult(IBookmarkedLocationsViewModel bookmarks,
+    public delegate void DropDownClosedResult(IBookmarksViewModel bookmarks,
                                               string selectedPath,
                                               Result result);
 

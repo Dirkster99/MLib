@@ -1,7 +1,8 @@
 ﻿namespace FsContentDialogDemo.Demos
 {
+    using FileSystemModels.Interfaces;
+    using FileSystemModels.Interfaces.Bookmark;
     using FolderBrowser;
-    using FolderBrowser.Dialogs.Interfaces;
     using MWindowDialogLib.Dialogs;
     using MWindowInterfacesLib.Interfaces;
     using System.Threading.Tasks;
@@ -11,7 +12,7 @@
         #region Fields
         private bool _SpecialFolderVisibility;
         private string _InitialPath;
-        private IBookmarkedLocationsViewModel _BookmarkedLocations;
+        private IBookmarksViewModel _BookmarkedLocations;
         #endregion Fields
 
         #region ctor
@@ -22,7 +23,7 @@
         /// <param name="bookmarks"></param>
         /// <param name="specialFolderVisibility"></param>
         public FolderBrowserControler(string initialPath
-                                     , IBookmarkedLocationsViewModel bookmarks
+                                     , IBookmarksViewModel bookmarks
                                      , bool specialFolderVisibility = true)
             : this()
         {
@@ -47,7 +48,7 @@
         /// <summary>
         /// Gets a bookmark folder property to manage bookmarked folders.
         /// </summary>
-        public IBookmarkedLocationsViewModel BookmarkedLocations
+        public IBookmarksViewModel BookmarkedLocations
         {
             get
             {

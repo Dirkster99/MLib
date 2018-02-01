@@ -1,4 +1,4 @@
-﻿namespace FsCore.ViewModels
+﻿namespace FileSystemModels.ViewModels.Base
 {
   using System;
   using System.Diagnostics;

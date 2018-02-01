@@ -355,15 +355,15 @@ namespace FileListView.ViewModels
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void FolderItemsView_RequestEditBookmarkedFolders(object sender, RecentFolderEvent e)
+        private void FolderItemsView_RequestEditBookmarkedFolders(object sender, EditBookmarkEvent e)
         {
             switch (e.Action)
             {
-                case RecentFolderEvent.RecentFolderAction.Remove:
+                case EditBookmarkEvent.RecentFolderAction.Remove:
                     this.RecentFolders.RemoveRecentFolder(e.Folder);
                     break;
 
-                case RecentFolderEvent.RecentFolderAction.Add:
+                case EditBookmarkEvent.RecentFolderAction.Add:
                     this.RecentFolders.AddRecentFolder(e.Folder.Path);
                     break;
 

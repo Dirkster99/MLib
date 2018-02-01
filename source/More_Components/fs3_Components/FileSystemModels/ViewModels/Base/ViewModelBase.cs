@@ -1,4 +1,4 @@
-namespace FsCore.ViewModels.Base
+namespace FileSystemModels.ViewModels.Base
 {
   using System;
   using System.ComponentModel;

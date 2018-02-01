@@ -1,11 +1,13 @@
 ﻿namespace FolderBrowser.ViewModels.Messages
 {
+    using FileSystemModels.ViewModels.Base;
+
     /// <summary>
     /// Class keeps track of a message display that can pop-up messages
     /// and disappear depending on whether the IsErrorMessageAvailable
     /// property is true or not.
     /// </summary>
-    internal class DisplayMessageViewModel : FsCore.ViewModels.Base .ViewModelBase, IDisplayMessageViewModel
+    internal class DisplayMessageViewModel : ViewModelBase, IDisplayMessageViewModel
     {
         private bool mIsErrorMessageAvailable;
         private string mMessage;

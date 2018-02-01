@@ -1,10 +1,10 @@
 namespace FolderBrowser.Dialogs.ViewModels
 {
     using FileSystemModels.Events;
-    using FolderBrowser.Dialogs.Interfaces;
+    using FileSystemModels.Interfaces.Bookmark;
+    using FileSystemModels.ViewModels.Base;
     using FolderBrowser.Interfaces;
     using FolderBrowser.ViewModels;
-    using FsCore.ViewModels.Base;
 
     /// <summary>
     /// A base class for implementing a viewmodel that can drive dialogs
@@ -15,7 +15,7 @@ namespace FolderBrowser.Dialogs.ViewModels
     {
         #region fields
         private IBrowserViewModel mTreeBrowser = null;
-        private IBookmarkedLocationsViewModel mBookmarkedLocations = null;
+        private IBookmarksViewModel mBookmarkedLocations = null;
         #endregion fields
 
         #region constructor
@@ -23,7 +23,7 @@ namespace FolderBrowser.Dialogs.ViewModels
         /// Class constructor
         /// </summary>
         public DialogBaseViewModel(IBrowserViewModel treeBrowser = null,
-                                   IBookmarkedLocationsViewModel recentLocations = null)
+                                   IBookmarksViewModel recentLocations = null)
         {
             if (treeBrowser == null)
                 TreeBrowser = new BrowserViewModel();
@@ -58,7 +58,7 @@ namespace FolderBrowser.Dialogs.ViewModels
         /// <summary>
         /// Gets the viewmodel that drives the folder bookmark drop down control.
         /// </summary>
-        public IBookmarkedLocationsViewModel BookmarkedLocations
+        public IBookmarksViewModel BookmarkedLocations
         {
             get
             {
@@ -83,7 +83,7 @@ namespace FolderBrowser.Dialogs.ViewModels
         /// to enable user's path selection being input to folder browser.
         /// </summary>
         /// <param name="recentLocations"></param>
-        protected void ResetBookmarks(IBookmarkedLocationsViewModel recentLocations)
+        protected void ResetBookmarks(IBookmarksViewModel recentLocations)
         {
             if (BookmarkedLocations != null)
             {
@@ -101,7 +101,7 @@ namespace FolderBrowser.Dialogs.ViewModels
                 BookmarkedLocations = recentLocations.CloneBookmark();
             }
             else
-                BookmarkedLocations = FolderBrowserFactory.CreateRecentLocationsViewModel();
+                BookmarkedLocations = FileSystemModels.Factory.CreateBookmarksViewModel();
 
             if (BookmarkedLocations != null)
             {
@@ -122,15 +122,15 @@ namespace FolderBrowser.Dialogs.ViewModels
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void BookmarkFolder_RequestEditBookmarkedFolders(object sender, RecentFolderEvent e)
+        private void BookmarkFolder_RequestEditBookmarkedFolders(object sender, EditBookmarkEvent e)
         {
             switch (e.Action)
             {
-                case RecentFolderEvent.RecentFolderAction.Remove:
+                case EditBookmarkEvent.RecentFolderAction.Remove:
                     BookmarkedLocations.RemoveFolder(e.Folder.Path);
                     break;
 
-                case RecentFolderEvent.RecentFolderAction.Add:
+                case EditBookmarkEvent.RecentFolderAction.Add:
                     BookmarkedLocations.AddFolder(e.Folder.Path);
                     break;
 

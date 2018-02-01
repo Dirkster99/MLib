@@ -1,8 +1,8 @@
 ﻿namespace FolderBrowser.ViewModels
 {
     using FileSystemModels;
+    using FileSystemModels.ViewModels.Base;
     using FolderBrowser.Interfaces;
-    using FsCore.ViewModels.Base;
 
     /// <summary>
     /// Wrapper class for <seealso cref="System.Environment.SpecialFolder"/> items.

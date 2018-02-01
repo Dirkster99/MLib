@@ -1,10 +1,10 @@
 ﻿namespace FolderBrowser.Interfaces
 {
     using FileSystemModels.Events;
+    using FileSystemModels.Interfaces.Bookmark;
     using FolderBrowser.ViewModels.Messages;
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Windows.Input;
 
     /// <summary>
@@ -71,7 +71,7 @@
         /// <summary>
         /// Gets a list of Special Windows Standard folders for display in view.
         /// </summary>
-        ObservableCollection<ICustomFolderItemViewModel> SpecialFolders { get; }
+        IEnumerable<ICustomFolderItemViewModel> SpecialFolders { get; }
 
         /// <summary>
         /// Gets whether the browser view should show a special folder control or not
@@ -158,7 +158,7 @@
         /// <summary>
         /// Expose properties to commands that work with the bookmarking of folders.
         /// </summary>
-        IAddFolderBookmark BookmarkFolder { get; }
+        IEditBookmarks BookmarkFolder { get; }
         #endregion properties
 
         #region methods

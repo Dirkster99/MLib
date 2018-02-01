@@ -25,7 +25,7 @@ namespace FileListView.ViewModels.Interfaces
         /// <summary>
         /// Generate an event to remove or add a recent folder to a collection.
         /// </summary>
-        event EventHandler<RecentFolderEvent> RequestEditRecentFolder;
+        event EventHandler<EditBookmarkEvent> RequestEditRecentFolder;
         #endregion
 
         #region properties

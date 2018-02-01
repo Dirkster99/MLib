@@ -150,15 +150,14 @@
                 // Add additional Light resources to those theme resources added above
                 appearance.AddThemeResources("Light", new List<Uri>
                 {
-                    ////new Uri("/FolderBrowser;component/Themes/MetroLight.xaml", UriKind.RelativeOrAbsolute)
-                     new Uri("/FsCore;component/Images/Metro/MetroLightIcons.xaml", UriKind.RelativeOrAbsolute)
-                    ,new Uri("/FolderBrowser;component/Themes/MetroLight.xaml", UriKind.RelativeOrAbsolute)
-                    ,new Uri("/UserNotification;component/Themes/LightBrushs.xaml", UriKind.RelativeOrAbsolute)
-                    ,new Uri("/InplaceEditBoxLib;component/Themes/LightBrushs.xaml", UriKind.RelativeOrAbsolute)
+                    new Uri("/FsCore;component/Images/Metro/MetroLightIcons.xaml", UriKind.RelativeOrAbsolute)
+                   ,new Uri("/UserNotification;component/Themes/LightBrushs.xaml", UriKind.RelativeOrAbsolute)
+                   ,new Uri("/InplaceEditBoxLib;component/Themes/LightBrushs.xaml", UriKind.RelativeOrAbsolute)
 
                    ,new Uri("/MWindowDialogLib;component/Themes/LightIcons.xaml", UriKind.RelativeOrAbsolute)
                    ,new Uri("/MWindowDialogLib;component/Themes/LightBrushs.xaml", UriKind.RelativeOrAbsolute)
                    ,new Uri("/DropDownButtonLib;component/Themes/MetroLight.xaml", UriKind.RelativeOrAbsolute)
+                   ,new Uri("/FolderBrowser;component/Themes/MetroLight.xaml", UriKind.RelativeOrAbsolute)
 
                    ,new Uri("/BindToMLib;component/LightBrushs.xaml", UriKind.RelativeOrAbsolute)
                 }, settings.Themes);

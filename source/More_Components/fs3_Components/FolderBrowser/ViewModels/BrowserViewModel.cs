@@ -3,12 +3,12 @@
     using FileSystemModels;
     using FileSystemModels.Events;
     using FileSystemModels.Interfaces;
+    using FileSystemModels.Interfaces.Bookmark;
     using FileSystemModels.Models.FSItems;
     using FileSystemModels.Models.FSItems.Base;
-    using FolderBrowser.BookmarkFolder;
+    using FileSystemModels.ViewModels.Base;
     using FolderBrowser.Interfaces;
     using FolderBrowser.ViewModels.Messages;
-    using FsCore.ViewModels;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -28,7 +28,7 @@
     /// This viewmodel is almost equivalent to the backend code needed to drive
     /// the Treeview that shows the items in the UI.
     /// </summary>
-    internal class BrowserViewModel : FsCore.ViewModels.Base.ViewModelBase, IBrowserViewModel
+    internal class BrowserViewModel : ViewModelBase, IBrowserViewModel
     {
         #region fields
         private string _SelectedFolder;
@@ -54,8 +54,9 @@
         private string _InitalPath;
         private bool _UpdateView;
         private bool _IsBrowseViewEnabled;
-        private SortableObservableDictionaryCollection _Root;
         private IItemViewModel _SelectedItem = null;
+        private SortableObservableDictionaryCollection _Root;
+        private ObservableCollection<ICustomFolderItemViewModel> _SpecialFolders;
         #endregion fields
 
         #region constructor
@@ -65,7 +66,7 @@
         public BrowserViewModel()
         {
             DisplayMessage = new DisplayMessageViewModel();
-            BookmarkFolder = new EditFolderBookmark();
+            BookmarkFolder = new EditFolderBookmarks();
             InitializeSpecialFolders();
 
             _OpenInWindowsCommand = null;
@@ -617,13 +618,19 @@
         /// <summary>
         /// Expose properties to commands that work with the bookmarking of folders.
         /// </summary>
-        public IAddFolderBookmark BookmarkFolder { get; private set; }
+        public IEditBookmarks BookmarkFolder { get; private set; }
 
         #region SpecialFolders property
         /// <summary>
         /// Gets a list of Special Windows Standard folders for display in view.
         /// </summary>
-        public ObservableCollection<ICustomFolderItemViewModel> SpecialFolders { get; private set; }
+        public IEnumerable<ICustomFolderItemViewModel> SpecialFolders
+        {
+            get
+            {
+                return _SpecialFolders;
+            }
+        }
 
         /// <summary>
         /// Gets whether the browser view should show a special folder control or not
@@ -755,13 +762,13 @@
 
         private void InitializeSpecialFolders()
         {
-            SpecialFolders = new ObservableCollection<ICustomFolderItemViewModel>();
+            _SpecialFolders = new ObservableCollection<ICustomFolderItemViewModel>();
 
-            SpecialFolders.Add(new CustomFolderItemViewModel(Environment.SpecialFolder.Desktop));
-            SpecialFolders.Add(new CustomFolderItemViewModel(Environment.SpecialFolder.MyDocuments));
-            SpecialFolders.Add(new CustomFolderItemViewModel(Environment.SpecialFolder.MyMusic));
-            SpecialFolders.Add(new CustomFolderItemViewModel(Environment.SpecialFolder.MyPictures));
-            SpecialFolders.Add(new CustomFolderItemViewModel(Environment.SpecialFolder.MyVideos));
+            _SpecialFolders.Add(new CustomFolderItemViewModel(Environment.SpecialFolder.Desktop));
+            _SpecialFolders.Add(new CustomFolderItemViewModel(Environment.SpecialFolder.MyDocuments));
+            _SpecialFolders.Add(new CustomFolderItemViewModel(Environment.SpecialFolder.MyMusic));
+            _SpecialFolders.Add(new CustomFolderItemViewModel(Environment.SpecialFolder.MyPictures));
+            _SpecialFolders.Add(new CustomFolderItemViewModel(Environment.SpecialFolder.MyVideos));
         }
 
         private FolderViewModel CreateFolderItem(IPathModel model,

@@ -2,8 +2,9 @@ namespace FolderBrowser.Dialogs.ViewModels
 {
     using FolderBrowser.Dialogs.Interfaces;
     using FolderBrowser.Interfaces;
-    using FsCore.ViewModels;
+    using FileSystemModels.ViewModels.Base;
     using System.Windows.Input;
+    using FileSystemModels.Interfaces.Bookmark;
 
     /// <summary>
     /// A viewmodel in MVVM style to drive a folder browser
@@ -30,7 +31,7 @@ namespace FolderBrowser.Dialogs.ViewModels
         /// </summary>
         public DropDownViewModel(
             IBrowserViewModel treeBrowser,
-            IBookmarkedLocationsViewModel recentLocations,
+            IBookmarksViewModel recentLocations,
             DropDownClosedResult resultCallback)
             : base (treeBrowser, recentLocations)
         {

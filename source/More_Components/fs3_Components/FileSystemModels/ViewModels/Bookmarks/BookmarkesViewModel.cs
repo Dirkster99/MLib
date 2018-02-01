@@ -1,26 +1,26 @@
-﻿namespace FolderBrowser.ViewModels
+﻿namespace FileSystemModels.ViewModels
 {
     using FileSystemModels;
     using FileSystemModels.Events;
     using FileSystemModels.Interfaces;
     using FileSystemModels.Models.FSItems.Base;
+    using FileSystemModels.ViewModels.Base;
     using FileSystemModels.Utils;
-    using FolderBrowser.Dialogs.Interfaces;
-    using FolderBrowser.FileSystem.Interfaces;
-    using FolderBrowser.FileSystem.ViewModels;
-    using FsCore.ViewModels;
     using System;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows.Input;
+    using System.Collections.Generic;
+    using FileSystemModels.Interfaces.Bookmark;
 
     /// <summary>
     /// Implement viewmodel for management of recent folder locations.
     /// </summary>
-    internal class BookmarkedLocationsViewModel : FsCore.ViewModels.Base.ViewModelBase, IBookmarkedLocationsViewModel
+    internal class BookmarkesViewModel : ViewModelBase, IBookmarksViewModel
     {
         #region fields
         private IFSItemViewModel mSelectedItem;
+        private ObservableCollection<IFSItemViewModel> _DropDownItems;
 
         private object mLockObject = new object();
 
@@ -33,9 +33,9 @@
         /// <summary>
         /// Class constructor
         /// </summary>
-        public BookmarkedLocationsViewModel()
+        public BookmarkesViewModel()
         {
-            this.DropDownItems = new ObservableCollection<IFSItemViewModel>();
+            _DropDownItems = new ObservableCollection<IFSItemViewModel>();
             this.IsOpen = false;
         }
 
@@ -43,7 +43,7 @@
         /// Copy class constructor
         /// </summary>
         /// <param name="copyThis"></param>
-        public BookmarkedLocationsViewModel(BookmarkedLocationsViewModel copyThis)
+        public BookmarkesViewModel(BookmarkesViewModel copyThis)
             : this()
         {
             if (copyThis == null)
@@ -52,7 +52,7 @@
             ////this.IsOpen = copyThis.IsOpen; this could magically open other drop downs :-)
 
             foreach (var item in copyThis.DropDownItems)
-                DropDownItems.Add(new FSItemViewModel(item as FSItemViewModel));
+                _DropDownItems.Add(new FSItemViewModel(item as FSItemViewModel));
 
             // Select quivalent item in target collection
             if (copyThis.SelectedItem != null)
@@ -75,8 +75,9 @@
 
         #region properties
         /// <summary>
-        /// Request a change of current directory to the directory
-        /// stated in <seealso cref="FSItemViewModel"/> in CommandParameter.
+        /// Gets a command that requests a change of current directory to the
+        /// directory stated in <seealso cref="FSItemViewModel"/> in
+        /// CommandParameter.  -> Fires a FolderChange Event.
         /// </summary>
         public ICommand ChangeOfDirectoryCommand
         {
@@ -85,7 +86,7 @@
                 if (this.mChangeOfDirectoryCommand == null)
                     this.mChangeOfDirectoryCommand = new RelayCommand<object>((p) =>
                     {
-                        var param = p as FSItemViewModel;
+                        var param = p as IFSItemViewModel;
 
                         if (param != null)
                             this.ChangeOfDirectoryCommand_Executed(param);
@@ -107,7 +108,7 @@
                 if (this.mRemoveFolderBookmark == null)
                     this.mRemoveFolderBookmark = new RelayCommand<object>((p) =>
                     {
-                        var param = p as FSItemViewModel;
+                        var param = p as IFSItemViewModel;
 
                         if (param != null)
                             this.RemoveFolderBookmark_Executed(param);
@@ -120,7 +121,13 @@
         /// <summary>
         /// <inheritedoc />
         /// </summary>
-        public ObservableCollection<IFSItemViewModel> DropDownItems { get; private set; }
+        public IEnumerable<IFSItemViewModel> DropDownItems
+        {
+            get
+            {
+                return _DropDownItems;
+            }
+        }
 
         /// <summary>
         /// Gets/set the selected item of the RecentLocations property.
@@ -171,9 +178,9 @@
         /// and their handlers are not copied.
         /// </summary>
         /// <returns></returns>
-        public IBookmarkedLocationsViewModel CloneBookmark()
+        public IBookmarksViewModel CloneBookmark()
         {
-            return new BookmarkedLocationsViewModel(this);
+            return new BookmarkesViewModel(this);
         }
 
         /// <summary>
@@ -218,7 +225,7 @@
 
                 var folderVM = this.CreateFSItemVMFromString(folderPath);
 
-                this.DropDownItems.Add(folderVM);
+                _DropDownItems.Add(folderVM);
 
                 if (selectNewItem == true)
                     this.SelectedItem = folderVM;
@@ -241,7 +248,7 @@
                 // Find all items that satisfy the query match and remove them
                 // (This statement requires a Linq extension method to work)
                 // See FileSystemModels.Utils for more details
-                this.DropDownItems.Remove(i => string.Compare(folderPath.Path, i.FullPath, true) == 0);
+                _DropDownItems.Remove(i => string.Compare(folderPath.Path, i.FullPath, true) == 0);
             }
         }
 
@@ -251,7 +258,7 @@
         public void ClearFolderCollection()
         {
             if (this.DropDownItems != null)
-                this.DropDownItems.Clear();
+                _DropDownItems.Clear();
         }
 
         /// <summary>
@@ -268,7 +275,7 @@
             }
         }
 
-        private void ChangeOfDirectoryCommand_Executed(FSItemViewModel path)
+        private void ChangeOfDirectoryCommand_Executed(IFSItemViewModel path)
         {
             if (path == null)
                 return;
@@ -281,7 +288,7 @@
                     new FolderChangedEventArgs(PathFactory.Create(path.FullPath, FSItemType.Folder)));
         }
 
-        private FSItemViewModel CreateFSItemVMFromString(string folderPath)
+        private IFSItemViewModel CreateFSItemVMFromString(string folderPath)
         {
             ////folderPath = System.IO.Path.GetDirectoryName(folderPath);
 
@@ -306,7 +313,7 @@
         /// Method removes a folder bookmark from the list of currently bookmarked folders.
         /// </summary>
         /// <param name="param"></param>
-        private void RemoveFolderBookmark_Executed(FSItemViewModel param)
+        private void RemoveFolderBookmark_Executed(IFSItemViewModel param)
         {
             this.RemoveFolder(param.GetModel);
         }

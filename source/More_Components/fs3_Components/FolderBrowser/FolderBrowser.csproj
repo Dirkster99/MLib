@@ -93,21 +93,18 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BookmarkedLocationsViewModel.cs" />
-    <Compile Include="BookmarkFolder\EditFolderBookmark.cs" />
-    <Compile Include="Interfaces\IAddFolderBookmark.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter .cs" />
     <Compile Include="Converters\BrowseItemTypeToImageConverter .cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\SpecialFolderToImageConverter .cs" />
     <Compile Include="Converters\UpdateBindingConverter.cs" />
-    <Compile Include="Interfaces\FileSystem\IFSItemViewModel.cs" />
     <Compile Include="Interfaces\IDriveViewModel.cs" />
     <Compile Include="Interfaces\IItemViewModel.cs" />
     <Compile Include="Interfaces\IParent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Themes\ResourceKeys.cs" />
     <Compile Include="ViewModels\DriveViewModel.cs" />
+    <Compile Include="ViewModels\EditFolderBookmarks.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="Views\Behaviours\TreeViewVirtualItemBehaviour.cs" />
     <Compile Include="ViewModels\BrowserViewModel.cs" />
@@ -116,8 +113,6 @@
     <Compile Include="ViewModels\Dialogs\DropDownViewModel .cs" />
     <Compile Include="ViewModels\Dialogs\DialogViewModel.cs" />
     <Compile Include="FolderBrowserFactory.cs" />
-    <Compile Include="Interfaces\Dialogs\IRecentLocationsViewModel.cs" />
-    <Compile Include="ViewModels\FileSystem\FSItemViewModel.cs" />
     <Compile Include="ViewModels\FolderViewModel.cs" />
     <Compile Include="Interfaces\Dialogs\IDropDownViewModel.cs" />
     <Compile Include="Interfaces\IBrowserViewModel.cs" />

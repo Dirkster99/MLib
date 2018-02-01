@@ -3,12 +3,13 @@
     using Base;
     using Doc.DocManager.Interfaces;
     using ExplorerLib;
+    using FileSystemModels.Interfaces.Bookmark;
     using FolderBrowser;
-    using FolderBrowser.Dialogs.Interfaces;
     using MLib.Interfaces;
     using MLib.Themes;
     using MWindowInterfacesLib.Interfaces;
     using MWindowInterfacesLib.MsgBox.Enums;
+    using PDF_Binder.ViewModels.VMManagement;
     using PDFBinderLib;
     using PDFBinderLib.Implementations;
     using Settings.Interfaces;
@@ -18,7 +19,6 @@
     using System.Linq;
     using System.Windows;
     using System.Windows.Input;
-    using VMManagement;
 
     /// <summary>
     /// Main ViewModel vlass that manages session start-up, life span, and shutdown
@@ -56,7 +56,7 @@
         private bool _IsToggleSettingsChecked = false;
 
         private ICommand mSelectFolderCommand;
-        private IBookmarkedLocationsViewModel mBookmarkedLocation;
+        private IBookmarksViewModel mBookmarkedLocation;
         #endregion private fields
 
         #region constructors
@@ -465,7 +465,7 @@
         /// <summary>
         /// Gets/sets a bookmark folder property to manage bookmarked folders.
         /// </summary>
-        public IBookmarkedLocationsViewModel BookmarkedLocations
+        public IBookmarksViewModel BookmarkedLocations
         {
             get
             {

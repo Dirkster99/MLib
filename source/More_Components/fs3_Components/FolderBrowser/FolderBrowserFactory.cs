@@ -1,5 +1,6 @@
 ﻿namespace FolderBrowser
 {
+    using FileSystemModels.Interfaces.Bookmark;
     using FolderBrowser.Dialogs.Interfaces;
     using FolderBrowser.Dialogs.ViewModels;
     using FolderBrowser.Interfaces;
@@ -11,8 +12,10 @@
     /// the main classes and work with their properties and methods that are accessible
     /// through their related interface definitions.
     /// </summary>
-    public static class FolderBrowserFactory
+    public sealed class FolderBrowserFactory
     {
+        private FolderBrowserFactory(){}
+
         /// <summary>
         /// Create a dropdown viewmodel object that can be used to manage a dropdown view
         /// that contains a browser naviagtion (directory picker) control.
@@ -23,7 +26,7 @@
         /// <returns></returns>
         public static IDropDownViewModel CreateDropDownViewModel(
             IBrowserViewModel treeBrowser,
-            IBookmarkedLocationsViewModel recentLocations,
+            IBookmarksViewModel recentLocations,
             DropDownClosedResult resultCallback)
         {
             return new DropDownViewModel(treeBrowser, recentLocations, resultCallback);
@@ -61,19 +64,9 @@
         /// <returns></returns>
         public static IDialogViewModel CreateDialogViewModel(
             IBrowserViewModel treeBrowser = null,
-            IBookmarkedLocationsViewModel recentLocations = null)
+            IBookmarksViewModel recentLocations = null)
         {
             return new DialogViewModel(treeBrowser, recentLocations);
-        }
-
-        /// <summary>
-        /// Factory pattern that can create objects to manage
-        /// recently visited file system folder entries.
-        /// </summary>
-        /// <returns></returns>
-        public static IBookmarkedLocationsViewModel CreateRecentLocationsViewModel()
-        {
-            return new BookmarkedLocationsViewModel() as IBookmarkedLocationsViewModel;
         }
 
         public static ICustomFolderItemViewModel CreateCustomFolderItemViewModel(

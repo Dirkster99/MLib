@@ -1,5 +1,6 @@
 namespace FolderBrowser.Dialogs.ViewModels
 {
+    using FileSystemModels.Interfaces.Bookmark;
     using FolderBrowser.Dialogs.Interfaces;
     using FolderBrowser.Interfaces;
 
@@ -17,7 +18,7 @@ namespace FolderBrowser.Dialogs.ViewModels
         /// Class constructor
         /// </summary>
         public DialogViewModel(IBrowserViewModel treeBrowser = null,
-                               IBookmarkedLocationsViewModel recentLocations = null)
+                               IBookmarksViewModel recentLocations = null)
             : base (treeBrowser, recentLocations)
         {
         }

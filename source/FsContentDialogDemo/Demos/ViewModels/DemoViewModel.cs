@@ -1,9 +1,11 @@
 ﻿namespace FsContentDialogDemo.Demos.ViewModels
 {
     using FileSystemModels.Events;
+    using FileSystemModels.Interfaces.Bookmark;
     using FolderBrowser;
     using FolderBrowser.Dialogs.Interfaces;
     using FsContentDialogDemo.ViewModels.Base;
+    using System.Linq;
     using System.Windows.Input;
 
     public class DemoViewModel : MWindowDialogLib.ViewModels.Base.BaseViewModel
@@ -11,7 +13,7 @@
         #region private fields
         private string _Path;
         private ICommand _ShowConententDialogCommand;
-        private IBookmarkedLocationsViewModel _BookmarkedLocation;
+        private IBookmarksViewModel _BookmarkedLocation;
         private ICommand mSelectFolderCommand;
         private IDropDownViewModel mDropDownBrowser = null;
         #endregion private fields
@@ -35,7 +37,7 @@
         /// <summary>
         /// Gets a bookmark folder property to manage bookmarked folders.
         /// </summary>
-        public IBookmarkedLocationsViewModel BookmarkedLocations
+        public IBookmarksViewModel BookmarkedLocations
         {
             get
             {
@@ -188,15 +190,15 @@
         /// the recent folder collection that implements folder bookmarks.
         /// </summary>
         /// <returns></returns>
-        private IBookmarkedLocationsViewModel ConstructBookmarks()
+        private IBookmarksViewModel ConstructBookmarks()
         {
-            IBookmarkedLocationsViewModel ret = FolderBrowserFactory.CreateRecentLocationsViewModel();
+            IBookmarksViewModel ret = FileSystemModels.Factory.CreateBookmarksViewModel();
 
             ret.AddFolder(@"C:\Windows");
             ret.AddFolder(@"C:\Users");
             ret.AddFolder(@"C:\Program Files");
 
-            ret.SelectedItem = ret.DropDownItems[0];
+            ret.SelectedItem = ret.DropDownItems.First();
 
             return ret;
         }
@@ -250,7 +252,7 @@
             return this.Path;
         }
 
-        private IBookmarkedLocationsViewModel UpdateBookmarks()
+        private IBookmarksViewModel UpdateBookmarks()
         {
             return this.BookmarkedLocations;
         }
@@ -261,7 +263,7 @@
         /// <param name="bookmarks"></param>
         /// <param name="selectedPath"></param>
         /// <param name="result"></param>
-        private void DropDownClosedResult(IBookmarkedLocationsViewModel bookmarks,
+        private void DropDownClosedResult(IBookmarksViewModel bookmarks,
                                           string selectedPath,
                                           FolderBrowser.Dialogs.Interfaces.Result result)
         {
@@ -276,7 +278,7 @@
             }
         }
 
-        private void CloneBookMarks(IBookmarkedLocationsViewModel bookmarkedLocations)
+        private void CloneBookMarks(IBookmarksViewModel bookmarkedLocations)
         {
             if (bookmarkedLocations == null)
                 return;

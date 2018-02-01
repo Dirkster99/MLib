@@ -1,16 +1,14 @@
-﻿namespace FolderBrowser.Dialogs.Interfaces
+﻿namespace FileSystemModels.Interfaces.Bookmark
 {
     using FileSystemModels.Events;
-    using FileSystemModels.Interfaces;
-    using FolderBrowser.FileSystem.Interfaces;
     using System;
-    using System.Collections.ObjectModel;
+    using System.Collections.Generic;
     using System.Windows.Input;
 
     /// <summary>
     /// Define an interface to a class that manages recently visited folder entries,
     /// </summary>
-    public interface IBookmarkedLocationsViewModel : ICloneable
+    public interface IBookmarksViewModel : ICloneable
     {
         /// <summary>
         /// Event is fired whenever a change of the current directory is requested.
@@ -34,7 +32,7 @@
         /// <summary>
         /// <inheritedoc />
         /// </summary>
-        ObservableCollection<IFSItemViewModel> DropDownItems { get; }
+        IEnumerable<IFSItemViewModel> DropDownItems { get; }
 
         /// <summary>
         /// Gets/sets the selected item of the RecentLocations property.
@@ -55,7 +53,7 @@
         /// and their handlers are not copied.
         /// </summary>
         /// <returns></returns>
-        IBookmarkedLocationsViewModel CloneBookmark();
+        IBookmarksViewModel CloneBookmark();
 
         /// <summary>
         /// Add a recent folder location into the collection of recent folders.

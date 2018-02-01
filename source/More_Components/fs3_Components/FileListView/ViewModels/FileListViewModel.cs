@@ -99,7 +99,7 @@ namespace FileListView.ViewModels
         /// <summary>
         /// Generate an event to remove or add a recent folder to a collection.
         /// </summary>
-        public event EventHandler<RecentFolderEvent> RequestEditRecentFolder;
+        public event EventHandler<EditBookmarkEvent> RequestEditRecentFolder;
         #endregion
 
         #region properties
@@ -879,8 +879,8 @@ namespace FileListView.ViewModels
                 return;
 
             if (this.RequestEditRecentFolder != null)
-                this.RequestEditRecentFolder(this, new RecentFolderEvent(item.GetModel,
-                                                                         RecentFolderEvent.RecentFolderAction.Remove));
+                this.RequestEditRecentFolder(this, new EditBookmarkEvent(item.GetModel,
+                                                                         EditBookmarkEvent.RecentFolderAction.Remove));
         }
 
         private void RecentFolderAdd_Executed(object param)
@@ -891,8 +891,8 @@ namespace FileListView.ViewModels
                 return;
 
             if (this.RequestEditRecentFolder != null)
-                this.RequestEditRecentFolder(this, new RecentFolderEvent(item.GetModel,
-                                                                         RecentFolderEvent.RecentFolderAction.Add));
+                this.RequestEditRecentFolder(this, new EditBookmarkEvent(item.GetModel,
+                                                                         EditBookmarkEvent.RecentFolderAction.Add));
         }
 
         /// <summary>

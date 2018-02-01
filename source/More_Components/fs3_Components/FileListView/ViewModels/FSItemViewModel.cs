@@ -5,8 +5,6 @@ namespace FileListView.ViewModels
     using System.Windows.Media;
     using FileSystemModels;
     using FileSystemModels.Interfaces;
-    using FileSystemModels.Models;
-    using FileSystemModels.Models.FSItems;
     using FileSystemModels.Models.FSItems.Base;
     using FileSystemModels.Utils;
     using InplaceEditBoxLib.ViewModels;

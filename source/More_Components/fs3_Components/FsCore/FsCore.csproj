@@ -94,8 +94,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Semaphores\AsyncLock .cs" />
     <Compile Include="Semaphores\AsyncSemaphore .cs" />
-    <Compile Include="ViewModels\Base\ViewModelBase.cs" />
-    <Compile Include="ViewModels\RelayCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Generic\Folder\folderopened_yellow_128.png" />

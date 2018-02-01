@@ -1,5 +1,6 @@
 ﻿namespace FolderBrowser.Dialogs.Interfaces
 {
+    using FileSystemModels.Interfaces.Bookmark;
     using FolderBrowser.Interfaces;
 
     public interface IDialogViewModel
@@ -14,6 +15,6 @@
         /// <summary>
         /// Gets the viewmodel that drives the folder bookmark drop down control.
         /// </summary>
-        IBookmarkedLocationsViewModel BookmarkedLocations  { get; }
+        IBookmarksViewModel BookmarkedLocations  { get; }
     }
 }

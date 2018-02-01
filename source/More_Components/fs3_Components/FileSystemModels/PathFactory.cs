@@ -9,8 +9,10 @@ namespace FileSystemModels
     /// Class implements base services for working with the <see ref="IPathModel">
     /// interface and its associated methods.
     /// </summary>
-    public class PathFactory
+    public sealed class PathFactory
     {
+        private PathFactory(){}
+
         /// <summary>
         /// Constructs a new <seealso cref="IPathModel"/> object and returns it.
         /// </summary>

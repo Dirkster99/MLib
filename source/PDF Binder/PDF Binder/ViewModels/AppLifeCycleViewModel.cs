@@ -154,7 +154,7 @@
                     new Uri("/MWindowDialogLib;component/Themes/LightIcons.xaml", UriKind.RelativeOrAbsolute)
                    ,new Uri("/MWindowDialogLib;component/Themes/LightBrushs.xaml", UriKind.RelativeOrAbsolute)
                    ,new Uri("/BindToMLib;component/LightBrushs.xaml", UriKind.RelativeOrAbsolute)
-                   ,new Uri("/FolderBrowser;component/Themes/MetroDark.xaml", UriKind.RelativeOrAbsolute)
+                   ,new Uri("/FolderBrowser;component/Themes/MetroLight.xaml", UriKind.RelativeOrAbsolute)
 
 //                   ,new Uri("/PDF Binder;component/Themes/MWindowLib/LightBrushs.xaml", UriKind.RelativeOrAbsolute)
                    ,new Uri("/PDF Binder;component/Themes/Light/LightIcons.xaml", UriKind.RelativeOrAbsolute)

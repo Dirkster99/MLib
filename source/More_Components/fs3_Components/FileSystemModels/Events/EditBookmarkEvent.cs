@@ -4,16 +4,17 @@ namespace FileSystemModels.Events
     using System;
 
     /// <summary>
-    /// Class implements an event for messaging operations
-    /// on a recent folder collection.
+    /// Implements an event for messaging to a bookmark collection
+    /// whether a bookmarked entry should be added or removed ...
+    /// from the collection.
     /// </summary>
-    public class RecentFolderEvent : EventArgs
+    public class EditBookmarkEvent : EventArgs
     {
         #region constructor
         /// <summary>
         /// Event type class constructor from parameter
         /// </summary>
-        public RecentFolderEvent(IPathModel path,
+        public EditBookmarkEvent(IPathModel path,
                                  RecentFolderAction action = RecentFolderAction.Add)
         : this()
         {
@@ -24,7 +25,7 @@ namespace FileSystemModels.Events
         /// <summary>
         /// Class constructor
         /// </summary>
-        public RecentFolderEvent()
+        public EditBookmarkEvent()
         : base()
         {
             this.Folder = null;
