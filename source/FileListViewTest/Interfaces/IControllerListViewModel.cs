@@ -1,5 +1,7 @@
-namespace FileListView.ViewModels.Interfaces
+namespace FileListViewTest.Interfaces
 {
+    using FileListView.ViewModels;
+    using FileListView.ViewModels.Interfaces;
     using FileSystemModels.Interfaces;
     using FileSystemModels.Interfaces.Bookmark;
 
@@ -7,7 +9,7 @@ namespace FileListView.ViewModels.Interfaces
     /// Interface implements a folder/file view model class
     /// that can be used to dispaly filesystem related content in an ItemsControl.
     /// </summary>
-    public interface IFolderListViewModel : IConfigExplorerSettings
+    public interface IControllerListViewModel : IConfigExplorerSettings
     {
         #region properties
         /// <summary>

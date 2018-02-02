@@ -86,13 +86,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command\RelayCommand.cs" />
-    <Compile Include="FileListViewFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\EditFolderBookmarks.cs" />
     <Compile Include="ViewModels\FileListViewModel.cs" />
-    <Compile Include="ViewModels\ControllerListViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IFileListViewModel.cs" />
-    <Compile Include="ViewModels\Interfaces\IFolderListViewModel.cs" />
     <Compile Include="ViewModels\SortableObservableCollection.cs" />
     <Compile Include="Views\Behavior\DoubleClickSelectorItem.cs" />
     <Compile Include="Views\Behavior\BringIntoViewListBoxItem.cs" />

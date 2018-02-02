@@ -1,7 +1,9 @@
-namespace FileListView.ViewModels
+namespace FileListViewTest.ViewModels
 {
     using System.Windows;
+    using FileListView.ViewModels;
     using FileListView.ViewModels.Interfaces;
+    using FileListViewTest.Interfaces;
     using FileSystemModels.Events;
     using FileSystemModels.Interfaces;
     using FileSystemModels.Interfaces.Bookmark;
@@ -11,7 +13,7 @@ namespace FileListView.ViewModels
     /// Class implements a folder/file view model class
     /// that can be used to dispaly filesystem related content in an ItemsControl.
     /// </summary>
-    internal class ControllerListViewModel : Base.ViewModelBase, IFolderListViewModel
+    internal class ControllerListViewModel : Base.ViewModelBase, IControllerListViewModel
     {
         #region fields
         private string mSelectedFolder = string.Empty;
@@ -125,7 +127,7 @@ namespace FileListView.ViewModels
                 if (this.mSelectedFolder != value)
                 {
                     this.mSelectedFolder = value;
-                    this.RaisePropertyChanged(() => this.SelectedFolder);
+                    base.NotifyPropertyChanged(() => this.SelectedFolder);
                 }
             }
         }

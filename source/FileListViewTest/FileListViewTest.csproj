@@ -97,8 +97,11 @@
     <Compile Include="FileListItemView.xaml.cs">
       <DependentUpon>FileListItemView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FileListViewTestFactory.cs" />
+    <Compile Include="Interfaces\IControllerListViewModel.cs" />
     <Compile Include="ViewModels\ApplicationViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
+    <Compile Include="ViewModels\ControllerListViewModel.cs" />
     <Page Include="FileListItemOptionsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

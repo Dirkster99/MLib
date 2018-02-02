@@ -3,10 +3,8 @@ namespace FileListViewTest.ViewModels
     using System;
     using System.Collections.Generic;
     using System.Windows.Input;
-    using FileListView;
     using FileListView.Command;
-    using FileListView.ViewModels;
-    using FileListView.ViewModels.Interfaces;
+    using FileListViewTest.Interfaces;
     using FileSystemModels.Interfaces;
     using FolderBrowser;
 
@@ -26,7 +24,7 @@ namespace FileListViewTest.ViewModels
         /// </summary>
         public ApplicationViewModel()
         {
-            this.FolderView = FileListViewFactory.Create();
+            this.FolderView = FileListViewTestFactory.Create();
 
             this.FolderView.AddRecentFolder(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
             this.FolderView.AddRecentFolder(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), true);
@@ -44,7 +42,7 @@ namespace FileListViewTest.ViewModels
         /// Expose a viewmodel that controls the combobox folder drop down
         /// and the folder/file list view.
         /// </summary>
-        public IFolderListViewModel FolderView { get; set; }
+        public IControllerListViewModel FolderView { get; set; }
 
         #region Commands for test case without folderBrowser
         /// <summary>
@@ -94,7 +92,7 @@ namespace FileListViewTest.ViewModels
         private void AddRecentFolder_Executed(object p)
         {
             string path;
-            IFolderListViewModel vm;
+            IControllerListViewModel vm;
             
             this.ResolveParameterList(p as List<object>, out path, out vm);
             
@@ -125,7 +123,7 @@ namespace FileListViewTest.ViewModels
         private void RemoveRecentFolder_Executed(object p)
         {
             string path;
-            IFolderListViewModel vm;
+            IControllerListViewModel vm;
 
             this.ResolveParameterList(p as List<object>, out path, out vm);
 
@@ -143,7 +141,7 @@ namespace FileListViewTest.ViewModels
         /// <param name="path"></param>
         /// <param name="vm"></param>
         private void ResolveParameterList(List<object> l,
-                                          out string path, out IFolderListViewModel vm)
+                                          out string path, out IControllerListViewModel vm)
         {
             path = null;
             vm = null;
@@ -161,12 +159,12 @@ namespace FileListViewTest.ViewModels
                         path = pathItem.FullPath;
                 }
                 else
-                    if (item is IFolderListViewModel)
+                    if (item is IControllerListViewModel)
                     {
-                        var vmItem = item as IFolderListViewModel;
+                        var vmItem = item as IControllerListViewModel;
 
                         if (vmItem != null)
-                            vm = item as IFolderListViewModel;
+                            vm = item as IControllerListViewModel;
                     }
             }
 
