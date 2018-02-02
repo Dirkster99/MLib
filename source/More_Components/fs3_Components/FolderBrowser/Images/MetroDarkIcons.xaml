@@ -27,6 +27,7 @@
     <!-- Browse button icons -->
     <BitmapImage x:Key="GoButton_Image_Go" UriSource="pack://application:,,,/FolderBrowser;component/Images/Metro/Dark/BrowseButton/arrow-right-b_64.png" />
     <BitmapImage x:Key="GoButton_Image_Cancel" UriSource="pack://application:,,,/FolderBrowser;component/Images/Metro/Dark/BrowseButton/close-round.png" />
+    <BitmapImage x:Key="FLV_Image_Refresh" UriSource="pack://application:,,,/FolderBrowser;component/Images/Metro/Dark/BrowseButton/appbar.refresh_32.png" />
 
     <!-- Misc cons -->
     <BitmapImage x:Key="Error_Image" UriSource="pack://application:,,,/FolderBrowser;component/Images/Generic/Error.png" />

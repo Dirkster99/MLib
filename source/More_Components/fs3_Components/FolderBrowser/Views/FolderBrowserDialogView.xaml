@@ -100,7 +100,7 @@
                         <Border BorderBrush="Transparent"
                                 VerticalAlignment="Stretch"
                                 HorizontalAlignment="Stretch">
-                            <Image Source="{DynamicResource GoButton_Image_Go}" Width="16" />
+                            <Image Source="{DynamicResource FLV_Image_Refresh}" Width="16" />
                         </Border>
                     </ctrls:SplitItemsButton.Content>
                     <ctrls:DropDownItemsButton.Resources>

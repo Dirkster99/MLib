@@ -164,15 +164,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ClassDiagram1.png" />
     <Content Include="Images\Generic\BrowseButton\arrow-right-b.svg" />
     <Content Include="Images\Generic\BrowseButton\close-round.svg" />
-    <Content Include="Images\Generic\BrowseButton\ios7-refresh-empty.svg" />
-    <Content Include="DesignOverview.png" />
     <Resource Include="Images\Generic\Error.png" />
     <Resource Include="Images\Metro\Dark\BrowseButton\arrow-right-b_64.png" />
     <Resource Include="Images\Metro\Dark\BrowseButton\close-round.png" />
-    <Resource Include="Images\Metro\Dark\BrowseButton\ios7-refresh-empty_64.png" />
+    <Resource Include="Images\Metro\Light\BrowseButton\appbar.refresh_16.png" />
+    <Resource Include="Images\Metro\Light\BrowseButton\appbar.refresh_32.png" />
+    <Resource Include="Images\Metro\Dark\BrowseButton\appbar.refresh_32.png" />
+    <Resource Include="Images\Metro\Dark\BrowseButton\appbar.refresh_16.png" />
+    <Resource Include="Images\Generic\BrowseButton\refresh.png" />
     <Content Include="Images\Metro\SVG\Desktop.svg" />
     <Content Include="Images\Metro\SVG\Favourites.svg" />
     <Content Include="Images\Metro\SVG\FolderClosed.svg" />
@@ -216,7 +217,6 @@
     <Resource Include="Images\Generic\Folder.png" />
     <Resource Include="Images\Generic\Favourites.png" />
     <Resource Include="Images\Generic\Desktop.png" />
-    <Resource Include="Images\Generic\BrowseButton\ios7-refresh-empty_64.png" />
     <Resource Include="Images\Generic\BrowseButton\close-round.png" />
     <Resource Include="Images\Generic\BrowseButton\arrow-right-b_64.png" />
   </ItemGroup>
@@ -271,8 +271,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
-    <None Include="DesignOverview.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
