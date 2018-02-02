@@ -14,7 +14,7 @@
         /// <returns></returns>
         public static IFolderListViewModel Create()
         {
-            return new FolderListViewModel();
+            return new ControllerListViewModel();
         }
     }
 }

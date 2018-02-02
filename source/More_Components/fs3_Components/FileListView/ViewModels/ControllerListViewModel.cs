@@ -11,7 +11,7 @@ namespace FileListView.ViewModels
     /// Class implements a folder/file view model class
     /// that can be used to dispaly filesystem related content in an ItemsControl.
     /// </summary>
-    internal class FolderListViewModel : Base.ViewModelBase, IFolderListViewModel
+    internal class ControllerListViewModel : Base.ViewModelBase, IFolderListViewModel
     {
         #region fields
         private string mSelectedFolder = string.Empty;
@@ -24,7 +24,7 @@ namespace FileListView.ViewModels
         /// Custom class constructor
         /// </summary>
         /// <param name="onFileOpenMethod"></param>
-        public FolderListViewModel(System.EventHandler<FileOpenEventArgs> onFileOpenMethod)
+        public ControllerListViewModel(System.EventHandler<FileOpenEventArgs> onFileOpenMethod)
           : this()
         {
             // Remove the standard constructor event that is fired when a user opens a file
@@ -38,7 +38,7 @@ namespace FileListView.ViewModels
         /// <summary>
         /// Class constructor
         /// </summary>
-        public FolderListViewModel()
+        public ControllerListViewModel()
         {
             this.FolderItemsView = new FileListViewModel(new BrowseNavigation());
 
@@ -174,8 +174,8 @@ namespace FileListView.ViewModels
                 foreach (var item in settings.RecentFolders)
                     this.RecentFolders.AddFolder(item);
 
-                if (string.IsNullOrEmpty(settings.LastSelectedRecentFolder) == false)
-                    this.AddRecentFolder(settings.LastSelectedRecentFolder, true);
+////                if (string.IsNullOrEmpty(settings.LastSelectedRecentFolder) == false)
+////                    this.AddRecentFolder(settings.LastSelectedRecentFolder, true);
 
                 this.FolderItemsView.ShowIcons = settings.ShowIcons;
                 this.FolderItemsView.SetIsFolderVisible(settings.ShowFolders);
@@ -274,6 +274,24 @@ namespace FileListView.ViewModels
                 return;
 
             this.RecentFolders.RemoveFolder(path);
+        }
+
+        /// <summary>
+        /// Copies all of the given bookmars into the destionations bookmarks collection.
+        /// </summary>
+        /// <param name="srcRecentFolders"></param>
+        /// <param name="dstRecentFolders"></param>
+        public void CloneBookmarks(IBookmarksViewModel srcRecentFolders,
+                                   IBookmarksViewModel dstRecentFolders)
+        {
+            if (srcRecentFolders == null || dstRecentFolders == null)
+                return;
+
+            dstRecentFolders.ClearFolderCollection();
+
+            // Set collection of recent folder locations
+            foreach (var item in srcRecentFolders.DropDownItems)
+                dstRecentFolders.AddFolder(item.FullPath);
         }
         #endregion Bookmarked Folders Methods
 

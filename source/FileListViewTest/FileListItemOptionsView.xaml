@@ -4,12 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 
-             xmlns:localview="clr-namespace:FileListViewTest"
-             xmlns:conv="clr-namespace:FileListViewTest.Converter"
-
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-  <Grid>
+    <Grid xmlns:conv="clr-namespace:FileListViewTest.Converter">
   <Grid.RowDefinitions>
     <RowDefinition Height="Auto" />
     <RowDefinition Height="Auto" />
@@ -51,7 +48,9 @@
       </StackPanel>
     </GroupBox>
 -->
-    <GroupBox Header="FolderListViewModel" HorizontalAlignment="Stretch" Grid.Row="0">
+    <GroupBox DataContext="{Binding FolderView}"
+              Header="FolderListViewModel"
+              HorizontalAlignment="Stretch" Grid.Row="0">
       <StackPanel Orientation="Vertical">
         <Grid Margin="3">
           <Grid.RowDefinitions>
@@ -70,7 +69,9 @@
       </StackPanel>
     </GroupBox>
 
-    <GroupBox Header="FileListViewModel" HorizontalAlignment="Stretch"  Grid.Row="1">
+    <GroupBox
+        DataContext="{Binding FolderView}"
+        Header="FileListViewModel" HorizontalAlignment="Stretch"  Grid.Row="1">
       <StackPanel Orientation="Vertical">
         <CheckBox Content="Show Icons"
                   DataContext="{Binding FolderItemsView}" 
@@ -89,15 +90,42 @@
     <Label Content="Folder Bookmarks:" Grid.Row="2"/>
     <Grid  Grid.Row="3">
       <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
         <ColumnDefinition Width="*"/>
       </Grid.ColumnDefinitions>
 
-      <ListBox ItemsSource="{Binding RecentFolders.DropDownItems}"
-                SelectedItem="{Binding RecentFolders.SelectedItem}"
-                ToolTip="Recent File List"
-                VerticalAlignment="Stretch"
-                HorizontalAlignment="Stretch"
-                Grid.Column="1" />
+            <StackPanel>
+                <Button Content="+" Margin="3" MinWidth="30"
+                        Command="{Binding AddRecentFolder}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{conv:MultiBindingToObjectListConverter}">
+                            <Binding Path="FolderView.RecentFolders.SelectedItem" />
+                            <Binding Path="FolderView" />
+                            <!-- This is the viewmodel that request to add a recent folder entry -->
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+
+                <Button Content="-" Margin="3" MinWidth="30"
+                        Command="{Binding RemoveRecentFolder}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{conv:MultiBindingToObjectListConverter}">
+                            <Binding Path="FolderView.RecentFolders.SelectedItem" />
+                            <Binding Path="FolderView" />
+                            <!-- This is the viewmodel that request to add a recent folder entry -->
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+
+            </StackPanel>
+
+            <ListBox DataContext="{Binding FolderView}"
+                     ItemsSource="{Binding RecentFolders.DropDownItems}"
+                     SelectedItem="{Binding RecentFolders.SelectedItem}"
+                     ToolTip="Bookmarked Folder List"
+                     VerticalAlignment="Stretch"
+                     HorizontalAlignment="Stretch"
+                     Grid.Column="1" />
     </Grid>
   </Grid>
 </UserControl>

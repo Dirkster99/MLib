@@ -1,6 +1,7 @@
 namespace FileListView.ViewModels.Interfaces
 {
     using FileSystemModels.Interfaces;
+    using FileSystemModels.Interfaces.Bookmark;
 
     /// <summary>
     /// Interface implements a folder/file view model class
@@ -27,6 +28,11 @@ namespace FileListView.ViewModels.Interfaces
         /// with their system specific icon.
         /// </summary>
         IFileListViewModel FolderItemsView { get; }
+
+        /// <summary>
+        /// Gets the viewmodel that exposes recently visited locations (bookmarked folders).
+        /// </summary>
+        IBookmarksViewModel RecentFolders { get; }
 
         /// <summary>
         /// Gets/sets the currently selected folder path string.
@@ -56,6 +62,14 @@ namespace FileListView.ViewModels.Interfaces
         /// </summary>
         /// <param name="path"></param>
         void RemoveRecentFolder(string path);
+
+        /// <summary>
+        /// Copies all of the given bookmars into the destionations bookmarks collection.
+        /// </summary>
+        /// <param name="srcRecentFolders"></param>
+        /// <param name="dstRecentFolders"></param>
+        void CloneBookmarks(IBookmarksViewModel srcRecentFolders,
+                            IBookmarksViewModel dstRecentFolders);
 
         /// <summary>
         /// Add a new filter argument to the list of filters and
