@@ -1,8 +1,10 @@
 namespace FileListView.ViewModels.Interfaces
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Windows.Input;
+    using FileListView.Interfaces;
     using FileSystemModels.Events;
     using FileSystemModels.Interfaces.Bookmark;
 
@@ -33,7 +35,7 @@ namespace FileListView.ViewModels.Interfaces
         /// <summary>
         /// Gets/sets list of files and folders to be displayed in connected view.
         /// </summary>
-        ObservableCollection<FSItemViewModel> CurrentItems { get; set; }
+        IEnumerable<ILVItemViewModel> CurrentItems { get; }
 
         /// <summary>
         /// Gets/sets whether the list of folders and files should include folders or not.

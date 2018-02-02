@@ -3,6 +3,7 @@ namespace FileListView.ViewModels
     using System;
     using System.IO;
     using System.Windows.Media;
+    using FileListView.Interfaces;
     using FileSystemModels;
     using FileSystemModels.Interfaces;
     using FileSystemModels.Models.FSItems.Base;
@@ -12,7 +13,7 @@ namespace FileListView.ViewModels
     /// <summary>
     /// The Viewmodel for file system items
     /// </summary>
-    public class FSItemViewModel : EditInPlaceViewModel
+    internal class LVItemViewModel : EditInPlaceViewModel, ILVItemViewModel
     {
         #region fields
         /// <summary>
@@ -35,7 +36,7 @@ namespace FileListView.ViewModels
         /// <param name="itemType"></param>
         /// <param name="showIcon"></param>
         /// <param name="indentation"></param>
-        public FSItemViewModel(string curdir,
+        public LVItemViewModel(string curdir,
                         FSItemType itemType,
                         string displayName,
                         bool showIcon,
@@ -46,13 +47,22 @@ namespace FileListView.ViewModels
         }
 
         /// <summary>
+        /// Sets the display name of this item.
+        /// </summary>
+        /// <param name="stringToDisplay"></param>
+        internal void SetDisplayName(string stringToDisplay)
+        {
+            DisplayName = stringToDisplay;
+        }
+
+        /// <summary>
         /// class constructor
         /// </summary>
         /// <param name="curdir"></param>
-        /// <param name="displayName"></param>
         /// <param name="itemType"></param>
+        /// <param name="displayName"></param>
         /// <param name="indentation"></param>
-        public FSItemViewModel(string curdir,
+        public LVItemViewModel(string curdir,
                         FSItemType itemType,
                         string displayName,
                         int indentation = 0)
@@ -64,9 +74,27 @@ namespace FileListView.ViewModels
         }
 
         /// <summary>
+        /// class constructor
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="displayName"></param>
+        /// <param name="indentation"></param>
+        public LVItemViewModel(IPathModel model,
+                        string displayName,
+                        bool isReadOnly = false,
+                        int indentation = 0)
+            : this()
+        {
+            mPathObject = model.Clone() as IPathModel;
+            DisplayName = displayName;
+            IsReadOnly = isReadOnly;
+            Indentation = indentation;
+        }
+
+        /// <summary>
         /// Hidden standard class constructor
         /// </summary>
-        protected FSItemViewModel()
+        protected LVItemViewModel()
         {
             this.mDisplayIcon = null;
             this.mPathObject = null;
@@ -88,7 +116,7 @@ namespace FileListView.ViewModels
                 return this.mDisplayName;
             }
 
-            private set
+            protected set
             {
                 if (this.mDisplayName != value)
                 {
@@ -183,25 +211,6 @@ namespace FileListView.ViewModels
         #endregion properties
 
         #region methods
-        /// <summary>
-        /// Public construction method to create a <see cref="FSItemViewModel"/>
-        /// object that represents a logical drive (eg 'C:\')
-        /// </summary>
-        /// <param name="curdir"></param>
-        /// <returns></returns>
-        public static FSItemViewModel CreateLogicalDrive(string curdir)
-        {
-            FSItemViewModel item = new FSItemViewModel();
-
-            item.mPathObject = PathFactory.Create(curdir, FSItemType.LogicalDrive);
-            item.DisplayName = item.DisplayItemString();
-
-            // Names of Logical drives cannot be changed with this
-            item.IsReadOnly = true;
-
-            return item;
-        }
-
         /// <summary>
         /// Standard method to display contents of this class.
         /// </summary>

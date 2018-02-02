@@ -12,7 +12,7 @@
     /// <summary>
     /// The Viewmodel for file system items
     /// </summary>
-    internal class FSItemViewModel : ViewModelBase ,IFSItemViewModel
+    internal class FSItemViewModel : ViewModelBase, IFSItemViewModel
     {
         #region fields
         /// <summary>

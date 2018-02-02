@@ -1,10 +1,13 @@
 namespace FileListView.ViewModels
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.IO;
+    using System.Linq;
     using System.Windows.Input;
-    using FileListView.Command;
+    using FileListView.Interfaces;
+    using FileListView.ViewModels.Base;
     using FileSystemModels;
     using FileSystemModels.Events;
     using FileSystemModels.Models.FSItems.Base;
@@ -13,15 +16,15 @@ namespace FileListView.ViewModels
     /// Class implements a viewmodel that can be used for a
     /// combobox that can be used to browse to different folder locations.
     /// </summary>
-    public class FolderComboBoxViewModel : Base.ViewModelBase
+    internal class FolderComboBoxViewModel : Base.ViewModelBase, IFolderComboBoxViewModel
     {
         #region fields
-        private readonly ObservableCollection<FSItemViewModel> mCurrentItems;
+        private readonly ObservableCollection<ILVItemViewModel> mCurrentItems;
 
-        private string mCurrentFolder = string.Empty;
-        private FSItemViewModel mSelectedItem = null;
+        private string _CurrentFolder = string.Empty;
+        private ILVItemViewModel _SelectedItem = null;
 
-        private RelayCommand<object> mSelectionChanged = null;
+        private ICommand _SelectionChanged = null;
         private string mSelectedRecentLocation = string.Empty;
 
         private object mLockObject = new object();
@@ -33,7 +36,7 @@ namespace FileListView.ViewModels
         /// </summary>
         public FolderComboBoxViewModel()
         {
-            this.mCurrentItems = new ObservableCollection<FSItemViewModel>();
+            this.mCurrentItems = new ObservableCollection<ILVItemViewModel>();
         }
         #endregion constructor
 
@@ -49,7 +52,7 @@ namespace FileListView.ViewModels
         /// Expose a collection of file system items (folders and hard disks and ...) that
         /// can be selected and navigated to in this viewmodel.
         /// </summary>
-        public ObservableCollection<FSItemViewModel> CurrentItems
+        public IEnumerable<ILVItemViewModel> CurrentItems
         {
             get
             {
@@ -60,18 +63,18 @@ namespace FileListView.ViewModels
         /// <summary>
         /// Gets/sets the currently selected file system viewmodel item.
         /// </summary>
-        public FSItemViewModel SelectedItem
+        public ILVItemViewModel SelectedItem
         {
             get
             {
-                return this.mSelectedItem;
+                return this._SelectedItem;
             }
 
             set
             {
-                if (this.mSelectedItem != value)
+                if (this._SelectedItem != value)
                 {
-                    this.mSelectedItem = value;
+                    this._SelectedItem = value;
                     this.RaisePropertyChanged(() => this.SelectedItem);
                 }
             }
@@ -85,14 +88,14 @@ namespace FileListView.ViewModels
         {
             get
             {
-                return this.mCurrentFolder;
+                return this._CurrentFolder;
             }
 
             set
             {
-                if (this.mCurrentFolder != value)
+                if (this._CurrentFolder != value)
                 {
-                    this.mCurrentFolder = value;
+                    this._CurrentFolder = value;
                     this.RaisePropertyChanged(() => this.CurrentFolder);
                     this.RaisePropertyChanged(() => this.CurrentFolderToolTip);
                 }
@@ -107,8 +110,8 @@ namespace FileListView.ViewModels
         {
             get
             {
-                if (string.IsNullOrEmpty(this.mCurrentFolder) == false)
-                    return string.Format("{0}\n{1}", this.mCurrentFolder,
+                if (string.IsNullOrEmpty(this._CurrentFolder) == false)
+                    return string.Format("{0}\n{1}", this._CurrentFolder,
                                                      FileSystemModels.Local.Strings.SelectLocationCommand_TT);
                 else
                     return FileSystemModels.Local.Strings.SelectLocationCommand_TT;
@@ -133,10 +136,10 @@ namespace FileListView.ViewModels
         {
             get
             {
-                if (this.mSelectionChanged == null)
-                    this.mSelectionChanged = new RelayCommand<object>((p) => this.SelectionChanged_Executed(p));
+                if (this._SelectionChanged == null)
+                    this._SelectionChanged = new RelayCommand<object>((p) => this.SelectionChanged_Executed(p));
 
-                return this.mSelectionChanged;
+                return this._SelectionChanged;
             }
         }
         #endregion commands
@@ -173,7 +176,7 @@ namespace FileListView.ViewModels
 
                 foreach (string s in Directory.GetLogicalDrives())
                 {
-                    FSItemViewModel info = FSItemViewModel.CreateLogicalDrive(s);
+                    ILVItemViewModel info = FileListView.Factory.CreateLogicalDrive(s);
                     this.mCurrentItems.Add(info);
 
                     // add items under current folder if we currently create the root folder of the current path
@@ -184,7 +187,7 @@ namespace FileListView.ViewModels
                         {
                             string curdir = string.Join(string.Empty + System.IO.Path.DirectorySeparatorChar, dirs, 0, i + 1);
 
-                            info = new FSItemViewModel(curdir, FSItemType.Folder, dirs[i], i * 10);
+                            info = new LVItemViewModel(curdir, FSItemType.Folder, dirs[i], i * 10);
 
                             this.mCurrentItems.Add(info);
                         }
@@ -192,7 +195,7 @@ namespace FileListView.ViewModels
                         // currently selected path was expanded in last for loop -> select the last expanded element 
                         if (this.SelectedItem == null)
                         {
-                            this.SelectedItem = this.mCurrentItems[this.mCurrentItems.Count - 1];
+                            this.SelectedItem = mCurrentItems.Last();
 
                             if (this.RequestChangeOfDirectory != null)
                                 this.RequestChangeOfDirectory(this, new FolderChangedEventArgs(this.SelectedItem.GetModel));
@@ -206,7 +209,7 @@ namespace FileListView.ViewModels
                     if (this.mCurrentItems.Count > 0)
                     {
                         this.CurrentFolder = this.mCurrentItems[0].FullPath;
-                        this.SelectedItem = this.mCurrentItems[0];
+                        this.SelectedItem = this.mCurrentItems.First();
 
                         if (this.RequestChangeOfDirectory != null)
                             this.RequestChangeOfDirectory(this, new FolderChangedEventArgs(this.SelectedItem.GetModel));
@@ -237,7 +240,7 @@ namespace FileListView.ViewModels
             {
                 for (int i = 0; i < paramObjects.Length; i++)
                 {
-                    var item = paramObjects[i] as FSItemViewModel;
+                    var item = paramObjects[i] as LVItemViewModel;
 
                     if (item != null)
                     {

@@ -3,7 +3,7 @@ namespace FileListViewTest.ViewModels
     using System;
     using System.Collections.Generic;
     using System.Windows.Input;
-    using FileListView.Command;
+    using FileListViewTest.Command;
     using FileListViewTest.Interfaces;
     using FileSystemModels.Interfaces;
     using FolderBrowser;

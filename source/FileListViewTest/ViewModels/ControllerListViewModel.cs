@@ -1,6 +1,7 @@
 namespace FileListViewTest.ViewModels
 {
     using System.Windows;
+    using FileListView.Interfaces;
     using FileListView.ViewModels;
     using FileListView.ViewModels.Interfaces;
     using FileListViewTest.Interfaces;
@@ -42,9 +43,9 @@ namespace FileListViewTest.ViewModels
         /// </summary>
         public ControllerListViewModel()
         {
-            this.FolderItemsView = new FileListViewModel(new BrowseNavigation());
+            this.FolderItemsView = FileListView.Factory.CreateFileListViewModel(new BrowseNavigation());
 
-            this.FolderTextPath = new FolderComboBoxViewModel();
+            this.FolderTextPath = FileListView.Factory.CreateFolderComboBoxVM();
 
             this.RecentFolders = FileSystemModels.Factory.CreateBookmarksViewModel();
 
@@ -54,7 +55,7 @@ namespace FileListViewTest.ViewModels
             // This is fired when the text path in the combobox changes to another existing folder
             this.FolderTextPath.RequestChangeOfDirectory += this.OnRequestChangeOfDirectory;
 
-            this.Filters = new FilterComboBoxViewModel();
+            this.Filters = FileListView.Factory.CreateFilterComboBoxViewModel();
             this.Filters.OnFilterChanged += this.FileViewFilter_Changed;
 
             // This is fired when the current folder in the listview changes to another existing folder
@@ -98,13 +99,13 @@ namespace FileListViewTest.ViewModels
         /// element similar to a web browser Uri drop down control but using
         /// local paths only.
         /// </summary>
-        public FolderComboBoxViewModel FolderTextPath { get; private set; }
+        public IFolderComboBoxViewModel FolderTextPath { get; private set; }
 
         /// <summary>
         /// Expose a viewmodel that can represent a Filter-ComboBox drop down
         /// similar to the top-right filter/search combo box in Windows Exploer windows.
         /// </summary>
-        public FilterComboBoxViewModel Filters { get; private set; }
+        public IFilterComboBoxViewModel Filters { get; private set; }
 
         /// <summary>
         /// Expose a viewmodel that can support a listview showing folders and files

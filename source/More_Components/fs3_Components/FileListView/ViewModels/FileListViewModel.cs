@@ -1,13 +1,15 @@
 namespace FileListView.ViewModels
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.IO;
     using System.Windows.Input;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
     using System.Windows.Threading;
-    using FileListView.Command;
+    using FileListView.Interfaces;
+    using FileListView.ViewModels.Base;
     using FileListView.ViewModels.Interfaces;
     using FileSystemModels;
     using FileSystemModels.Events;
@@ -21,7 +23,7 @@ namespace FileListView.ViewModels
     /// <summary>
     /// Class implements a list of file items viewmodel for a given directory.
     /// </summary>
-    public class FileListViewModel : Base.ViewModelBase, IFileListViewModel
+    internal class FileListViewModel : Base.ViewModelBase, IFileListViewModel
     {
         #region fields
         /// <summary>
@@ -36,9 +38,10 @@ namespace FileListView.ViewModels
         private bool mShowHidden = true;
         private bool mShowIcons = true;
         private bool mIsFiltered = false;
-        private FSItemViewModel mSelectedItem;
+        private LVItemViewModel mSelectedItem;
 
         private IBrowseNavigation mBrowseNavigation = null;
+        private readonly ObservableCollection<ILVItemViewModel> _CurrentItems = null;
 
         private RelayCommand<object> mNavigateForwardCommand = null;
         private RelayCommand<object> mNavigateBackCommand = null;
@@ -80,7 +83,7 @@ namespace FileListView.ViewModels
         {
             BookmarkFolder = new EditFolderBookmarks();
             Notification = new SendNotificationViewModel();
-            CurrentItems = new ObservableCollection<FSItemViewModel>();
+            _CurrentItems = new ObservableCollection<ILVItemViewModel>();
         }
         #endregion constructor
 
@@ -105,14 +108,20 @@ namespace FileListView.ViewModels
         /// <summary>
         /// Gets/sets list of files and folders to be displayed in connected view.
         /// </summary>
-        public ObservableCollection<FSItemViewModel> CurrentItems { get; set; }
+        public IEnumerable<ILVItemViewModel> CurrentItems
+        {
+            get
+            {
+                return _CurrentItems;
+            }
+        }
 
         /// <summary>
         /// Get/set select item in filelist viemodel. This property is used to bind
         /// the selectitem of the listbox and enable the BringIntoView behaviour
         /// to scroll a selected item into view.
         /// </summary>
-        public FSItemViewModel SelectedItem
+        public LVItemViewModel SelectedItem
         {
             get
             {
@@ -332,7 +341,7 @@ namespace FileListView.ViewModels
                 if (this.mNavigateDownCommand == null)
                     this.mNavigateDownCommand = new RelayCommand<object>((p) =>
                     {
-                        var info = p as FSItemViewModel;
+                        var info = p as LVItemViewModel;
 
                         if (info == null)
                             return;
@@ -351,7 +360,7 @@ namespace FileListView.ViewModels
                     },
                     (p) =>
                     {
-                        return (p as FSItemViewModel) != null;
+                        return (p as LVItemViewModel) != null;
                     });
 
                 return this.mNavigateDownCommand;
@@ -428,7 +437,7 @@ namespace FileListView.ViewModels
                     this.mOpenContainingFolderCommand = new RelayCommand<object>(
                       (p) =>
                       {
-                          var path = p as FSItemViewModel;
+                          var path = p as LVItemViewModel;
 
                           if (path == null)
                               return;
@@ -457,7 +466,7 @@ namespace FileListView.ViewModels
                     this.mOpenInWindowsCommand = new RelayCommand<object>(
                       (p) =>
                       {
-                          var path = p as FSItemViewModel;
+                          var path = p as LVItemViewModel;
 
                           if (path == null)
                               return;
@@ -484,7 +493,7 @@ namespace FileListView.ViewModels
                     this.mCopyPathCommand = new RelayCommand<object>(
                       (p) =>
                       {
-                          var path = p as FSItemViewModel;
+                          var path = p as LVItemViewModel;
 
                           if (path == null)
                               return;
@@ -535,7 +544,7 @@ namespace FileListView.ViewModels
 
                         if (tuple != null)
                         {
-                            var folderVM = tuple.Item2 as FSItemViewModel;
+                            var folderVM = tuple.Item2 as LVItemViewModel;
 
                             if (tuple.Item1 != null && folderVM != null)
                                 folderVM.RenameFileOrFolder(tuple.Item1);
@@ -560,7 +569,7 @@ namespace FileListView.ViewModels
                 if (this.mStartRenameCommand == null)
                     this.mStartRenameCommand = new RelayCommand<object>(it =>
                     {
-                        var folder = it as FSItemViewModel;
+                        var folder = it as LVItemViewModel;
 
                         if (folder != null)
                             folder.RequestEditMode(InplaceEditBoxLib.Events.RequestEditEvent.StartEditMode);
@@ -750,7 +759,7 @@ namespace FileListView.ViewModels
         {
             Logger.DebugFormat("PopulateView method with filterString parameter");
 
-            this.CurrentItems.Clear();
+            _CurrentItems.Clear();
 
             if (this.mBrowseNavigation.IsCurrentPathDirectory() == false)
                 return;
@@ -780,13 +789,13 @@ namespace FileListView.ViewModels
                             }
                         }
 
-                        FSItemViewModel info = new FSItemViewModel(dir.FullName, FSItemType.Folder, dir.Name);
+                        var info = new LVItemViewModel(dir.FullName, FSItemType.Folder, dir.Name);
 
                         // to prevent the icon from being loaded from file later
                         if (this.ShowIcons == false)
                             info.SetDisplayIcon(dummy);
 
-                        this.CurrentItems.Add(info);
+                        _CurrentItems.Add(info);
                     }
                 }
 
@@ -805,12 +814,12 @@ namespace FileListView.ViewModels
                         }
                     }
 
-                    FSItemViewModel info = new FSItemViewModel(f.FullName, FSItemType.File, f.Name);
+                    var info = new LVItemViewModel(f.FullName, FSItemType.File, f.Name);
 
                     if (this.ShowIcons == false)
                         info.SetDisplayIcon(dummy);  // to prevent the icon from being loaded from file later
 
-                    this.CurrentItems.Add(info);
+                    _CurrentItems.Add(info);
                 }
             }
             catch
@@ -853,7 +862,7 @@ namespace FileListView.ViewModels
             if (parentFolder == null)
                 return;
 
-            FSItemViewModel newSubFolder = this.CreateNewDirectory(parentFolder);
+            LVItemViewModel newSubFolder = this.CreateNewDirectory(parentFolder);
 
             if (newSubFolder != null)
             {
@@ -871,7 +880,7 @@ namespace FileListView.ViewModels
         /// Creates a new folder with a standard name (eg: 'New folder n').
         /// </summary>
         /// <returns></returns>
-        private FSItemViewModel CreateNewDirectory(string parentFolder)
+        private LVItemViewModel CreateNewDirectory(string parentFolder)
         {
             Logger.DebugFormat("CreateNewDirectory method with '{0}'", parentFolder);
 
@@ -882,9 +891,9 @@ namespace FileListView.ViewModels
 
                 if (newSubFolder != null)
                 {
-                    var newFolderVM = new FSItemViewModel(newSubFolder.Path, newSubFolder.PathType, newSubFolder.Name);
+                    var newFolderVM = new LVItemViewModel(newSubFolder.Path, newSubFolder.PathType, newSubFolder.Name);
 
-                    this.CurrentItems.Add(newFolderVM);
+                    _CurrentItems.Add(newFolderVM);
 
                     return newFolderVM;
                 }

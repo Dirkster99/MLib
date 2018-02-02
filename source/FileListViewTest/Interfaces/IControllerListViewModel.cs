@@ -1,5 +1,6 @@
 namespace FileListViewTest.Interfaces
 {
+    using FileListView.Interfaces;
     using FileListView.ViewModels;
     using FileListView.ViewModels.Interfaces;
     using FileSystemModels.Interfaces;
@@ -17,13 +18,13 @@ namespace FileListViewTest.Interfaces
         /// element similar to a web browser Uri drop down control but using
         /// local paths only.
         /// </summary>
-        FolderComboBoxViewModel FolderTextPath { get; }
+        IFolderComboBoxViewModel FolderTextPath { get; }
 
         /// <summary>
         /// Expose a viewmodel that can represent a Filter-ComboBox drop down
         /// similar to the top-right filter/search combo box in Windows Exploer windows.
         /// </summary>
-        FilterComboBoxViewModel Filters { get; }
+        IFilterComboBoxViewModel Filters { get; }
 
         /// <summary>
         /// Expose a viewmodel that can support a listview showing folders and files

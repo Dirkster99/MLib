@@ -1,6 +1,6 @@
 ﻿namespace FileListView.ViewModels
 {
-    using FileListView.Command;
+    using FileListView.ViewModels.Base;
     using FileSystemModels;
     using FileSystemModels.Events;
     using FileSystemModels.Interfaces.Bookmark;
@@ -40,7 +40,7 @@
                 if (this._FolderRemoveCommand == null)
                     this._FolderRemoveCommand = new RelayCommand<object>(
                         (p) => this.EditRecentFolder_Executed(
-                            p as FSItemViewModel, EditBookmarkEvent.RecentFolderAction.Remove),
+                            p as LVItemViewModel, EditBookmarkEvent.RecentFolderAction.Remove),
 
                         (p) => this.RecentFolderCommand_CanExecute(p));
 
@@ -59,7 +59,7 @@
                 if (this._FolderAddCommand == null)
                     this._FolderAddCommand = new RelayCommand<object>(
                         (p) => this.EditRecentFolder_Executed(
-                            p as FSItemViewModel, EditBookmarkEvent.RecentFolderAction.Add),
+                            p as LVItemViewModel, EditBookmarkEvent.RecentFolderAction.Add),
 
                         (p) => this.RecentFolderCommand_CanExecute(p));
 
@@ -78,7 +78,7 @@
         {
             if (this.RequestEditBookmarkedFolders != null)
             {
-                var item = param as FSItemViewModel;
+                var item = param as LVItemViewModel;
 
                 if (item != null)
                     return true;
@@ -96,7 +96,7 @@
         /// <param name="item"></param>
         /// <param name="action"></param>
         private void EditRecentFolder_Executed(
-                FSItemViewModel item,
+                LVItemViewModel item,
                 EditBookmarkEvent.RecentFolderAction action)
         {
             if (item == null)

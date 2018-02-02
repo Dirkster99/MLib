@@ -1,4 +1,4 @@
-namespace FileListView.Command
+namespace FileListView.ViewModels.Base
 {
   using System;
   using System.Diagnostics;
@@ -13,7 +13,7 @@ namespace FileListView.Command
   /// 
   /// Source: http://www.codeproject.com/Articles/31837/Creating-an-Internationalized-Wizard-in-WPF
   /// </summary>
-  public class RelayCommand<T> : ICommand
+  internal class RelayCommand<T> : ICommand
   {
     #region Fields
     private readonly Action<T> mExecute = null;
