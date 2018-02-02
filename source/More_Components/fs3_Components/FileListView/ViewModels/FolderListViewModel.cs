@@ -4,6 +4,7 @@ namespace FileListView.ViewModels
     using FileListView.ViewModels.Interfaces;
     using FileSystemModels.Events;
     using FileSystemModels.Interfaces;
+    using FileSystemModels.Interfaces.Bookmark;
     using FileSystemModels.Models;
 
     /// <summary>
@@ -43,7 +44,7 @@ namespace FileListView.ViewModels
 
             this.FolderTextPath = new FolderComboBoxViewModel();
 
-            this.RecentFolders = new RecentLocationsViewModel();
+            this.RecentFolders = FileSystemModels.Factory.CreateBookmarksViewModel();
 
             // This is fired when the user selects a new folder bookmark from the drop down button
             this.RecentFolders.RequestChangeOfDirectory += this.OnRequestChangeOfDirectory;
@@ -58,7 +59,7 @@ namespace FileListView.ViewModels
             this.FolderItemsView.RequestChangeOfDirectory += this.OnRequestChangeOfDirectory;
 
             // This is fired when the user requests to add a folder into the list of recently visited folders
-            this.FolderItemsView.RequestEditRecentFolder += this.FolderItemsView_RequestEditBookmarkedFolders;
+            this.FolderItemsView.BookmarkFolder.RequestEditBookmarkedFolders += this.FolderItemsView_RequestEditBookmarkedFolders;
 
             // This event is fired when a user opens a file
             this.FolderItemsView.OnFileOpen += this.FolderItemsView_OnFileOpen;
@@ -88,7 +89,7 @@ namespace FileListView.ViewModels
         /// <summary>
         /// Gets the viewmodel that exposes recently visited locations (bookmarked folders).
         /// </summary>
-        public RecentLocationsViewModel RecentFolders { get; private set; }
+        public IBookmarksViewModel RecentFolders { get; private set; }
 
         /// <summary>
         /// Expose a viewmodel that can represent a Folder-ComboBox drop down
@@ -167,11 +168,11 @@ namespace FileListView.ViewModels
                                                   settings.UserProfile.CurrentFilter.FilterText);
                 }
 
-                this.RecentFolders.ClearRecentFolderCollection();
+                this.RecentFolders.ClearFolderCollection();
 
                 // Set collection of recent folder locations
                 foreach (var item in settings.RecentFolders)
-                    this.RecentFolders.AddRecentFolder(item);
+                    this.RecentFolders.AddFolder(item);
 
                 if (string.IsNullOrEmpty(settings.LastSelectedRecentFolder) == false)
                     this.AddRecentFolder(settings.LastSelectedRecentFolder, true);
@@ -258,7 +259,7 @@ namespace FileListView.ViewModels
         /// <param name="selectNewFolder"></param>
         public void AddRecentFolder(string folderPath, bool selectNewFolder = false)
         {
-            this.RecentFolders.AddRecentFolder(folderPath, selectNewFolder);
+            this.RecentFolders.AddFolder(folderPath, selectNewFolder);
         }
 
         /// <summary>
@@ -272,7 +273,7 @@ namespace FileListView.ViewModels
             if (string.IsNullOrEmpty(path) == true)
                 return;
 
-            this.RecentFolders.RemoveRecentFolder(path);
+            this.RecentFolders.RemoveFolder(path);
         }
         #endregion Bookmarked Folders Methods
 
@@ -360,11 +361,11 @@ namespace FileListView.ViewModels
             switch (e.Action)
             {
                 case EditBookmarkEvent.RecentFolderAction.Remove:
-                    this.RecentFolders.RemoveRecentFolder(e.Folder);
+                    this.RecentFolders.RemoveFolder(e.Folder);
                     break;
 
                 case EditBookmarkEvent.RecentFolderAction.Add:
-                    this.RecentFolders.AddRecentFolder(e.Folder.Path);
+                    this.RecentFolders.AddFolder(e.Folder.Path);
                     break;
 
                 default:

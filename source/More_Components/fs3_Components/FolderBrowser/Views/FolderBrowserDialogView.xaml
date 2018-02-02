@@ -64,7 +64,6 @@
             <Grid Grid.Row="1"
                   xmlns:ctrls="clr-namespace:DropDownButtonLib.Controls;assembly=DropDownButtonLib"
                   xmlns:dbthemes="clr-namespace:DropDownButtonLib.Themes;assembly=DropDownButtonLib"
-                  xmlns:reskeys="clr-namespace:FolderBrowser.Themes"
                   xmlns:bindLocal="clr-namespace:FolderBrowser.Views"
                   >
                 <Grid.ColumnDefinitions>
@@ -117,25 +116,24 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Button Content="-" Grid.Column="0"
-                                        ToolTip="Remove Folder Bookmark"
-                                        Command="{Binding Path=Data.RemoveFolderBookmark, Source={StaticResource DropDownItemsButtonProxy}}"
-                                        CommandParameter="{Binding}"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch" Margin="0" Padding="3,0"
-                                        MinWidth="16" MinHeight="16"
-                                        x:Name="RemoveFolderBookmarkButton">
-                                </Button>
+                                            ToolTip="Remove Folder Bookmark"
+                                            Command="{Binding Path=Data.RemoveFolderBookmark, Source={StaticResource DropDownItemsButtonProxy}}"
+                                            CommandParameter="{Binding}"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch" Margin="0" Padding="3,0"
+                                            MinWidth="16" MinHeight="16"
+                                            x:Name="RemoveFolderBookmarkButton"
+                                            />
 
                                 <Button Content="{Binding DisplayName}"
-                                        Command="{Binding Path=Data.ChangeOfDirectoryCommand, Source={StaticResource DropDownItemsButtonProxy}}"
-                                        CommandParameter="{Binding}"
-                                        Grid.Column="1"
-                                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                        HorizontalContentAlignment="Left"
-                                        BorderBrush="Transparent"
-                                        Foreground="{DynamicResource {x:Static reskeys:ResourceKeys.DialogForegroundKey}}"
-                                        ToolTip="{Binding FullPath}"
-                                        Margin="3,0,0,0"
+                                            Command="{Binding Path=Data.ChangeOfDirectoryCommand, Source={StaticResource DropDownItemsButtonProxy}}"
+                                            CommandParameter="{Binding}"
+                                            Grid.Column="1"
+                                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                            HorizontalContentAlignment="Left"
+                                            BorderBrush="Transparent"
+                                            ToolTip="{Binding FullPath}"
+                                            Margin="3,0,0,0"
                                         >
                                     <Button.Style>
                                         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">

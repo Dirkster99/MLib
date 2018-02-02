@@ -4,7 +4,7 @@
 
         xmlns:localview="clr-namespace:FileListViewTest"
 
-        Title="MainWindow" Height="850" Width="800">
+        Title="MainWindow" Height="650" Width="800">
     <Grid>
 
     <TabControl>

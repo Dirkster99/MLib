@@ -72,7 +72,7 @@
                                                 HorizontalAlignment="Left" />
 
                 <Button Grid.Column="1" Margin="3"
-                        Content="Broswer Demo"
+                        Content="Browser Demo"
                         Command="{Binding ShowConententDialogCommand}"
                         CommandParameter="{Binding Path}"
                         HorizontalAlignment="Stretch" VerticalAlignment="Center" />

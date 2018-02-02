@@ -13,17 +13,19 @@
     /// </summary>
     public interface IEditBookmarks
     {
+        /// <summary>
+        /// Invokes the actual event that adds/removes a bookmark in the bookmark
+        /// model collection at the client side of this event.
+        /// </summary>
         event EventHandler<EditBookmarkEvent> RequestEditBookmarkedFolders;
 
         /// <summary>
         /// Gets a command that removes folder location via a corresponding event.
-        /// Expected parameter is an intherited type from <see cref="IItemViewModel"/>.
         /// </summary>
         ICommand RecentFolderRemoveCommand { get; }
 
         /// <summary>
         /// Gets a command that adds folder location via a corresponding event.
-        /// Expected parameter is an intherited type from <see cref="IItemViewModel"/>.
         /// </summary>
         ICommand RecentFolderAddCommand { get; }
     }

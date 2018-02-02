@@ -4,6 +4,7 @@ namespace FileListView.ViewModels.Interfaces
     using System.Collections.ObjectModel;
     using System.Windows.Input;
     using FileSystemModels.Events;
+    using FileSystemModels.Interfaces.Bookmark;
 
     /// <summary>
     /// Interface implements a common ground for a class that organizes a filter combobox
@@ -21,14 +22,14 @@ namespace FileListView.ViewModels.Interfaces
         /// Event is fired when user interaction in listview requires naviagtion to another location.
         /// </summary>
         event EventHandler<FolderChangedEventArgs> RequestChangeOfDirectory;
-
-        /// <summary>
-        /// Generate an event to remove or add a recent folder to a collection.
-        /// </summary>
-        event EventHandler<EditBookmarkEvent> RequestEditRecentFolder;
         #endregion
 
         #region properties
+        /// <summary>
+        /// Expose properties to commands that work with the bookmarking of folders.
+        /// </summary>
+        IEditBookmarks BookmarkFolder { get; }
+
         /// <summary>
         /// Gets/sets list of files and folders to be displayed in connected view.
         /// </summary>

@@ -12,6 +12,7 @@ namespace FileListView.ViewModels
     using FileSystemModels;
     using FileSystemModels.Events;
     using FileSystemModels.Interfaces;
+    using FileSystemModels.Interfaces.Bookmark;
     using FileSystemModels.Models;
     using FileSystemModels.Models.FSItems.Base;
     using FileSystemModels.Utils;
@@ -49,9 +50,6 @@ namespace FileListView.ViewModels
         private RelayCommand<object> mToggleIsHiddenVisibleCommand = null;
         private RelayCommand<object> mToggleIsFilteredCommand = null;
 
-        private RelayCommand<object> mRecentFolderRemoveCommand = null;
-        private RelayCommand<object> mRecentFolderAddCommand = null;
-
         private RelayCommand<object> mOpenContainingFolderCommand = null;
         private RelayCommand<object> mOpenInWindowsCommand = null;
         private RelayCommand<object> mCopyPathCommand = null;
@@ -80,8 +78,9 @@ namespace FileListView.ViewModels
         /// </summary>
         protected FileListViewModel()
         {
-            this.Notification = new SendNotificationViewModel();
-            this.CurrentItems = new ObservableCollection<FSItemViewModel>();
+            BookmarkFolder = new EditFolderBookmarks();
+            Notification = new SendNotificationViewModel();
+            CurrentItems = new ObservableCollection<FSItemViewModel>();
         }
         #endregion constructor
 
@@ -95,14 +94,14 @@ namespace FileListView.ViewModels
         /// Event is fired when user interaction in listview requires naviagtion to another location.
         /// </summary>
         public event EventHandler<FolderChangedEventArgs> RequestChangeOfDirectory;
-
-        /// <summary>
-        /// Generate an event to remove or add a recent folder to a collection.
-        /// </summary>
-        public event EventHandler<EditBookmarkEvent> RequestEditRecentFolder;
         #endregion
 
         #region properties
+        /// <summary>
+        /// Expose properties to commands that work with the bookmarking of folders.
+        /// </summary>
+        public IEditBookmarks BookmarkFolder { get; private set; }
+
         /// <summary>
         /// Gets/sets list of files and folders to be displayed in connected view.
         /// </summary>
@@ -415,38 +414,8 @@ namespace FileListView.ViewModels
                 return this.mToggleIsHiddenVisibleCommand;
             }
         }
-
-        /// <summary>
-        /// Implements a command that adds a removes a folder location.
-        /// Expected parameter is of type <seealso cref="FSItemViewModel"/>.
-        /// </summary>
-        public ICommand RecentFolderRemoveCommand
-        {
-            get
-            {
-                if (this.mRecentFolderRemoveCommand == null)
-                    this.mRecentFolderRemoveCommand = new RelayCommand<object>((p) => this.RecentFolderRemove_Executed(p));
-
-                return this.mRecentFolderRemoveCommand;
-            }
-        }
-
-        /// <summary>
-        /// Implements a command that adds a recent folder location.
-        /// Expected parameter is of type <seealso cref="FSItemViewModel"/>.
-        /// </summary>
-        public ICommand RecentFolderAddCommand
-        {
-            get
-            {
-                if (this.mRecentFolderAddCommand == null)
-                    this.mRecentFolderAddCommand = new RelayCommand<object>((p) => this.RecentFolderAdd_Executed(p));
-
-                return this.mRecentFolderAddCommand;
-            }
-        }
-
         #region Windows Integration FileSystem Commands
+
         /// <summary>
         /// Gets a command that will open the folder in which an item is stored.
         /// The item (path to a file) is expected as <seealso cref="FSItemViewModel"/> parameter.
@@ -869,30 +838,6 @@ namespace FileListView.ViewModels
         {
             this.ShowHidden = !this.ShowHidden;
             this.PopulateView();
-        }
-
-        private void RecentFolderRemove_Executed(object param)
-        {
-            var item = param as FSItemViewModel;
-
-            if (item == null)
-                return;
-
-            if (this.RequestEditRecentFolder != null)
-                this.RequestEditRecentFolder(this, new EditBookmarkEvent(item.GetModel,
-                                                                         EditBookmarkEvent.RecentFolderAction.Remove));
-        }
-
-        private void RecentFolderAdd_Executed(object param)
-        {
-            var item = param as FSItemViewModel;
-
-            if (item == null)
-                return;
-
-            if (this.RequestEditRecentFolder != null)
-                this.RequestEditRecentFolder(this, new EditBookmarkEvent(item.GetModel,
-                                                                         EditBookmarkEvent.RecentFolderAction.Add));
         }
 
         /// <summary>

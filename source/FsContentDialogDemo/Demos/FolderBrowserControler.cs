@@ -1,6 +1,5 @@
 ﻿namespace FsContentDialogDemo.Demos
 {
-    using FileSystemModels.Interfaces;
     using FileSystemModels.Interfaces.Bookmark;
     using FolderBrowser;
     using MWindowDialogLib.Dialogs;

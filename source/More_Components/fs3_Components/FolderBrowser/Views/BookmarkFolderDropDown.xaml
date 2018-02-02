@@ -8,7 +8,6 @@
              >
     <Grid xmlns:ctrls="clr-namespace:DropDownButtonLib.Controls;assembly=DropDownButtonLib"
           xmlns:dbthemes="clr-namespace:DropDownButtonLib.Themes;assembly=DropDownButtonLib"
-          xmlns:reskeys="clr-namespace:FolderBrowser.Themes"
           >
         <ctrls:SplitItemsButton
                     ToolTip="{Binding SelectedItem,FallbackValue='Add a recent folder to quick access it here'}"
@@ -55,7 +54,6 @@
                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                 HorizontalContentAlignment="Left"
                                 BorderBrush="Transparent"
-                                Foreground="{DynamicResource {x:Static reskeys:ResourceKeys.DialogForegroundKey}}"
                                 ToolTip="{Binding FullPath}"
                                 Margin="3,0,0,0"
                                 >
