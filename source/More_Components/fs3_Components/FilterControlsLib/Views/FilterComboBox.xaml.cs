@@ -1,4 +1,4 @@
-namespace FileListView.Views
+namespace FilterControlsLib.Views
 {
   using System.Windows;
   using System.Windows.Controls;

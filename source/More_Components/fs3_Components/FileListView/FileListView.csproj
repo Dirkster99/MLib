@@ -92,8 +92,6 @@
     <Compile Include="ViewModels\FileListViewModel.cs" />
     <Compile Include="Interfaces\ILVItemViewModel.cs" />
     <Compile Include="Interfaces\IFolderComboBoxViewModel.cs" />
-    <Compile Include="Interfaces\IFilterComboBoxViewModel.cs" />
-    <Compile Include="Interfaces\IFilterItemViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IFileListViewModel.cs" />
     <Compile Include="ViewModels\SortableObservableCollection.cs" />
     <Compile Include="Views\Behavior\DoubleClickSelectorItem.cs" />
@@ -106,13 +104,8 @@
     <Compile Include="Views\FolderComboBox.xaml.cs">
       <DependentUpon>FolderComboBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\FilterComboBox.xaml.cs">
-      <DependentUpon>FilterComboBox.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\FolderComboBoxViewModel.cs" />
-    <Compile Include="ViewModels\FilterComboBoxViewModel.cs" />
     <Compile Include="ViewModels\FSItemViewModel.cs" />
-    <Compile Include="ViewModels\FilterItemViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -141,10 +134,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\FolderComboBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\FilterComboBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -215,7 +204,6 @@
     <Content Include="Images\Metro\SVG\Sketchup\appbar.navigate.next.svg" />
     <Content Include="Images\Metro\SVG\Sketchup\appbar.navigate.previous.svg" />
     <Content Include="Images\Metro\SVG\Sketchup\MyBase.svg" />
-    <Content Include="Readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FileSystemModels\FileSystemModels.csproj">

@@ -1,4 +1,4 @@
-﻿namespace FileListView.Interfaces
+﻿namespace FilterControlsLib.Interfaces
 {
     public interface IFilterItemViewModel
     {

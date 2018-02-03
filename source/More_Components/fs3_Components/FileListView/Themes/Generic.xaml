@@ -3,7 +3,6 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/FileListView;component/Views/FolderComboBox.xaml" />
-        <ResourceDictionary Source="/FileListView;component/Views/FilterComboBox.xaml" />
         <ResourceDictionary Source="/FileListView;component/Images/GenericIcons.xaml" />
     </ResourceDictionary.MergedDictionaries>
 

@@ -58,6 +58,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileListView", "More_Compon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileListViewTest", "FileListViewTest\FileListViewTest.csproj", "{4670B970-4B36-42B3-BC50-A196C6A07A51}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilterControlsLib", "More_Components\fs3_Components\FilterControlsLib\FilterControlsLib.csproj", "{52F61815-3EC5-461B-BCE0-AB80B1C5B229}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -332,6 +334,18 @@ Global
 		{4670B970-4B36-42B3-BC50-A196C6A07A51}.Release|x64.Build.0 = Release|Any CPU
 		{4670B970-4B36-42B3-BC50-A196C6A07A51}.Release|x86.ActiveCfg = Release|x86
 		{4670B970-4B36-42B3-BC50-A196C6A07A51}.Release|x86.Build.0 = Release|x86
+		{52F61815-3EC5-461B-BCE0-AB80B1C5B229}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52F61815-3EC5-461B-BCE0-AB80B1C5B229}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52F61815-3EC5-461B-BCE0-AB80B1C5B229}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{52F61815-3EC5-461B-BCE0-AB80B1C5B229}.Debug|x64.Build.0 = Debug|Any CPU
+		{52F61815-3EC5-461B-BCE0-AB80B1C5B229}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{52F61815-3EC5-461B-BCE0-AB80B1C5B229}.Debug|x86.Build.0 = Debug|Any CPU
+		{52F61815-3EC5-461B-BCE0-AB80B1C5B229}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52F61815-3EC5-461B-BCE0-AB80B1C5B229}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52F61815-3EC5-461B-BCE0-AB80B1C5B229}.Release|x64.ActiveCfg = Release|Any CPU
+		{52F61815-3EC5-461B-BCE0-AB80B1C5B229}.Release|x64.Build.0 = Release|Any CPU
+		{52F61815-3EC5-461B-BCE0-AB80B1C5B229}.Release|x86.ActiveCfg = Release|Any CPU
+		{52F61815-3EC5-461B-BCE0-AB80B1C5B229}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -358,6 +372,7 @@ Global
 		{DEC77495-6E48-4F66-B22B-E9BA2CA6E257} = {EBFA2E1E-92FF-4DF9-9212-398D1FEF617B}
 		{B0E0DBC0-4F7B-4B85-A1D8-510308AD0BA1} = {03C284DA-4C51-4E53-96FD-1004EFE15D7A}
 		{735CF8EC-A4EF-49A2-BC72-EC360A0185A4} = {03C284DA-4C51-4E53-96FD-1004EFE15D7A}
+		{52F61815-3EC5-461B-BCE0-AB80B1C5B229} = {03C284DA-4C51-4E53-96FD-1004EFE15D7A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9D297277-843F-450D-BBEF-C08CF6377603}

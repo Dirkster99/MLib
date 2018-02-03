@@ -1,4 +1,4 @@
-﻿namespace FileListView.Interfaces
+﻿namespace FilterControlsLib.Interfaces
 {
     using System;
     using System.Collections.Generic;
@@ -20,7 +20,9 @@
         #region methods
         void AddFilter(string filterString, bool bSelectNewFilter = false);
         void AddFilter(string name, string filterString, bool bSelectNewFilter = false);
+
         void ClearFilter();
+
         IEnumerable<IFilterItemViewModel> FindFilter(string name, string filterString);
         void SetCurrentFilter(string filterDisplayName, string filterText);
         #endregion methods

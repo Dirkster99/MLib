@@ -7,6 +7,10 @@
     using FileSystemModels.Interfaces;
     using FileSystemModels.Models.FSItems.Base;
 
+    /// <summary>
+    /// Implements factory methods that creates library objects that are accessible
+    /// through interfaces but are otherwise invisible for the outside world.
+    /// </summary>
     public sealed class Factory
     {
         private Factory(){ }
@@ -14,16 +18,6 @@
         public static IFileListViewModel CreateFileListViewModel(IBrowseNavigation browseNavigation)
         {
             return new FileListViewModel(browseNavigation);
-        }
-
-        public static IFilterComboBoxViewModel CreateFilterComboBoxViewModel()
-        {
-            return new FilterComboBoxViewModel();
-        }
-
-        public static IFilterItemViewModel CreateFilterItem()
-        {
-            return new FilterItemViewModel();
         }
 
         public static ILVItemViewModel CreateItem(

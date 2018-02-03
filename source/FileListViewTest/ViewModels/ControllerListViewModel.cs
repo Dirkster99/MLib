@@ -9,6 +9,7 @@ namespace FileListViewTest.ViewModels
     using FileSystemModels.Interfaces;
     using FileSystemModels.Interfaces.Bookmark;
     using FileSystemModels.Models;
+    using FilterControlsLib.Interfaces;
 
     /// <summary>
     /// Class implements a folder/file view model class
@@ -55,7 +56,7 @@ namespace FileListViewTest.ViewModels
             // This is fired when the text path in the combobox changes to another existing folder
             this.FolderTextPath.RequestChangeOfDirectory += this.OnRequestChangeOfDirectory;
 
-            this.Filters = FileListView.Factory.CreateFilterComboBoxViewModel();
+            this.Filters = FilterControlsLib.Factory.CreateFilterComboBoxViewModel();
             this.Filters.OnFilterChanged += this.FileViewFilter_Changed;
 
             // This is fired when the current folder in the listview changes to another existing folder

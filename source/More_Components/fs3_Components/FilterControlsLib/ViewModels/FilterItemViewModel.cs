@@ -1,6 +1,6 @@
-namespace FileListView.ViewModels
+namespace FilterControlsLib.ViewModels
 {
-    using FileListView.Interfaces;
+    using FilterControlsLib.Interfaces;
 
     /// <summary>
     /// The Viewmodel for filter item displayed in list of filters

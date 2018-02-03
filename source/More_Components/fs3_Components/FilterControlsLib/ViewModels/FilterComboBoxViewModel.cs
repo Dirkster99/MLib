@@ -1,13 +1,14 @@
-namespace FileListView.ViewModels
+namespace FilterControlsLib.ViewModels
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Linq;
     using System.Windows.Input;
-    using FileListView.Interfaces;
-    using FileListView.ViewModels.Base;
+    using FilterControlsLib.Interfaces;
     using FileSystemModels.Events;
+    using FileSystemModels.ViewModels.Base;
+    using FilterControlsLib.Collections;
 
     /// <summary>
     /// Class implements a viewmodel for a combo box like control that

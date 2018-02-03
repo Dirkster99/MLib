@@ -1,10 +1,10 @@
 namespace FileListViewTest.Interfaces
 {
     using FileListView.Interfaces;
-    using FileListView.ViewModels;
     using FileListView.ViewModels.Interfaces;
     using FileSystemModels.Interfaces;
     using FileSystemModels.Interfaces.Bookmark;
+    using FilterControlsLib.Interfaces;
 
     /// <summary>
     /// Interface implements a folder/file view model class

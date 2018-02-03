@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 
+             xmlns:filter="clr-namespace:FilterControlsLib.Views;assembly=FilterControlsLib"
              xmlns:fview="clr-namespace:FileListView.Views;assembly=FileListView"
              xmlns:fvbehav="clr-namespace:FileListView.Views.Behavior;assembly=FileListView"
              xmlns:fvloc="clr-namespace:FileSystemModels.Local;assembly=FileSystemModels"
@@ -201,25 +202,22 @@
                 </ToolBar>
             </ToolBarTray>
 
-            <fview:FilterComboBox ItemsSource="{Binding Filters.CurrentItems}"
-                            SelectedItem="{Binding Filters.SelectedItem, UpdateSourceTrigger=PropertyChanged}"
-
-                            Text="{Binding Filters.CurrentFilter, UpdateSourceTrigger=PropertyChanged}"
-                            ToolTip="{Binding Filters.CurrentFilterToolTip, UpdateSourceTrigger=PropertyChanged}"
-                            ToolTipService.IsEnabled="True"
-
-                            fvbehav:SelectionChangedCommand.ChangedCommand="{Binding Filters.SelectionChanged}"
-                            VerticalAlignment="Top"
-                            HorizontalAlignment="Stretch"
-                            Grid.Column="1"
-                            Margin="3"
-                            TextSearch.TextPath="FilterText"
-                            IsEnabled="{Binding FolderItemsView.IsFiltered}"
+            <filter:FilterComboBox ItemsSource="{Binding Filters.CurrentItems}"
+                                   SelectedItem="{Binding Filters.SelectedItem, UpdateSourceTrigger=PropertyChanged}"
+                                   
+                                   Text="{Binding Filters.CurrentFilter, UpdateSourceTrigger=PropertyChanged}"
+                                   ToolTip="{Binding Filters.CurrentFilterToolTip, UpdateSourceTrigger=PropertyChanged}"
+                                   ToolTipService.IsEnabled="True"
+                                   
+                                   fvbehav:SelectionChangedCommand.ChangedCommand="{Binding Filters.SelectionChanged}"
+                                   VerticalAlignment="Top"
+                                   HorizontalAlignment="Stretch"
+                                   Grid.Column="1"
+                                   Margin="3"
+                                   TextSearch.TextPath="FilterText"
+                                   IsEnabled="{Binding FolderItemsView.IsFiltered}"
                           >
-                <fview:FilterComboBox.Style>
-                    <Style TargetType="{x:Type fview:FilterComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}" />
-                </fview:FilterComboBox.Style>
-            </fview:FilterComboBox>
+            </filter:FilterComboBox>
 
             <ToggleButton DataContext="{Binding FolderItemsView}"
                     Command="{Binding ToggleIsFilteredCommand}"
