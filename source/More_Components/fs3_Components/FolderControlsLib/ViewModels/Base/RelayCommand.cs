@@ -1,4 +1,4 @@
-namespace FilterControlsLib.ViewModels.Base
+namespace FolderControlsLib.ViewModels.Base
 {
   using System;
   using System.Diagnostics;

@@ -91,9 +91,7 @@
     <Compile Include="ViewModels\EditFolderBookmarks.cs" />
     <Compile Include="ViewModels\FileListViewModel.cs" />
     <Compile Include="Interfaces\ILVItemViewModel.cs" />
-    <Compile Include="Interfaces\IFolderComboBoxViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IFileListViewModel.cs" />
-    <Compile Include="ViewModels\SortableObservableCollection.cs" />
     <Compile Include="Views\Behavior\DoubleClickSelectorItem.cs" />
     <Compile Include="Views\Behavior\BringIntoViewListBoxItem.cs" />
     <Compile Include="Views\Behavior\SelectionChangedBehavior.cs" />
@@ -101,11 +99,7 @@
     <Compile Include="Views\FListView.xaml.cs">
       <DependentUpon>FListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\FolderComboBox.xaml.cs">
-      <DependentUpon>FolderComboBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModels\FolderComboBoxViewModel.cs" />
-    <Compile Include="ViewModels\FSItemViewModel.cs" />
+    <Compile Include="ViewModels\LVItemViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -130,10 +124,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\FListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\FolderComboBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

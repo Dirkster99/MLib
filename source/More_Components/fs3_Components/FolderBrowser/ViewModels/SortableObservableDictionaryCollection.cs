@@ -4,16 +4,16 @@
     using FsCore.Collections;
     using System.Collections.Generic;
 
-    internal class SortableObservableDictionaryCollection : SortableObservableCollection<IItemViewModel>
+    internal class SortableObservableDictionaryCollection : SortableObservableCollection<ITreeItemViewModel>
     {
-        Dictionary<string, IItemViewModel> _dictionary = null;
+        Dictionary<string, ITreeItemViewModel> _dictionary = null;
 
         public SortableObservableDictionaryCollection()
         {
-            _dictionary = new Dictionary<string, IItemViewModel>();
+            _dictionary = new Dictionary<string, ITreeItemViewModel>();
         }
 
-        public bool AddItem(IItemViewModel item)
+        public bool AddItem(ITreeItemViewModel item)
         {
             if (string.IsNullOrEmpty(item.ItemName) == true)
                 _dictionary.Add(string.Empty, item);
@@ -25,7 +25,7 @@
             return true;
         }
 
-        public bool RemoveItem(IItemViewModel item)
+        public bool RemoveItem(ITreeItemViewModel item)
         {
             _dictionary.Remove(item.ItemName.ToLower());
             this.Remove(item);
@@ -33,9 +33,9 @@
             return true;
         }
 
-        public IItemViewModel TryGet(string key)
+        public ITreeItemViewModel TryGet(string key)
         {
-            IItemViewModel o;
+            ITreeItemViewModel o;
 
             if (_dictionary.TryGetValue(key.ToLower(), out o))
                 return o;
@@ -43,7 +43,7 @@
             return null;
         }
 
-        public void RenameItem(IItemViewModel item, string newName)
+        public void RenameItem(ITreeItemViewModel item, string newName)
         {
             _dictionary.Remove(item.ItemName.ToLower());
             item.Rename(newName);

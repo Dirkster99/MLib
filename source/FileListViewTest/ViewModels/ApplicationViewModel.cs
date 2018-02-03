@@ -151,9 +151,9 @@ namespace FileListViewTest.ViewModels
 
             foreach (var item in l)
             {
-                if (item is IFSItemViewModel)
+                if (item is IListItemViewModel)
                 {
-                    var pathItem = item as IFSItemViewModel;
+                    var pathItem = item as IListItemViewModel;
 
                     if (pathItem != null)
                         path = pathItem.FullPath;

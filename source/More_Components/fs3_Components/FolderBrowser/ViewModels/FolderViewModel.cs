@@ -10,7 +10,7 @@
     /// <summary>
     /// Implment the viewmodel for one folder entry for a collection of folders.
     /// </summary>
-    internal class FolderViewModel : ItemViewModel
+    internal class FolderViewModel : TreeItemViewModel
     {
         #region fields
         private object _LockObject = new object();
@@ -22,7 +22,7 @@
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public FolderViewModel(IPathModel model, IItemViewModel parent)
+        public FolderViewModel(IPathModel model, ITreeItemViewModel parent)
             : base(model, parent)
         {
         }
@@ -33,7 +33,7 @@
         /// </summary>
         /// <param name="dir"></param>
         /// <returns></returns>
-        internal FolderViewModel(string dir, IItemViewModel parent)
+        internal FolderViewModel(string dir, ITreeItemViewModel parent)
            : this(PathFactory.Create(dir, FSItemType.Folder), parent)
         {
         }
@@ -56,7 +56,7 @@
         /// given <paramref name="parentItem"/>.
         /// </summary>
         /// <param name="parentItem"></param>
-        internal static void LoadFolders(IItemViewModel parentItem)
+        internal static void LoadFolders(ITreeItemViewModel parentItem)
         {
             try
             {
@@ -94,8 +94,8 @@
         /// </summary>
         /// <param name="dir"></param>
         /// <returns></returns>
-        internal static ItemViewModel AddFolder(string dir,
-                                               IItemViewModel parentItem)
+        internal static TreeItemViewModel AddFolder(string dir,
+                                               ITreeItemViewModel parentItem)
         {
             try
             {
@@ -136,7 +136,7 @@
         /// 'New folder n' underneath this folder.
         /// </summary>
         /// <returns>a viewmodel of the newly created directory or null</returns>
-        public override IItemViewModel CreateNewDirectory()
+        public override ITreeItemViewModel CreateNewDirectory()
         {
             Logger.DebugFormat("Detail: Create new directory with standard name.");
 

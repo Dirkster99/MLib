@@ -46,7 +46,7 @@
         /// <summary>
         /// Gets the list of drives and folders for display in treeview structure control.
         /// </summary>
-        IEnumerable<IItemViewModel> Root { get; }
+        IEnumerable<ITreeItemViewModel> Root { get; }
 
         /// <summary>
         /// Get/set property to indicate the initial path when control
@@ -94,7 +94,7 @@
         /// <summary>
         /// Starts the create folder process by creating a new folder
         /// in the given location. The location is supplied as <seealso cref="System.Windows.Input.ICommandSource.CommandParameter"/>
-        /// which is a <seealso cref="IItemViewModel"/> item. So, the <seealso cref="IItemViewModel"/> item
+        /// which is a <seealso cref="ITreeItemViewModel"/> item. So, the <seealso cref="ITreeItemViewModel"/> item
         /// is the parent of the new folder and the new folder is created with a standard name:
         /// 'New Folder n'. The new folder n is selected and in rename mode such that users can edit
         /// the name of the new folder right away.
@@ -124,7 +124,7 @@
 
         /// <summary>
         /// Gets a command that will reload the folder view up to the
-        /// selected path that is expected as <seealso cref="IItemViewModel"/>
+        /// selected path that is expected as <seealso cref="ITreeItemViewModel"/>
         /// in the CommandParameter.
         /// 
         /// This command is particularly useful when users create/delete a folder

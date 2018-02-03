@@ -6,7 +6,7 @@
     using FolderBrowser.Interfaces;
     using System;
 
-    internal class DriveViewModel : ItemViewModel, IDriveViewModel
+    internal class DriveViewModel : TreeItemViewModel, IDriveViewModel
     {
         #region fields
         private object _LockObject = new object();
@@ -16,7 +16,7 @@
         /// <summary>
         /// Constructs a drive's viewmodel.
         /// </summary>
-        public DriveViewModel(IPathModel model, IItemViewModel parent)
+        public DriveViewModel(IPathModel model, ITreeItemViewModel parent)
            : base(model, parent)
         {
         }
@@ -36,7 +36,7 @@
         /// 'New folder n' underneath this folder.
         /// </summary>
         /// <returns>a viewmodel of the newly created directory or null</returns>
-        public override IItemViewModel CreateNewDirectory()
+        public override ITreeItemViewModel CreateNewDirectory()
         {
             Logger.DebugFormat("Detail: Create new directory with standard name.");
 

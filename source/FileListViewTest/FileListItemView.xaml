@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 
+             xmlns:folders="clr-namespace:FolderControlsLib.Views;assembly=FolderControlsLib"
              xmlns:filter="clr-namespace:FilterControlsLib.Views;assembly=FilterControlsLib"
              xmlns:fview="clr-namespace:FileListView.Views;assembly=FileListView"
              xmlns:fvbehav="clr-namespace:FileListView.Views.Behavior;assembly=FileListView"
@@ -31,23 +32,19 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-            <fview:FolderComboBox DataContext="{Binding FolderTextPath}"
-                                  ItemsSource="{Binding CurrentItems}"
-                                  SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}"
-                                  
-                                  Text="{Binding CurrentFolder, UpdateSourceTrigger=PropertyChanged}"
-                                  ToolTip="{Binding CurrentFolderToolTip, UpdateSourceTrigger=PropertyChanged}"
-                                  ToolTipService.IsEnabled="True"
-                                  
-                                  fvbehav:SelectionChangedCommand.ChangedCommand="{Binding SelectionChanged}"
-                                  VerticalAlignment="Top"
-                                  HorizontalAlignment="Stretch"
-                                  Grid.Column="0" Margin="3"
-             >
-                <fview:FolderComboBox.Style>
-                    <Style TargetType="{x:Type fview:FolderComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}" />
-                </fview:FolderComboBox.Style>
-            </fview:FolderComboBox>
+            <folders:FolderComboBox DataContext="{Binding FolderTextPath}"
+                                    ItemsSource="{Binding CurrentItems, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                    SelectedItem="{Binding SelectedItem, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                    
+                                    Text="{Binding CurrentFolder, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                    ToolTip="{Binding CurrentFolderToolTip, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                    ToolTipService.IsEnabled="True"
+                                    
+                                    fvbehav:SelectionChangedCommand.ChangedCommand="{Binding SelectionChanged}"
+                                    VerticalAlignment="Top"
+                                    HorizontalAlignment="Stretch"
+                                    Grid.Column="0" Margin="3"
+             />
 
             <ctrls:SplitItemsButton ToolTip="{x:Static fvloc:Strings.RefreshCommand_TT}"
                                     ItemsSource="{Binding RecentFolders.DropDownItems}"
@@ -203,10 +200,10 @@
             </ToolBarTray>
 
             <filter:FilterComboBox ItemsSource="{Binding Filters.CurrentItems}"
-                                   SelectedItem="{Binding Filters.SelectedItem, UpdateSourceTrigger=PropertyChanged}"
+                                   SelectedItem="{Binding Filters.SelectedItem, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                    
-                                   Text="{Binding Filters.CurrentFilter, UpdateSourceTrigger=PropertyChanged}"
-                                   ToolTip="{Binding Filters.CurrentFilterToolTip, UpdateSourceTrigger=PropertyChanged}"
+                                   Text="{Binding Filters.CurrentFilter, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                   ToolTip="{Binding Filters.CurrentFilterToolTip, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                    ToolTipService.IsEnabled="True"
                                    
                                    fvbehav:SelectionChangedCommand.ChangedCommand="{Binding Filters.SelectionChanged}"
@@ -215,7 +212,7 @@
                                    Grid.Column="1"
                                    Margin="3"
                                    TextSearch.TextPath="FilterText"
-                                   IsEnabled="{Binding FolderItemsView.IsFiltered}"
+                                   IsEnabled="{Binding FolderItemsView.IsFiltered, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                           >
             </filter:FilterComboBox>
 

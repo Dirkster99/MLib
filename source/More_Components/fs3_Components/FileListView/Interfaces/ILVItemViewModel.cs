@@ -1,23 +1,19 @@
 ﻿namespace FileListView.Interfaces
 {
     using FileSystemModels.Interfaces;
-    using FileSystemModels.Models.FSItems.Base;
-    using System.Windows.Media;
 
-    public interface ILVItemViewModel
+    /// <summary>
+    /// Defines the properties and members of an item view model that is
+    /// designed for usage in list views or similar controls.
+    /// </summary>
+    public interface ILVItemViewModel : IListItemViewModel
     {
-        ImageSource DisplayIcon { get; }
-        string DisplayName { get; }
-        string FullPath { get; }
-        IPathModel GetModel { get; }
-        int Indentation { get; }
-        bool ShowToolTip { get; }
-        FSItemType Type { get; }
-
-        bool DirectoryPathExists();
-        string DisplayItemString();
+        /// <summary>
+        /// Renames this item with the indicated name.
+        /// 
+        /// This includes renaming the item in the file system.
+        /// </summary>
+        /// <param name="newFolderName"></param>
         void RenameFileOrFolder(string newFolderName);
-        void SetDisplayIcon(ImageSource src = null);
-        string ToString();
     }
 }

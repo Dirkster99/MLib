@@ -65,7 +65,7 @@ namespace FilterControlsLib.ViewModels
                 return this.mSelectedItem;
             }
 
-            set
+            protected set
             {
                 if (this.mSelectedItem != value)
                 {
@@ -87,7 +87,7 @@ namespace FilterControlsLib.ViewModels
                 return this.mCurrentFilter;
             }
 
-            set
+            protected set
             {
                 if (this.mCurrentFilter != value)
                 {

@@ -27,27 +27,5 @@
         {
             return new LVItemViewModel(path, type, displayName);
         }
-
-        /// <summary>
-        /// Public construction method to create a <see cref="ILVItemViewModel"/>
-        /// object that represents a logical drive (eg 'C:\')
-        /// </summary>
-        /// <param name="curdir"></param>
-        /// <returns></returns>
-        public static ILVItemViewModel CreateLogicalDrive(string curdir)
-        {
-            var item = new LVItemViewModel(
-                PathFactory.Create(curdir, FSItemType.LogicalDrive),
-                string.Empty, true);
-
-            item.SetDisplayName(item.DisplayItemString());
-
-            return item;
-        }
-
-        public static IFolderComboBoxViewModel CreateFolderComboBoxVM()
-        {
-            return new FolderComboBoxViewModel();
-        }
     }
 }

@@ -6,7 +6,7 @@
     /// Define the properties and methods of a viewmodel for
     /// a file system item.
     /// </summary>
-    public interface IFSItemViewModel
+    public interface IListItemViewModel
     {
         #region properties
         /// <summary>
@@ -39,18 +39,6 @@
         /// Gets whether or not to show a tooltip for this item.
         /// </summary>
         bool ShowToolTip { get; }
-
-        /// <summary>
-        /// Gets an indendation (if any) for this item.
-        /// An indendation allows the display of path
-        /// items
-        ///      in
-        ///        stair
-        ///             like
-        ///                 display
-        ///                        fashion.
-        /// </summary>
-        int Indentation { get; }
         #endregion properties
 
         #region methods

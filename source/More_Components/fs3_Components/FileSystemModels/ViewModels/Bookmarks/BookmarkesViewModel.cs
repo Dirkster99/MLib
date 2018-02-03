@@ -19,8 +19,8 @@
     internal class BookmarkesViewModel : ViewModelBase, IBookmarksViewModel
     {
         #region fields
-        private IFSItemViewModel mSelectedItem;
-        private ObservableCollection<IFSItemViewModel> _DropDownItems;
+        private IListItemViewModel mSelectedItem;
+        private ObservableCollection<IListItemViewModel> _DropDownItems;
 
         private object mLockObject = new object();
 
@@ -35,7 +35,7 @@
         /// </summary>
         public BookmarkesViewModel()
         {
-            _DropDownItems = new ObservableCollection<IFSItemViewModel>();
+            _DropDownItems = new ObservableCollection<IListItemViewModel>();
             this.IsOpen = false;
         }
 
@@ -52,7 +52,7 @@
             ////this.IsOpen = copyThis.IsOpen; this could magically open other drop downs :-)
 
             foreach (var item in copyThis.DropDownItems)
-                _DropDownItems.Add(new FSItemViewModel(item as FSItemViewModel));
+                _DropDownItems.Add(new ListItemViewModel(item as ListItemViewModel));
 
             // Select quivalent item in target collection
             if (copyThis.SelectedItem != null)
@@ -76,7 +76,7 @@
         #region properties
         /// <summary>
         /// Gets a command that requests a change of current directory to the
-        /// directory stated in <seealso cref="FSItemViewModel"/> in
+        /// directory stated in <seealso cref="ListItemViewModel"/> in
         /// CommandParameter.  -> Fires a FolderChange Event.
         /// </summary>
         public ICommand ChangeOfDirectoryCommand
@@ -86,7 +86,7 @@
                 if (this.mChangeOfDirectoryCommand == null)
                     this.mChangeOfDirectoryCommand = new RelayCommand<object>((p) =>
                     {
-                        var param = p as IFSItemViewModel;
+                        var param = p as IListItemViewModel;
 
                         if (param != null)
                             this.ChangeOfDirectoryCommand_Executed(param);
@@ -99,7 +99,7 @@
         /// <summary>
         /// Command removes a folder bookmark from the list of
         /// currently bookmarked folders. Required command parameter
-        /// is of type <seealso cref="FSItemViewModel"/>.
+        /// is of type <seealso cref="ListItemViewModel"/>.
         /// </summary>
         public ICommand RemoveFolderBookmark
         {
@@ -108,7 +108,7 @@
                 if (this.mRemoveFolderBookmark == null)
                     this.mRemoveFolderBookmark = new RelayCommand<object>((p) =>
                     {
-                        var param = p as IFSItemViewModel;
+                        var param = p as IListItemViewModel;
 
                         if (param != null)
                             this.RemoveFolderBookmark_Executed(param);
@@ -121,7 +121,7 @@
         /// <summary>
         /// <inheritedoc />
         /// </summary>
-        public IEnumerable<IFSItemViewModel> DropDownItems
+        public IEnumerable<IListItemViewModel> DropDownItems
         {
             get
             {
@@ -134,7 +134,7 @@
         /// 
         /// This should be bound by the view (ItemsControl) to find the SelectedItem here.
         /// </summary>
-        public IFSItemViewModel SelectedItem
+        public IListItemViewModel SelectedItem
         {
             get
             {
@@ -209,7 +209,7 @@
                     return;
 
                 // select this path if its already there
-                var results = this.DropDownItems.Where<IFSItemViewModel>(folder => string.Compare(folder.FullPath, folderPath, true) == 0);
+                var results = this.DropDownItems.Where<IListItemViewModel>(folder => string.Compare(folder.FullPath, folderPath, true) == 0);
 
                 // Do not add this twice
                 if (results != null)
@@ -275,7 +275,7 @@
             }
         }
 
-        private void ChangeOfDirectoryCommand_Executed(IFSItemViewModel path)
+        private void ChangeOfDirectoryCommand_Executed(IListItemViewModel path)
         {
             if (path == null)
                 return;
@@ -288,7 +288,7 @@
                     new FolderChangedEventArgs(PathFactory.Create(path.FullPath, FSItemType.Folder)));
         }
 
-        private IFSItemViewModel CreateFSItemVMFromString(string folderPath)
+        private IListItemViewModel CreateFSItemVMFromString(string folderPath)
         {
             ////folderPath = System.IO.Path.GetDirectoryName(folderPath);
 
@@ -306,14 +306,14 @@
             if (displayName.Trim() == string.Empty)
                 displayName = folderPath;
 
-            return new FSItemViewModel(folderPath, FSItemType.Folder, displayName, true);
+            return new ListItemViewModel(folderPath, FSItemType.Folder, displayName, true);
         }
 
         /// <summary>
         /// Method removes a folder bookmark from the list of currently bookmarked folders.
         /// </summary>
         /// <param name="param"></param>
-        private void RemoveFolderBookmark_Executed(IFSItemViewModel param)
+        private void RemoveFolderBookmark_Executed(IListItemViewModel param)
         {
             this.RemoveFolder(param.GetModel);
         }

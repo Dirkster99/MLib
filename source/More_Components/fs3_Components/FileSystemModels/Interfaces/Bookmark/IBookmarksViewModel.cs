@@ -32,14 +32,14 @@
         /// <summary>
         /// <inheritedoc />
         /// </summary>
-        IEnumerable<IFSItemViewModel> DropDownItems { get; }
+        IEnumerable<IListItemViewModel> DropDownItems { get; }
 
         /// <summary>
         /// Gets/sets the selected item of the RecentLocations property.
         /// 
         /// This should be bound by the view (ItemsControl) to find the SelectedItem here.
         /// </summary>
-        IFSItemViewModel SelectedItem { get; set; }
+        IListItemViewModel SelectedItem { get; set; }
 
         /// <summary>
         /// <inheritedoc />

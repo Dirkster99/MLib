@@ -99,13 +99,13 @@
     <Compile Include="Converters\SpecialFolderToImageConverter .cs" />
     <Compile Include="Converters\UpdateBindingConverter.cs" />
     <Compile Include="Interfaces\IDriveViewModel.cs" />
-    <Compile Include="Interfaces\IItemViewModel.cs" />
+    <Compile Include="Interfaces\ITreeItemViewModel.cs" />
     <Compile Include="Interfaces\IParent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Themes\ResourceKeys.cs" />
     <Compile Include="ViewModels\DriveViewModel.cs" />
     <Compile Include="ViewModels\EditFolderBookmarks.cs" />
-    <Compile Include="ViewModels\ItemViewModel.cs" />
+    <Compile Include="ViewModels\TreeItemViewModel.cs" />
     <Compile Include="Views\Behaviours\TreeViewVirtualItemBehaviour.cs" />
     <Compile Include="ViewModels\BrowserViewModel.cs" />
     <Compile Include="ViewModels\CustomFolderItemViewModel.cs" />

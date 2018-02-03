@@ -10,9 +10,10 @@
     using System.Windows.Media;
 
     /// <summary>
-    /// The Viewmodel for file system items
+    /// Implements a viewmodel for file system items that are listed in a
+    /// list like control (pop-up list, list box, combobox etc..)
     /// </summary>
-    internal class FSItemViewModel : ViewModelBase, IFSItemViewModel
+    internal class ListItemViewModel : ViewModelBase, IListItemViewModel
     {
         #region fields
         /// <summary>
@@ -35,12 +36,11 @@
         /// <param name="itemType"></param>
         /// <param name="showIcon"></param>
         /// <param name="indentation"></param>
-        public FSItemViewModel(string curdir,
+        public ListItemViewModel(string curdir,
                         FSItemType itemType,
                         string displayName,
-                        bool showIcon,
-                        int indentation = 0)
-            : this(curdir, itemType, displayName, indentation)
+                        bool showIcon)
+            : this(curdir, itemType, displayName)
         {
             this.ShowToolTip = showIcon;
         }
@@ -52,22 +52,20 @@
         /// <param name="displayName"></param>
         /// <param name="itemType"></param>
         /// <param name="indentation"></param>
-        public FSItemViewModel(string curdir,
+        public ListItemViewModel(string curdir,
                         FSItemType itemType,
-                        string displayName,
-                        int indentation = 0)
+                        string displayName)
             : this()
         {
             this.mPathObject = PathFactory.Create(curdir, itemType);
             this.DisplayName = displayName;
-            this.Indentation = indentation;
         }
 
         /// <summary>
         /// Copy constructor
         /// </summary>
         /// <param name="item"></param>
-        public FSItemViewModel(FSItemViewModel copyThis)
+        public ListItemViewModel(ListItemViewModel copyThis)
             : this()
         {
             if (copyThis == null)
@@ -82,19 +80,16 @@
             mVolumeLabel = copyThis.mVolumeLabel;
 
             ShowToolTip = copyThis.ShowToolTip;
-            Indentation = copyThis.Indentation;
         }
 
         /// <summary>
         /// Hidden standard class constructor
         /// </summary>
-        protected FSItemViewModel()
+        protected ListItemViewModel()
         {
             this.mDisplayIcon = null;
             this.mPathObject = null;
             this.mVolumeLabel = null;
-
-            this.Indentation = 0;
         }
         #endregion constructor
 
@@ -190,18 +185,6 @@
         /// Gets whether or not to show a tooltip for this item.
         /// </summary>
         public bool ShowToolTip { get; private set; }
-
-        /// <summary>
-        /// Gets an indendation (if any) for this item.
-        /// An indendation allows the display of path
-        /// items
-        ///      in
-        ///        stair
-        ///             like
-        ///                 display
-        ///                        fashion.
-        /// </summary>
-        public int Indentation { get; private set; }
         #endregion properties
 
         #region methods

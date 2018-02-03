@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Windows.Media.Imaging;
 
-    public interface IItemViewModel : IParent
+    public interface ITreeItemViewModel : IParent
     {
         #region properties
         /// <summary>
@@ -34,7 +34,7 @@
         /// <summary>
         /// Gets a collection of sub-folders (if any) that are contained within this folder.
         /// </summary>
-        IEnumerable<IItemViewModel> Folders { get; }
+        IEnumerable<ITreeItemViewModel> Folders { get; }
 
         /// <summary>
         /// Gets whether this folder is currently expanded or not.
@@ -59,14 +59,14 @@
         /// of this folder.
         /// </summary>
         /// <param name="item"></param>
-        void ChildAdd(IItemViewModel item);
+        void ChildAdd(ITreeItemViewModel item);
 
         /// <summary>
         /// Create a new folder with a standard name
         /// 'New folder n' underneath this folder.
         /// </summary>
         /// <returns>a viewmodel of the newly created directory or null</returns>
-        IItemViewModel CreateNewDirectory();
+        ITreeItemViewModel CreateNewDirectory();
 
         /// <summary>
         /// Renames a child below this item.
@@ -93,7 +93,7 @@
         /// </summary>
         /// <param name="folderName"></param>
         /// <returns></returns>
-        IItemViewModel ChildTryGet(string folderName);
+        ITreeItemViewModel ChildTryGet(string folderName);
 
         /// <summary>
         /// Shows a pop-notification message with the given title and text.

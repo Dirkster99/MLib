@@ -94,7 +94,7 @@
     <Compile Include="Interfaces\Bookmark\IEditBookmarks.cs" />
     <Compile Include="Interfaces\IBrowseNavigation.cs" />
     <Compile Include="Interfaces\IConfigExplorerSettings.cs" />
-    <Compile Include="Interfaces\IFSItemViewModel.cs" />
+    <Compile Include="Interfaces\IListItemViewModel.cs" />
     <Compile Include="Interfaces\IPathModel.cs" />
     <Compile Include="Local\Strings.de-DE.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -162,7 +162,7 @@
     <Compile Include="ViewModels\Base\RelayCommand.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
     <Compile Include="ViewModels\Bookmarks\BookmarkesViewModel.cs" />
-    <Compile Include="ViewModels\FSItemViewModel.cs" />
+    <Compile Include="ViewModels\ListItemViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Local\Strings.de-DE.resx">

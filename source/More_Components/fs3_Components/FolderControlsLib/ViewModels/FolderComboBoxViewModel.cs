@@ -1,4 +1,4 @@
-namespace FileListView.ViewModels
+namespace FolderControlsLib.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -6,11 +6,12 @@ namespace FileListView.ViewModels
     using System.IO;
     using System.Linq;
     using System.Windows.Input;
-    using FileListView.Interfaces;
-    using FileListView.ViewModels.Base;
+    using FolderControlsLib.Interfaces;
+    using FolderControlsLib.ViewModels.Base;
     using FileSystemModels;
     using FileSystemModels.Events;
     using FileSystemModels.Models.FSItems.Base;
+    using FileSystemModels.Interfaces;
 
     /// <summary>
     /// Class implements a viewmodel that can be used for a
@@ -19,10 +20,10 @@ namespace FileListView.ViewModels
     internal class FolderComboBoxViewModel : Base.ViewModelBase, IFolderComboBoxViewModel
     {
         #region fields
-        private readonly ObservableCollection<ILVItemViewModel> mCurrentItems;
+        private readonly ObservableCollection<IFolderItemViewModel> mCurrentItems;
 
         private string _CurrentFolder = string.Empty;
-        private ILVItemViewModel _SelectedItem = null;
+        private IFolderItemViewModel _SelectedItem = null;
 
         private ICommand _SelectionChanged = null;
         private string mSelectedRecentLocation = string.Empty;
@@ -36,7 +37,7 @@ namespace FileListView.ViewModels
         /// </summary>
         public FolderComboBoxViewModel()
         {
-            this.mCurrentItems = new ObservableCollection<ILVItemViewModel>();
+            this.mCurrentItems = new ObservableCollection<IFolderItemViewModel>();
         }
         #endregion constructor
 
@@ -52,7 +53,7 @@ namespace FileListView.ViewModels
         /// Expose a collection of file system items (folders and hard disks and ...) that
         /// can be selected and navigated to in this viewmodel.
         /// </summary>
-        public IEnumerable<ILVItemViewModel> CurrentItems
+        public IEnumerable<IFolderItemViewModel> CurrentItems
         {
             get
             {
@@ -63,14 +64,14 @@ namespace FileListView.ViewModels
         /// <summary>
         /// Gets/sets the currently selected file system viewmodel item.
         /// </summary>
-        public ILVItemViewModel SelectedItem
+        public IFolderItemViewModel SelectedItem
         {
             get
             {
                 return this._SelectedItem;
             }
 
-            set
+            protected set
             {
                 if (this._SelectedItem != value)
                 {
@@ -91,7 +92,7 @@ namespace FileListView.ViewModels
                 return this._CurrentFolder;
             }
 
-            set
+            protected set
             {
                 if (this._CurrentFolder != value)
                 {
@@ -120,9 +121,9 @@ namespace FileListView.ViewModels
 
         #region commands
         /// <summary>
-        /// Command is invoked when the combobox view tells the viewmodel
-        /// that the current path selection has changed (via selection changed
-        /// event or keyup events).
+        /// Gets a command that should be invoked when the combobox view tells
+        /// the viewmodel that the current path selection has changed
+        /// (via selection changed event or keyup events).
         /// 
         /// The parameter p can be an array of objects
         /// containing objects of the FSItemVM type or
@@ -146,6 +147,15 @@ namespace FileListView.ViewModels
         #endregion properties
 
         #region methods
+        /// <summary>
+        /// Resets the currently selected/displayed folder to
+        /// the indicated folder.
+        /// </summary>
+        public void SetCurrentFolder(IPathModel folder)
+        {
+            CurrentFolder = folder.Path;
+        }
+
         /// <summary>
         /// Can be invoked to refresh the currently visible set of data.
         /// </summary>
@@ -176,7 +186,7 @@ namespace FileListView.ViewModels
 
                 foreach (string s in Directory.GetLogicalDrives())
                 {
-                    ILVItemViewModel info = FileListView.Factory.CreateLogicalDrive(s);
+                    IFolderItemViewModel info = FolderControlsLib.Factory.CreateLogicalDrive(s);
                     this.mCurrentItems.Add(info);
 
                     // add items under current folder if we currently create the root folder of the current path
@@ -187,7 +197,7 @@ namespace FileListView.ViewModels
                         {
                             string curdir = string.Join(string.Empty + System.IO.Path.DirectorySeparatorChar, dirs, 0, i + 1);
 
-                            info = new LVItemViewModel(curdir, FSItemType.Folder, dirs[i], i * 10);
+                            info = new FolderItemViewModel(curdir, FSItemType.Folder, dirs[i], i * 10);
 
                             this.mCurrentItems.Add(info);
                         }
@@ -221,8 +231,8 @@ namespace FileListView.ViewModels
         /// <summary>
         /// Method executes when the SelectionChanged command is invoked.
         /// The parameter <paramref name="p"/> can be an array of objects
-        /// containing objects of the <seealso cref="FSItemViewModel"/> type or
-        /// p can also be string.
+        /// containing objects of the <seealso cref="IFolderItemViewModel"/> type
+        /// or p can also be string.
         /// 
         /// Each parameter item that adheres to the above types results in
         /// a OnCurrentPathChanged event being fired with the folder path
@@ -238,31 +248,49 @@ namespace FileListView.ViewModels
             object[] paramObjects = p as object[];
             if (paramObjects != null)
             {
-                for (int i = 0; i < paramObjects.Length; i++)
-                {
-                    var item = paramObjects[i] as LVItemViewModel;
-
-                    if (item != null)
-                    {
-                        if (item.DirectoryPathExists() == true)
-                        {
-                            if (this.RequestChangeOfDirectory != null)
-                                this.RequestChangeOfDirectory(this, new FolderChangedEventArgs(item.GetModel));
-                        }
-                    }
-                }
+                SetSelection(paramObjects);
+                return;
             }
 
             // Check if the given parameter is a string, fire a corresponding event if so...
-            var paramString = p as string;
-            if (paramString != null)
-            {
-                var path = PathFactory.Create(paramString, FSItemType.Folder);
+            SetSelection(p as string);
+        }
 
-                if (path.DirectoryPathExists() == true)
+        /// <summary>
+        /// Fires a folder changed event to indicate that the current folder
+        /// selection has changed to the indicated path.
+        /// </summary>
+        /// <param name="paramString"></param>
+        private void SetSelection(string paramString)
+        {
+            if (paramString == null)
+                return;
+
+            var path = PathFactory.Create(paramString, FSItemType.Folder);
+
+            if (path.DirectoryPathExists() == true)
+            {
+                if (this.RequestChangeOfDirectory != null)
+                    this.RequestChangeOfDirectory(this, new FolderChangedEventArgs(path));
+            }
+        }
+
+        private void SetSelection(object[] paramObjects)
+        {
+            if (paramObjects == null)
+                return;
+
+            for (int i = 0; i < paramObjects.Length; i++)
+            {
+                var item = paramObjects[i] as IFolderItemViewModel;
+
+                if (item != null)
                 {
-                    if (this.RequestChangeOfDirectory != null)
-                        this.RequestChangeOfDirectory(this, new FolderChangedEventArgs(path));
+                    if (item.DirectoryPathExists() == true)
+                    {
+                        if (this.RequestChangeOfDirectory != null)
+                            this.RequestChangeOfDirectory(this, new FolderChangedEventArgs(item.GetModel));
+                    }
                 }
             }
         }

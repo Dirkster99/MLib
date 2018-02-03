@@ -31,7 +31,7 @@
         #region properties
         /// <summary>
         /// Gets a command that removes folder location via a corresponding event.
-        /// Expected parameter is an intherited type from <see cref="IItemViewModel"/>.
+        /// Expected parameter is an intherited type from <see cref="LVItemViewModel"/>.
         /// </summary>
         public ICommand RecentFolderRemoveCommand
         {
@@ -50,7 +50,7 @@
 
         /// <summary>
         /// Gets a command that adds folder location via a corresponding event.
-        /// Expected parameter is an intherited type from <see cref="IItemViewModel"/>.
+        /// Expected parameter is an intherited type from <see cref="LVItemViewModel"/>.
         /// </summary>
         public ICommand RecentFolderAddCommand
         {

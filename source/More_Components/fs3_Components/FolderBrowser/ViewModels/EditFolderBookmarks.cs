@@ -45,7 +45,7 @@
 
         /// <summary>
         /// Gets a command that removes folder location via a corresponding event.
-        /// Expected parameter is an intherited type from <see cref="IItemViewModel"/>.
+        /// Expected parameter is an intherited type from <see cref="ITreeItemViewModel"/>.
         /// </summary>
         public ICommand RecentFolderRemoveCommand
         {
@@ -54,7 +54,7 @@
                 if (this._FolderRemoveCommand == null)
                     this._FolderRemoveCommand = new RelayCommand<object>(
                         (p) => this.EditRecentFolder_Executed(
-                            p as IItemViewModel, EditBookmarkEvent.RecentFolderAction.Remove),
+                            p as ITreeItemViewModel, EditBookmarkEvent.RecentFolderAction.Remove),
 
                         (p) => this.RecentFolderCommand_CanExecute(p));
 
@@ -64,7 +64,7 @@
 
         /// <summary>
         /// Gets a command that adds folder location via a corresponding event.
-        /// Expected parameter is an intherited type from <see cref="IItemViewModel"/>.
+        /// Expected parameter is an intherited type from <see cref="ITreeItemViewModel"/>.
         /// </summary>
         public ICommand RecentFolderAddCommand
         {
@@ -73,7 +73,7 @@
                 if (this._FolderAddCommand == null)
                     this._FolderAddCommand = new RelayCommand<object>(
                         (p) => this.EditRecentFolder_Executed(
-                            p as IItemViewModel, EditBookmarkEvent.RecentFolderAction.Add),
+                            p as ITreeItemViewModel, EditBookmarkEvent.RecentFolderAction.Add),
 
                         (p) => this.RecentFolderCommand_CanExecute(p));
 
@@ -92,7 +92,7 @@
         {
             if (this.RequestEditBookmarkedFolders != null)
             {
-                var item = param as IItemViewModel;
+                var item = param as ITreeItemViewModel;
 
                 if (item != null)
                     return true;
@@ -110,7 +110,7 @@
         /// <param name="item"></param>
         /// <param name="action"></param>
         private void EditRecentFolder_Executed(
-                IItemViewModel item,
+                ITreeItemViewModel item,
                 EditBookmarkEvent.RecentFolderAction action)
         {
             if (item == null)

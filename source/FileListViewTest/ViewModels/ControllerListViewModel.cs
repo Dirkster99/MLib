@@ -5,11 +5,14 @@ namespace FileListViewTest.ViewModels
     using FileListView.ViewModels;
     using FileListView.ViewModels.Interfaces;
     using FileListViewTest.Interfaces;
+    using FileSystemModels;
     using FileSystemModels.Events;
     using FileSystemModels.Interfaces;
     using FileSystemModels.Interfaces.Bookmark;
     using FileSystemModels.Models;
+    using FileSystemModels.Models.FSItems.Base;
     using FilterControlsLib.Interfaces;
+    using FolderControlsLib.Interfaces;
 
     /// <summary>
     /// Class implements a folder/file view model class
@@ -46,7 +49,7 @@ namespace FileListViewTest.ViewModels
         {
             this.FolderItemsView = FileListView.Factory.CreateFileListViewModel(new BrowseNavigation());
 
-            this.FolderTextPath = FileListView.Factory.CreateFolderComboBoxVM();
+            this.FolderTextPath = FolderControlsLib.Factory.CreateFolderComboBoxVM();
 
             this.RecentFolders = FileSystemModels.Factory.CreateBookmarksViewModel();
 
@@ -341,7 +344,7 @@ namespace FileListViewTest.ViewModels
                 this.SelectedFolder = folder;
 
                 // Navigate Folder ComboBox to this folder
-                this.FolderTextPath.CurrentFolder = folder;
+                this.FolderTextPath.SetCurrentFolder(PathFactory.Create(folder, FSItemType.Folder));
                 this.FolderTextPath.PopulateView();
 
                 // Navigate Folder/File ListView to this folder

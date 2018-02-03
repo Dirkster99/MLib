@@ -54,7 +54,7 @@
         private string _InitalPath;
         private bool _UpdateView;
         private bool _IsBrowseViewEnabled;
-        private IItemViewModel _SelectedItem = null;
+        private ITreeItemViewModel _SelectedItem = null;
         private SortableObservableDictionaryCollection _Root;
         private ObservableCollection<ICustomFolderItemViewModel> _SpecialFolders;
         #endregion fields
@@ -160,7 +160,7 @@
         /// <summary>
         /// Gets the list of drives and folders for display in treeview structure control.
         /// </summary>
-        public IEnumerable<IItemViewModel> Root
+        public IEnumerable<ITreeItemViewModel> Root
         {
             get
             {
@@ -194,7 +194,7 @@
         /// <summary>
         /// Gets the currently selected viewmodel object (if any).
         /// </summary>
-        public IItemViewModel SelectedItem
+        public ITreeItemViewModel SelectedItem
         {
             get
             {
@@ -263,7 +263,7 @@
                     _OpenInWindowsCommand = new RelayCommand<object>(
                       (p) =>
                       {
-                          var vm = p as IItemViewModel;
+                          var vm = p as ITreeItemViewModel;
 
                           if (vm == null)
                               return;
@@ -290,7 +290,7 @@
                     _CopyPathCommand = new RelayCommand<object>(
                       (p) =>
                       {
-                          var vm = p as IItemViewModel;
+                          var vm = p as ITreeItemViewModel;
 
                           if (vm == null)
                               return;
@@ -318,7 +318,7 @@
                 {
                     _SelectedFolderChangedCommand = new RelayCommand<object>((p) =>
                     {
-                        SelectedItem = (p as IItemViewModel);
+                        SelectedItem = (p as ITreeItemViewModel);
                     });
                 }
 
@@ -340,7 +340,7 @@
                         if (IsBrowsing == true) // This can is probably not relevant since the
                             return;            // viewmodel is currently driving the view ...
 
-                        var expandedItem = p as IItemViewModel;
+                        var expandedItem = p as ITreeItemViewModel;
 
                         if (expandedItem != null && _IsExpanding == false)
                         {
@@ -437,9 +437,9 @@
         /// <summary>
         /// Starts the create folder process by creating a new folder
         /// in the given location. The location is supplied as <seealso cref="System.Windows.Input.ICommandSource.CommandParameter"/>
-        /// which is a <seealso cref="IItemViewModel"/> item.
+        /// which is a <seealso cref="ITreeItemViewModel"/> item.
         /// 
-        /// So, the <seealso cref="IItemViewModel"/> item is the parent of the new folder
+        /// So, the <seealso cref="ITreeItemViewModel"/> item is the parent of the new folder
         /// <seealso cref="IFolderViewModel"/> and the new folder is created with a standard
         /// name: 'New Folder n'. The new folder n is selected and in rename mode such that
         /// users can edit the name of the new folder right away.
@@ -454,7 +454,7 @@
                 if (this._CreateFolderCommand == null)
                     this._CreateFolderCommand = new RelayCommand<object>(async it =>
                     {
-                        var folder = it as ItemViewModel;
+                        var folder = it as TreeItemViewModel;
 
                         if (folder == null)
                             return;
@@ -512,7 +512,7 @@
 
         /// <summary>
         /// Gets a command that will reload the folder view up to the
-        /// selected path that is expected as <seealso cref="IItemViewModel"/>
+        /// selected path that is expected as <seealso cref="ITreeItemViewModel"/>
         /// in the CommandParameter.
         /// 
         /// This command is particularly useful when users create/delete a folder
@@ -528,7 +528,7 @@
                     {
                         try
                         {
-                            var item = p as IItemViewModel;
+                            var item = p as ITreeItemViewModel;
 
                             if (item == null)
                                 return;
@@ -558,7 +558,7 @@
         /// Expand folder for the very first time (using the process background viewmodel).
         /// </summary>
         /// <param name="expandedItem"></param>
-        private void ExpandDummyFolder(IItemViewModel expandedItem)
+        private void ExpandDummyFolder(ITreeItemViewModel expandedItem)
         {
             if (expandedItem != null && _IsExpanding == false)
             {
@@ -569,7 +569,7 @@
                     _ExpandProcessor.StartProcess(() =>
                     {
                         expandedItem.ClearFolders();                    // Requery sub-folders of this item
-                        (expandedItem as ItemViewModel).LoadFolders();
+                        (expandedItem as TreeItemViewModel).LoadFolders();
 
                         ////expandedItem.IsSelected = true;
                         ////SelectedFolder = expandedItem.FolderPath;
@@ -599,7 +599,7 @@
         /// </summary>
         /// <param name="expandedItem"></param>
         /// <returns></returns>
-        private async Task<bool> RequeryChildItems(ItemViewModel expandedItem)
+        private async Task<bool> RequeryChildItems(TreeItemViewModel expandedItem)
         {
             await Task.Run(() => 
             {
@@ -752,7 +752,7 @@
             return true;
         }
 
-        private void AddFolder(string name, IItemViewModel folder)
+        private void AddFolder(string name, ITreeItemViewModel folder)
         {
            Application.Current.Dispatcher.Invoke(() =>
            {
@@ -772,7 +772,7 @@
         }
 
         private FolderViewModel CreateFolderItem(IPathModel model,
-                                                 IItemViewModel parent)
+                                                 ITreeItemViewModel parent)
         {
             var f = new FolderViewModel(model, parent);
 
@@ -815,12 +815,12 @@
                                      CancellationTokenSource cts = null)
         {
             string[] dirs = PathFactory.GetDirectories(path.Path);
-            List<IItemViewModel> PathItems = new List<IItemViewModel>();
+            List<ITreeItemViewModel> PathItems = new List<ITreeItemViewModel>();
 
             if (dirs == null)
                 return;
 
-            IItemViewModel root = _Root.TryGet(dirs[0]);
+            ITreeItemViewModel root = _Root.TryGet(dirs[0]);
 
             // Find drive in which we will have to insert this
             if (root == null)
@@ -839,7 +839,7 @@
                 if (cts != null)
                     cts.Token.ThrowIfCancellationRequested();
 
-                var folder1 = (PathItems[i] as ItemViewModel);
+                var folder1 = (PathItems[i] as TreeItemViewModel);
 
                 if (folder1.HasDummyChild == false)
                     folder1.IsExpanded = true;
@@ -856,17 +856,17 @@
             }
 
             ////PathItems[PathItems.Count - 1].IsExpanded = true;
-            var folder = PathItems[PathItems.Count - 1] as ItemViewModel;
+            var folder = PathItems[PathItems.Count - 1] as TreeItemViewModel;
             SelectedItem = folder;
             folder.IsSelected = true;
         }
 
-        private IItemViewModel MergeFolders(IItemViewModel root,
+        private ITreeItemViewModel MergeFolders(ITreeItemViewModel root,
                                             string[] dirs,
                                             string accumulatedPath,
-                                            List<IItemViewModel> PathItems)
+                                            List<ITreeItemViewModel> PathItems)
         {
-            IItemViewModel nextRoot = null;
+            ITreeItemViewModel nextRoot = null;
 
             int i = 1;
             for (; i < dirs.Length; i++)
@@ -877,7 +877,7 @@
 
                 if (nextRoot == null)
                 {
-                    (root as ItemViewModel).LoadFolders();     // Refresh children of this node
+                    (root as TreeItemViewModel).LoadFolders();     // Refresh children of this node
 
                     nextRoot = root.ChildTryGet(dirs[i]);
 
@@ -899,7 +899,7 @@
         /// in editing mode to give users a chance for renaming it right away.
         /// </summary>
         /// <param name="parentFolder"></param>
-        private void CreateFolderCommandNewFolder(ItemViewModel parentFolder)
+        private void CreateFolderCommandNewFolder(TreeItemViewModel parentFolder)
         {
             if (parentFolder == null)
                 return;

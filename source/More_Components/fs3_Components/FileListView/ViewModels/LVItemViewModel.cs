@@ -39,9 +39,8 @@ namespace FileListView.ViewModels
         public LVItemViewModel(string curdir,
                         FSItemType itemType,
                         string displayName,
-                        bool showIcon,
-                        int indentation = 0)
-          : this(curdir, itemType, displayName, indentation)
+                        bool showIcon)
+          : this(curdir, itemType, displayName)
         {
             this.ShowToolTip = showIcon;
         }
@@ -70,7 +69,6 @@ namespace FileListView.ViewModels
         {
             this.mPathObject = PathFactory.Create(curdir, itemType);
             this.DisplayName = displayName;
-            this.Indentation = indentation;
         }
 
         /// <summary>
@@ -81,14 +79,12 @@ namespace FileListView.ViewModels
         /// <param name="indentation"></param>
         public LVItemViewModel(IPathModel model,
                         string displayName,
-                        bool isReadOnly = false,
-                        int indentation = 0)
+                        bool isReadOnly = false)
             : this()
         {
             mPathObject = model.Clone() as IPathModel;
             DisplayName = displayName;
             IsReadOnly = isReadOnly;
-            Indentation = indentation;
         }
 
         /// <summary>
@@ -99,8 +95,6 @@ namespace FileListView.ViewModels
             this.mDisplayIcon = null;
             this.mPathObject = null;
             this.mVolumeLabel = null;
-
-            this.Indentation = 0;
         }
         #endregion constructor
 
@@ -196,18 +190,6 @@ namespace FileListView.ViewModels
         /// Gets whether or not to show a tooltip for this item.
         /// </summary>
         public bool ShowToolTip { get; private set; }
-
-        /// <summary>
-        /// Gets an indendation (if any) for this item.
-        /// An indendation allows the display of path
-        /// items
-        ///      in
-        ///        stair
-        ///             like
-        ///                 display
-        ///                        fashion.
-        /// </summary>
-        public int Indentation { get; private set; }
         #endregion properties
 
         #region methods
@@ -285,6 +267,8 @@ namespace FileListView.ViewModels
 
         /// <summary>
         /// Rename the name of a folder or file into a new name.
+        /// 
+        /// This includes renaming the item in the file system.
         /// </summary>
         /// <param name="newFolderName"></param>
         public void RenameFileOrFolder(string newFolderName)

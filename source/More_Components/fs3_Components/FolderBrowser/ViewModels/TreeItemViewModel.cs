@@ -15,17 +15,17 @@
     /// Implement the base viewmodel for one entry for a collection of items
     /// (drives, folders, files etc...).
     /// </summary>
-    internal class ItemViewModel : EditInPlaceViewModel, IItemViewModel
+    internal class TreeItemViewModel : EditInPlaceViewModel, ITreeItemViewModel
     {
         #region fields
-        private static readonly IItemViewModel DummyChild = new ItemViewModel();
+        private static readonly ITreeItemViewModel DummyChild = new TreeItemViewModel();
         private bool _IsSelected;
         private bool _IsExpanded;
 
         private IPathModel _Model;
 
         private readonly SortableObservableDictionaryCollection _Folders;
-        private readonly IItemViewModel _Parent;
+        private readonly ITreeItemViewModel _Parent;
         private string _VolumeLabel;
 
         private object _LockObject = new object();
@@ -37,7 +37,7 @@
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public ItemViewModel(IPathModel model, IItemViewModel parent)
+        public TreeItemViewModel(IPathModel model, ITreeItemViewModel parent)
             : this()
         {
             _Parent = parent;
@@ -49,15 +49,15 @@
                 this.IsReadOnly = true;
         }
 
-        protected ItemViewModel(string dir, FSItemType ItemType, IItemViewModel parent)
+        protected TreeItemViewModel(string dir, FSItemType ItemType, ITreeItemViewModel parent)
            : this(PathFactory.Create(dir, ItemType), parent)
         {
         }
 
         /// <summary>
-        /// Standard <seealso cref="ItemViewModel"/> constructor
+        /// Standard <seealso cref="TreeItemViewModel"/> constructor
         /// </summary>
-        protected ItemViewModel()
+        protected TreeItemViewModel()
           : base()
         {
             _IsExpanded = _IsSelected = false;
@@ -103,7 +103,7 @@
         /// <summary>
         /// Gets the parent object where this object is the child in the treeview.
         /// </summary>
-        public IItemViewModel Parent
+        public ITreeItemViewModel Parent
         {
             get
             {
@@ -158,7 +158,7 @@
         /// <summary>
         /// Get/set observable collection of sub-folders of this folder.
         /// </summary>
-        public IEnumerable<IItemViewModel> Folders
+        public IEnumerable<ITreeItemViewModel> Folders
         {
             get
             {
@@ -254,7 +254,7 @@
         /// Adds the folder item into the collection of sub-folders of this folder.
         /// </summary>
         /// <param name="item"></param>
-        public void ChildAdd(IItemViewModel item)
+        public void ChildAdd(ITreeItemViewModel item)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -326,7 +326,7 @@
         /// </summary>
         /// <param name="folderName"></param>
         /// <returns></returns>
-        public IItemViewModel ChildTryGet(string folderName)
+        public ITreeItemViewModel ChildTryGet(string folderName)
         {
             if (HasDummyChild == true)
                 return null;
@@ -334,7 +334,7 @@
             return _Folders.TryGet(folderName);
         }
 
-        internal static void AddFolder(ItemViewModel f, ItemViewModel item)
+        internal static void AddFolder(TreeItemViewModel f, TreeItemViewModel item)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -366,7 +366,7 @@
         /// 'New folder n' underneath this folder.
         /// </summary>
         /// <returns>a viewmodel of the newly created directory or null</returns>
-        public virtual IItemViewModel CreateNewDirectory()
+        public virtual ITreeItemViewModel CreateNewDirectory()
         {
             throw new NotImplementedException();
         }
@@ -392,7 +392,7 @@
         {
             var oldModel = _Model;
 
-            _Model =  model.Clone() as IPathModel;
+            _Model = model.Clone() as IPathModel;
 
             if (oldModel == null && model == null)
                 return;

@@ -3,7 +3,7 @@ namespace FilterControlsLib.ViewModels
     using FilterControlsLib.Interfaces;
 
     /// <summary>
-    /// The Viewmodel for filter item displayed in list of filters
+    /// The Viewmodel for filter item displayed in a list of filters.
     /// </summary>
     internal class FilterItemViewModel : Base.ViewModelBase, IFilterItemViewModel
     {
