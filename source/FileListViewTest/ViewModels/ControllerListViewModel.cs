@@ -1,8 +1,6 @@
 namespace FileListViewTest.ViewModels
 {
     using System.Windows;
-    using FileListView.Interfaces;
-    using FileListView.ViewModels;
     using FileListView.ViewModels.Interfaces;
     using FileListViewTest.Interfaces;
     using FileSystemModels;
@@ -47,20 +45,18 @@ namespace FileListViewTest.ViewModels
         /// </summary>
         public ControllerListViewModel()
         {
-            this.FolderItemsView = FileListView.Factory.CreateFileListViewModel(new BrowseNavigation());
-
-            this.FolderTextPath = FolderControlsLib.Factory.CreateFolderComboBoxVM();
-
-            this.RecentFolders = FileSystemModels.Factory.CreateBookmarksViewModel();
+            FolderItemsView = FileListView.Factory.CreateFileListViewModel(new BrowseNavigation());
+            FolderTextPath = FolderControlsLib.Factory.CreateFolderComboBoxVM();
+            RecentFolders = FileSystemModels.Factory.CreateBookmarksViewModel();
 
             // This is fired when the user selects a new folder bookmark from the drop down button
-            this.RecentFolders.RequestChangeOfDirectory += this.OnRequestChangeOfDirectory;
+            RecentFolders.RequestChangeOfDirectory += this.OnRequestChangeOfDirectory;
 
             // This is fired when the text path in the combobox changes to another existing folder
-            this.FolderTextPath.RequestChangeOfDirectory += this.OnRequestChangeOfDirectory;
+            FolderTextPath.RequestChangeOfDirectory += this.OnRequestChangeOfDirectory;
 
-            this.Filters = FilterControlsLib.Factory.CreateFilterComboBoxViewModel();
-            this.Filters.OnFilterChanged += this.FileViewFilter_Changed;
+            Filters = FilterControlsLib.Factory.CreateFilterComboBoxViewModel();
+            Filters.OnFilterChanged += this.FileViewFilter_Changed;
 
             // This is fired when the current folder in the listview changes to another existing folder
             this.FolderItemsView.RequestChangeOfDirectory += this.OnRequestChangeOfDirectory;
@@ -160,7 +156,7 @@ namespace FileListViewTest.ViewModels
             try
             {
                 // Set currently viewed folder in Explorer Tool Window
-                this.NavigateToFolder(settings.UserProfile.CurrentPath.Path);
+                this.NavigateToFolder(settings.UserProfile.CurrentPath, null);
 
                 this.Filters.ClearFilter();
 
@@ -181,8 +177,8 @@ namespace FileListViewTest.ViewModels
                 foreach (var item in settings.RecentFolders)
                     this.RecentFolders.AddFolder(item);
 
-////                if (string.IsNullOrEmpty(settings.LastSelectedRecentFolder) == false)
-////                    this.AddRecentFolder(settings.LastSelectedRecentFolder, true);
+                ////                if (string.IsNullOrEmpty(settings.LastSelectedRecentFolder) == false)
+                ////                    this.AddRecentFolder(settings.LastSelectedRecentFolder, true);
 
                 this.FolderItemsView.ShowIcons = settings.ShowIcons;
                 this.FolderItemsView.SetIsFolderVisible(settings.ShowFolders);
@@ -336,19 +332,23 @@ namespace FileListViewTest.ViewModels
         /// to the folder indicated in <paramref name="folder"/>
         /// - updates all related viewmodels.
         /// </summary>
-        /// <param name="folder"></param>
-        public void NavigateToFolder(string folder)
+        /// <param name="itemPath"></param>
+        /// <param name="requestor"</param>
+        private void NavigateToFolder(IPathModel itemPath, object sender)
         {
-            lock (this.mLockObject)
+            SelectedFolder = itemPath.Path;
+
+            if (FolderTextPath != sender)
             {
-                this.SelectedFolder = folder;
-
                 // Navigate Folder ComboBox to this folder
-                this.FolderTextPath.SetCurrentFolder(PathFactory.Create(folder, FSItemType.Folder));
-                this.FolderTextPath.PopulateView();
+                FolderTextPath.SetCurrentFolder(itemPath);
+                FolderTextPath.PopulateView();
+            }
 
+            if (FolderItemsView != sender)
+            {
                 // Navigate Folder/File ListView to this folder
-                this.FolderItemsView.NavigateToThisFolder(folder);
+                FolderItemsView.NavigateToThisFolder(itemPath.Path);
             }
         }
 
@@ -412,7 +412,7 @@ namespace FileListViewTest.ViewModels
             {
                 if (string.Compare(this.SelectedFolder, e.Folder.Path, true) != 0)
                 {
-                    this.NavigateToFolder(e.Folder.Path);
+                    this.NavigateToFolder(e.Folder, sender);
                 }
             }
         }

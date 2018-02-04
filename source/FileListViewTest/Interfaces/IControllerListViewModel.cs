@@ -95,14 +95,6 @@ namespace FileListViewTest.Interfaces
         void AddFilter(string name,
                        string filterString,
                        bool bSelectNewFilter = false);
-
-        /// <summary>
-        /// Master controler interface method to navigate all views
-        /// to the folder indicated in <paramref name="folder"/>
-        /// - updates all related viewmodels.
-        /// </summary>
-        /// <param name="folder"></param>
-        void NavigateToFolder(string folder);
         #endregion methods
     }
 }

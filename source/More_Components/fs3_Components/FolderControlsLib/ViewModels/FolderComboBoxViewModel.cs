@@ -68,15 +68,16 @@ namespace FolderControlsLib.ViewModels
         {
             get
             {
-                return this._SelectedItem;
+                return _SelectedItem;
             }
 
             protected set
             {
-                if (this._SelectedItem != value)
+                if (_SelectedItem != value)
                 {
-                    this._SelectedItem = value;
-                    this.RaisePropertyChanged(() => this.SelectedItem);
+                    System.Console.WriteLine("SelectedItem changed to '{0}' -> '{1}'", _SelectedItem, value);
+                    _SelectedItem = value;
+                    RaisePropertyChanged(() => SelectedItem);
                 }
             }
         }
@@ -94,11 +95,12 @@ namespace FolderControlsLib.ViewModels
 
             protected set
             {
-                if (this._CurrentFolder != value)
+                if (_CurrentFolder != value)
                 {
-                    this._CurrentFolder = value;
-                    this.RaisePropertyChanged(() => this.CurrentFolder);
-                    this.RaisePropertyChanged(() => this.CurrentFolderToolTip);
+                    System.Console.WriteLine("CurrentFolder changed to '{0}' -> '{1}'", _CurrentFolder, value);
+                    _CurrentFolder = value;
+                    RaisePropertyChanged(() => CurrentFolder);
+                    RaisePropertyChanged(() => CurrentFolderToolTip);
                 }
             }
         }
@@ -219,7 +221,7 @@ namespace FolderControlsLib.ViewModels
                     if (this.mCurrentItems.Count > 0)
                     {
                         this.CurrentFolder = this.mCurrentItems[0].FullPath;
-                        this.SelectedItem = this.mCurrentItems.First();
+                        this.SelectedItem = this.mCurrentItems[0];
 
                         if (this.RequestChangeOfDirectory != null)
                             this.RequestChangeOfDirectory(this, new FolderChangedEventArgs(this.SelectedItem.GetModel));
