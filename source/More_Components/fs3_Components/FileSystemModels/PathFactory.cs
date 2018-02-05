@@ -2,7 +2,9 @@ namespace FileSystemModels
 {
     using FileSystemModels.Interfaces;
     using FileSystemModels.Models.FSItems.Base;
+    using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -216,6 +218,22 @@ namespace FileSystemModels
         public static async Task<IEnumerable<IPathModel>> LoadFoldersAsync(string fullPath)
         {
             return await PathModel.LoadFoldersAsync(fullPath);
+        }
+
+        public static IPathModel Create(string path)
+        {
+            if (System.IO.Directory.Exists(path) == true)
+                return new PathModel(path, FSItemType.Folder);
+
+            if (System.IO.File.Exists(path) == true)
+                return new PathModel(path, FSItemType.File);
+
+            DirectoryInfo d = new DirectoryInfo(path);
+
+            if (d.Parent == null)
+                return new PathModel(path, FSItemType.LogicalDrive);
+
+            throw new NotSupportedException(string.Format("Type of file system item '{0}' not supported.", path));
         }
     }
 }

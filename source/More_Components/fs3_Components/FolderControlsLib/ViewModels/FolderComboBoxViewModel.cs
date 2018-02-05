@@ -150,15 +150,6 @@ namespace FolderControlsLib.ViewModels
         {
             lock (this._LockObject)
             {
-                // This breaks a possible recursion, if a new view is requested even though its
-                // already available, because this could, otherwise, change the SelectedItem
-                // which in turn could request another PopulateView(...) etc ...
-                if (newPath != null && SelectedItem != null)
-                {
-                    if (newPath.Equals(SelectedItem.GetModel))
-                        return;
-                }
-
                 _CurrentItems.Clear();
 
                 // add drives
@@ -249,7 +240,28 @@ namespace FolderControlsLib.ViewModels
 
             // Check if the given parameter is a string, fire a corresponding event if so...
             if (p is string)
+            {
+                IPathModel param = null;
+                try
+                {
+                    param = PathFactory.Create(p as string);
+                }
+                catch
+                {
+                    return;   // Control will refuse to select an unknown/non-existing item
+                }
+
+                // This breaks a possible recursion, if a new view is requested even though its
+                // already available, because this could, otherwise, change the SelectedItem
+                // which in turn could request another PopulateView(...) -> SelectedItem etc ...
+                if (SelectedItem != null)
+                {
+                    if (SelectedItem.Equals(param))
+                        return;
+                }
+
                 InternalPopulateView(PathFactory.Create(p as string, FSItemType.Folder), true);
+            }
             else
             {
                 if (p is object[])
@@ -263,7 +275,17 @@ namespace FolderControlsLib.ViewModels
                             var newPath = param[param.Length - 1] as IFolderItemViewModel;
 
                             if (newPath != null)
-                              InternalPopulateView(newPath.GetModel, true);
+                            {
+                                var model = newPath.GetModel;
+
+                                // This breaks a possible recursion, if a new view is requested even though its
+                                // already available, because this could, otherwise, change the SelectedItem
+                                // which in turn could request another PopulateView(...) -> SelectedItem etc ...
+                                if (model.Equals(SelectedItem.GetModel))
+                                    return;
+
+                                InternalPopulateView(model, true);
+                            }
                         }
                     }
                 }
