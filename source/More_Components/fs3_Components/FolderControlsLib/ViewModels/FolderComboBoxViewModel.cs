@@ -20,14 +20,14 @@ namespace FolderControlsLib.ViewModels
     internal class FolderComboBoxViewModel : Base.ViewModelBase, IFolderComboBoxViewModel
     {
         #region fields
-        private readonly ObservableCollection<IFolderItemViewModel> mCurrentItems;
+        private readonly ObservableCollection<IFolderItemViewModel> _CurrentItems;
 
         private IFolderItemViewModel _SelectedItem = null;
 
         private ICommand _SelectionChanged = null;
-        private string mSelectedRecentLocation = string.Empty;
+        private string _SelectedRecentLocation = string.Empty;
 
-        private object mLockObject = new object();
+        private object _LockObject = new object();
         #endregion fields
 
         #region constructor
@@ -36,7 +36,7 @@ namespace FolderControlsLib.ViewModels
         /// </summary>
         public FolderComboBoxViewModel()
         {
-            this.mCurrentItems = new ObservableCollection<IFolderItemViewModel>();
+            this._CurrentItems = new ObservableCollection<IFolderItemViewModel>();
         }
         #endregion constructor
 
@@ -56,7 +56,7 @@ namespace FolderControlsLib.ViewModels
         {
             get
             {
-                return this.mCurrentItems;
+                return this._CurrentItems;
             }
         }
 
@@ -77,7 +77,9 @@ namespace FolderControlsLib.ViewModels
                     System.Console.WriteLine("SelectedItem changed to '{0}' -> '{1}'", _SelectedItem, value);
                     _SelectedItem = value;
                     RaisePropertyChanged(() => SelectedItem);
+
                     RaisePropertyChanged(() => CurrentFolder);
+                    RaisePropertyChanged(() => CurrentFolderToolTip);
                 }
             }
         }
@@ -131,10 +133,10 @@ namespace FolderControlsLib.ViewModels
         {
             get
             {
-                if (this._SelectionChanged == null)
-                    this._SelectionChanged = new RelayCommand<object>((p) => this.SelectionChanged_Executed(p));
+                if (_SelectionChanged == null)
+                    _SelectionChanged = new RelayCommand<object>((p) => this.SelectionChanged_Executed(p));
 
-                return this._SelectionChanged;
+                return _SelectionChanged;
             }
         }
         #endregion commands
@@ -146,9 +148,18 @@ namespace FolderControlsLib.ViewModels
         /// </summary>
         public void PopulateView(IPathModel newPath)
         {
-            lock (this.mLockObject)
+            lock (this._LockObject)
             {
-                this.mCurrentItems.Clear();
+                // This breaks a possible recursion, if a new view is requested even though its
+                // already available, because this could, otherwise, change the SelectedItem
+                // which in turn could request another PopulateView(...) etc ...
+                if (newPath != null && SelectedItem != null)
+                {
+                    if (newPath.Equals(SelectedItem.GetModel))
+                        return;
+                }
+
+                _CurrentItems.Clear();
 
                 // add drives
                 string pathroot = string.Empty;
@@ -173,7 +184,7 @@ namespace FolderControlsLib.ViewModels
                 foreach (string s in Directory.GetLogicalDrives())
                 {
                     IFolderItemViewModel info = FolderControlsLib.Factory.CreateLogicalDrive(s);
-                    this.mCurrentItems.Add(info);
+                    this._CurrentItems.Add(info);
 
                     // add items under current folder if we currently create the root folder of the current path
                     if (string.IsNullOrEmpty(pathroot) == false && string.Compare(pathroot, s, true) == 0)
@@ -201,33 +212,31 @@ namespace FolderControlsLib.ViewModels
                             var curPath = PathFactory.Create(curdir, FSItemType.Folder);
                             info = new FolderItemViewModel(curPath, dirs[i], false, i * 10);
 
-                            this.mCurrentItems.Add(info);
+                            this._CurrentItems.Add(info);
                         }
 
-                        SelectedItem = mCurrentItems.Last();
-
-                        if (newPath == null)
-                        {
-                            if (this.RequestChangeOfDirectory != null)
-                                this.RequestChangeOfDirectory(this, new FolderChangedEventArgs(this.SelectedItem.GetModel));
-                        }
+                        SelectedItem = _CurrentItems.Last();
                     }
                 }
 
                 // Force a selection on to the control when there is no selected item, yet
-                if (this.mCurrentItems != null && SelectedItem == null)
+                if (this._CurrentItems != null && SelectedItem == null)
                 {
-                    if (this.mCurrentItems.Count > 0)
-                    {
-                        this.SelectedItem = this.mCurrentItems.Last();
-
-                        if (newPath == null)
-                        {
-                            if (this.RequestChangeOfDirectory != null)
-                                this.RequestChangeOfDirectory(this, new FolderChangedEventArgs(this.SelectedItem.GetModel));
-                        }
-                    }
+                    if (this._CurrentItems.Count > 0)
+                        this.SelectedItem = this._CurrentItems.Last();
                 }
+            }
+        }
+
+        private void InternalPopulateView(IPathModel newPath
+                                        , bool sendNotification)
+        {
+            PopulateView(newPath);
+
+            if (sendNotification == true && this.SelectedItem != null)
+            {
+                if (this.RequestChangeOfDirectory != null)
+                    this.RequestChangeOfDirectory(this, new FolderChangedEventArgs(this.SelectedItem.GetModel));
             }
         }
 
@@ -247,52 +256,24 @@ namespace FolderControlsLib.ViewModels
             if (p == null)
                 return;
 
-            // Check if the given parameter is an array of objects and process it...
-            object[] paramObjects = p as object[];
-            if (paramObjects != null)
-            {
-                SetSelection(paramObjects);
-                return;
-            }
-
             // Check if the given parameter is a string, fire a corresponding event if so...
-            SetSelection(p as string);
-        }
-
-        /// <summary>
-        /// Fires a folder changed event to indicate that the current folder
-        /// selection has changed to the indicated path.
-        /// </summary>
-        /// <param name="paramString"></param>
-        private void SetSelection(string paramString)
-        {
-            if (paramString == null)
-                return;
-
-            var path = PathFactory.Create(paramString, FSItemType.Folder);
-
-            if (path.DirectoryPathExists() == true)
+            if (p is string)
+                InternalPopulateView(PathFactory.Create(p as string, FSItemType.Folder), true);
+            else
             {
-                if (this.RequestChangeOfDirectory != null)
-                    this.RequestChangeOfDirectory(this, new FolderChangedEventArgs(path));
-            }
-        }
-
-        private void SetSelection(object[] paramObjects)
-        {
-            if (paramObjects == null)
-                return;
-
-            for (int i = 0; i < paramObjects.Length; i++)
-            {
-                var item = paramObjects[i] as IFolderItemViewModel;
-
-                if (item != null)
+                if (p is object[])
                 {
-                    if (item.DirectoryPathExists() == true)
+                    var param = p as object[];
+
+                    if (param != null)
                     {
-                        if (this.RequestChangeOfDirectory != null)
-                            this.RequestChangeOfDirectory(this, new FolderChangedEventArgs(item.GetModel));
+                        if (param.Length > 0)
+                        {
+                            var newPath = param[param.Length - 1] as IFolderItemViewModel;
+
+                            if (newPath != null)
+                              InternalPopulateView(newPath.GetModel, true);
+                        }
                     }
                 }
             }

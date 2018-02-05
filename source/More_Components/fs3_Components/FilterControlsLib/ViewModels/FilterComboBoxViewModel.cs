@@ -17,10 +17,10 @@ namespace FilterControlsLib.ViewModels
     internal class FilterComboBoxViewModel : Base.ViewModelBase, IFilterComboBoxViewModel
     {
         #region fields
-        private string mCurrentFilter = string.Empty;
-        private IFilterItemViewModel mSelectedItem = null;
+        private string _CurrentFilter = string.Empty;
+        private IFilterItemViewModel _SelectedItem = null;
 
-        private RelayCommand<object> mSelectionChanged = null;
+        private RelayCommand<object> _SelectionChanged = null;
 
         private readonly SortableObservableCollection<IFilterItemViewModel> _CurrentItems = null;
         #endregion fields
@@ -62,15 +62,17 @@ namespace FilterControlsLib.ViewModels
         {
             get
             {
-                return this.mSelectedItem;
+                return this._SelectedItem;
             }
 
             protected set
             {
-                if (this.mSelectedItem != value)
+                if (this._SelectedItem != value)
                 {
-                    this.mSelectedItem = value;
+                    this._SelectedItem = value;
                     this.RaisePropertyChanged(() => this.SelectedItem);
+
+                    this.RaisePropertyChanged(() => this.CurrentFilter);
                     this.RaisePropertyChanged(() => this.CurrentFilterToolTip);
                 }
             }
@@ -84,18 +86,10 @@ namespace FilterControlsLib.ViewModels
         {
             get
             {
-                return this.mCurrentFilter;
-            }
+                if (_SelectedItem != null)
+                    return _SelectedItem.FilterText;
 
-            protected set
-            {
-                if (this.mCurrentFilter != value)
-                {
-                    this.mCurrentFilter = value;
-                    this.SelectionChanged_Executed(value);
-                    this.RaisePropertyChanged(() => this.CurrentFilter);
-                    this.RaisePropertyChanged(() => this.CurrentFilterToolTip);
-                }
+                return string.Empty;
             }
         }
 
@@ -106,16 +100,16 @@ namespace FilterControlsLib.ViewModels
         {
             get
             {
-                if (this.mSelectedItem != null)
+                if (this._SelectedItem != null)
                 {
-                    if (string.IsNullOrEmpty(this.mSelectedItem.FilterText) == false)
-                        return string.Format("{0} ({1})\n{2}", this.mSelectedItem.FilterDisplayName,
-                                                               this.mSelectedItem.FilterText,
+                    if (string.IsNullOrEmpty(this._SelectedItem.FilterText) == false)
+                        return string.Format("{0} ({1})\n{2}", this._SelectedItem.FilterDisplayName,
+                                                               this._SelectedItem.FilterText,
                                                                FileSystemModels.Local.Strings.SelectFilterCommand_TT);
                 }
 
-                if (string.IsNullOrEmpty(this.mCurrentFilter) == false)
-                    return string.Format("{0}\n{1}", this.mCurrentFilter,
+                if (string.IsNullOrEmpty(this._CurrentFilter) == false)
+                    return string.Format("{0}\n{1}", this._CurrentFilter,
                                                       FileSystemModels.Local.Strings.SelectFilterCommand_TT);
                 else
                     return FileSystemModels.Local.Strings.SelectFilterCommand_TT;
@@ -140,10 +134,10 @@ namespace FilterControlsLib.ViewModels
         {
             get
             {
-                if (this.mSelectionChanged == null)
-                    this.mSelectionChanged = new RelayCommand<object>((p) => this.SelectionChanged_Executed(p));
+                if (this._SelectionChanged == null)
+                    this._SelectionChanged = new RelayCommand<object>((p) => this.SelectionChanged_Executed(p));
 
-                return this.mSelectionChanged;
+                return this._SelectionChanged;
             }
         }
         #endregion commands
@@ -156,10 +150,9 @@ namespace FilterControlsLib.ViewModels
         /// </summary>
         public void ClearFilter()
         {
-                _CurrentItems.Clear();
+            _CurrentItems.Clear();
 
             this.SelectedItem = null;
-            this.CurrentFilter = null;
         }
 
         /// <summary>
@@ -177,10 +170,7 @@ namespace FilterControlsLib.ViewModels
             _CurrentItems.Sort(i => i.FilterDisplayName, ListSortDirection.Ascending);
 
             if (bSelectNewFilter == true)
-            {
                 this.SelectedItem = item;
-                this.CurrentFilter = item.FilterText;
-            }
         }
 
         /// <summary>
@@ -199,10 +189,7 @@ namespace FilterControlsLib.ViewModels
             _CurrentItems.Sort(i => i.FilterDisplayName, ListSortDirection.Ascending);
 
             if (bSelectNewFilter == true)
-            {
                 this.SelectedItem = item;
-                this.CurrentFilter = item.FilterText;
-            }
         }
 
         /// <summary>
@@ -252,7 +239,6 @@ namespace FilterControlsLib.ViewModels
                 if (firstElement != null)
                 {
                     // we found this filter item aleady -> make this the currently selected item
-                    this.CurrentFilter = firstElement.FilterText;
                     this.SelectedItem = firstElement;
 
                     return;
