@@ -231,6 +231,10 @@ namespace FolderControlsLib.ViewModels
         /// Each parameter item that adheres to the above types results in
         /// a OnCurrentPathChanged event being fired with the folder path
         /// as parameter.
+        /// 
+        /// This mwthod can typically be invoked by:
+        /// 1> Edit the text portion + Enter in the control or
+        /// 2> By selecting an entry from the drop down list of the combobox.
         /// </summary>
         /// <param name="p"></param>
         private void SelectionChanged_Executed(object p)
