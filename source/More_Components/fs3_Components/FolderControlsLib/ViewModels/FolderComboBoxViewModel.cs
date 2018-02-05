@@ -196,18 +196,9 @@ namespace FolderControlsLib.ViewModels
                         else
                             dirs = PathFactory.GetDirectories(newPath.Path);
 
-                        if (dirs != null)
-                        {
-                            if (dirs.Length > 0)
-                            {
-                                if (dirs[0][dirs[0].Length - 1] == System.IO.Path.DirectorySeparatorChar)
-                                    dirs[0] = dirs[0].Trim(System.IO.Path.DirectorySeparatorChar);
-                            }
-                        }
-
                         for (int i = 1; i < dirs.Length; i++)
                         {
-                            string curdir = string.Join(string.Empty + System.IO.Path.DirectorySeparatorChar, dirs, 0, i + 1);
+                            string curdir = PathFactory.Join(dirs, 0, i + 1);
 
                             var curPath = PathFactory.Create(curdir, FSItemType.Folder);
                             info = new FolderItemViewModel(curPath, dirs[i], false, i * 10);

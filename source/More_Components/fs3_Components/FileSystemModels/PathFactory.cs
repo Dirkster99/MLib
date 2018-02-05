@@ -119,6 +119,19 @@ namespace FileSystemModels
         }
 
         /// <summary>
+        /// Joins all string elements in <paramref name="dirs"/> tp one valid string.
+        /// Inverse function of string[] GetDirectories(string path) method.
+        /// </summary>
+        /// <param name="dirs"></param>
+        /// <param name="idxStart"></param>
+        /// <param name="idxEnd"></param>
+        /// <returns></returns>
+        public static string Join(string[] dirs, int idxStart, int idxEnd)
+        {
+            return PathModel.Join(dirs, idxStart, idxEnd);
+        }
+
+        /// <summary>
         /// Determine whether a special folder has physical information on current computer or not.
         /// </summary>
         /// <param name="specialFolder"></param>

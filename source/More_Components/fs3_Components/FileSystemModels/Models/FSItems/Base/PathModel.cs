@@ -384,6 +384,35 @@ namespace FileSystemModels.Models.FSItems.Base
         }
 
         /// <summary>
+        /// Joins all string elements in <paramref name="dirs"/> tp one valid string.
+        /// Inverse function of string[] GetDirectories(string path) method.
+        /// </summary>
+        /// <param name="dirs"></param>
+        /// <param name="idxStart"></param>
+        /// <param name="idxEnd"></param>
+        /// <returns></returns>
+        public static string Join(string[] dirs, int idxStart, int idxEnd)
+        {
+            string ret = string.Empty;
+
+            if (dirs == null)
+                throw new NotSupportedException("dirs array cannot be empty.");
+
+            if (dirs.Length == 0)
+                throw new NotSupportedException("dirs array cannot be empty.");
+
+            if (dirs.Length < idxStart || dirs.Length < idxEnd || idxStart > idxEnd)
+                throw new NotSupportedException("Index parameters are not valid.");
+
+            ret = dirs[idxStart];
+
+            for (int i = idxStart + 1; i < idxEnd; i++)
+                ret = System.IO.Path.Combine(ret, dirs[i]);
+
+            return ret;
+        }
+
+        /// <summary>
         /// Determine whether a special folder has physical information on current computer or not.
         /// </summary>
         /// <param name="specialFolder"></param>
