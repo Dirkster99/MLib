@@ -35,6 +35,11 @@ namespace FileListViewTest.ViewModels
             this.FolderView.AddFilter("Text files", "*.txt");
             this.FolderView.AddFilter("All Files", "*.*");
         }
+
+        internal void InitializeViewModel(IPathModel path)
+        {
+            FolderView.NavigateToFolder(path);
+        }
         #endregion constructor
 
         #region properties

@@ -62,15 +62,9 @@
 
         #region methods
         /// <summary>
-        /// Resets the currently selected/displayed folder to
-        /// the indicated folder.
-        /// </summary>
-        void SetCurrentFolder(IPathModel folder);
-
-        /// <summary>
         /// Can be invoked to refresh the currently visible set of data.
         /// </summary>
-        void PopulateView();
+        void PopulateView(IPathModel newPath);
         #endregion methods
     }
 }

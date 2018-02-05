@@ -3,12 +3,10 @@ namespace FileListViewTest.ViewModels
     using System.Windows;
     using FileListView.ViewModels.Interfaces;
     using FileListViewTest.Interfaces;
-    using FileSystemModels;
     using FileSystemModels.Events;
     using FileSystemModels.Interfaces;
     using FileSystemModels.Interfaces.Bookmark;
     using FileSystemModels.Models;
-    using FileSystemModels.Models.FSItems.Base;
     using FilterControlsLib.Interfaces;
     using FolderControlsLib.Interfaces;
 
@@ -66,8 +64,6 @@ namespace FileListViewTest.ViewModels
 
             // This event is fired when a user opens a file
             this.FolderItemsView.OnFileOpen += this.FolderItemsView_OnFileOpen;
-
-            this.FolderTextPath.PopulateView();
         }
         #endregion constructor
 
@@ -334,6 +330,18 @@ namespace FileListViewTest.ViewModels
         /// </summary>
         /// <param name="itemPath"></param>
         /// <param name="requestor"</param>
+        public void NavigateToFolder(IPathModel itemPath)
+        {
+            NavigateToFolder(itemPath, null);
+        }
+
+        /// <summary>
+        /// Master controler interface method to navigate all views
+        /// to the folder indicated in <paramref name="folder"/>
+        /// - updates all related viewmodels.
+        /// </summary>
+        /// <param name="itemPath"></param>
+        /// <param name="requestor"</param>
         private void NavigateToFolder(IPathModel itemPath, object sender)
         {
             SelectedFolder = itemPath.Path;
@@ -341,8 +349,7 @@ namespace FileListViewTest.ViewModels
             if (FolderTextPath != sender)
             {
                 // Navigate Folder ComboBox to this folder
-                FolderTextPath.SetCurrentFolder(itemPath);
-                FolderTextPath.PopulateView();
+                FolderTextPath.PopulateView(itemPath);
             }
 
             if (FolderItemsView != sender)

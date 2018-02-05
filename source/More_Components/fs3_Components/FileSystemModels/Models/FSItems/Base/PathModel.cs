@@ -29,9 +29,12 @@ namespace FileSystemModels.Models.FSItems.Base
 
             switch (itemType)
             {
-                case FSItemType.Folder:
                 case FSItemType.LogicalDrive:
                 case FSItemType.File:
+                    mPath = PathModel.NormalizePath(path);
+                    break;
+
+                case FSItemType.Folder:
                     mPath = PathModel.NormalizePath(path);
                     break;
 

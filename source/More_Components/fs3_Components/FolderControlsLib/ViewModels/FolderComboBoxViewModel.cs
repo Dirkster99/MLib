@@ -4,7 +4,6 @@ namespace FolderControlsLib.ViewModels
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.IO;
-    using System.Linq;
     using System.Windows.Input;
     using FolderControlsLib.Interfaces;
     using FolderControlsLib.ViewModels.Base;
@@ -12,6 +11,7 @@ namespace FolderControlsLib.ViewModels
     using FileSystemModels.Events;
     using FileSystemModels.Models.FSItems.Base;
     using FileSystemModels.Interfaces;
+    using System.Linq;
 
     /// <summary>
     /// Class implements a viewmodel that can be used for a
@@ -22,7 +22,6 @@ namespace FolderControlsLib.ViewModels
         #region fields
         private readonly ObservableCollection<IFolderItemViewModel> mCurrentItems;
 
-        private string _CurrentFolder = string.Empty;
         private IFolderItemViewModel _SelectedItem = null;
 
         private ICommand _SelectionChanged = null;
@@ -78,6 +77,7 @@ namespace FolderControlsLib.ViewModels
                     System.Console.WriteLine("SelectedItem changed to '{0}' -> '{1}'", _SelectedItem, value);
                     _SelectedItem = value;
                     RaisePropertyChanged(() => SelectedItem);
+                    RaisePropertyChanged(() => CurrentFolder);
                 }
             }
         }
@@ -90,18 +90,10 @@ namespace FolderControlsLib.ViewModels
         {
             get
             {
-                return this._CurrentFolder;
-            }
+                if (_SelectedItem != null)
+                    return _SelectedItem.FullPath;
 
-            protected set
-            {
-                if (_CurrentFolder != value)
-                {
-                    System.Console.WriteLine("CurrentFolder changed to '{0}' -> '{1}'", _CurrentFolder, value);
-                    _CurrentFolder = value;
-                    RaisePropertyChanged(() => CurrentFolder);
-                    RaisePropertyChanged(() => CurrentFolderToolTip);
-                }
+                return string.Empty;
             }
         }
 
@@ -113,8 +105,8 @@ namespace FolderControlsLib.ViewModels
         {
             get
             {
-                if (string.IsNullOrEmpty(this._CurrentFolder) == false)
-                    return string.Format("{0}\n{1}", this._CurrentFolder,
+                if (string.IsNullOrEmpty(this.CurrentFolder) == false)
+                    return string.Format("{0}\n{1}", this.CurrentFolder,
                                                      FileSystemModels.Local.Strings.SelectLocationCommand_TT);
                 else
                     return FileSystemModels.Local.Strings.SelectLocationCommand_TT;
@@ -150,41 +142,33 @@ namespace FolderControlsLib.ViewModels
 
         #region methods
         /// <summary>
-        /// Resets the currently selected/displayed folder to
-        /// the indicated folder.
-        /// </summary>
-        public void SetCurrentFolder(IPathModel folder)
-        {
-            CurrentFolder = folder.Path;
-        }
-
-        /// <summary>
         /// Can be invoked to refresh the currently visible set of data.
         /// </summary>
-        public void PopulateView()
+        public void PopulateView(IPathModel newPath)
         {
             lock (this.mLockObject)
             {
-                ////CurrentItems.Clear();
-                string bak = this.CurrentFolder;
-
                 this.mCurrentItems.Clear();
-                this.CurrentFolder = bak;
 
                 // add drives
                 string pathroot = string.Empty;
 
-                if (string.IsNullOrEmpty(this.CurrentFolder) == false)
+                if (newPath == null)
                 {
-                    try
+                    if (string.IsNullOrEmpty(this.CurrentFolder) == false)
                     {
-                        pathroot = System.IO.Path.GetPathRoot(this.CurrentFolder);
-                    }
-                    catch
-                    {
-                        pathroot = string.Empty;
+                        try
+                        {
+                            pathroot = System.IO.Path.GetPathRoot(CurrentFolder);
+                        }
+                        catch
+                        {
+                            pathroot = string.Empty;
+                        }
                     }
                 }
+                else
+                    pathroot = System.IO.Path.GetPathRoot(newPath.Path);
 
                 foreach (string s in Directory.GetLogicalDrives())
                 {
@@ -194,21 +178,36 @@ namespace FolderControlsLib.ViewModels
                     // add items under current folder if we currently create the root folder of the current path
                     if (string.IsNullOrEmpty(pathroot) == false && string.Compare(pathroot, s, true) == 0)
                     {
-                        string[] dirs = this.CurrentFolder.Split(new char[] { System.IO.Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries);
+                        string[] dirs;
+
+                        if (newPath == null)
+                            dirs = PathFactory.GetDirectories(CurrentFolder);
+                        else
+                            dirs = PathFactory.GetDirectories(newPath.Path);
+
+                        if (dirs != null)
+                        {
+                            if (dirs.Length > 0)
+                            {
+                                if (dirs[0][dirs[0].Length - 1] == System.IO.Path.DirectorySeparatorChar)
+                                    dirs[0] = dirs[0].Trim(System.IO.Path.DirectorySeparatorChar);
+                            }
+                        }
+
                         for (int i = 1; i < dirs.Length; i++)
                         {
                             string curdir = string.Join(string.Empty + System.IO.Path.DirectorySeparatorChar, dirs, 0, i + 1);
 
-                            info = new FolderItemViewModel(curdir, FSItemType.Folder, dirs[i], i * 10);
+                            var curPath = PathFactory.Create(curdir, FSItemType.Folder);
+                            info = new FolderItemViewModel(curPath, dirs[i], false, i * 10);
 
                             this.mCurrentItems.Add(info);
                         }
 
-                        // currently selected path was expanded in last for loop -> select the last expanded element 
-                        if (this.SelectedItem == null)
-                        {
-                            this.SelectedItem = mCurrentItems.Last();
+                        SelectedItem = mCurrentItems.Last();
 
+                        if (newPath == null)
+                        {
                             if (this.RequestChangeOfDirectory != null)
                                 this.RequestChangeOfDirectory(this, new FolderChangedEventArgs(this.SelectedItem.GetModel));
                         }
@@ -216,15 +215,17 @@ namespace FolderControlsLib.ViewModels
                 }
 
                 // Force a selection on to the control when there is no selected item, yet
-                if (this.mCurrentItems != null && this.SelectedItem == null)
+                if (this.mCurrentItems != null && SelectedItem == null)
                 {
                     if (this.mCurrentItems.Count > 0)
                     {
-                        this.CurrentFolder = this.mCurrentItems[0].FullPath;
-                        this.SelectedItem = this.mCurrentItems[0];
+                        this.SelectedItem = this.mCurrentItems.Last();
 
-                        if (this.RequestChangeOfDirectory != null)
-                            this.RequestChangeOfDirectory(this, new FolderChangedEventArgs(this.SelectedItem.GetModel));
+                        if (newPath == null)
+                        {
+                            if (this.RequestChangeOfDirectory != null)
+                                this.RequestChangeOfDirectory(this, new FolderChangedEventArgs(this.SelectedItem.GetModel));
+                        }
                     }
                 }
             }

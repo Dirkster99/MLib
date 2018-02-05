@@ -50,6 +50,15 @@ namespace FileListViewTest.Interfaces
 
         #region methods
         /// <summary>
+        /// Master controler interface method to navigate all views
+        /// to the folder indicated in <paramref name="folder"/>
+        /// - updates all related viewmodels.
+        /// </summary>
+        /// <param name="itemPath"></param>
+        /// <param name="requestor"</param>
+        void NavigateToFolder(IPathModel itemPath);
+
+        /// <summary>
         /// Add a recent folder location into the collection of recent folders.
         /// This collection can then be used in the folder combobox drop down
         /// list to store user specific customized folder short-cuts.
