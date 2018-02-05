@@ -1,7 +1,7 @@
 namespace FileListViewTest.ViewModels
 {
     using System.Windows;
-    using FileListView.ViewModels.Interfaces;
+    using FileListView.Interfaces;
     using FileListViewTest.Interfaces;
     using FileSystemModels.Events;
     using FileSystemModels.Interfaces;

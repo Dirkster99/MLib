@@ -2,8 +2,6 @@
 {
     using FileListView.Interfaces;
     using FileListView.ViewModels;
-    using FileListView.ViewModels.Interfaces;
-    using FileSystemModels;
     using FileSystemModels.Interfaces;
     using FileSystemModels.Models.FSItems.Base;
 

@@ -91,7 +91,7 @@
     <Compile Include="ViewModels\EditFolderBookmarks.cs" />
     <Compile Include="ViewModels\FileListViewModel.cs" />
     <Compile Include="Interfaces\ILVItemViewModel.cs" />
-    <Compile Include="ViewModels\Interfaces\IFileListViewModel.cs" />
+    <Compile Include="Interfaces\IFileListViewModel.cs" />
     <Compile Include="Views\Behavior\DoubleClickSelectorItem.cs" />
     <Compile Include="Views\Behavior\BringIntoViewListBoxItem.cs" />
     <Compile Include="Views\Behavior\SelectionChangedBehavior.cs" />

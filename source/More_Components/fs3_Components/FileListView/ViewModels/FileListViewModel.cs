@@ -10,7 +10,6 @@ namespace FileListView.ViewModels
     using System.Windows.Threading;
     using FileListView.Interfaces;
     using FileListView.ViewModels.Base;
-    using FileListView.ViewModels.Interfaces;
     using FileSystemModels;
     using FileSystemModels.Events;
     using FileSystemModels.Interfaces;

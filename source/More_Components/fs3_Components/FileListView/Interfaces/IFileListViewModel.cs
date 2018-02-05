@@ -1,10 +1,8 @@
-namespace FileListView.ViewModels.Interfaces
+namespace FileListView.Interfaces
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Windows.Input;
-    using FileListView.Interfaces;
     using FileSystemModels.Events;
     using FileSystemModels.Interfaces.Bookmark;
 

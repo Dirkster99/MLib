@@ -1,6 +1,6 @@
 namespace FileListViewTest.Interfaces
 {
-    using FileListView.ViewModels.Interfaces;
+    using FileListView.Interfaces;
     using FileSystemModels.Interfaces;
     using FileSystemModels.Interfaces.Bookmark;
     using FilterControlsLib.Interfaces;
