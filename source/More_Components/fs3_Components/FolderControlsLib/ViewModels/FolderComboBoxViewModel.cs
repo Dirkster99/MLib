@@ -189,12 +189,18 @@ namespace FolderControlsLib.ViewModels
 
                         for (int i = 1; i < dirs.Length; i++)
                         {
-                            string curdir = PathFactory.Join(dirs, 0, i + 1);
+                            try
+                            {
+                                string curdir = PathFactory.Join(dirs, 0, i + 1);
 
-                            var curPath = PathFactory.Create(curdir, FSItemType.Folder);
-                            info = new FolderItemViewModel(curPath, dirs[i], false, i * 10);
+                                var curPath = PathFactory.Create(curdir);
+                                info = new FolderItemViewModel(curPath, dirs[i], false, i * 10);
 
-                            this._CurrentItems.Add(info);
+                                _CurrentItems.Add(info);
+                            }
+                            catch // Non-existing/unknown items will thrown an exception here...
+                            {
+                            }
                         }
 
                         SelectedItem = _CurrentItems.Last();
