@@ -3,6 +3,7 @@ namespace FileListViewTest.ViewModels
     using System.Windows;
     using FileListView.Interfaces;
     using FileListViewTest.Interfaces;
+    using FileSystemModels.Browse;
     using FileSystemModels.Events;
     using FileSystemModels.Interfaces;
     using FileSystemModels.Interfaces.Bookmark;
@@ -51,13 +52,13 @@ namespace FileListViewTest.ViewModels
             RecentFolders.RequestChangeOfDirectory += this.OnRequestChangeOfDirectory;
 
             // This is fired when the text path in the combobox changes to another existing folder
-            FolderTextPath.RequestChangeOfDirectory += this.OnRequestChangeOfDirectory;
+            FolderTextPath.BrowseEvent += FolderTextPath_BrowseEvent;
 
             Filters = FilterControlsLib.Factory.CreateFilterComboBoxViewModel();
             Filters.OnFilterChanged += this.FileViewFilter_Changed;
 
             // This is fired when the current folder in the listview changes to another existing folder
-            this.FolderItemsView.RequestChangeOfDirectory += this.OnRequestChangeOfDirectory;
+            this.FolderItemsView.BrowseEvent += FolderTextPath_BrowseEvent;
 
             // This is fired when the user requests to add a folder into the list of recently visited folders
             this.FolderItemsView.BookmarkFolder.RequestEditBookmarkedFolders += this.FolderItemsView_RequestEditBookmarkedFolders;
@@ -349,13 +350,13 @@ namespace FileListViewTest.ViewModels
             if (FolderTextPath != sender)
             {
                 // Navigate Folder ComboBox to this folder
-                FolderTextPath.PopulateView(itemPath);
+                FolderTextPath.NavigateTo(itemPath);
             }
 
             if (FolderItemsView != sender)
             {
                 // Navigate Folder/File ListView to this folder
-                FolderItemsView.NavigateToThisFolder(itemPath.Path);
+                FolderItemsView.NavigateTo(itemPath);
             }
         }
 
@@ -420,6 +421,46 @@ namespace FileListViewTest.ViewModels
                 if (string.Compare(this.SelectedFolder, e.Folder.Path, true) != 0)
                 {
                     this.NavigateToFolder(e.Folder, sender);
+                }
+            }
+        }
+
+        private void FolderTextPath_BrowseEvent(object sender,
+                                                FileSystemModels.Browse.BrowsingEventArgs e)
+        {
+            var itemPath = e.Path;
+
+            SelectedFolder = itemPath.Path;
+
+            if (e.IsBrowsing == false && e.Result == BrowseResult.Complete)
+            {
+                if (FolderTextPath != sender)
+                {
+                    // Navigate Folder ComboBox to this folder
+                    FolderTextPath.NavigateTo(itemPath);
+                }
+
+                if (FolderItemsView != sender)
+                {
+                    // Navigate Folder/File ListView to this folder
+                    FolderItemsView.NavigateToThisFolder(itemPath.Path);
+                }
+            }
+            else
+            {
+                if (e.IsBrowsing == true)
+                {
+                    if (FolderTextPath != sender)
+                    {
+                        // Navigate Folder ComboBox to this folder
+                        FolderTextPath.SetExternalBrowsingState(true);
+                    }
+
+                    if (FolderItemsView != sender)
+                    {
+                        // Navigate Folder/File ListView to this folder
+                        FolderItemsView.SetExternalBrowsingState(true);
+                    }
                 }
             }
         }

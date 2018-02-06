@@ -8,10 +8,12 @@ namespace FolderControlsLib.ViewModels
     using FolderControlsLib.Interfaces;
     using FolderControlsLib.ViewModels.Base;
     using FileSystemModels;
-    using FileSystemModels.Events;
     using FileSystemModels.Models.FSItems.Base;
     using FileSystemModels.Interfaces;
     using System.Linq;
+    using FileSystemModels.Browse;
+    using System.Threading.Tasks;
+    using System.Windows;
 
     /// <summary>
     /// Class implements a viewmodel that can be used for a
@@ -28,6 +30,8 @@ namespace FolderControlsLib.ViewModels
         private string _SelectedRecentLocation = string.Empty;
 
         private object _LockObject = new object();
+        private bool _IsBrowsing;
+        private bool _IsExternallyBrowsing;
         #endregion fields
 
         #region constructor
@@ -42,12 +46,59 @@ namespace FolderControlsLib.ViewModels
 
         #region Events
         /// <summary>
-        /// Event is fired when the path in the text portion of the combobox is changed.
+        /// Indicates when the viewmodel starts heading off somewhere else
+        /// and when its done browsing to a new location.
         /// </summary>
-        public event EventHandler<FolderChangedEventArgs> RequestChangeOfDirectory;
+        public event EventHandler<BrowsingEventArgs> BrowseEvent;
         #endregion
 
         #region properties
+        /// <summary>
+        /// Can only be set by the control if user started browser process
+        /// 
+        /// Use IsBrowsing and IsExternallyBrowsing to lock the controls UI
+        /// during browse operations or display appropriate progress bar(s).
+        /// </summary>
+        public bool IsBrowsing
+        {
+            get
+            {
+                return _IsBrowsing;
+            }
+
+            protected set
+            {
+                if (_IsBrowsing != value)
+                {
+                    _IsBrowsing = value;
+                    RaisePropertyChanged(() => IsBrowsing);
+                }
+            }
+        }
+
+        /// <summary>
+        /// This should only be set by the controller that started the browser process.
+        /// 
+        /// Use IsBrowsing and IsExternallyBrowsing to lock the controls UI
+        /// during browse operations or display appropriate progress bar(s).
+        /// </summary>
+        public bool IsExternallyBrowsing
+        {
+            get
+            {
+                return _IsExternallyBrowsing;
+            }
+
+            protected set
+            {
+                if (_IsExternallyBrowsing != value)
+                {
+                    _IsExternallyBrowsing = value;
+                    RaisePropertyChanged(() => IsExternallyBrowsing);
+                }
+            }
+        }
+
         /// <summary>
         /// Expose a collection of file system items (folders and hard disks and ...) that
         /// can be selected and navigated to in this viewmodel.
@@ -134,7 +185,8 @@ namespace FolderControlsLib.ViewModels
             get
             {
                 if (_SelectionChanged == null)
-                    _SelectionChanged = new RelayCommand<object>((p) => this.SelectionChanged_Executed(p));
+                    _SelectionChanged = new RelayCommand<object>(
+                        async (p) => await this.SelectionChanged_ExecutedAsync(p));
 
                 return _SelectionChanged;
             }
@@ -144,87 +196,153 @@ namespace FolderControlsLib.ViewModels
 
         #region methods
         /// <summary>
+        /// Controller can start browser process if IsBrowsing = false
+        /// </summary>
+        /// <param name="newPath"></param>
+        /// <returns></returns>
+        public bool NavigateTo(IPathModel newPath)
+        {
+            PopulateView(newPath);
+
+            return true;
+        }
+
+        /// <summary>
+        /// Controller can start browser process if IsBrowsing = false
+        /// </summary>
+        /// <param name="newPath"></param>
+        /// <returns></returns>
+        public async Task<bool> NavigateToAsync(IPathModel newPath)
+        {
+            return await Task.Run(() => { return NavigateTo(newPath); });
+        }
+
+        /// <summary>
+        /// Sets the IsExternalBrowsing state and cleans up any running processings
+        /// if any. This method should only be called by an external controll instance.
+        /// </summary>
+        /// <param name="isBrowsing"></param>
+        public void SetExternalBrowsingState(bool isBrowsing)
+        {
+            IsBrowsing = isBrowsing;
+        }
+
+        /// <summary>
         /// Can be invoked to refresh the currently visible set of data.
         /// </summary>
-        public void PopulateView(IPathModel newPath)
+        public bool PopulateView(IPathModel newPath)
         {
             lock (this._LockObject)
             {
-                _CurrentItems.Clear();
-
-                // add drives
-                string pathroot = string.Empty;
-
-                if (newPath == null)
+                try
                 {
-                    if (string.IsNullOrEmpty(this.CurrentFolder) == false)
+                    CurrentItemClear();
+
+                    // add drives
+                    string pathroot = string.Empty;
+
+                    if (newPath == null)
                     {
-                        try
-                        {
-                            pathroot = System.IO.Path.GetPathRoot(CurrentFolder);
-                        }
-                        catch
-                        {
-                            pathroot = string.Empty;
-                        }
-                    }
-                }
-                else
-                    pathroot = System.IO.Path.GetPathRoot(newPath.Path);
-
-                foreach (string s in Directory.GetLogicalDrives())
-                {
-                    IFolderItemViewModel info = FolderControlsLib.Factory.CreateLogicalDrive(s);
-                    this._CurrentItems.Add(info);
-
-                    // add items under current folder if we currently create the root folder of the current path
-                    if (string.IsNullOrEmpty(pathroot) == false && string.Compare(pathroot, s, true) == 0)
-                    {
-                        string[] dirs;
-
-                        if (newPath == null)
-                            dirs = PathFactory.GetDirectories(CurrentFolder);
-                        else
-                            dirs = PathFactory.GetDirectories(newPath.Path);
-
-                        for (int i = 1; i < dirs.Length; i++)
+                        if (string.IsNullOrEmpty(this.CurrentFolder) == false)
                         {
                             try
                             {
-                                string curdir = PathFactory.Join(dirs, 0, i + 1);
-
-                                var curPath = PathFactory.Create(curdir);
-                                info = new FolderItemViewModel(curPath, dirs[i], false, i * 10);
-
-                                _CurrentItems.Add(info);
+                                pathroot = System.IO.Path.GetPathRoot(CurrentFolder);
                             }
-                            catch // Non-existing/unknown items will thrown an exception here...
+                            catch
                             {
+                                pathroot = string.Empty;
                             }
                         }
-
-                        SelectedItem = _CurrentItems.Last();
                     }
-                }
+                    else
+                        pathroot = System.IO.Path.GetPathRoot(newPath.Path);
 
-                // Force a selection on to the control when there is no selected item, yet
-                if (this._CurrentItems != null && SelectedItem == null)
+                    foreach (string s in Directory.GetLogicalDrives())
+                    {
+                        IFolderItemViewModel info = FolderControlsLib.Factory.CreateLogicalDrive(s);
+                        CurrentItemAdd(info);
+
+                        // add items under current folder if we currently create the root folder of the current path
+                        if (string.IsNullOrEmpty(pathroot) == false && string.Compare(pathroot, s, true) == 0)
+                        {
+                            string[] dirs;
+
+                            if (newPath == null)
+                                dirs = PathFactory.GetDirectories(CurrentFolder);
+                            else
+                                dirs = PathFactory.GetDirectories(newPath.Path);
+
+                            for (int i = 1; i < dirs.Length; i++)
+                            {
+                                try
+                                {
+                                    string curdir = PathFactory.Join(dirs, 0, i + 1);
+
+                                    var curPath = PathFactory.Create(curdir);
+                                    info = new FolderItemViewModel(curPath, dirs[i], false, i * 10);
+
+                                    CurrentItemAdd(info);
+                                }
+                                catch // Non-existing/unknown items will thrown an exception here...
+                                {
+                                }
+                            }
+
+                            SelectedItem = _CurrentItems.Last();
+                        }
+                    }
+
+                    // Force a selection on to the control when there is no selected item, yet
+                    if (this._CurrentItems != null && SelectedItem == null)
+                    {
+                        if (this._CurrentItems.Count > 0)
+                            this.SelectedItem = this._CurrentItems.Last();
+                    }
+
+                    return true;
+                }
+                catch (Exception exp)
                 {
-                    if (this._CurrentItems.Count > 0)
-                        this.SelectedItem = this._CurrentItems.Last();
+                    Console.WriteLine("{0} -> {1}", exp.Message, exp.StackTrace);
+                    return false;
                 }
             }
         }
 
-        private void InternalPopulateView(IPathModel newPath
-                                        , bool sendNotification)
+        private async Task InternalPopulateViewAsync(IPathModel newPath
+                                                   , bool sendNotification)
         {
-            PopulateView(newPath);
-
-            if (sendNotification == true && this.SelectedItem != null)
+            IsBrowsing = true;
+            try
             {
-                if (this.RequestChangeOfDirectory != null)
-                    this.RequestChangeOfDirectory(this, new FolderChangedEventArgs(this.SelectedItem.GetModel));
+                if (sendNotification == true && this.SelectedItem != null)
+                {
+                    if (BrowseEvent != null)
+                    {
+                        BrowseEvent(this, new BrowsingEventArgs(newPath, true, BrowseResult.Unknown));
+                    }
+                }
+
+                await Task.Run(() =>
+                {
+                    bool result = false;
+                    result = PopulateView(newPath);
+
+                    if (sendNotification == true && this.SelectedItem != null)
+                    {
+                        if (BrowseEvent != null)
+                        {
+                            BrowseEvent(this, new BrowsingEventArgs(
+                                newPath, false, (result == true ? BrowseResult.Complete :
+                                                                  BrowseResult.InComplete)));
+                        }
+                    }
+                });
+            }
+            finally
+            {
+                IsBrowsing = false;
             }
         }
 
@@ -243,7 +361,7 @@ namespace FolderControlsLib.ViewModels
         /// 2> By selecting an entry from the drop down list of the combobox.
         /// </summary>
         /// <param name="p"></param>
-        private void SelectionChanged_Executed(object p)
+        private async Task SelectionChanged_ExecutedAsync(object p)
         {
             if (p == null)
                 return;
@@ -270,7 +388,7 @@ namespace FolderControlsLib.ViewModels
                         return;
                 }
 
-                InternalPopulateView(PathFactory.Create(p as string, FSItemType.Folder), true);
+                await InternalPopulateViewAsync(PathFactory.Create(p as string, FSItemType.Folder), true);
             }
             else
             {
@@ -294,12 +412,36 @@ namespace FolderControlsLib.ViewModels
                                 if (model.Equals(SelectedItem.GetModel))
                                     return;
 
-                                InternalPopulateView(model, true);
+                                await InternalPopulateViewAsync(model, true);
                             }
                         }
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Clears the collection of current file/folder items and makes sure
+        /// the operation is performed on the dispatcher thread.
+        /// </summary>
+        private void CurrentItemClear()
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                _CurrentItems.Clear();
+            });
+        }
+
+        /// <summary>
+        /// Adds another item into the collection of file/folder items
+        /// and ensures the operation is performed on the dispatcher thread.
+        /// </summary>
+        private void CurrentItemAdd(IFolderItemViewModel item)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                _CurrentItems.Add(item);
+            });
         }
         #endregion methods
     }

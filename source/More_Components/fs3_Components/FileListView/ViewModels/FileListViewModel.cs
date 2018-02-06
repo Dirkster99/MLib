@@ -4,6 +4,8 @@ namespace FileListView.ViewModels
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.IO;
+    using System.Threading.Tasks;
+    using System.Windows;
     using System.Windows.Input;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
@@ -11,6 +13,7 @@ namespace FileListView.ViewModels
     using FileListView.Interfaces;
     using FileListView.ViewModels.Base;
     using FileSystemModels;
+    using FileSystemModels.Browse;
     using FileSystemModels.Events;
     using FileSystemModels.Interfaces;
     using FileSystemModels.Interfaces.Bookmark;
@@ -61,6 +64,8 @@ namespace FileListView.ViewModels
         private RelayCommand<object> mCreateFolderCommand = null;
 
         private SendNotificationViewModel mNotification;
+        private bool _IsExternallyBrowsing;
+        private bool _IsBrowsing;
         #endregion fields
 
         #region constructor
@@ -93,12 +98,59 @@ namespace FileListView.ViewModels
         public event EventHandler<FileOpenEventArgs> OnFileOpen;
 
         /// <summary>
-        /// Event is fired when user interaction in listview requires naviagtion to another location.
+        /// Indicates when the viewmodel starts heading off somewhere else
+        /// and when its done browsing to a new location.
         /// </summary>
-        public event EventHandler<FolderChangedEventArgs> RequestChangeOfDirectory;
+        public event EventHandler<BrowsingEventArgs> BrowseEvent;
         #endregion
 
         #region properties
+        /// <summary>
+        /// Can only be set by the control if user started browser process
+        /// 
+        /// Use IsBrowsing and IsExternallyBrowsing to lock the controls UI
+        /// during browse operations or display appropriate progress bar(s).
+        /// </summary>
+        public bool IsBrowsing
+        {
+            get
+            {
+                return _IsBrowsing;
+            }
+
+            protected set
+            {
+                if (_IsBrowsing != value)
+                {
+                    _IsBrowsing = value;
+                    RaisePropertyChanged(() => IsBrowsing);
+                }
+            }
+        }
+
+        /// <summary>
+        /// This should only be set by the controller that started the browser process.
+        /// 
+        /// Use IsBrowsing and IsExternallyBrowsing to lock the controls UI
+        /// during browse operations or display appropriate progress bar(s).
+        /// </summary>
+        public bool IsExternallyBrowsing
+        {
+            get
+            {
+                return _IsExternallyBrowsing;
+            }
+
+            protected set
+            {
+                if (_IsExternallyBrowsing != value)
+                {
+                    _IsExternallyBrowsing = value;
+                    RaisePropertyChanged(() => IsExternallyBrowsing);
+                }
+            }
+        }
+
         /// <summary>
         /// Expose properties to commands that work with the bookmarking of folders.
         /// </summary>
@@ -263,10 +315,10 @@ namespace FileListView.ViewModels
 
                         if (newFolder != null)
                         {
-                            this.UpdateView(newFolder.Path);
+                            UpdateView(newFolder.Path);
 
-                            if (this.RequestChangeOfDirectory != null)
-                                this.RequestChangeOfDirectory(this, new FolderChangedEventArgs(newFolder));
+                            if (this.BrowseEvent != null)
+                                this.BrowseEvent(this, new BrowsingEventArgs(newFolder, false, BrowseResult.Complete));
                         }
                     },
                     (p) => this.mBrowseNavigation.CanBrowseForward());
@@ -291,8 +343,8 @@ namespace FileListView.ViewModels
                         {
                             this.UpdateView(newFolder.Path);
 
-                            if (this.RequestChangeOfDirectory != null)
-                                this.RequestChangeOfDirectory(this, new FolderChangedEventArgs(newFolder));
+                            if (this.BrowseEvent != null)
+                                this.BrowseEvent(this, new BrowsingEventArgs(newFolder, false, BrowseResult.Complete));
                         }
                     },
                     (p) => this.mBrowseNavigation.CanBrowseBack());
@@ -320,8 +372,8 @@ namespace FileListView.ViewModels
 
                             this.UpdateView(newFolder.Path);
 
-                            if (this.RequestChangeOfDirectory != null)
-                                this.RequestChangeOfDirectory(this, new FolderChangedEventArgs(newFolder));
+                            if (this.BrowseEvent != null)
+                                this.BrowseEvent(this, new BrowsingEventArgs(newFolder, false, BrowseResult.Complete));
                         }
                     },
                     (p) => this.mBrowseNavigation.CanBrowseUp());
@@ -347,10 +399,13 @@ namespace FileListView.ViewModels
 
                         FSItemType t = this.mBrowseNavigation.BrowseDown(info.Type, info.FullPath);
 
-                        this.PopulateView();
+                        if (t == FSItemType.Folder || t == FSItemType.LogicalDrive)
+                        {
+                            this.PopulateView();
 
-                        if (this.RequestChangeOfDirectory != null && t == FSItemType.Folder)
-                            this.RequestChangeOfDirectory(this, new FolderChangedEventArgs(info.GetModel));
+                            if (this.BrowseEvent != null)
+                                this.BrowseEvent(this, new BrowsingEventArgs(info.GetModel, false, BrowseResult.Complete));
+                        }
                         else
                         {
                             if (this.OnFileOpen != null && t == FSItemType.File)
@@ -635,6 +690,38 @@ namespace FileListView.ViewModels
 
         #region methods
         /// <summary>
+        /// Controller can start browser process if IsBrowsing = false
+        /// </summary>
+        /// <param name="newPath"></param>
+        /// <returns></returns>
+        public bool NavigateTo(IPathModel newPath)
+        {
+            UpdateView(newPath.Path);
+
+            return true;
+        }
+
+        /// <summary>
+        /// Controller can start browser process if IsBrowsing = false
+        /// </summary>
+        /// <param name="newPath"></param>
+        /// <returns></returns>
+        public async Task<bool> NavigateToAsync(IPathModel newPath)
+        {
+            return await Task.Run(() => { return NavigateTo(newPath); });
+        }
+
+        /// <summary>
+        /// Sets the IsExternalBrowsing state and cleans up any running processings
+        /// if any. This method should only be called by an external controll instance.
+        /// </summary>
+        /// <param name="isBrowsing"></param>
+        public void SetExternalBrowsingState(bool isBrowsing)
+        {
+            IsBrowsing = isBrowsing;
+        }
+
+        /// <summary>
         /// Updates the current display with the given filter string.
         /// </summary>
         /// <param name="p"></param>
@@ -758,7 +845,7 @@ namespace FileListView.ViewModels
         {
             Logger.DebugFormat("PopulateView method with filterString parameter");
 
-            _CurrentItems.Clear();
+            CurrentItemClear();
 
             if (this.mBrowseNavigation.IsCurrentPathDirectory() == false)
                 return;
@@ -794,7 +881,7 @@ namespace FileListView.ViewModels
                         if (this.ShowIcons == false)
                             info.SetDisplayIcon(dummy);
 
-                        _CurrentItems.Add(info);
+                        CurrentItemAdd(info);
                     }
                 }
 
@@ -818,16 +905,36 @@ namespace FileListView.ViewModels
                     if (this.ShowIcons == false)
                         info.SetDisplayIcon(dummy);  // to prevent the icon from being loaded from file later
 
-                    _CurrentItems.Add(info);
+                    CurrentItemAdd(info);
                 }
             }
             catch
             {
             }
+        }
 
-            // reset column width manually (otherwise it is not updated)
-            ////this.mFileListView.TheGVColumn.Width = this.mFileListView.TheGVColumn.ActualWidth;
-            ////this.mFileListView.TheGVColumn.Width = double.NaN;
+        /// <summary>
+        /// Clears the collection of current file/folder items and makes sure
+        /// the operation is performed on the dispatcher thread.
+        /// </summary>
+        private void CurrentItemClear()
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                _CurrentItems.Clear();
+            });
+        }
+
+        /// <summary>
+        /// Adds another item into the collection of file/folder items
+        /// and ensures the operation is performed on the dispatcher thread.
+        /// </summary>
+        private void CurrentItemAdd(LVItemViewModel item)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                _CurrentItems.Add(item);
+            });
         }
 
         private void ToggleIsFolderVisible_Executed()

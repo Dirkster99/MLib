@@ -3,6 +3,7 @@ namespace FileListView.Interfaces
     using System;
     using System.Collections.Generic;
     using System.Windows.Input;
+    using FileSystemModels.Browse;
     using FileSystemModels.Events;
     using FileSystemModels.Interfaces.Bookmark;
 
@@ -10,18 +11,13 @@ namespace FileListView.Interfaces
     /// Interface implements a common ground for a class that organizes a filter combobox
     /// view with a file list view.
     /// </summary>
-    public interface IFileListViewModel
+    public interface IFileListViewModel : INavigateable
     {
         #region Events
         /// <summary>
         /// Event is fired to indicate that user wishes to open a file via this viewmodel.
         /// </summary>
         event EventHandler<FileOpenEventArgs> OnFileOpen;
-
-        /// <summary>
-        /// Event is fired when user interaction in listview requires naviagtion to another location.
-        /// </summary>
-        event EventHandler<FolderChangedEventArgs> RequestChangeOfDirectory;
         #endregion
 
         #region properties

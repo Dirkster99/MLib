@@ -1,26 +1,16 @@
 ﻿namespace FolderControlsLib.Interfaces
 {
-    using System;
+    using FileSystemModels.Browse;
     using System.Collections.Generic;
     using System.Windows.Input;
-    using FileSystemModels.Events;
-    using FileSystemModels.Interfaces;
 
     /// <summary>
     /// Defines an interface to a viewmodel that can be used for a
     /// combobox that browses to different folder locations.
     /// </summary>
-    public interface IFolderComboBoxViewModel
+    public interface IFolderComboBoxViewModel : INavigateable
     {
         #region properties
-        /// <summary>
-        /// Event is fired when the path in the text portion of the combobox
-        /// is changed. Client applications should listen to this event to
-        /// find out when the user indicates a change of the file system
-        /// location through the bound control.
-        /// </summary>
-        event EventHandler<FolderChangedEventArgs> RequestChangeOfDirectory;
-
         /// <summary>
         /// Expose a collection of file system items (folders and hard disks and ...) that
         /// can be selected and navigated to in this viewmodel.
@@ -59,12 +49,5 @@
         /// </summary>
         string CurrentFolderToolTip { get; }
         #endregion properties
-
-        #region methods
-        /// <summary>
-        /// Can be invoked to refresh the currently visible set of data.
-        /// </summary>
-        void PopulateView(IPathModel newPath);
-        #endregion methods
     }
 }
