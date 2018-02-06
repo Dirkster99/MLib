@@ -1,5 +1,6 @@
 namespace FileListViewTest.ViewModels
 {
+    using System.Threading.Tasks;
     using System.Windows;
     using FileListView.Interfaces;
     using FileListViewTest.Interfaces;
@@ -18,9 +19,8 @@ namespace FileListViewTest.ViewModels
     internal class ControllerListViewModel : Base.ViewModelBase, IControllerListViewModel
     {
         #region fields
-        private string mSelectedFolder = string.Empty;
-
-        private object mLockObject = new object();
+        private string _SelectedFolder = string.Empty;
+        private object _LockObject = new object();
         #endregion fields
 
         #region constructor
@@ -117,14 +117,14 @@ namespace FileListViewTest.ViewModels
         {
             get
             {
-                return this.mSelectedFolder;
+                return this._SelectedFolder;
             }
 
             private set
             {
-                if (this.mSelectedFolder != value)
+                if (this._SelectedFolder != value)
                 {
-                    this.mSelectedFolder = value;
+                    this._SelectedFolder = value;
                     base.NotifyPropertyChanged(() => this.SelectedFolder);
                 }
             }
@@ -173,9 +173,6 @@ namespace FileListViewTest.ViewModels
                 // Set collection of recent folder locations
                 foreach (var item in settings.RecentFolders)
                     this.RecentFolders.AddFolder(item);
-
-                ////                if (string.IsNullOrEmpty(settings.LastSelectedRecentFolder) == false)
-                ////                    this.AddRecentFolder(settings.LastSelectedRecentFolder, true);
 
                 this.FolderItemsView.SetShowIcons(settings.ShowIcons);
                 this.FolderItemsView.SetIsFolderVisible(settings.ShowFolders);
@@ -350,13 +347,13 @@ namespace FileListViewTest.ViewModels
             if (FolderTextPath != sender)
             {
                 // Navigate Folder ComboBox to this folder
-                FolderTextPath.NavigateTo(itemPath);
+                FolderTextPath.NavigateToAsync(itemPath);
             }
 
             if (FolderItemsView != sender)
             {
                 // Navigate Folder/File ListView to this folder
-                FolderItemsView.NavigateTo(itemPath);
+                Task.Run(async () => { await FolderItemsView.NavigateToAsync(itemPath); });
             }
         }
 
@@ -416,7 +413,7 @@ namespace FileListViewTest.ViewModels
         /// <param name="e"></param>
         private void OnRequestChangeOfDirectory(object sender, FolderChangedEventArgs e)
         {
-            lock (this.mLockObject)
+            lock (this._LockObject)
             {
                 if (string.Compare(this.SelectedFolder, e.Folder.Path, true) != 0)
                 {

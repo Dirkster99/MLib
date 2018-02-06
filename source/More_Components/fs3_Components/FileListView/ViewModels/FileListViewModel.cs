@@ -372,8 +372,8 @@ namespace FileListView.ViewModels
 
                             PopulateView(newFolder);
 
-                            if (this.BrowseEvent != null)
-                                this.BrowseEvent(this, new BrowsingEventArgs(newFolder, false, BrowseResult.Complete));
+////                            if (this.BrowseEvent != null)
+////                                this.BrowseEvent(this, new BrowsingEventArgs(newFolder, false, BrowseResult.Complete));
                         }
                     },
                     (p) => this.mBrowseNavigation.CanBrowseUp());
@@ -397,19 +397,21 @@ namespace FileListView.ViewModels
                         if (info == null)
                             return;
 
-                        FSItemType t = this.mBrowseNavigation.BrowseDown(info.Type, info.FullPath);
-
-                        if (t == FSItemType.Folder || t == FSItemType.LogicalDrive)
+                        try
                         {
-                            this.PopulateView();
-
-                            if (this.BrowseEvent != null)
-                                this.BrowseEvent(this, new BrowsingEventArgs(info.GetModel, false, BrowseResult.Complete));
+                            if (info.Type == FSItemType.Folder || info.Type == FSItemType.LogicalDrive)
+                            {
+                                mBrowseNavigation.BrowseDown(info.Type, info.FullPath);
+                                PopulateView(info.GetModel);
+                            }
+                            else
+                            {
+                                if (this.OnFileOpen != null && info.Type == FSItemType.File)
+                                    this.OnFileOpen(this, new FileOpenEventArgs() { FileName = info.FullPath });
+                            }
                         }
-                        else
+                        catch
                         {
-                            if (this.OnFileOpen != null && t == FSItemType.File)
-                                this.OnFileOpen(this, new FileOpenEventArgs() { FileName = info.FullPath });
                         }
                     },
                     (p) =>
@@ -694,11 +696,9 @@ namespace FileListView.ViewModels
         /// </summary>
         /// <param name="newPath"></param>
         /// <returns></returns>
-        public bool NavigateTo(IPathModel newPath)
+        bool INavigateable.NavigateTo(IPathModel newPath)
         {
-            PopulateView(newPath);
-
-            return true;
+            return PopulateView(newPath, false);
         }
 
         /// <summary>
@@ -706,9 +706,9 @@ namespace FileListView.ViewModels
         /// </summary>
         /// <param name="newPath"></param>
         /// <returns></returns>
-        public async Task<bool> NavigateToAsync(IPathModel newPath)
+        async Task<bool> INavigateable.NavigateToAsync(IPathModel newPath)
         {
-            return await Task.Run(() => { return NavigateTo(newPath); });
+            return await Task.Run(() => { return PopulateView(newPath, false); });
         }
 
         /// <summary>
@@ -794,12 +794,22 @@ namespace FileListView.ViewModels
         /// This method wraps a parameterized version of the same method 
         /// with a call that contains the standard data field.
         /// </summary>
-        protected bool PopulateView(IPathModel newPathToNavigateTo = null)
+        protected bool PopulateView(IPathModel newPathToNavigateTo = null,
+                                    bool browseEvent = true)
         {
             Logger.DebugFormat("PopulateView method");
 
+            bool result = false;
+            IsBrowsing = true;
             try
             {
+                if (newPathToNavigateTo != null && browseEvent == true)
+                {
+                    if (this.BrowseEvent != null)
+                        this.BrowseEvent(this,
+                                         new BrowsingEventArgs(newPathToNavigateTo, true));
+                }
+
                 if (newPathToNavigateTo != null)
                     mBrowseNavigation.SetCurrentFolder(newPathToNavigateTo.Path, false);
 
@@ -813,16 +823,29 @@ namespace FileListView.ViewModels
                 if (cur.Exists == false)
                     return false;
 
-                InternalPopulateView(this.mParsedFilter, cur, this.ShowIcons);
-                this.RaisePropertyChanged(() => this.CurrentFolder);
+                result = InternalPopulateView(this.mParsedFilter, cur, this.ShowIcons);
+                RaisePropertyChanged(() => this.CurrentFolder);
 
-                return true;
+                return result;
             }
             catch
             {
             }
+            finally
+            {
+                if (newPathToNavigateTo != null && browseEvent == true)
+                {
+                    if (this.BrowseEvent != null)
+                        this.BrowseEvent(this,
+                                         new BrowsingEventArgs(newPathToNavigateTo, false,
+                                                              (result == true ? BrowseResult.Complete :
+                                                                                BrowseResult.InComplete)));
+                }
 
-            return false;
+                IsBrowsing = false;
+            }
+
+            return result;
         }
 
         #region FileSystem Commands
@@ -853,7 +876,7 @@ namespace FileListView.ViewModels
         /// seperately and does not need to b parsed each time when this method
         /// executes.
         /// </summary>
-        private void InternalPopulateView(string[] filterString
+        private bool InternalPopulateView(string[] filterString
                                         , DirectoryInfo cur
                                         , bool showIcons)
         {
@@ -908,10 +931,14 @@ namespace FileListView.ViewModels
 
                     CurrentItemAdd(info);
                 }
+
+                return true;
             }
             catch
             {
             }
+
+            return false;
         }
 
         /// <summary>

@@ -200,11 +200,9 @@ namespace FolderControlsLib.ViewModels
         /// </summary>
         /// <param name="newPath"></param>
         /// <returns></returns>
-        public bool NavigateTo(IPathModel newPath)
+        bool INavigateable.NavigateTo(IPathModel newPath)
         {
-            PopulateView(newPath);
-
-            return true;
+            return PopulateView(newPath);
         }
 
         /// <summary>
@@ -212,9 +210,9 @@ namespace FolderControlsLib.ViewModels
         /// </summary>
         /// <param name="newPath"></param>
         /// <returns></returns>
-        public async Task<bool> NavigateToAsync(IPathModel newPath)
+        async Task<bool> INavigateable.NavigateToAsync(IPathModel newPath)
         {
-            return await Task.Run(() => { return NavigateTo(newPath); });
+            return await Task.Run(() => { return PopulateView(newPath); });
         }
 
         /// <summary>

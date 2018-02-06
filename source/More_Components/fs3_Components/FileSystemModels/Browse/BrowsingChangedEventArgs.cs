@@ -14,7 +14,7 @@ namespace FileSystemModels.Browse
         /// </summary>
         public BrowsingEventArgs(IPathModel path,
                                  bool isBrowsing,
-                                 BrowseResult result)
+                                 BrowseResult result = BrowseResult.Unknown)
         : this()
         {
             Path = path;
