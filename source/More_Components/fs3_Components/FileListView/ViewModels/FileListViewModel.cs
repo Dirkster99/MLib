@@ -315,7 +315,7 @@ namespace FileListView.ViewModels
 
                         if (newFolder != null)
                         {
-                            UpdateView(newFolder.Path);
+                            PopulateView(newFolder);
 
                             if (this.BrowseEvent != null)
                                 this.BrowseEvent(this, new BrowsingEventArgs(newFolder, false, BrowseResult.Complete));
@@ -341,7 +341,7 @@ namespace FileListView.ViewModels
 
                         if (newFolder != null)
                         {
-                            this.UpdateView(newFolder.Path);
+                            PopulateView(newFolder);
 
                             if (this.BrowseEvent != null)
                                 this.BrowseEvent(this, new BrowsingEventArgs(newFolder, false, BrowseResult.Complete));
@@ -370,7 +370,7 @@ namespace FileListView.ViewModels
                             if (newFolder.DirectoryPathExists() == false)
                                 return;
 
-                            this.UpdateView(newFolder.Path);
+                            PopulateView(newFolder);
 
                             if (this.BrowseEvent != null)
                                 this.BrowseEvent(this, new BrowsingEventArgs(newFolder, false, BrowseResult.Complete));
@@ -696,7 +696,8 @@ namespace FileListView.ViewModels
         /// <returns></returns>
         public bool NavigateTo(IPathModel newPath)
         {
-            UpdateView(newPath.Path);
+            PopulateView(newPath);
+////            UpdateView(newPath.Path);
 
             return true;
         }
@@ -725,30 +726,30 @@ namespace FileListView.ViewModels
         /// Updates the current display with the given filter string.
         /// </summary>
         /// <param name="p"></param>
-        public void UpdateView(string p)
-        {
-            Logger.DebugFormat("UpdateView method with '{0}' property", p);
-
-            if (string.IsNullOrEmpty(p) == true)
-                return;
-
-            this.mBrowseNavigation.SetCurrentFolder(p, false);
-            this.PopulateView();
-        }
+////        public void UpdateView(string p)
+////        {
+////            Logger.DebugFormat("UpdateView method with '{0}' property", p);
+////
+////            if (string.IsNullOrEmpty(p) == true)
+////                return;
+////
+////            this.mBrowseNavigation.SetCurrentFolder(p, false);
+////            this.PopulateView();
+////        }
 
         /// <summary>
         /// Fills the CurrentItems property for display in ItemsControl
         /// </summary>
-        public void NavigateToThisFolder(string sFolder)
-        {
-            Logger.DebugFormat("NavigateToThisFolder method with '{0}'", sFolder);
-
-            this.mBrowseNavigation.BrowseDown(FSItemType.Folder, sFolder);
-
-            ////this.RecentFolders.Push(this.CurrentFolder);
-            this.UpdateView(sFolder);
-            this.RaisePropertyChanged(() => this.CurrentFolder);
-        }
+////        public void NavigateToThisFolder(string sFolder)
+////        {
+////            Logger.DebugFormat("NavigateToThisFolder method with '{0}'", sFolder);
+////
+////            mBrowseNavigation.BrowseDown(FSItemType.Folder, sFolder);
+////
+////            ////this.RecentFolders.Push(this.CurrentFolder);
+////            UpdateView(sFolder);
+////            RaisePropertyChanged(() => this.CurrentFolder);
+////        }
 
         /// <summary>
         /// Applies a filter string (which can contain multiple
@@ -760,9 +761,9 @@ namespace FileListView.ViewModels
         {
             Logger.DebugFormat("ApplyFilter method with '{0}'", filterText);
 
-            this.mFilterString = filterText;
+            mFilterString = filterText;
 
-            string[] tempParsedFilter = BrowseNavigation.GetParsedFilters(this.mFilterString);
+            string[] tempParsedFilter = BrowseNavigation.GetParsedFilters(mFilterString);
 
             // Optimize nultiple requests for populating same view with unchanged filter away
             if (tempParsedFilter != this.mParsedFilter)
@@ -805,12 +806,35 @@ namespace FileListView.ViewModels
         /// This method wraps a parameterized version of the same method 
         /// with a call that contains the standard data field.
         /// </summary>
-        protected void PopulateView()
+        protected bool PopulateView(IPathModel newPathToNavigateTo = null)
         {
             Logger.DebugFormat("PopulateView method");
 
-            this.PopulateView(this.mParsedFilter);
-            this.RaisePropertyChanged(() => this.CurrentFolder);
+            try
+            {
+                if (newPathToNavigateTo != null)
+                    mBrowseNavigation.SetCurrentFolder(newPathToNavigateTo.Path, false);
+
+                CurrentItemClear();
+
+                if (mBrowseNavigation.IsCurrentPathDirectory() == false)
+                    return false;
+
+                DirectoryInfo cur = this.mBrowseNavigation.GetDirectoryInfoOnCurrentFolder();
+
+                if (cur.Exists == false)
+                    return false;
+
+                InternalPopulateView(this.mParsedFilter, cur);
+                this.RaisePropertyChanged(() => this.CurrentFolder);
+
+                return true;
+            }
+            catch
+            {
+            }
+
+            return false;
         }
 
         #region FileSystem Commands
@@ -841,19 +865,13 @@ namespace FileListView.ViewModels
         /// seperately and does not need to b parsed each time when this method
         /// executes.
         /// </summary>
-        private void PopulateView(string[] filterString)
+        private void InternalPopulateView(string[] filterString, DirectoryInfo cur)
         {
             Logger.DebugFormat("PopulateView method with filterString parameter");
 
-            CurrentItemClear();
-
-            if (this.mBrowseNavigation.IsCurrentPathDirectory() == false)
-                return;
-
             try
             {
-                DirectoryInfo cur = this.mBrowseNavigation.GetDirectoryInfoOnCurrentFolder();
-                ImageSource dummy = new BitmapImage();
+////                ImageSource dummy = new BitmapImage();
 
                 // Retrieve and add (filtered) list of directories
                 if (this.ShowFolders)
@@ -875,11 +893,11 @@ namespace FileListView.ViewModels
                             }
                         }
 
-                        var info = new LVItemViewModel(dir.FullName, FSItemType.Folder, dir.Name);
+                        var info = new LVItemViewModel(dir.FullName, FSItemType.Folder, dir.Name, this.ShowIcons);
 
                         // to prevent the icon from being loaded from file later
-                        if (this.ShowIcons == false)
-                            info.SetDisplayIcon(dummy);
+////                        if (this.ShowIcons == false)
+////                            info.SetDisplayIcon(dummy);
 
                         CurrentItemAdd(info);
                     }
@@ -900,10 +918,10 @@ namespace FileListView.ViewModels
                         }
                     }
 
-                    var info = new LVItemViewModel(f.FullName, FSItemType.File, f.Name);
+                    var info = new LVItemViewModel(f.FullName, FSItemType.File, f.Name, this.ShowIcons);
 
-                    if (this.ShowIcons == false)
-                        info.SetDisplayIcon(dummy);  // to prevent the icon from being loaded from file later
+////                    if (this.ShowIcons == false)
+////                        info.SetDisplayIcon(dummy);  // to prevent the icon from being loaded from file later
 
                     CurrentItemAdd(info);
                 }

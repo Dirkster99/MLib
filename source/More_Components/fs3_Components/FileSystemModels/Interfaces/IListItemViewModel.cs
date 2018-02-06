@@ -36,9 +36,9 @@
         System.Windows.Media.ImageSource DisplayIcon { get; }
 
         /// <summary>
-        /// Gets whether or not to show a tooltip for this item.
+        /// Gets whether or not to show an Icon for this item or not.
         /// </summary>
-        bool ShowToolTip { get; }
+        bool ShowIcon { get; }
         #endregion properties
 
         #region methods

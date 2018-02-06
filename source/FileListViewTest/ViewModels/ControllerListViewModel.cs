@@ -325,7 +325,7 @@ namespace FileListViewTest.ViewModels
         #endregion Change filter methods
 
         /// <summary>
-        /// Master controler interface method to navigate all views
+        /// Master controller interface method to navigate all views
         /// to the folder indicated in <paramref name="folder"/>
         /// - updates all related viewmodels.
         /// </summary>
@@ -443,7 +443,7 @@ namespace FileListViewTest.ViewModels
                 if (FolderItemsView != sender)
                 {
                     // Navigate Folder/File ListView to this folder
-                    FolderItemsView.NavigateToThisFolder(itemPath.Path);
+                    FolderItemsView.NavigateTo(itemPath);
                 }
             }
             else

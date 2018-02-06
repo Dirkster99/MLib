@@ -97,7 +97,7 @@
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate DataType="{x:Type vm:FolderItemViewModel}">
-                    <Grid ToolTip="{Binding FullPath}" ToolTipService.IsEnabled="{Binding ShowToolTip}">
+                    <Grid ToolTip="{Binding FullPath}" ToolTipService.IsEnabled="True">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="{Binding Indentation}"/>
                             <ColumnDefinition Width="20"/>

@@ -43,7 +43,7 @@ namespace FolderControlsLib.ViewModels
                         int indentation = 0)
           : this(curdir, itemType, displayName, indentation)
         {
-            this.ShowToolTip = showIcon;
+            this.ShowIcon = showIcon;
         }
 
         /// <summary>
@@ -87,11 +87,12 @@ namespace FolderControlsLib.ViewModels
         /// </summary>
         protected FolderItemViewModel()
         {
-            this.mDisplayIcon = null;
-            this.mPathObject = null;
-            this.mVolumeLabel = null;
+            mDisplayIcon = null;
+            mPathObject = null;
+            mVolumeLabel = null;
 
-            this.Indentation = 0;
+            Indentation = 0;
+            ShowIcon = true;
         }
         #endregion constructor
 
@@ -157,14 +158,14 @@ namespace FolderControlsLib.ViewModels
         {
             get
             {
-                if (this.mDisplayIcon == null)
+                if (this.mDisplayIcon == null && ShowIcon == true)
                 {
                     try
                     {
-                        if (this.Type == FSItemType.Folder)
-                            this.mDisplayIcon = IconExtractor.GetFolderIcon(this.FullPath).ToImageSource();
+                        if (Type == FSItemType.Folder)
+                            mDisplayIcon = IconExtractor.GetFolderIcon(this.FullPath).ToImageSource();
                         else
-                            this.mDisplayIcon = IconExtractor.GetFileIcon(this.FullPath).ToImageSource();
+                            mDisplayIcon = IconExtractor.GetFileIcon(this.FullPath).ToImageSource();
                     }
                     catch
                     {
@@ -186,7 +187,7 @@ namespace FolderControlsLib.ViewModels
         /// <summary>
         /// Gets whether or not to show a tooltip for this item.
         /// </summary>
-        public bool ShowToolTip { get; private set; }
+        public bool ShowIcon { get; private set; }
 
         /// <summary>
         /// Gets an indendation (if any) for this item.

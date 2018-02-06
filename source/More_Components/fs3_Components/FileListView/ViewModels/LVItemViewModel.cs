@@ -42,7 +42,7 @@ namespace FileListView.ViewModels
                         bool showIcon)
           : this(curdir, itemType, displayName)
         {
-            this.ShowToolTip = showIcon;
+            this.ShowIcon = showIcon;
         }
 
         /// <summary>
@@ -92,9 +92,10 @@ namespace FileListView.ViewModels
         /// </summary>
         protected LVItemViewModel()
         {
-            this.mDisplayIcon = null;
-            this.mPathObject = null;
-            this.mVolumeLabel = null;
+            mDisplayIcon = null;
+            mPathObject = null;
+            mVolumeLabel = null;
+            ShowIcon = true;
         }
         #endregion constructor
 
@@ -160,7 +161,7 @@ namespace FileListView.ViewModels
         {
             get
             {
-                if (this.mDisplayIcon == null)
+                if (this.mDisplayIcon == null && ShowIcon == true)
                 {
                     try
                     {
@@ -187,9 +188,9 @@ namespace FileListView.ViewModels
         }
 
         /// <summary>
-        /// Gets whether or not to show a tooltip for this item.
+        /// Gets whether or not to show an Icon for this item.
         /// </summary>
-        public bool ShowToolTip { get; private set; }
+        public bool ShowIcon { get; private set; }
         #endregion properties
 
         #region methods

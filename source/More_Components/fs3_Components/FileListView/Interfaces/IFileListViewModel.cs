@@ -173,12 +173,12 @@ namespace FileListView.Interfaces
         /// Updates the current display with the given filter string.
         /// </summary>
         /// <param name="p"></param>
-        void UpdateView(string p);
+////        void UpdateView(string p);
 
         /// <summary>
         /// Fills the CurrentItems property for display in ItemsControl
         /// </summary>
-        void NavigateToThisFolder(string sFolder);
+////        void NavigateToThisFolder(string sFolder);
 
         /// <summary>
         /// Applies a filter string (which can contain multiple

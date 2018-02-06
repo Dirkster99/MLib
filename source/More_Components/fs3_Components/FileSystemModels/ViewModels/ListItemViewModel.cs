@@ -42,7 +42,7 @@
                         bool showIcon)
             : this(curdir, itemType, displayName)
         {
-            this.ShowToolTip = showIcon;
+            this.ShowIcon = showIcon;
         }
 
         /// <summary>
@@ -79,7 +79,7 @@
             mPathObject = copyThis.mPathObject.Clone() as IPathModel;
             mVolumeLabel = copyThis.mVolumeLabel;
 
-            ShowToolTip = copyThis.ShowToolTip;
+            ShowIcon = copyThis.ShowIcon;
         }
 
         /// <summary>
@@ -87,9 +87,10 @@
         /// </summary>
         protected ListItemViewModel()
         {
-            this.mDisplayIcon = null;
-            this.mPathObject = null;
-            this.mVolumeLabel = null;
+            mDisplayIcon = null;
+            mPathObject = null;
+            mVolumeLabel = null;
+            ShowIcon = true;
         }
         #endregion constructor
 
@@ -155,7 +156,7 @@
         {
             get
             {
-                if (this.mDisplayIcon == null)
+                if (this.mDisplayIcon == null && ShowIcon == true)
                 {
                     try
                     {
@@ -184,7 +185,7 @@
         /// <summary>
         /// Gets whether or not to show a tooltip for this item.
         /// </summary>
-        public bool ShowToolTip { get; private set; }
+        public bool ShowIcon { get; private set; }
         #endregion properties
 
         #region methods
