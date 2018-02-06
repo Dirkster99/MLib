@@ -201,7 +201,7 @@ namespace FileListView.ViewModels
                 return this.mShowFolders;
             }
 
-            set
+            protected set
             {
                 Logger.DebugFormat("Set ShowFolders '{0}' property", value);
 
@@ -223,7 +223,7 @@ namespace FileListView.ViewModels
                 return this.mShowHidden;
             }
 
-            set
+            protected set
             {
                 Logger.DebugFormat("Set ShowHidden '{0}' property", value);
 
@@ -245,7 +245,7 @@ namespace FileListView.ViewModels
                 return this.mShowIcons;
             }
 
-            set
+            protected set
             {
                 Logger.DebugFormat("Set ShowIcons '{0}' property", value);
 
@@ -697,7 +697,6 @@ namespace FileListView.ViewModels
         public bool NavigateTo(IPathModel newPath)
         {
             PopulateView(newPath);
-////            UpdateView(newPath.Path);
 
             return true;
         }
@@ -721,35 +720,6 @@ namespace FileListView.ViewModels
         {
             IsBrowsing = isBrowsing;
         }
-
-        /// <summary>
-        /// Updates the current display with the given filter string.
-        /// </summary>
-        /// <param name="p"></param>
-////        public void UpdateView(string p)
-////        {
-////            Logger.DebugFormat("UpdateView method with '{0}' property", p);
-////
-////            if (string.IsNullOrEmpty(p) == true)
-////                return;
-////
-////            this.mBrowseNavigation.SetCurrentFolder(p, false);
-////            this.PopulateView();
-////        }
-
-        /// <summary>
-        /// Fills the CurrentItems property for display in ItemsControl
-        /// </summary>
-////        public void NavigateToThisFolder(string sFolder)
-////        {
-////            Logger.DebugFormat("NavigateToThisFolder method with '{0}'", sFolder);
-////
-////            mBrowseNavigation.BrowseDown(FSItemType.Folder, sFolder);
-////
-////            ////this.RecentFolders.Push(this.CurrentFolder);
-////            UpdateView(sFolder);
-////            RaisePropertyChanged(() => this.CurrentFolder);
-////        }
 
         /// <summary>
         /// Applies a filter string (which can contain multiple
@@ -800,6 +770,24 @@ namespace FileListView.ViewModels
         }
 
         /// <summary>
+        /// Configure whether icons in listview should be shown or not.
+        /// </summary>
+        /// <param name="showIcons"></param>
+        public void SetShowIcons(bool showIcons)
+        {
+            ShowIcons = showIcons;
+        }
+
+        /// <summary>
+        /// Configure whether or not hidden files are shown in listview.
+        /// </summary>
+        /// <param name="showHiddenFiles"></param>
+        public void SetShowHidden(bool showHiddenFiles)
+        {
+            ShowHidden = showHiddenFiles;
+        }
+
+        /// <summary>
         /// Fills the CurrentItems property for display in ItemsControl
         /// based view (ListBox, ListView etc.).
         /// 
@@ -825,7 +813,7 @@ namespace FileListView.ViewModels
                 if (cur.Exists == false)
                     return false;
 
-                InternalPopulateView(this.mParsedFilter, cur);
+                InternalPopulateView(this.mParsedFilter, cur, this.ShowIcons);
                 this.RaisePropertyChanged(() => this.CurrentFolder);
 
                 return true;
@@ -865,14 +853,14 @@ namespace FileListView.ViewModels
         /// seperately and does not need to b parsed each time when this method
         /// executes.
         /// </summary>
-        private void InternalPopulateView(string[] filterString, DirectoryInfo cur)
+        private void InternalPopulateView(string[] filterString
+                                        , DirectoryInfo cur
+                                        , bool showIcons)
         {
             Logger.DebugFormat("PopulateView method with filterString parameter");
 
             try
             {
-////                ImageSource dummy = new BitmapImage();
-
                 // Retrieve and add (filtered) list of directories
                 if (this.ShowFolders)
                 {
@@ -893,11 +881,8 @@ namespace FileListView.ViewModels
                             }
                         }
 
-                        var info = new LVItemViewModel(dir.FullName, FSItemType.Folder, dir.Name, this.ShowIcons);
-
-                        // to prevent the icon from being loaded from file later
-////                        if (this.ShowIcons == false)
-////                            info.SetDisplayIcon(dummy);
+                        var info = new LVItemViewModel(dir.FullName,
+                                                       FSItemType.Folder, dir.Name, showIcons);
 
                         CurrentItemAdd(info);
                     }
@@ -918,10 +903,8 @@ namespace FileListView.ViewModels
                         }
                     }
 
-                    var info = new LVItemViewModel(f.FullName, FSItemType.File, f.Name, this.ShowIcons);
-
-////                    if (this.ShowIcons == false)
-////                        info.SetDisplayIcon(dummy);  // to prevent the icon from being loaded from file later
+                    var info = new LVItemViewModel(f.FullName,
+                                                   FSItemType.File, f.Name, showIcons);
 
                     CurrentItemAdd(info);
                 }

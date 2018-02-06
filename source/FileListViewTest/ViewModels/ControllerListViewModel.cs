@@ -177,9 +177,9 @@ namespace FileListViewTest.ViewModels
                 ////                if (string.IsNullOrEmpty(settings.LastSelectedRecentFolder) == false)
                 ////                    this.AddRecentFolder(settings.LastSelectedRecentFolder, true);
 
-                this.FolderItemsView.ShowIcons = settings.ShowIcons;
+                this.FolderItemsView.SetShowIcons(settings.ShowIcons);
                 this.FolderItemsView.SetIsFolderVisible(settings.ShowFolders);
-                this.FolderItemsView.ShowHidden = settings.ShowHiddenFiles;
+                this.FolderItemsView.SetShowHidden(settings.ShowHiddenFiles);
                 this.FolderItemsView.SetIsFiltered(settings.IsFiltered);
             }
             catch

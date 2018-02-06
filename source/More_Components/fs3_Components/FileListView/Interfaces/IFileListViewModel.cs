@@ -34,34 +34,22 @@ namespace FileListView.Interfaces
         /// <summary>
         /// Gets/sets whether the list of folders and files should include folders or not.
         /// </summary>
-        bool ShowFolders
-        {
-            get; set;
-        }
+        bool ShowFolders{ get; }
 
         /// <summary>
         /// Gets/sets whether the list of folders and files includes hidden folders or files.
         /// </summary>
-        bool ShowHidden
-        {
-            get; set;
-        }
+        bool ShowHidden { get; }
 
         /// <summary>
         /// Gets/sets whether the list of folders and files includes an icon or not.
         /// </summary>
-        bool ShowIcons
-        {
-            get; set;
-        }
+        bool ShowIcons{ get; }
 
         /// <summary>
         /// Gets whether the list of folders and files is filtered or not.
         /// </summary>
-        bool IsFiltered
-        {
-            get;
-        }
+        bool IsFiltered { get; }
 
         /// <summary>
         /// Gets the current path this viewmodel assigned to look at.
@@ -170,17 +158,6 @@ namespace FileListView.Interfaces
 
         #region methods
         /// <summary>
-        /// Updates the current display with the given filter string.
-        /// </summary>
-        /// <param name="p"></param>
-////        void UpdateView(string p);
-
-        /// <summary>
-        /// Fills the CurrentItems property for display in ItemsControl
-        /// </summary>
-////        void NavigateToThisFolder(string sFolder);
-
-        /// <summary>
         /// Applies a filter string (which can contain multiple
         /// alternative regular expression filter items) and updates
         /// the current display.
@@ -189,18 +166,30 @@ namespace FileListView.Interfaces
         void ApplyFilter(string filterText);
 
         /// <summary>
-        /// Call this method to determine whether folders are part of the list of
+        /// Configure whether folders are part of the list of
         /// files and folders or not (list only files without folders).
         /// </summary>
         /// <param name="isFolderVisible"></param>
         void SetIsFolderVisible(bool isFolderVisible);
 
         /// <summary>
-        /// Call this method to determine whether folders are part of the list of
+        /// Configure whether folders are part of the list of
         /// files and folders or not (list only files without folders).
         /// </summary>
         /// <param name="isFolderVisible"></param>
         void SetIsFiltered(bool isFolderVisible);
+
+        /// <summary>
+        /// Configure whether icons in listview should be shown or not.
+        /// </summary>
+        /// <param name="showIcons"></param>
+        void SetShowIcons(bool showIcons);
+
+        /// <summary>
+        /// Configure whether or not hidden files are shown in listview.
+        /// </summary>
+        /// <param name="showHiddenFiles"></param>
+        void SetShowHidden(bool showHiddenFiles);
         #endregion methods
     }
 }

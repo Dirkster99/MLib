@@ -313,7 +313,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
-                            <Image Visibility="{Binding Path=Data.ShowIcons,  Source={StaticResource DataContextProxy}, Converter={StaticResource boolToVis}}"
+                            <Image Visibility="{Binding Path=Data.ShowIcons,Mode=OneWay,UpdateSourceTrigger=PropertyChanged, Source={StaticResource DataContextProxy}, Converter={StaticResource boolToVis}}"
                                    Margin="3,0"
                                    Source="{Binding Path=DisplayIcon}"
                                    SnapsToDevicePixels="True" 

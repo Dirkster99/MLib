@@ -69,21 +69,20 @@
       </StackPanel>
     </GroupBox>
 
-    <GroupBox
-        DataContext="{Binding FolderView}"
-        Header="FileListViewModel" HorizontalAlignment="Stretch"  Grid.Row="1">
+    <GroupBox DataContext="{Binding FolderView}"
+              Header="FileListViewModel" HorizontalAlignment="Stretch"  Grid.Row="1">
       <StackPanel Orientation="Vertical">
-        <CheckBox Content="Show Icons"
+        <CheckBox Content="Show Icons" IsEnabled="False"
                   DataContext="{Binding FolderItemsView}" 
-                  IsChecked="{Binding ShowIcons}" />
+                  IsChecked="{Binding ShowIcons,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" />
 
-        <CheckBox Content="Show Folders"
+        <CheckBox Content="Show Folders" IsEnabled="False"
                   DataContext="{Binding FolderItemsView}" 
-                  IsChecked="{Binding ShowFolders}" />
+                  IsChecked="{Binding ShowFolders,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" />
 
-        <CheckBox Content="Show Hidden Files/Folders"
+        <CheckBox Content="Show Hidden Files/Folders" IsEnabled="False"
                   DataContext="{Binding FolderItemsView}" 
-                  IsChecked="{Binding ShowHidden}" />
+                  IsChecked="{Binding ShowHidden,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" />
       </StackPanel>
     </GroupBox>
 
