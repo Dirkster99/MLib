@@ -1,8 +1,11 @@
 namespace FileListViewTest.ViewModels
 {
+    using System;
     using System.Threading.Tasks;
     using System.Windows;
+    using System.Windows.Input;
     using FileListView.Interfaces;
+    using FileListViewTest.Command;
     using FileListViewTest.Interfaces;
     using FileSystemModels.Browse;
     using FileSystemModels.Events;
@@ -21,6 +24,7 @@ namespace FileListViewTest.ViewModels
         #region fields
         private string _SelectedFolder = string.Empty;
         private object _LockObject = new object();
+        private ICommand mRefreshCommand;
         #endregion fields
 
         #region constructor
@@ -49,7 +53,7 @@ namespace FileListViewTest.ViewModels
             RecentFolders = FileSystemModels.Factory.CreateBookmarksViewModel();
 
             // This is fired when the user selects a new folder bookmark from the drop down button
-            RecentFolders.RequestChangeOfDirectory += this.OnRequestChangeOfDirectory;
+            RecentFolders.BrowseEvent += FolderTextPath_BrowseEvent;
 
             // This is fired when the text path in the combobox changes to another existing folder
             FolderTextPath.BrowseEvent += FolderTextPath_BrowseEvent;
@@ -69,6 +73,21 @@ namespace FileListViewTest.ViewModels
         #endregion constructor
 
         #region properties
+        /// <summary>
+        /// Gets the command that updates the currently viewed
+        /// list of directory items (files and sub-directories).
+        /// </summary>
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                if (this.mRefreshCommand == null)
+                    this.mRefreshCommand = new RelayCommand<object>((p) => RefreshCommand_Executed());
+
+                return this.mRefreshCommand;
+            }
+        }
+
         /// <summary>
         /// Gets the currently selected recent location string (if any) or null.
         /// </summary>
@@ -153,7 +172,12 @@ namespace FileListViewTest.ViewModels
             try
             {
                 // Set currently viewed folder in Explorer Tool Window
-                this.NavigateToFolder(settings.UserProfile.CurrentPath, null);
+                var t = new Task(async () =>
+                {
+                    await this.NavigateToFolderAsync(settings.UserProfile.CurrentPath, null);
+                });
+
+                t.RunSynchronously();
 
                 this.Filters.ClearFilter();
 
@@ -330,7 +354,9 @@ namespace FileListViewTest.ViewModels
         /// <param name="requestor"</param>
         public void NavigateToFolder(IPathModel itemPath)
         {
-            NavigateToFolder(itemPath, null);
+            var t = new Task(async () => { await NavigateToFolderAsync(itemPath, null); });
+
+            t.RunSynchronously();
         }
 
         /// <summary>
@@ -340,21 +366,26 @@ namespace FileListViewTest.ViewModels
         /// </summary>
         /// <param name="itemPath"></param>
         /// <param name="requestor"</param>
-        private void NavigateToFolder(IPathModel itemPath, object sender)
+        private async Task NavigateToFolderAsync(IPathModel itemPath, object sender)
         {
             SelectedFolder = itemPath.Path;
 
             if (FolderTextPath != sender)
             {
                 // Navigate Folder ComboBox to this folder
-                FolderTextPath.NavigateToAsync(itemPath);
+                await FolderTextPath.NavigateToAsync(itemPath);
             }
 
             if (FolderItemsView != sender)
             {
                 // Navigate Folder/File ListView to this folder
-                Task.Run(async () => { await FolderItemsView.NavigateToAsync(itemPath); });
+                await FolderItemsView.NavigateToAsync(itemPath);
             }
+        }
+
+        private void RefreshCommand_Executed()
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -400,25 +431,6 @@ namespace FileListViewTest.ViewModels
 
                 default:
                     break;
-            }
-        }
-
-        /// <summary>
-        /// Method is executed when a control (folder combobox, directory tree, or file/folder listview)
-        /// requests a change of directory - in other words, all other controls should navigate to a new
-        /// location. The event is processed by calling all corresponding methods in the viewmodels of
-        /// each control.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnRequestChangeOfDirectory(object sender, FolderChangedEventArgs e)
-        {
-            lock (this._LockObject)
-            {
-                if (string.Compare(this.SelectedFolder, e.Folder.Path, true) != 0)
-                {
-                    this.NavigateToFolder(e.Folder, sender);
-                }
             }
         }
 

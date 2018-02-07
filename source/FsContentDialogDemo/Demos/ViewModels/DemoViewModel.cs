@@ -1,6 +1,6 @@
 ﻿namespace FsContentDialogDemo.Demos.ViewModels
 {
-    using FileSystemModels.Events;
+    using FileSystemModels.Browse;
     using FileSystemModels.Interfaces.Bookmark;
     using FolderBrowser;
     using FolderBrowser.Dialogs.Interfaces;
@@ -29,7 +29,7 @@
 
             DropDownBrowser = InitializeDropDownBrowser(Path);
 
-            BookmarkedLocations.RequestChangeOfDirectory += BookmarkedLocations_RequestChangeOfDirectory;
+            BookmarkedLocations.BrowseEvent += BookmarkedLocations_RequestChangeOfDirectory;
         }
         #endregion constructors
 
@@ -208,9 +208,10 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void BookmarkedLocations_RequestChangeOfDirectory(object sender, FolderChangedEventArgs e)
+        private void BookmarkedLocations_RequestChangeOfDirectory(object sender, BrowsingEventArgs e)
         {
-            this.Path = e.Folder.Path;
+            if (e.IsBrowsing == false && e.Result == BrowseResult.Complete)
+                this.Path = e.Path.Path;
         }
 
         /// <summary>
@@ -283,11 +284,11 @@
             if (bookmarkedLocations == null)
                 return;
 
-            BookmarkedLocations.RequestChangeOfDirectory -= BookmarkedLocations_RequestChangeOfDirectory;
+            BookmarkedLocations.BrowseEvent -= BookmarkedLocations_RequestChangeOfDirectory;
 
             this.BookmarkedLocations = bookmarkedLocations.CloneBookmark();
 
-            BookmarkedLocations.RequestChangeOfDirectory += BookmarkedLocations_RequestChangeOfDirectory;
+            BookmarkedLocations.BrowseEvent += BookmarkedLocations_RequestChangeOfDirectory;
         }
         #endregion methods
     }

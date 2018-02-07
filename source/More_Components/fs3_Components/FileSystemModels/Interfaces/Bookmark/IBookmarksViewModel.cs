@@ -1,6 +1,6 @@
 ﻿namespace FileSystemModels.Interfaces.Bookmark
 {
-    using FileSystemModels.Events;
+    using FileSystemModels.Browse;
     using System;
     using System.Collections.Generic;
     using System.Windows.Input;
@@ -8,13 +8,8 @@
     /// <summary>
     /// Define an interface to a class that manages recently visited folder entries,
     /// </summary>
-    public interface IBookmarksViewModel : ICloneable
+    public interface IBookmarksViewModel : ICloneable, ICanNavigate
     {
-        /// <summary>
-        /// Event is fired whenever a change of the current directory is requested.
-        /// </summary>
-        event EventHandler<FolderChangedEventArgs> RequestChangeOfDirectory;
-
         #region properties
         /// <summary>
         /// Request a change of current directory to the directory

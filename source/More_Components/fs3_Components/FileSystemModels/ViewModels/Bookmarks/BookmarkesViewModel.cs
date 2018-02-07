@@ -12,6 +12,7 @@
     using System.Windows.Input;
     using System.Collections.Generic;
     using FileSystemModels.Interfaces.Bookmark;
+    using FileSystemModels.Browse;
 
     /// <summary>
     /// Implement viewmodel for management of recent folder locations.
@@ -68,9 +69,10 @@
 
         #region events
         /// <summary>
-        /// Event is fired whenever a change of the current directory is requested.
+        /// Indicates when the viewmodel starts heading off somewhere else
+        /// and when its done browsing to a new location.
         /// </summary>
-        public event EventHandler<FolderChangedEventArgs> RequestChangeOfDirectory;
+        public event EventHandler<BrowsingEventArgs> BrowseEvent;
         #endregion events
 
         #region properties
@@ -168,6 +170,18 @@
                     this.mIsOpen = value;
                     this.RaisePropertyChanged(() => this.IsOpen);
                 }
+            }
+        }
+
+        /// <summary>
+        /// This control cannot browse towards a certain location which
+        /// is why it returns a constant value of false here.
+        /// </summary>
+        public bool IsBrowsing
+        {
+            get
+            {
+                return false;
             }
         }
         #endregion properties
@@ -275,6 +289,11 @@
             }
         }
 
+        /// <summary>
+        /// Method is invoked when the control requests the controller to browse
+        /// to a new location as selected by the user in the list of recent locations (bookmarks).
+        /// </summary>
+        /// <param name="path"></param>
         private void ChangeOfDirectoryCommand_Executed(IListItemViewModel path)
         {
             if (path == null)
@@ -283,9 +302,11 @@
             this.IsOpen = false;
             this.SelectedItem = path;
 
-            if (this.RequestChangeOfDirectory != null)
-                this.RequestChangeOfDirectory(this,
-                    new FolderChangedEventArgs(PathFactory.Create(path.FullPath, FSItemType.Folder)));
+            if (BrowseEvent != null)
+            {
+                var targetPath = PathFactory.Create(path.FullPath);
+                BrowseEvent(this, new BrowsingEventArgs(targetPath, false, BrowseResult.Complete));
+            }
         }
 
         private IListItemViewModel CreateFSItemVMFromString(string folderPath)

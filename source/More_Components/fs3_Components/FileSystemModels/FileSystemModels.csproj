@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="Browse\BrowseResult.cs" />
     <Compile Include="Browse\BrowsingChangedEventArgs.cs" />
+    <Compile Include="Browse\ICanNavigate.cs" />
     <Compile Include="Browse\INavigateable.cs" />
     <Compile Include="Events\BrowsingChangedEventArgs.cs" />
     <Compile Include="Events\FileOpenEventArgs.cs" />

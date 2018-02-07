@@ -48,7 +48,7 @@
 
             <ctrls:SplitItemsButton ToolTip="{x:Static fvloc:Strings.RefreshCommand_TT}"
                                     ItemsSource="{Binding RecentFolders.DropDownItems}"
-                                    Command="{Binding FolderItemsView.RefreshCommand}"
+                                    Command="{Binding RefreshCommand}"
                                     IsOpen="{Binding RecentFolders.IsOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     DropDownMaxHeight="300"
                                     HorizontalAlignment="Left"

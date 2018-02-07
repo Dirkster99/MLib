@@ -1,5 +1,6 @@
 namespace FolderBrowser.Dialogs.ViewModels
 {
+    using FileSystemModels.Browse;
     using FileSystemModels.Events;
     using FileSystemModels.Interfaces.Bookmark;
     using FileSystemModels.ViewModels.Base;
@@ -87,7 +88,7 @@ namespace FolderBrowser.Dialogs.ViewModels
         {
             if (BookmarkedLocations != null)
             {
-                BookmarkedLocations.RequestChangeOfDirectory -= RecentLocations_RequestChangeOfDirectory;
+                BookmarkedLocations.BrowseEvent -= RecentLocations_RequestChangeOfDirectory;
 
                 if (TreeBrowser != null)
                     TreeBrowser.BookmarkFolder.RequestEditBookmarkedFolders -= BookmarkFolder_RequestEditBookmarkedFolders;
@@ -105,16 +106,17 @@ namespace FolderBrowser.Dialogs.ViewModels
 
             if (BookmarkedLocations != null)
             {
-                BookmarkedLocations.RequestChangeOfDirectory += RecentLocations_RequestChangeOfDirectory;
+                BookmarkedLocations.BrowseEvent += RecentLocations_RequestChangeOfDirectory;
             }
 
             TreeBrowser.BookmarkFolder.RequestEditBookmarkedFolders += BookmarkFolder_RequestEditBookmarkedFolders;
         }
 
         private void RecentLocations_RequestChangeOfDirectory(object sender,
-                                                              FolderChangedEventArgs e)
+                                                              BrowsingEventArgs e)
         {
-            TreeBrowser.BrowsePath(e.Folder.Path, false);
+            if (e.IsBrowsing == false && e.Result == BrowseResult.Complete)
+                TreeBrowser.BrowsePath(e.Path.Path, false);
         }
 
         /// <summary>
