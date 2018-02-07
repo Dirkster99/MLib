@@ -7,6 +7,7 @@ namespace FileListViewTest.ViewModels
     using FileListView.Interfaces;
     using FileListViewTest.Command;
     using FileListViewTest.Interfaces;
+    using FileSystemModels;
     using FileSystemModels.Browse;
     using FileSystemModels.Events;
     using FileSystemModels.Interfaces;
@@ -82,7 +83,7 @@ namespace FileListViewTest.ViewModels
             get
             {
                 if (this.mRefreshCommand == null)
-                    this.mRefreshCommand = new RelayCommand<object>((p) => RefreshCommand_Executed());
+                    this.mRefreshCommand = new RelayCommand<object>((p) => RefreshCommand_ExecutedAsync());
 
                 return this.mRefreshCommand;
             }
@@ -383,9 +384,17 @@ namespace FileListViewTest.ViewModels
             }
         }
 
-        private void RefreshCommand_Executed()
+        private async Task RefreshCommand_ExecutedAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var location = PathFactory.Create(SelectedFolder);
+
+                await NavigateToFolderAsync(location, null);
+            }
+            catch
+            {
+            }
         }
 
         /// <summary>
