@@ -12,12 +12,12 @@ namespace FileSystemModels.Browse
         /// <summary>
         /// Event type class constructor from parameter
         /// </summary>
-        public BrowsingEventArgs(IPathModel path,
+        public BrowsingEventArgs(IPathModel location,
                                  bool isBrowsing,
                                  BrowseResult result = BrowseResult.Unknown)
         : this()
         {
-            Path = path;
+            Location = location;
             IsBrowsing = isBrowsing;
             Result = result;
         }
@@ -28,14 +28,14 @@ namespace FileSystemModels.Browse
         protected BrowsingEventArgs()
         : base()
         {
-            this.Path = null;
+            this.Location = null;
             this.IsBrowsing = false;
         }
 
         /// <summary>
         /// Path we are browsing to or being arrived at.
         /// </summary>
-        public IPathModel Path { get; private set; }
+        public IPathModel Location { get; private set; }
 
         /// <summary>
         /// Determines if we are:
@@ -44,6 +44,11 @@ namespace FileSystemModels.Browse
         /// </summary>
         public bool IsBrowsing { get; private set; }
 
+        /// <summary>
+        /// Gets the result of the browsing process. This should be Unknown
+        /// if <see cref="IsBrowsing"/> is true and either Complete or InComplete
+        /// in all other cases.
+        /// </summary>
         public BrowseResult Result { get; private set; }
     }
 }

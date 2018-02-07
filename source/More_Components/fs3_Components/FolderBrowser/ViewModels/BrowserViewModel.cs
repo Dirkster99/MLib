@@ -1,6 +1,7 @@
 ﻿namespace FolderBrowser.ViewModels
 {
     using FileSystemModels;
+    using FileSystemModels.Browse;
     using FileSystemModels.Events;
     using FileSystemModels.Interfaces;
     using FileSystemModels.Interfaces.Bookmark;
@@ -45,7 +46,7 @@
         private ICommand _CancelBrowsingCommand;
         private ICommand _RefreshViewCommand;
 
-        private bool _IsBrowsing = true;
+        private bool _IsBrowsing;
         private IProcessViewModel _Processor = null;
         private readonly IProcessViewModel _ExpandProcessor = null;
 
@@ -57,6 +58,7 @@
         private ITreeItemViewModel _SelectedItem = null;
         private SortableObservableDictionaryCollection _Root;
         private ObservableCollection<ICustomFolderItemViewModel> _SpecialFolders;
+        private bool _IsExternallyBrowsing;
         #endregion fields
 
         #region constructor
@@ -81,6 +83,9 @@
 
             _UpdateView = true;
             _IsBrowseViewEnabled = true;
+
+            _IsBrowsing = true;
+            _IsExternallyBrowsing = false;
         }
         #endregion constructor
 
@@ -89,7 +94,7 @@
         /// Indicates when the viewmodel starts heading off somewhere else
         /// and when its done browsing to a new location.
         /// </summary>
-        public event EventHandler<BrowsingChangedEventArgs> BrowsingChanged;
+        public event EventHandler<BrowsingEventArgs> BrowseEvent;
         #endregion browsing events
 
         #region properties
@@ -139,6 +144,11 @@
         /// <summary>
         /// Gets whether the tree browser is currently processing
         /// a request for brwosing to a known location.
+        /// 
+        /// Can only be set by the control if user started browser process
+        /// 
+        /// Use IsBrowsing and IsExternallyBrowsing to lock the controls UI
+        /// during browse operations or display appropriate progress bar(s).
         /// </summary>
         public bool IsBrowsing
         {
@@ -153,6 +163,29 @@
                 {
                     _IsBrowsing = value;
                     RaisePropertyChanged(() => IsBrowsing);
+                }
+            }
+        }
+
+        /// <summary>
+        /// This should only be set by the controller that started the browser process.
+        /// 
+        /// Use IsBrowsing and IsExternallyBrowsing to lock the controls UI
+        /// during browse operations or display appropriate progress bar(s).
+        /// </summary>
+        public bool IsExternallyBrowsing
+        {
+            get
+            {
+                return _IsExternallyBrowsing;
+            }
+
+            protected set
+            {
+                if (_IsExternallyBrowsing != value)
+                {
+                    _IsExternallyBrowsing = value;
+                    RaisePropertyChanged(() => IsExternallyBrowsing);
                 }
             }
         }
@@ -683,6 +716,46 @@
 
         #region methods
         /// <summary>
+        /// Controller can start browser process if IsBrowsing = false
+        /// </summary>
+        /// <param name="newPath"></param>
+        /// <returns></returns>
+        bool INavigateable.NavigateTo(IPathModel location)
+        {
+            return BrowsePath(location, false);
+        }
+
+        /// <summary>
+        /// Controller can start browser process if IsBrowsing = false
+        /// </summary>
+        /// <param name="newPath"></param>
+        /// <returns></returns>
+        async Task<bool> INavigateable.NavigateToAsync(IPathModel newPath)
+        {
+            return await Task.Run(() => { return BrowsePath(newPath, false); });
+        }
+
+        /// <summary>
+        /// Sets the IsExternalBrowsing state and cleans up any running processings
+        /// if any. This method should only be called by an external controll instance.
+        /// </summary>
+        /// <param name="isBrowsing"></param>
+        public void SetExternalBrowsingState(bool isBrowsing)
+        {
+            IsBrowsing = isBrowsing;
+        }
+
+        /// <summary>
+        /// Determines whether the list of Windows special folder shortcut
+        /// buttons (Music, Video etc) is visible or not.
+        /// </summary>
+        /// <param name="visible"></param>
+        public void SetSpecialFoldersVisibility(bool visible)
+        {
+            this.IsSpecialFoldersVisisble = visible;
+        }
+
+        /// <summary>
         /// Call this method from the OnLoad method of the view
         /// in order to initialize a location as soon as the view
         /// is visible.
@@ -692,16 +765,25 @@
         public void BrowsePath(string path,
                                bool ResetBrowserStatus = true)
         {
-
-            // Tell subscribers that we started browsing this directory
-            if (this.BrowsingChanged != null)
-                this.BrowsingChanged(this,
-                    new BrowsingChangedEventArgs(PathFactory.Create(path, FSItemType.Folder), false));
+            IPathModel location = null;
+            try
+            {
+                location = PathFactory.Create(path);
+            }
+            catch
+            {
+                return;
+            }
 
             _Processor.StartCancelableProcess(cts =>
             {
                 try
                 {
+                    IsBrowsing = true;
+
+                    if (BrowseEvent != null)   // Tell subscribers that we started browsing this directory
+                        BrowseEvent(this, new BrowsingEventArgs(location, true));
+
                     IsBrowseViewEnabled = UpdateView = false;
                     
                     ClearFoldersCollections();
@@ -715,20 +797,38 @@
                 finally
                 {
                     // Make sure that view updates at the end of browsing process
+                    IsBrowsing = false;
                     IsBrowseViewEnabled = UpdateView = true;
                 }
 
             }, ProcessFinishedEvent, "This process is already running.");
         }
 
-        /// <summary>
-        /// Determines whether the list of Windows special folder shortcut
-        /// buttons (Music, Video etc) is visible or not.
-        /// </summary>
-        /// <param name="visible"></param>
-        public void SetSpecialFoldersVisibility(bool visible)
+        private bool BrowsePath(IPathModel location,
+                                bool ResetBrowserStatus = true)
         {
-            this.IsSpecialFoldersVisisble = visible;
+            try
+            {
+                IsBrowsing = true;
+                IsBrowseViewEnabled = UpdateView = false;
+
+                ClearFoldersCollections();
+                SetInitialDrives(null);
+
+                InternalBrowsePath(location.Path, ResetBrowserStatus, null);
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                // Make sure that view updates at the end of browsing process
+                IsBrowsing = false;
+                IsBrowseViewEnabled = UpdateView = true;
+            }
+
+            return true;
         }
 
         private bool InternalBrowsePath(string path,
@@ -934,12 +1034,20 @@
 
         private void ProcessFinishedEvent(bool processWasSuccessful, Exception exp, string caption)
         {
-            IsBrowsing = false;
+            IPathModel location = null;
+            try
+            {
+                location = PathFactory.Create(SelectedFolder);
 
-            // Tell subscribers that we finished browsing this directory
-            if (this.BrowsingChanged != null)
-                this.BrowsingChanged(this,
-                    new BrowsingChangedEventArgs(PathFactory.Create(this.SelectedFolder, FSItemType.Folder), false));
+                // Tell subscribers that we finished browsing this directory
+                if (BrowseEvent != null)   // Tell subscribers that we started browsing this directory
+                    BrowseEvent(this, new BrowsingEventArgs(location, false, BrowseResult.Complete));
+            }
+            catch
+            {
+                if (BrowseEvent != null)   // Tell subscribers that we started browsing this directory
+                    BrowseEvent(this, new BrowsingEventArgs(location, false, BrowseResult.InComplete));
+            }
         }
         #endregion methods
     }

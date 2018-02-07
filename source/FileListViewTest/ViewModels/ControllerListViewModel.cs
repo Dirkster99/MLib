@@ -437,7 +437,7 @@ namespace FileListViewTest.ViewModels
         private void FolderTextPath_BrowseEvent(object sender,
                                                 FileSystemModels.Browse.BrowsingEventArgs e)
         {
-            var itemPath = e.Path;
+            var itemPath = e.Location;
 
             SelectedFolder = itemPath.Path;
 

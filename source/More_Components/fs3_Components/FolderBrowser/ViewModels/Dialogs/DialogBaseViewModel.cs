@@ -116,7 +116,7 @@ namespace FolderBrowser.Dialogs.ViewModels
                                                               BrowsingEventArgs e)
         {
             if (e.IsBrowsing == false && e.Result == BrowseResult.Complete)
-                TreeBrowser.BrowsePath(e.Path.Path, false);
+                TreeBrowser.BrowsePath(e.Location.Path, false);
         }
 
         /// <summary>

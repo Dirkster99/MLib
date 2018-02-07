@@ -211,7 +211,7 @@
         private void BookmarkedLocations_RequestChangeOfDirectory(object sender, BrowsingEventArgs e)
         {
             if (e.IsBrowsing == false && e.Result == BrowseResult.Complete)
-                this.Path = e.Path.Path;
+                this.Path = e.Location.Path;
         }
 
         /// <summary>

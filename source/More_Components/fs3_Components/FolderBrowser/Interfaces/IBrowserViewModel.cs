@@ -1,9 +1,8 @@
 ﻿namespace FolderBrowser.Interfaces
 {
-    using FileSystemModels.Events;
+    using FileSystemModels.Browse;
     using FileSystemModels.Interfaces.Bookmark;
     using FolderBrowser.ViewModels.Messages;
-    using System;
     using System.Collections.Generic;
     using System.Windows.Input;
 
@@ -14,16 +13,8 @@
     /// This viewmodel is almost equivalent to the backend code needed to drive
     /// the Treeview that shows the items in the UI.
     /// </summary>
-    public interface IBrowserViewModel
+    public interface IBrowserViewModel : INavigateable
     {
-        #region events
-        /// <summary>
-        /// Indicates when the viewmodel starts heading off somewhere else
-        /// and when its done browsing to a new location.
-        /// </summary>
-        event EventHandler<BrowsingChangedEventArgs> BrowsingChanged;
-        #endregion events
-
         #region properties
         /// <summary>
         /// This property determines whether the control
@@ -56,12 +47,6 @@
         /// <seealso cref="FolderBrowserDialog"/>.
         /// </summary>
         string InitialPath { get; set; }
-
-        /// <summary>
-        /// Gets whether the tree browser is currently processing
-        /// a request for brwosing to a known location.
-        /// </summary>
-        bool IsBrowsing { get; }
 
         /// <summary>
         /// Get/set currently selected folder.
