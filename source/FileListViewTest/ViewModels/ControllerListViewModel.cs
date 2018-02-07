@@ -1,6 +1,5 @@
 namespace FileListViewTest.ViewModels
 {
-    using System;
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Input;
@@ -83,7 +82,8 @@ namespace FileListViewTest.ViewModels
             get
             {
                 if (this.mRefreshCommand == null)
-                    this.mRefreshCommand = new RelayCommand<object>((p) => RefreshCommand_ExecutedAsync());
+                    this.mRefreshCommand = new RelayCommand<object>
+                        (async (p) => await RefreshCommand_ExecutedAsync());
 
                 return this.mRefreshCommand;
             }
@@ -369,18 +369,29 @@ namespace FileListViewTest.ViewModels
         /// <param name="requestor"</param>
         private async Task NavigateToFolderAsync(IPathModel itemPath, object sender)
         {
-            SelectedFolder = itemPath.Path;
-
-            if (FolderTextPath != sender)
+            try
             {
-                // Navigate Folder ComboBox to this folder
-                await FolderTextPath.NavigateToAsync(itemPath);
+                FolderItemsView.SetExternalBrowsingState(true);
+                FolderTextPath.SetExternalBrowsingState(true);
+                SelectedFolder = itemPath.Path;
+
+                if (FolderTextPath != sender)
+                {
+                    // Navigate Folder ComboBox to this folder
+                    await FolderTextPath.NavigateToAsync(itemPath);
+                }
+
+                if (FolderItemsView != sender)
+                {
+                    // Navigate Folder/File ListView to this folder
+                    await FolderItemsView.NavigateToAsync(itemPath);
+                }
             }
-
-            if (FolderItemsView != sender)
+            catch{}
+            finally
             {
-                // Navigate Folder/File ListView to this folder
-                await FolderItemsView.NavigateToAsync(itemPath);
+                FolderItemsView.SetExternalBrowsingState(false);
+                FolderTextPath.SetExternalBrowsingState(false);
             }
         }
 
