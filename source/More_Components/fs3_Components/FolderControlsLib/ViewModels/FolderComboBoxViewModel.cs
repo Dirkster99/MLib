@@ -22,6 +22,8 @@ namespace FolderControlsLib.ViewModels
     internal class FolderComboBoxViewModel : Base.ViewModelBase, IFolderComboBoxViewModel
     {
         #region fields
+        protected static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         private readonly ObservableCollection<IFolderItemViewModel> _CurrentItems;
 
         private IFolderItemViewModel _SelectedItem = null;
@@ -125,7 +127,8 @@ namespace FolderControlsLib.ViewModels
             {
                 if (_SelectedItem != value)
                 {
-                    System.Console.WriteLine("SelectedItem changed to '{0}' -> '{1}'", _SelectedItem, value);
+                    logger.DebugFormat("SelectedItem changed to '{0}' -> '{1}'", _SelectedItem, value);
+
                     _SelectedItem = value;
                     RaisePropertyChanged(() => SelectedItem);
 

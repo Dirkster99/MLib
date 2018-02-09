@@ -30,6 +30,9 @@ namespace FileListViewTest.ViewModels
             FolderView.AddRecentFolder(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
             FolderView.AddRecentFolder(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), true);
 
+            FolderTreeView.AddRecentFolder(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
+            FolderTreeView.AddRecentFolder(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), true);
+
             FolderView.AddFilter("Executeable files", "*.exe;*.bat");
             FolderView.AddFilter("Image files", "*.png;*.jpg;*.jpeg");
             FolderView.AddFilter("LaTex files", "*.tex");

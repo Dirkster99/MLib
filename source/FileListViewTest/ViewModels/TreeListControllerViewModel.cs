@@ -1,5 +1,6 @@
 namespace FileListViewTest.ViewModels
 {
+    using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Input;
@@ -25,10 +26,11 @@ namespace FileListViewTest.ViewModels
     internal class TreeListControllerViewModel : Base.ViewModelBase, ITreeListControllerViewModel
     {
         #region fields
+        private SemaphoreSlim SlowStuffSemaphore = null;
+
         private string _SelectedFolder = string.Empty;
         private object _LockObject = new object();
-        private ICommand mRefreshCommand;
-        private readonly IBrowserViewModel _TreeBrowser;
+        private ICommand _RefreshCommand;
         #endregion fields
 
         #region constructor
@@ -52,10 +54,12 @@ namespace FileListViewTest.ViewModels
         /// </summary>
         public TreeListControllerViewModel()
         {
+            SlowStuffSemaphore = new SemaphoreSlim(1, 1);
+
             FolderItemsView = FileListView.Factory.CreateFileListViewModel(new BrowseNavigation());
             FolderTextPath = FolderControlsLib.Factory.CreateFolderComboBoxVM();
             RecentFolders = FileSystemModels.Factory.CreateBookmarksViewModel();
-            _TreeBrowser = FolderBrowser.FolderBrowserFactory.CreateBrowserViewModel(false, "C:\\");
+            TreeBrowser = FolderBrowser.FolderBrowserFactory.CreateBrowserViewModel(false);
 
             // This is fired when the user selects a new folder bookmark from the drop down button
             RecentFolders.BrowseEvent += FolderTextPath_BrowseEvent;
@@ -88,11 +92,14 @@ namespace FileListViewTest.ViewModels
         {
             get
             {
-                if (this.mRefreshCommand == null)
-                    this.mRefreshCommand = new RelayCommand<object>
-                        (async (p) => await RefreshCommand_ExecutedAsync());
+                if (this._RefreshCommand == null)
+                    this._RefreshCommand = new RelayCommand<object>
+                        (async (p) =>
+                        {
+                            await RefreshCommand_ExecutedAsync(p as string);
+                        });
 
-                return this.mRefreshCommand;
+                return this._RefreshCommand;
             }
         }
 
@@ -116,37 +123,31 @@ namespace FileListViewTest.ViewModels
         /// <summary>
         /// Gets the viewmodel that exposes recently visited locations (bookmarked folders).
         /// </summary>
-        public IBookmarksViewModel RecentFolders { get; private set; }
+        public IBookmarksViewModel RecentFolders { get; }
 
         /// <summary>
         /// Expose a viewmodel that can represent a Folder-ComboBox drop down
         /// element similar to a web browser Uri drop down control but using
         /// local paths only.
         /// </summary>
-        public IFolderComboBoxViewModel FolderTextPath { get; private set; }
+        public IFolderComboBoxViewModel FolderTextPath { get; }
 
         /// <summary>
         /// Expose a viewmodel that can represent a Filter-ComboBox drop down
         /// similar to the top-right filter/search combo box in Windows Exploer windows.
         /// </summary>
-        public IFilterComboBoxViewModel Filters { get; private set; }
+        public IFilterComboBoxViewModel Filters { get; }
 
         /// <summary>
         /// Expose a viewmodel that can support a listview showing folders and files
         /// with their system specific icon.
         /// </summary>
-        public IFileListViewModel FolderItemsView { get; private set; }
+        public IFileListViewModel FolderItemsView { get; }
 
         /// <summary>
         /// Gets the viewmodel that drives the folder picker control.
         /// </summary>
-        public IBrowserViewModel TreeBrowser
-        {
-            get
-            {
-                return _TreeBrowser;
-            }
-        }
+        public IBrowserViewModel TreeBrowser { get;  }
 
         /// <summary>
         /// Gets the currently selected folder path string.
@@ -373,79 +374,28 @@ namespace FileListViewTest.ViewModels
         /// <param name="requestor"</param>
         public void NavigateToFolder(IPathModel itemPath)
         {
-            try
+            var t = new Task(async () =>
             {
-                TreeBrowser.SetExternalBrowsingState(true);
-                FolderItemsView.SetExternalBrowsingState(true);
-                FolderTextPath.SetExternalBrowsingState(true);
-                SelectedFolder = itemPath.Path;
+                await NavigateToFolderAsync(itemPath, null);
+            });
 
-                // Navigate TreeView to this file system location
-                TreeBrowser.NavigateTo(itemPath);
-
-                // Navigate Folder ComboBox to this file system location
-                FolderTextPath.NavigateTo(itemPath);
-
-                // Navigate Folder/File ListView to this file system location
-                FolderItemsView.NavigateTo(itemPath);
-            }
-            catch { }
-            finally
-            {
-                TreeBrowser.SetExternalBrowsingState(true);
-                FolderItemsView.SetExternalBrowsingState(false);
-                FolderTextPath.SetExternalBrowsingState(false);
-            }
+            t.RunSynchronously();
         }
 
         /// <summary>
-        /// Master controler interface method to navigate all views
-        /// to the folder indicated in <paramref name="folder"/>
-        /// - updates all related viewmodels.
+        /// Method executes when the user requests via UI bound command
+        /// to refresh the currently displayed list of items.
         /// </summary>
-        /// <param name="itemPath"></param>
-        /// <param name="requestor"</param>
-        private async Task NavigateToFolderAsync(IPathModel itemPath, object sender)
+        /// <returns></returns>
+        protected async Task RefreshCommand_ExecutedAsync(string path = null)
         {
             try
             {
-                TreeBrowser.SetExternalBrowsingState(true);
-                FolderItemsView.SetExternalBrowsingState(true);
-                FolderTextPath.SetExternalBrowsingState(true);
-                SelectedFolder = itemPath.Path;
-
-                if (TreeBrowser != sender)
-                {
-                    // Navigate TreeView to this file system location
-                    await TreeBrowser.NavigateToAsync(itemPath);
-                }
-
-                if (FolderTextPath != sender)
-                {
-                    // Navigate Folder ComboBox to this file system location
-                    await FolderTextPath.NavigateToAsync(itemPath);
-                }
-
-                if (FolderItemsView != sender)
-                {
-                    // Navigate Folder/File ListView to this file system location
-                    await FolderItemsView.NavigateToAsync(itemPath);
-                }
-            }
-            catch{}
-            finally
-            {
-                TreeBrowser.SetExternalBrowsingState(true);
-                FolderItemsView.SetExternalBrowsingState(false);
-                FolderTextPath.SetExternalBrowsingState(false);
-            }
-        }
-
-        private async Task RefreshCommand_ExecutedAsync()
-        {
-            try
-            {
-                var location = PathFactory.Create(SelectedFolder);
+                IPathModel location = null;
+                if (path != null)
+                    location = PathFactory.Create(path);
+                else
+                    location = PathFactory.Create(FolderTextPath.CurrentFolder);
 
                 await NavigateToFolderAsync(location, null);
             }
@@ -500,48 +450,76 @@ namespace FileListViewTest.ViewModels
             }
         }
 
+        /// <summary>
+        /// Master controler interface method to navigate all views
+        /// to the folder indicated in <paramref name="folder"/>
+        /// - updates all related viewmodels.
+        /// </summary>
+        /// <param name="itemPath"></param>
+        /// <param name="requestor"</param>
+        private async Task NavigateToFolderAsync(IPathModel itemPath, object sender)
+        {
+            // Make sure the task always processes the last input but is not started twice
+            await SlowStuffSemaphore.WaitAsync();
+            try
+            {
+                TreeBrowser.SetExternalBrowsingState(true);
+                FolderItemsView.SetExternalBrowsingState(true);
+                FolderTextPath.SetExternalBrowsingState(true);
+                SelectedFolder = itemPath.Path;
+
+                if (TreeBrowser != sender)       // Navigate TreeView to this file system location
+                    TreeBrowser.NavigateTo(itemPath);
+
+                if (FolderTextPath != sender)    // Navigate Folder ComboBox to this folder
+                    FolderTextPath.NavigateTo(itemPath);
+
+                if (FolderItemsView != sender)   // Navigate Folder/File ListView to this folder
+                    FolderItemsView.NavigateTo(itemPath);
+            }
+            catch { }
+            finally
+            {
+                TreeBrowser.SetExternalBrowsingState(true);
+                FolderItemsView.SetExternalBrowsingState(false);
+                FolderTextPath.SetExternalBrowsingState(false);
+
+                SlowStuffSemaphore.Release();
+            }
+        }
+
         private void FolderTextPath_BrowseEvent(object sender,
                                                 FileSystemModels.Browse.BrowsingEventArgs e)
         {
-            var itemPath = e.Location;
+            var location = e.Location;
 
-            SelectedFolder = itemPath.Path;
+            SelectedFolder = location.Path;
 
             if (e.IsBrowsing == false && e.Result == BrowseResult.Complete)
             {
-                if (TreeBrowser != sender)
+                var t = new Task(async () =>
                 {
-                    // Navigate TreeView to this file system location
-                    TreeBrowser.NavigateTo(itemPath);
-                }
+                    await NavigateToFolderAsync(location, sender);
+                });
 
-                if (FolderTextPath != sender)
-                {
-                    // Navigate Folder ComboBox to this folder
-                    FolderTextPath.NavigateTo(itemPath);
-                }
-
-                if (FolderItemsView != sender)
-                {
-                    // Navigate Folder/File ListView to this folder
-                    FolderItemsView.NavigateTo(itemPath);
-                }
+                t.RunSynchronously();
             }
             else
             {
                 if (e.IsBrowsing == true)
                 {
+                    // The sender has messaged: "I am chnaging location..."
+                    // So, we set this property to tell the others:
+                    // 1) Don't change your location now (eg.: Disable UI)
+                    // 2) We'll be back to tell you the location when we know it
+                    if (TreeBrowser != sender)
+                        TreeBrowser.SetExternalBrowsingState(true);
+
                     if (FolderTextPath != sender)
-                    {
-                        // Navigate Folder ComboBox to this folder
                         FolderTextPath.SetExternalBrowsingState(true);
-                    }
 
                     if (FolderItemsView != sender)
-                    {
-                        // Navigate Folder/File ListView to this folder
                         FolderItemsView.SetExternalBrowsingState(true);
-                    }
                 }
             }
         }

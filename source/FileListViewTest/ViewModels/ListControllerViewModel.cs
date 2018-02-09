@@ -83,7 +83,10 @@ namespace FileListViewTest.ViewModels
             {
                 if (this.mRefreshCommand == null)
                     this.mRefreshCommand = new RelayCommand<object>
-                        (async (p) => await RefreshCommand_ExecutedAsync());
+                        (async (p) =>
+                        {
+                            await RefreshCommand_ExecutedAsync(p as string);
+                        });
 
                 return this.mRefreshCommand;
             }
@@ -395,11 +398,21 @@ namespace FileListViewTest.ViewModels
             }
         }
 
-        private async Task RefreshCommand_ExecutedAsync()
+        /// <summary>
+        /// Method executes when the user requests via UI bound command
+        /// to refresh the currently displayed list of items.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        private async Task RefreshCommand_ExecutedAsync(string path = null)
         {
             try
             {
-                var location = PathFactory.Create(SelectedFolder);
+                IPathModel location = null;
+                if (path != null)
+                    location = PathFactory.Create(path);
+                else
+                    location = PathFactory.Create(FolderTextPath.CurrentFolder);
 
                 await NavigateToFolderAsync(location, null);
             }

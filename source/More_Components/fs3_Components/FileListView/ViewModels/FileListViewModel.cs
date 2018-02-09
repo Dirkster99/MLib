@@ -154,7 +154,7 @@ namespace FileListView.ViewModels
         /// <summary>
         /// Expose properties to commands that work with the bookmarking of folders.
         /// </summary>
-        public IEditBookmarks BookmarkFolder { get; private set; }
+        public IEditBookmarks BookmarkFolder { get; }
 
         /// <summary>
         /// Gets/sets list of files and folders to be displayed in connected view.

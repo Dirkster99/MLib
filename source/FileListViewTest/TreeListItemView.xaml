@@ -36,7 +36,7 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-            <folders:FolderComboBox DataContext="{Binding FolderTextPath}"
+            <folders:FolderComboBox DataContext="{Binding FolderTextPath}" Name="PathTextInput"
                                     ItemsSource="{Binding CurrentItems, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                     SelectedItem="{Binding SelectedItem, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                     
@@ -53,6 +53,7 @@
             <ctrls:SplitItemsButton ToolTip="{x:Static fvloc:Strings.RefreshCommand_TT}"
                                     ItemsSource="{Binding RecentFolders.DropDownItems}"
                                     Command="{Binding RefreshCommand}"
+                                    CommandParameter="{Binding ElementName=PathTextInput, Path=Text}"
                                     IsOpen="{Binding RecentFolders.IsOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     DropDownMaxHeight="300"
                                     HorizontalAlignment="Left"
