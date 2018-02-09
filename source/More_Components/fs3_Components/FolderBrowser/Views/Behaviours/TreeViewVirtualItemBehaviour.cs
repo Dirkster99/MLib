@@ -62,7 +62,7 @@
         {
             try
             {
-                var tree = d as TreeView;
+                var tree = d as ItemsControl;
 
                 // Sanity check: Are we looking at the least required data we need?
                 var itemNode = e.NewValue as IParent;
@@ -82,7 +82,7 @@
                 // params look good so lets find the attached tree view (aka ItemsControl)
                 //var behavior = d as BringVirtualTreeViewItemIntoViewBehavior;
                 //var tree = behavior.AssociatedObject;
-                var currentParent = tree as ItemsControl;
+                var currentParent = tree;
 
                 // Now loop through each item in the array of bound path items and make sure they exist
                 for (int i = 0; i < newNode.Length; i++)
@@ -90,7 +90,14 @@
                     var node = newNode[i];
 
                     // first try the easy way
-                    var newParentObject = currentParent.ItemContainerGenerator.ContainerFromItem(node);
+                    DependencyObject newParentObject = null;
+                    try
+                    {
+                        newParentObject = currentParent.ItemContainerGenerator.ContainerFromItem(node);
+                    }
+                    catch
+                    {
+                    }
                     var newParent = newParentObject as TreeViewItem;
 
                     if (newParent == null)
