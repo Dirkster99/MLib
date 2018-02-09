@@ -190,9 +190,32 @@ RMDIR /S /Q "More_Components/fs3_Components/WPFProcessingLib\obj"
 ECHO.
 ECHO Deleting BIN and OBJ Folders in TestFileSystemModels
 ECHO.
-RMDIR /S /Q "More_Components/fs3_Components/TestFileSystemModels\\bin"
+RMDIR /S /Q "More_Components/fs3_Components/TestFileSystemModels\bin"
 RMDIR /S /Q "More_Components/fs3_Components/TestFileSystemModels\obj"
 
+ECHO.
+ECHO Deleting BIN and OBJ Folders in FileListView
+ECHO.
+RMDIR /S /Q "More_Components/fs3_Components/FileListView\bin"
+RMDIR /S /Q "More_Components/fs3_Components/FileListView\obj"
+
+ECHO.
+ECHO Deleting BIN and OBJ Folders in FilterControlsLib
+ECHO.
+RMDIR /S /Q "More_Components/fs3_Components/FilterControlsLib\bin"
+RMDIR /S /Q "More_Components/fs3_Components/FilterControlsLib\obj"
+
+ECHO.
+ECHO Deleting BIN and OBJ Folders in FolderControlsLib
+ECHO.
+RMDIR /S /Q "More_Components/fs3_Components/FolderControlsLib\bin"
+RMDIR /S /Q "More_Components/fs3_Components/FolderControlsLib\obj"
+
+ECHO.
+ECHO Deleting BIN and OBJ Folders in FileListViewTest
+ECHO.
+RMDIR /S /Q "FileListViewTest\bin"
+RMDIR /S /Q "FileListViewTest\obj"
 
 
 PAUSE
