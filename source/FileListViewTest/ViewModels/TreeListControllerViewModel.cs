@@ -73,13 +73,16 @@ namespace FileListViewTest.ViewModels
             // This is fired when the current folder in the listview changes to another existing folder
             this.FolderItemsView.BrowseEvent += FolderTextPath_BrowseEvent;
 
-            // This is fired when the user requests to add a folder into the list of recently visited folders
+            // Event fires when the user requests to add a folder into the list of recently visited folders
             this.FolderItemsView.BookmarkFolder.RequestEditBookmarkedFolders += this.FolderItemsView_RequestEditBookmarkedFolders;
 
             // This event is fired when a user opens a file
             this.FolderItemsView.OnFileOpen += this.FolderItemsView_OnFileOpen;
 
             TreeBrowser.BrowseEvent += FolderTextPath_BrowseEvent;
+
+            // Event fires when the user requests to add a folder into the list of recently visited folders
+            TreeBrowser.BookmarkFolder.RequestEditBookmarkedFolders += this.FolderItemsView_RequestEditBookmarkedFolders;
         }
         #endregion constructor
 

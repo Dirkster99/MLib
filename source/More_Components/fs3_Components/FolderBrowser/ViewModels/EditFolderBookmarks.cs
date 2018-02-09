@@ -36,6 +36,7 @@
         {
             get
             {
+                // Command requires a registered event listner to be present
                 if (this.RequestEditBookmarkedFolders != null)
                     return true;
 
