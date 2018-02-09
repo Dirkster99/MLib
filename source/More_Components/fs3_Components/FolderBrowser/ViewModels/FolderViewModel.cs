@@ -47,9 +47,6 @@
         }
         #endregion constructor
 
-        #region properties
-        #endregion properties
-
         #region methods
         /// <summary>
         /// Load all sub-folders into the Folders collection of the

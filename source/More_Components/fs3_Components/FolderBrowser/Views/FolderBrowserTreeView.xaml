@@ -18,6 +18,32 @@
              >
     <UserControl.Resources>
         <conv:UpdateBindingConverter x:Key="UpdateBindingConverter" />
+
+        <Style x:Key="TreeViewStyle"
+               TargetType="{x:Type TreeView}"
+               BasedOn="{StaticResource {x:Type TreeView}}" >
+            <Setter Property="TreeView.Background" Value="Transparent"/>
+            <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="True"/>
+            <Setter Property="VirtualizingStackPanel.VirtualizationMode" Value="Recycling"/>
+            <Setter Property="TreeView.SnapsToDevicePixels" Value="True" />
+            <Setter Property="TreeView.OverridesDefaultStyle" Value="True" />
+            <Setter Property="ItemsControl.ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel IsItemsHost="True"/>
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="TreeView.Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TreeView">
+                        <ScrollViewer Focusable="False" CanContentScroll="True" Padding="3">
+                            <ItemsPresenter HorizontalAlignment="Stretch"/>
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
 
     <Grid Background="{DynamicResource {x:Static reskeys:ResourceKeys.TreeViewBackgroundKey}}"
@@ -25,18 +51,20 @@
         <!-- The treeview of folders -->
         <TreeView behav:TreeViewSelectionChangedBehavior.ChangedCommand="{Binding SelectedFolderChangedCommand}"
                   behav:TreeViewVirtualItemBehaviour.SelectedItem="{Binding SelectedItem,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
-                  
+
+                  Style="{StaticResource TreeViewStyle}"
                   VirtualizingPanel.IsVirtualizing="True"
                   VirtualizingPanel.VirtualizationMode="Standard"
+                  ItemsSource="{Binding Root, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
               >
-            <TreeView.ItemsSource>
+            <!--TreeView.ItemsSource>
                 <MultiBinding Converter="{StaticResource UpdateBindingConverter}">
-                    <!-- First argument controls update of binding on 2nd argument-->
+                    - First argument controls update of binding on 2nd argument-
                     <Binding Path="IsLoaded"  RelativeSource="{RelativeSource Self}" />
                     <Binding Path="UpdateView" UpdateSourceTrigger="PropertyChanged" Mode="OneWay" />
                     <Binding Path="Root" UpdateSourceTrigger="PropertyChanged" Mode="OneWay" />
                 </MultiBinding>
-            </TreeView.ItemsSource>
+            </TreeView.ItemsSource-->
             <TreeView.Resources>
                 <!-- Use a proxy to bind items to root properties of this collection -->
                 <bindLocal:BindingProxy x:Key="DataContextProxy"  Data="{Binding}" />
@@ -142,9 +170,9 @@
             </TreeView.ItemTemplate>
             <TreeView.ItemContainerStyle>
                 <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource {x:Type TreeViewItem}}">
-                    <Setter Property="behav:TreeViewItemExpanded.Command" Value="{Binding Path=Data.ExpandCommand, Source={StaticResource DataContextProxy}}" />
+                    <Setter Property="behav:TreeViewItemExpanded.Command" Value="{Binding Path=Data.ExpandCommand, Source={StaticResource DataContextProxy},Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" />
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <!--Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" /-->
                 </Style>
             </TreeView.ItemContainerStyle>
         </TreeView>

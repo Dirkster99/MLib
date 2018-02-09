@@ -5,11 +5,11 @@
     /// <summary>
     /// Interaction logic for FileListItemView.xaml
     /// </summary>
-    public partial class FileListItemView : UserControl
-  {
-    public FileListItemView()
+    public partial class TreeListItemView : UserControl
     {
-      InitializeComponent();
+        public TreeListItemView()
+        {
+            InitializeComponent();
+        }
     }
-  }
 }

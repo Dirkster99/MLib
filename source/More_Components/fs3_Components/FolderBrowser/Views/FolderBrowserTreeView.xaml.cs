@@ -1,5 +1,6 @@
 namespace FolderBrowser.Views
 {
+    using FileSystemModels;
     using FolderBrowser.Interfaces;
     using System.Windows.Controls;
 
@@ -30,6 +31,33 @@ namespace FolderBrowser.Views
 
             if (vm != null)
                 vm.BrowsePath(vm.InitialPath);
+            else
+            {
+                if (DataContext != null)
+                    System.Console.WriteLine("FolderBrowserTreeView: Attached vm is: {0}", DataContext.ToString());
+                else
+                {
+                    System.Console.WriteLine("FolderBrowserTreeView: No Vm Attached!");
+                    this.DataContextChanged += FolderBrowserTreeView_DataContextChangedAsync;
+                }
+            }
+        }
+
+        private async void FolderBrowserTreeView_DataContextChangedAsync(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
+        {
+            this.DataContextChanged -= FolderBrowserTreeView_DataContextChangedAsync;
+
+            var vm = e.NewValue as IBrowserViewModel;
+
+            if (vm != null)
+            {
+                if (string.IsNullOrEmpty(vm.InitialPath) == false)
+                {
+                    System.Console.WriteLine("FolderBrowserTreeView: Browsing Path on DataContextChanged: '{0}'", vm.InitialPath);
+
+                    await vm.NavigateToAsync(PathFactory.Create(vm.InitialPath));
+                }
+            }
         }
     }
 }

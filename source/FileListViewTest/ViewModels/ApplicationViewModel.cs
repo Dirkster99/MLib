@@ -24,21 +24,17 @@ namespace FileListViewTest.ViewModels
         /// </summary>
         public ApplicationViewModel()
         {
-            this.FolderView = FileListViewTestFactory.Create();
+            FolderView = FileListViewTestFactory.CreateList();
+            FolderTreeView = FileListViewTestFactory.CreateTreeList();
 
-            this.FolderView.AddRecentFolder(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
-            this.FolderView.AddRecentFolder(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), true);
+            FolderView.AddRecentFolder(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
+            FolderView.AddRecentFolder(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), true);
 
-            this.FolderView.AddFilter("Executeable files", "*.exe;*.bat");
-            this.FolderView.AddFilter("Image files", "*.png;*.jpg;*.jpeg");
-            this.FolderView.AddFilter("LaTex files", "*.tex");
-            this.FolderView.AddFilter("Text files", "*.txt");
-            this.FolderView.AddFilter("All Files", "*.*");
-        }
-
-        internal void InitializeViewModel(IPathModel path)
-        {
-            FolderView.NavigateToFolder(path);
+            FolderView.AddFilter("Executeable files", "*.exe;*.bat");
+            FolderView.AddFilter("Image files", "*.png;*.jpg;*.jpeg");
+            FolderView.AddFilter("LaTex files", "*.tex");
+            FolderView.AddFilter("Text files", "*.txt");
+            FolderView.AddFilter("All Files", "*.*");
         }
         #endregion constructor
 
@@ -47,7 +43,9 @@ namespace FileListViewTest.ViewModels
         /// Expose a viewmodel that controls the combobox folder drop down
         /// and the folder/file list view.
         /// </summary>
-        public IControllerListViewModel FolderView { get; set; }
+        public IListControllerViewModel FolderView { get; }
+
+        public ITreeListControllerViewModel FolderTreeView { get; }
 
         #region Commands for test case without folderBrowser
         /// <summary>
@@ -87,6 +85,17 @@ namespace FileListViewTest.ViewModels
 
         #region methods
         /// <summary>
+        /// Call this method to initialize viewmodel items that might need to display
+        /// progress information (e.g. call this in OnLoad() method of view)
+        /// </summary>
+        /// <param name="path"></param>
+        internal void InitializeViewModel(IPathModel path)
+        {
+            FolderView.NavigateToFolder(path);
+            FolderTreeView.NavigateToFolder(path);
+        }
+
+        /// <summary>
         /// Free resources (if any) when application exits.
         /// </summary>
         internal void ApplicationClosed()
@@ -97,7 +106,7 @@ namespace FileListViewTest.ViewModels
         private void AddRecentFolder_Executed(object p)
         {
             string path;
-            IControllerListViewModel vm;
+            IListControllerViewModel vm;
             
             this.ResolveParameterList(p as List<object>, out path, out vm);
             
@@ -128,7 +137,7 @@ namespace FileListViewTest.ViewModels
         private void RemoveRecentFolder_Executed(object p)
         {
             string path;
-            IControllerListViewModel vm;
+            IListControllerViewModel vm;
 
             this.ResolveParameterList(p as List<object>, out path, out vm);
 
@@ -146,7 +155,7 @@ namespace FileListViewTest.ViewModels
         /// <param name="path"></param>
         /// <param name="vm"></param>
         private void ResolveParameterList(List<object> l,
-                                          out string path, out IControllerListViewModel vm)
+                                          out string path, out IListControllerViewModel vm)
         {
             path = null;
             vm = null;
@@ -164,12 +173,12 @@ namespace FileListViewTest.ViewModels
                         path = pathItem.FullPath;
                 }
                 else
-                    if (item is IControllerListViewModel)
+                    if (item is IListControllerViewModel)
                     {
-                        var vmItem = item as IControllerListViewModel;
+                        var vmItem = item as IListControllerViewModel;
 
                         if (vmItem != null)
-                            vm = item as IControllerListViewModel;
+                            vm = item as IListControllerViewModel;
                     }
             }
 

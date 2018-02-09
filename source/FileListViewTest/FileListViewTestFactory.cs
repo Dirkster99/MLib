@@ -9,12 +9,17 @@
         { }
 
         /// <summary>
-        /// Creates a <see cref="IControllerListViewModel"/> instance and returns it.
+        /// Creates a <see cref="IListControllerViewModel"/> instance and returns it.
         /// </summary>
         /// <returns></returns>
-        public static IControllerListViewModel Create()
+        public static IListControllerViewModel CreateList()
         {
-            return new ControllerListViewModel();
+            return new ListControllerViewModel();
+        }
+
+        public static ITreeListControllerViewModel CreateTreeList()
+        {
+            return new TreeListControllerViewModel();
         }
     }
 }

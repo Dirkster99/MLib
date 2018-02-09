@@ -351,7 +351,23 @@
                 {
                     _SelectedFolderChangedCommand = new RelayCommand<object>((p) =>
                     {
-                        SelectedItem = (p as ITreeItemViewModel);
+                        var param = p as ITreeItemViewModel;
+
+                        if (param != null)
+                        {
+                            SelectedItem = param;
+
+                            try
+                            {
+                                var location = PathFactory.Create(param.ItemPath);
+                                if (BrowseEvent != null)
+                                    BrowseEvent(this, new BrowsingEventArgs(location, false, BrowseResult.Complete));
+                            }
+                            catch
+                            {
+                            }
+
+                        }
                     });
                 }
 
@@ -370,8 +386,10 @@
                 {
                     _ExpandCommand = new RelayCommand<object>((p) =>
                     {
-                        if (IsBrowsing == true) // This can is probably not relevant since the
-                            return;            // viewmodel is currently driving the view ...
+                        if (IsBrowsing == true) // This is probably not relevant since the
+                        {                      // viewmodel is currently processing a navigation
+                            return;           // request to browse the view to a new location...
+                        }
 
                         var expandedItem = p as ITreeItemViewModel;
 
@@ -518,6 +536,7 @@
         /// 
         /// Expected parameter: string containing a path to be browsed to.
         /// </summary>
+        [System.Obsolete("This is no longer supported.")]
         public ICommand FolderSelectedCommand
         {
             get
@@ -720,9 +739,43 @@
         /// </summary>
         /// <param name="newPath"></param>
         /// <returns></returns>
-        bool INavigateable.NavigateTo(IPathModel location)
+        public bool NavigateTo(IPathModel location)
         {
-            return BrowsePath(location, false);
+            CancellationTokenSource cts = null;
+            bool BrowseMessage = false;
+            try
+            {
+                IsBrowsing = true;
+
+                if (BrowseMessage == true)
+                {
+                    if (BrowseEvent != null)   // Tell subscribers that we started browsing this directory
+                        BrowseEvent(this, new BrowsingEventArgs(location, true));
+                }
+
+                IsBrowseViewEnabled = UpdateView = false;
+
+                SetInitialDrives(cts);
+
+////                        if (cts != null)
+////                            cts.Token.ThrowIfCancellationRequested();
+////
+                InternalBrowsePath(location.Path, true, cts);
+
+                return true;
+            }
+            finally
+            {
+                // Make sure that view updates at the end of browsing process
+                IsBrowsing = false;
+                IsBrowseViewEnabled = UpdateView = true;
+
+                if (BrowseMessage == true)
+                {
+                    if (BrowseEvent != null)   // Tell subscribers that we started browsing this directory
+                        BrowseEvent(this, new BrowsingEventArgs(location, false, BrowseResult.Complete));
+                }
+            }
         }
 
         /// <summary>
@@ -730,9 +783,12 @@
         /// </summary>
         /// <param name="newPath"></param>
         /// <returns></returns>
-        async Task<bool> INavigateable.NavigateToAsync(IPathModel newPath)
+        async Task<bool> INavigateable.NavigateToAsync(IPathModel location)
         {
-            return await Task.Run(() => { return BrowsePath(newPath, false); });
+            return await Task.Run(() =>
+            {
+                return NavigateTo(location);
+            });
         }
 
         /// <summary>
@@ -742,7 +798,7 @@
         /// <param name="isBrowsing"></param>
         public void SetExternalBrowsingState(bool isBrowsing)
         {
-            IsBrowsing = isBrowsing;
+            IsExternallyBrowsing = isBrowsing;
         }
 
         /// <summary>
@@ -804,33 +860,6 @@
             }, ProcessFinishedEvent, "This process is already running.");
         }
 
-        private bool BrowsePath(IPathModel location,
-                                bool ResetBrowserStatus = true)
-        {
-            try
-            {
-                IsBrowsing = true;
-                IsBrowseViewEnabled = UpdateView = false;
-
-                ClearFoldersCollections();
-                SetInitialDrives(null);
-
-                InternalBrowsePath(location.Path, ResetBrowserStatus, null);
-            }
-            catch
-            {
-                return false;
-            }
-            finally
-            {
-                // Make sure that view updates at the end of browsing process
-                IsBrowsing = false;
-                IsBrowseViewEnabled = UpdateView = true;
-            }
-
-            return true;
-        }
-
         private bool InternalBrowsePath(string path,
                                         bool ResetBrowserStatus,
                                         CancellationTokenSource cts = null)
@@ -885,22 +914,22 @@
         /// </summary>
         private void SetInitialDrives(CancellationTokenSource cts = null)
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            ClearFoldersCollections();
+
+            var items = DriveModel.GetLogicalDrives().ToList();
+
+            foreach (var item in items)
             {
-                _Root.Clear();
+                if (cts != null)
+                    cts.Token.ThrowIfCancellationRequested();
 
-                var items = DriveModel.GetLogicalDrives().ToList();
+                var vmItem = new DriveViewModel(item.Model, null);
 
-                foreach (var item in items)
+                Application.Current.Dispatcher.Invoke(() =>
                 {
-                    if (cts != null)
-                        cts.Token.ThrowIfCancellationRequested();
-
-                    var vmItem = new DriveViewModel(item.Model, null);
-
                     _Root.AddItem(vmItem);
-                }
-            });
+                });
+            }
         }
 
         private void ClearFoldersCollections()

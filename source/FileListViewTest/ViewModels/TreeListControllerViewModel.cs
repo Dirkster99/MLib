@@ -13,18 +13,22 @@ namespace FileListViewTest.ViewModels
     using FileSystemModels.Interfaces.Bookmark;
     using FileSystemModels.Models;
     using FilterControlsLib.Interfaces;
+    using FolderBrowser.Interfaces;
     using FolderControlsLib.Interfaces;
 
     /// <summary>
-    /// Class implements a folder/file view model class
-    /// that can be used to dispaly filesystem related content in an ItemsControl.
+    /// Class implements a tree/folder/file view model class
+    /// that can be used to dispaly filesystem related content in a view or dialog.
+    /// 
+    /// Common Sample dialogs are file pickers for load/save etc.
     /// </summary>
-    internal class ControllerListViewModel : Base.ViewModelBase, IControllerListViewModel
+    internal class TreeListControllerViewModel : Base.ViewModelBase, ITreeListControllerViewModel
     {
         #region fields
         private string _SelectedFolder = string.Empty;
         private object _LockObject = new object();
         private ICommand mRefreshCommand;
+        private readonly IBrowserViewModel _TreeBrowser;
         #endregion fields
 
         #region constructor
@@ -32,7 +36,7 @@ namespace FileListViewTest.ViewModels
         /// Custom class constructor
         /// </summary>
         /// <param name="onFileOpenMethod"></param>
-        public ControllerListViewModel(System.EventHandler<FileOpenEventArgs> onFileOpenMethod)
+        public TreeListControllerViewModel(System.EventHandler<FileOpenEventArgs> onFileOpenMethod)
           : this()
         {
             // Remove the standard constructor event that is fired when a user opens a file
@@ -46,11 +50,12 @@ namespace FileListViewTest.ViewModels
         /// <summary>
         /// Class constructor
         /// </summary>
-        public ControllerListViewModel()
+        public TreeListControllerViewModel()
         {
             FolderItemsView = FileListView.Factory.CreateFileListViewModel(new BrowseNavigation());
             FolderTextPath = FolderControlsLib.Factory.CreateFolderComboBoxVM();
             RecentFolders = FileSystemModels.Factory.CreateBookmarksViewModel();
+            _TreeBrowser = FolderBrowser.FolderBrowserFactory.CreateBrowserViewModel(false, "C:\\");
 
             // This is fired when the user selects a new folder bookmark from the drop down button
             RecentFolders.BrowseEvent += FolderTextPath_BrowseEvent;
@@ -69,6 +74,8 @@ namespace FileListViewTest.ViewModels
 
             // This event is fired when a user opens a file
             this.FolderItemsView.OnFileOpen += this.FolderItemsView_OnFileOpen;
+
+            TreeBrowser.BrowseEvent += FolderTextPath_BrowseEvent;
         }
         #endregion constructor
 
@@ -129,6 +136,17 @@ namespace FileListViewTest.ViewModels
         /// with their system specific icon.
         /// </summary>
         public IFileListViewModel FolderItemsView { get; private set; }
+
+        /// <summary>
+        /// Gets the viewmodel that drives the folder picker control.
+        /// </summary>
+        public IBrowserViewModel TreeBrowser
+        {
+            get
+            {
+                return _TreeBrowser;
+            }
+        }
 
         /// <summary>
         /// Gets the currently selected folder path string.
@@ -355,9 +373,29 @@ namespace FileListViewTest.ViewModels
         /// <param name="requestor"</param>
         public void NavigateToFolder(IPathModel itemPath)
         {
-            var t = new Task(async () => { await NavigateToFolderAsync(itemPath, null); });
+            try
+            {
+                TreeBrowser.SetExternalBrowsingState(true);
+                FolderItemsView.SetExternalBrowsingState(true);
+                FolderTextPath.SetExternalBrowsingState(true);
+                SelectedFolder = itemPath.Path;
 
-            t.RunSynchronously();
+                // Navigate TreeView to this file system location
+                TreeBrowser.NavigateTo(itemPath);
+
+                // Navigate Folder ComboBox to this file system location
+                FolderTextPath.NavigateTo(itemPath);
+
+                // Navigate Folder/File ListView to this file system location
+                FolderItemsView.NavigateTo(itemPath);
+            }
+            catch { }
+            finally
+            {
+                TreeBrowser.SetExternalBrowsingState(true);
+                FolderItemsView.SetExternalBrowsingState(false);
+                FolderTextPath.SetExternalBrowsingState(false);
+            }
         }
 
         /// <summary>
@@ -371,25 +409,33 @@ namespace FileListViewTest.ViewModels
         {
             try
             {
+                TreeBrowser.SetExternalBrowsingState(true);
                 FolderItemsView.SetExternalBrowsingState(true);
                 FolderTextPath.SetExternalBrowsingState(true);
                 SelectedFolder = itemPath.Path;
 
+                if (TreeBrowser != sender)
+                {
+                    // Navigate TreeView to this file system location
+                    await TreeBrowser.NavigateToAsync(itemPath);
+                }
+
                 if (FolderTextPath != sender)
                 {
-                    // Navigate Folder ComboBox to this folder
+                    // Navigate Folder ComboBox to this file system location
                     await FolderTextPath.NavigateToAsync(itemPath);
                 }
 
                 if (FolderItemsView != sender)
                 {
-                    // Navigate Folder/File ListView to this folder
+                    // Navigate Folder/File ListView to this file system location
                     await FolderItemsView.NavigateToAsync(itemPath);
                 }
             }
             catch{}
             finally
             {
+                TreeBrowser.SetExternalBrowsingState(true);
                 FolderItemsView.SetExternalBrowsingState(false);
                 FolderTextPath.SetExternalBrowsingState(false);
             }
@@ -463,6 +509,12 @@ namespace FileListViewTest.ViewModels
 
             if (e.IsBrowsing == false && e.Result == BrowseResult.Complete)
             {
+                if (TreeBrowser != sender)
+                {
+                    // Navigate TreeView to this file system location
+                    TreeBrowser.NavigateTo(itemPath);
+                }
+
                 if (FolderTextPath != sender)
                 {
                     // Navigate Folder ComboBox to this folder

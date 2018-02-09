@@ -7,7 +7,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
 
-                <ResourceDictionary Source="/FolderBrowser;component/Images/GenericIcons.xaml" />
+                <ResourceDictionary Source="/FolderBrowser;component/Themes/Generic.xaml" />
                 <ResourceDictionary Source="/FileListView;component/Images/GenericIcons.xaml" />
 
             </ResourceDictionary.MergedDictionaries>

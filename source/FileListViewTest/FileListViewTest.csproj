@@ -94,17 +94,26 @@
     <Compile Include="FileListItemOptionsView.xaml.cs">
       <DependentUpon>FileListItemOptionsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TreeListItemView.xaml.cs">
+      <DependentUpon>TreeListItemView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FileListItemView.xaml.cs">
       <DependentUpon>FileListItemView.xaml</DependentUpon>
     </Compile>
     <Compile Include="FileListViewTestFactory.cs" />
-    <Compile Include="Interfaces\IControllerListViewModel.cs" />
+    <Compile Include="Interfaces\ITreeListControllerViewModel.cs" />
+    <Compile Include="Interfaces\IListControllerViewModel.cs" />
     <Compile Include="ViewModels\ApplicationViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
-    <Compile Include="ViewModels\ControllerListViewModel.cs" />
+    <Compile Include="ViewModels\TreeListControllerViewModel.cs" />
+    <Compile Include="ViewModels\ListControllerViewModel.cs" />
     <Page Include="FileListItemOptionsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TreeListItemView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="FileListItemView.xaml">
       <SubType>Designer</SubType>

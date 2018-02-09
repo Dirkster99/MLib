@@ -43,7 +43,6 @@
             obj.SetValue(SelectedItemProperty, value);
         }
 
-
         private static readonly DependencyProperty SelectedItemProperty =
             DependencyProperty.RegisterAttached("SelectedItem"
                 , typeof(IParent)

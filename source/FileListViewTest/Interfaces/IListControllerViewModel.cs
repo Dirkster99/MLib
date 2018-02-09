@@ -10,7 +10,7 @@ namespace FileListViewTest.Interfaces
     /// Interface implements a folder/file view model class
     /// that can be used to dispaly filesystem related content in an ItemsControl.
     /// </summary>
-    public interface IControllerListViewModel : IConfigExplorerSettings
+    public interface IListControllerViewModel : IConfigExplorerSettings
     {
         #region properties
         /// <summary>
