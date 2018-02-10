@@ -365,12 +365,12 @@
         /// <summary>
         /// Load all sub-folders into the Folders collection.
         /// </summary>
-        public virtual void LoadFolders()
+        public virtual void ChildrenLoad()
         {
             throw new NotImplementedException();
         }
 
-        public virtual Task<int> LoadChildrenAsync()
+        public virtual Task<int> ChildrenLoadAsync()
         {
             throw new NotImplementedException();
         }
@@ -388,7 +388,7 @@
         /// <summary>
         /// Remove all sub-folders from a given folder.
         /// </summary>
-        public void ClearFolders()
+        public void ChildrenClear()
         {
             Application.Current.Dispatcher.Invoke(() =>
             {

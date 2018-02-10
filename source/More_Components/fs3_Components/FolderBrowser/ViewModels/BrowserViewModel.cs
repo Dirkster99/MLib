@@ -626,8 +626,8 @@
                         {
                             var item = expandedItem as TreeItemViewModel;
 
-                            item.ClearFolders();  // Requery sub-folders of this item
-                            await item.LoadChildrenAsync();
+                            item.ChildrenClear();  // Requery sub-folders of this item
+                            await item.ChildrenLoadAsync();
                         }
                     }
                     finally
@@ -662,8 +662,8 @@
         {
             await Task.Run(() => 
             {
-                expandedItem.ClearFolders();  // Requery sub-folders of this item
-                expandedItem.LoadFolders();
+                expandedItem.ChildrenClear();  // Requery sub-folders of this item
+                expandedItem.ChildrenLoad();
             });
 
             return true;
@@ -790,84 +790,18 @@
         /// <param name="newPath"></param>
         /// <returns></returns>
         private bool NavigateTo(IPathModel location,
-                                bool BrowseMessage,
                                 bool ResetBrowserStatus = true)
         {
             CancellationTokenSource cts = null;
-            try
+            bool ret = false;
+            var t = new Task(async () =>
             {
                 IsBrowsing = true;
-
-                if (BrowseMessage == true)
-                {
-                    if (BrowseEvent != null)   // Tell subscribers that we started browsing this directory
-                        BrowseEvent(this, new BrowsingEventArgs(location, true));
-                }
-
                 IsBrowseViewEnabled = UpdateView = false;
 
-                bool ret = false;
-                var t = new Task(async () =>
-                {
-                    ret = await InternalBrowsePathAsync(location.Path, ResetBrowserStatus, cts);
-                });
-
-                t.RunSynchronously();
-
-                return ret;
-            }
-            finally
-            {
-                // Make sure that view updates at the end of browsing process
-                IsBrowsing = false;
-                IsBrowseViewEnabled = UpdateView = true;
-
-                if (BrowseMessage == true)
-                {
-                    if (BrowseEvent != null)   // Tell subscribers that we started browsing this directory
-                        BrowseEvent(this, new BrowsingEventArgs(location, false, BrowseResult.Complete));
-                }
-            }
-        }
-/***
-        /// <summary>
-        /// Call this method from the OnLoad method of the view
-        /// in order to initialize a location as soon as the view
-        /// is visible.
-        /// </summary>
-        /// <param name="path"></param>
-        /// <param name="ResetBrowserStatus"></param>
-        public void BrowsePath(string path,
-                               bool ResetBrowserStatus = true)
-        {
-            IPathModel location = null;
-            try
-            {
-                location = PathFactory.Create(path);
-            }
-            catch
-            {
-                return;
-            }
-
-            _Processor.StartCancelableProcess(cts =>
-            {
                 try
                 {
-                    IsBrowsing = true;
-
-                    if (BrowseEvent != null)   // Tell subscribers that we started browsing this directory
-                        BrowseEvent(this, new BrowsingEventArgs(location, true));
-
-                    IsBrowseViewEnabled = UpdateView = false;
-                    
-                    ClearFoldersCollections();
-                    SetInitialDrives(cts);
-
-                    if (cts != null)
-                        cts.Token.ThrowIfCancellationRequested();
-
-                    InternalBrowsePath(path, ResetBrowserStatus, cts);
+                    ret = await InternalBrowsePathAsync(location.Path, ResetBrowserStatus, cts);
                 }
                 finally
                 {
@@ -875,68 +809,10 @@
                     IsBrowsing = false;
                     IsBrowseViewEnabled = UpdateView = true;
                 }
-
-            }, ProcessFinishedEvent, "This process is already running.");
-        }
-**/
-        private async Task<bool> InternalBrowsePathAsync(string path,
-                                        bool ResetBrowserStatus,
-                                        CancellationTokenSource cts = null)
-        {
-            if (ResetBrowserStatus == true)
-                ClearBrowserStates();
-
-            if (System.IO.Directory.Exists(path) == false)
-            {
-                DisplayMessage.IsErrorMessageAvailable = true;
-                DisplayMessage.Message = string.Format(FileSystemModels.Local.Strings.STR_ERROR_FOLDER_DOES_NOT_EXIST, path);
-                return false;
-            }
-
-            if (_Root.Count == 0)        // Make sure drives are available
-                SetInitialDrives(cts);
-            
-            if (cts != null)
-                cts.Token.ThrowIfCancellationRequested();
-
-            var pathItem = await SelectDirectory(PathFactory.Create(path, FSItemType.Folder), cts);
-
-            if (pathItem != null)
-            {
-                if (pathItem.Length > 0)
-                    SelectedItem = pathItem[pathItem.Length-1];
-
-                return true;
-            }
-
-            return false;
-        }
-
-        private void AddFolder(string name, ITreeItemViewModel folder)
-        {
-           Application.Current.Dispatcher.Invoke(() =>
-           {
-                _Root.AddItem(folder);
             });
-        }
+            t.RunSynchronously();
 
-        private void InitializeSpecialFolders()
-        {
-            _SpecialFolders = new ObservableCollection<ICustomFolderItemViewModel>();
-
-            _SpecialFolders.Add(new CustomFolderItemViewModel(Environment.SpecialFolder.Desktop));
-            _SpecialFolders.Add(new CustomFolderItemViewModel(Environment.SpecialFolder.MyDocuments));
-            _SpecialFolders.Add(new CustomFolderItemViewModel(Environment.SpecialFolder.MyMusic));
-            _SpecialFolders.Add(new CustomFolderItemViewModel(Environment.SpecialFolder.MyPictures));
-            _SpecialFolders.Add(new CustomFolderItemViewModel(Environment.SpecialFolder.MyVideos));
-        }
-
-        private FolderViewModel CreateFolderItem(IPathModel model,
-                                                 ITreeItemViewModel parent)
-        {
-            var f = new FolderViewModel(model, parent);
-
-            return f;
+            return ret;
         }
 
         /// <summary>
@@ -970,6 +846,39 @@
             });
         }
 
+        private async Task<bool> InternalBrowsePathAsync(string path,
+                                                         bool ResetBrowserStatus,
+                                                         CancellationTokenSource cts = null)
+        {
+            if (ResetBrowserStatus == true)
+                ClearBrowserStates();
+
+            if (System.IO.Directory.Exists(path) == false)
+            {
+                DisplayMessage.IsErrorMessageAvailable = true;
+                DisplayMessage.Message = string.Format(FileSystemModels.Local.Strings.STR_ERROR_FOLDER_DOES_NOT_EXIST, path);
+                return false;
+            }
+
+            if (_Root.Count == 0)        // Make sure drives are available
+                SetInitialDrives(cts);
+
+            if (cts != null)
+                cts.Token.ThrowIfCancellationRequested();
+
+            var pathItem = await SelectDirectory(PathFactory.Create(path, FSItemType.Folder), cts);
+
+            if (pathItem != null)
+            {
+                if (pathItem.Length > 0)
+                    SelectedItem = pathItem[pathItem.Length - 1];
+
+                return true;
+            }
+
+            return false;
+        }
+
         internal async Task<ITreeItemViewModel[]> SelectDirectory(
             IPathModel inputPath,
             CancellationTokenSource cts = null)
@@ -984,7 +893,6 @@
 
                 // Transform string into array of normalized path elements
                 // Drive 'C:\' , 'Folder', 'SubFolder', etc...
-                //
                 var folders = PathFactory.GetDirectories(inputPath.Path);
 
                 if (folders != null)
@@ -1016,7 +924,7 @@
             for (; iNext < folders.Count(); iNext++)
             {
                 if (parent.HasDummyChild == true)
-                    await parent.LoadChildrenAsync();
+                    await parent.ChildrenLoadAsync();
 
                 var nextChild = parent.ChildTryGet(folders[iNext]);
 
@@ -1030,38 +938,6 @@
             }
 
             return pathFolders;
-        }
-
-        private ITreeItemViewModel MergeFolders(ITreeItemViewModel root,
-                                            string[] dirs,
-                                            string accumulatedPath,
-                                            List<ITreeItemViewModel> PathItems)
-        {
-            ITreeItemViewModel nextRoot = null;
-
-            int i = 1;
-            for (; i < dirs.Length; i++)
-            {
-                accumulatedPath = accumulatedPath + "/" + dirs[i];
-
-                nextRoot = root.ChildTryGet(dirs[i]);
-
-                if (nextRoot == null)
-                {
-                    (root as TreeItemViewModel).LoadFolders();     // Refresh children of this node
-
-                    nextRoot = root.ChildTryGet(dirs[i]);
-
-                    // Find Folder in which we will have to insert this
-                    if (nextRoot == null)
-                        return root;
-                }
-
-                PathItems.Add(nextRoot);
-                root = nextRoot;
-            }
-
-            return root;
         }
 
         /// <summary>
@@ -1079,9 +955,6 @@
             var item = parentFolder.CreateNewDirectory();
             var newSubFolder = item as FolderViewModel;
             SelectedItem = newSubFolder;
-
-            ////this.SelectedFolder = newSubFolder.FolderPath;
-            ////this.SetSelectedFolder(newSubFolder.FolderPath, true);
 
             if (newSubFolder != null)
             {
@@ -1103,21 +976,20 @@
             DisplayMessage.IsErrorMessageAvailable = false;
         }
 
-        private void ProcessFinishedEvent(bool processWasSuccessful, Exception exp, string caption)
+        private void InitializeSpecialFolders()
         {
-            IPathModel location = null;
+            _SpecialFolders = new ObservableCollection<ICustomFolderItemViewModel>();
+
             try
             {
-                location = PathFactory.Create(SelectedFolder);
-
-                // Tell subscribers that we finished browsing this directory
-                if (BrowseEvent != null)   // Tell subscribers that we started browsing this directory
-                    BrowseEvent(this, new BrowsingEventArgs(location, false, BrowseResult.Complete));
+                _SpecialFolders.Add(new CustomFolderItemViewModel(Environment.SpecialFolder.Desktop));
+                _SpecialFolders.Add(new CustomFolderItemViewModel(Environment.SpecialFolder.MyDocuments));
+                _SpecialFolders.Add(new CustomFolderItemViewModel(Environment.SpecialFolder.MyMusic));
+                _SpecialFolders.Add(new CustomFolderItemViewModel(Environment.SpecialFolder.MyPictures));
+                _SpecialFolders.Add(new CustomFolderItemViewModel(Environment.SpecialFolder.MyVideos));
             }
             catch
             {
-                if (BrowseEvent != null)   // Tell subscribers that we started browsing this directory
-                    BrowseEvent(this, new BrowsingEventArgs(location, false, BrowseResult.InComplete));
             }
         }
         #endregion methods

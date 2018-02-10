@@ -55,16 +55,15 @@
                   Style="{StaticResource TreeViewStyle}"
                   VirtualizingPanel.IsVirtualizing="True"
                   VirtualizingPanel.VirtualizationMode="Standard"
-                  ItemsSource="{Binding Root, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
               >
-            <!--TreeView.ItemsSource>
+            <TreeView.ItemsSource>
                 <MultiBinding Converter="{StaticResource UpdateBindingConverter}">
-                    - First argument controls update of binding on 2nd argument-
+                    <!-- First & Second argument control update of binding on 3rd argument-->
                     <Binding Path="IsLoaded"  RelativeSource="{RelativeSource Self}" />
                     <Binding Path="UpdateView" UpdateSourceTrigger="PropertyChanged" Mode="OneWay" />
                     <Binding Path="Root" UpdateSourceTrigger="PropertyChanged" Mode="OneWay" />
                 </MultiBinding>
-            </TreeView.ItemsSource-->
+            </TreeView.ItemsSource>
             <TreeView.Resources>
                 <!-- Use a proxy to bind items to root properties of this collection -->
                 <bindLocal:BindingProxy x:Key="DataContextProxy"  Data="{Binding}" />

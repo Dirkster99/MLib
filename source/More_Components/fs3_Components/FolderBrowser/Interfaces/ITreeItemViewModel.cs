@@ -5,6 +5,10 @@
     using System.Threading.Tasks;
     using System.Windows.Media.Imaging;
 
+    /// <summary>
+    /// Defines an interface to an object in the tree hierarchy that can have
+    /// child items (e.g.: folders) and a parent item (drive or folder).
+    /// </summary>
     public interface ITreeItemViewModel : IParent
     {
         #region properties
@@ -63,18 +67,27 @@
         void ChildAdd(ITreeItemViewModel item);
 
         /// <summary>
-        /// Load all sub-folders into the Folders collection.
+        /// Remove all sub-folders from a given folder.
         /// </summary>
-        void LoadFolders();
-
-        Task<int> LoadChildrenAsync();
+        void ChildrenClear();
 
         /// <summary>
-        /// Create a new folder with a standard name
-        /// 'New folder n' underneath this folder.
+        /// Load all sub-folders into the Folders collection.
         /// </summary>
-        /// <returns>a viewmodel of the newly created directory or null</returns>
-        ITreeItemViewModel CreateNewDirectory();
+        void ChildrenLoad();
+
+        /// <summary>
+        /// Load all sub-folders into the Folders collection.
+        /// </summary>
+        Task<int> ChildrenLoadAsync();
+
+        /// <summary>
+        /// Attempts to find an item with the given name in the list of child items
+        /// below this item and returns it or null.
+        /// </summary>
+        /// <param name="folderName"></param>
+        /// <returns></returns>
+        ITreeItemViewModel ChildTryGet(string folderName);
 
         /// <summary>
         /// Renames a child below this item.
@@ -85,23 +98,17 @@
         bool ChildRename(string oldName, string newName);
 
         /// <summary>
+        /// Create a new folder with a standard name
+        /// 'New folder n' underneath this folder.
+        /// </summary>
+        /// <returns>a viewmodel of the newly created directory or null</returns>
+        ITreeItemViewModel CreateNewDirectory();
+
+        /// <summary>
         /// Rename the name of the folder into a new name.
         /// </summary>
         /// <param name="newFolderName"></param>
         void Rename(string newFolderName);
-
-        /// <summary>
-        /// Remove all sub-folders from a given folder.
-        /// </summary>
-        void ClearFolders();
-
-        /// <summary>
-        /// Attempts to find an item with the given name in the list of child items
-        /// below this item and returns it or null.
-        /// </summary>
-        /// <param name="folderName"></param>
-        /// <returns></returns>
-        ITreeItemViewModel ChildTryGet(string folderName);
 
         /// <summary>
         /// Shows a pop-notification message with the given title and text.

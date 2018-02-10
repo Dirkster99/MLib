@@ -63,7 +63,8 @@
         {
             try
             {
-                var tree = d as TreeView;
+                var rootControl = d as ItemsControl;
+                var currentParent = d as ItemsControl;
 
                 // Sanity check: Are we looking at the least required data we need?
                 var itemNode = e.NewValue as IParent;
@@ -83,7 +84,6 @@
                 // params look good so lets find the attached tree view (aka ItemsControl)
                 //var behavior = d as BringVirtualTreeViewItemIntoViewBehavior;
                 //var tree = behavior.AssociatedObject;
-                var currentParent = tree as ItemsControl;
 
                 // Now loop through each item in the array of bound path items and make sure they exist
                 for (int i = 0; i < newNode.Length; i++)
@@ -109,7 +109,13 @@
 
                         var virtualizingPanel = GetItemsHost(currentParent) as VirtualizingPanel;
 
+                        // ...but virtualization does not work with invisible controls ...
+                        // For example: Hidden behind another tab control etc...
+                        if (rootControl.IsVisible == false)
+                            return;
+
                         CallEnsureGenerator(virtualizingPanel);
+
                         var index = currentParent.Items.IndexOf(node);
                         if (index < 0)
                         {
@@ -193,6 +199,8 @@
 
         private static void CallEnsureGenerator(Panel panel)
         {
+            // this can actually happen if the treeview is currently not visible
+            // and initialized on demand ... (eg.: in TabControl)
             Debug.Assert(panel != null);
             EnsureGeneratorMethodInfo.Invoke(panel, null);
         }

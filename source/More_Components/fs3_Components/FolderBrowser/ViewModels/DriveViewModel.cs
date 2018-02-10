@@ -27,12 +27,12 @@
         /// <summary>
         /// Load all sub-folders into the Folders collection.
         /// </summary>
-        public override void LoadFolders()
+        public override void ChildrenLoad()
         {
             FolderViewModel.LoadFolders(this);
         }
 
-        public override async Task<int> LoadChildrenAsync()
+        public override async Task<int> ChildrenLoadAsync()
         {
             await Task.Run(() => { FolderViewModel.LoadFolders(this); });
 
