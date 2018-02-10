@@ -5,6 +5,7 @@
     using FileSystemModels.Models.FSItems.Base;
     using FolderBrowser.Interfaces;
     using System;
+    using System.Threading.Tasks;
 
     internal class DriveViewModel : TreeItemViewModel, IDriveViewModel
     {
@@ -29,6 +30,13 @@
         public override void LoadFolders()
         {
             FolderViewModel.LoadFolders(this);
+        }
+
+        public override async Task<int> LoadChildrenAsync()
+        {
+            await Task.Run(() => { FolderViewModel.LoadFolders(this); });
+
+            return base.ChildrenCount;
         }
 
         /// <summary>

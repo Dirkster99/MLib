@@ -67,7 +67,7 @@ namespace TreeViewDemo.Demos.Behaviors
                     var index = currentParent.Items.IndexOf(node);
                     if (index < 0)
                     {
-                        throw new InvalidOperationException("Node '" + node + "' cannot be fount in container");
+                        throw new InvalidOperationException("Node '" + node + "' cannot be found in container");
                     }
                     virtualizingPanel.BringIndexIntoViewPublic(index);
                     newParent = currentParent.ItemContainerGenerator.ContainerFromIndex(index) as TreeViewItem;

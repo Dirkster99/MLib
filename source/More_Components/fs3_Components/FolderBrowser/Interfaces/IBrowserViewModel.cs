@@ -147,6 +147,7 @@
         #endregion properties
 
         #region methods
+/***
         /// <summary>
         /// Call this method in order to initialize a location
         /// when binding to view is not yet relized, but progress is already visible.
@@ -155,7 +156,7 @@
         /// <param name="ResetBrowserStatus"></param>
         void BrowsePath(string path,
                         bool ResetBrowserStatus = true);
-
+***/
         /// <summary>
         /// Determines whether the list of Windows special folder shortcut
         /// buttons (Music, Video etc) is visible or not.

@@ -1,6 +1,7 @@
 namespace FolderBrowser.Views
 {
     using FileSystemModels;
+    using FileSystemModels.Interfaces;
     using FolderBrowser.Interfaces;
     using System.Windows.Controls;
 
@@ -32,7 +33,18 @@ namespace FolderBrowser.Views
             var vm = DataContext as IBrowserViewModel;
 
             if (vm != null)
-                vm.BrowsePath(vm.InitialPath);
+            {
+                IPathModel location = null;
+                try
+                {
+                    //vm.BrowsePath(vm.InitialPath);
+                    location = PathFactory.Create(vm.InitialPath);
+                    vm.NavigateTo(location);
+                }
+                catch
+                {
+                }
+            }
             else
             {
                 if (DataContext != null)

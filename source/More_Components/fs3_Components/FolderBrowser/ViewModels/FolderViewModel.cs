@@ -6,6 +6,7 @@
     using FolderBrowser.Interfaces;
     using System;
     using System.IO;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Implment the viewmodel for one folder entry for a collection of folders.
@@ -48,6 +49,21 @@
         #endregion constructor
 
         #region methods
+        /// <summary>
+        /// Load all sub-folders into this Folders collection.
+        /// </summary>
+        public override void LoadFolders()
+        {
+            FolderViewModel.LoadFolders(this);
+        }
+
+        public override async Task<int> LoadChildrenAsync()
+        {
+            await Task.Run(() => { FolderViewModel.LoadFolders(this); });
+
+            return base.ChildrenCount;
+        }
+
         /// <summary>
         /// Load all sub-folders into the Folders collection of the
         /// given <paramref name="parentItem"/>.
@@ -92,21 +108,21 @@
         /// <param name="dir"></param>
         /// <returns></returns>
         internal static TreeItemViewModel AddFolder(string dir,
-                                               ITreeItemViewModel parentItem)
+                                                    ITreeItemViewModel parentItem)
         {
             try
             {
                 DirectoryInfo di = new DirectoryInfo(dir);
 
                 // create the sub-structure only if this is not a hidden directory
-                if ((di.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
-                {
+//                if ((di.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
+//                {
                     var newFolder = new FolderViewModel(dir, parentItem);
 
                     parentItem.ChildAdd(newFolder);
 
                     return newFolder;
-                }
+//                }
             }
             catch (UnauthorizedAccessException ae)
             {
@@ -118,14 +134,6 @@
             }
 
             return null;
-        }
-
-        /// <summary>
-        /// Load all sub-folders into this Folders collection.
-        /// </summary>
-        public override void LoadFolders()
-        {
-            LoadFolders(this);
         }
 
         /// <summary>

@@ -8,6 +8,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Media.Imaging;
 
@@ -163,6 +164,14 @@
             get
             {
                 return _Folders;
+            }
+        }
+
+        public int ChildrenCount
+        {
+            get
+            {
+                return _Folders.Count;
             }
         }
 
@@ -357,6 +366,11 @@
         /// Load all sub-folders into the Folders collection.
         /// </summary>
         public virtual void LoadFolders()
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual Task<int> LoadChildrenAsync()
         {
             throw new NotImplementedException();
         }

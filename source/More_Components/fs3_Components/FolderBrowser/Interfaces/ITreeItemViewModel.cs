@@ -2,6 +2,7 @@
 {
     using FileSystemModels.Models.FSItems.Base;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Windows.Media.Imaging;
 
     public interface ITreeItemViewModel : IParent
@@ -62,6 +63,13 @@
         void ChildAdd(ITreeItemViewModel item);
 
         /// <summary>
+        /// Load all sub-folders into the Folders collection.
+        /// </summary>
+        void LoadFolders();
+
+        Task<int> LoadChildrenAsync();
+
+        /// <summary>
         /// Create a new folder with a standard name
         /// 'New folder n' underneath this folder.
         /// </summary>
@@ -104,7 +112,6 @@
         /// <returns>true if the event was succesfully fired.</returns>
         bool ShowNotification(string title, string message,
                               BitmapImage imageIcon = null);
-
         #endregion methods
     }
 }

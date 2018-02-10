@@ -43,6 +43,7 @@
             obj.SetValue(SelectedItemProperty, value);
         }
 
+
         private static readonly DependencyProperty SelectedItemProperty =
             DependencyProperty.RegisterAttached("SelectedItem"
                 , typeof(IParent)
@@ -62,7 +63,7 @@
         {
             try
             {
-                var tree = d as ItemsControl;
+                var tree = d as TreeView;
 
                 // Sanity check: Are we looking at the least required data we need?
                 var itemNode = e.NewValue as IParent;
@@ -76,13 +77,13 @@
 
                 var newNode = Nodes.ToArray();
 
-                if (newNode.Length <= 1)             // Traverse path in a forward fashion
+                if (newNode.Length < 1)             // Traverse path in a forward fashion
                     return;
 
                 // params look good so lets find the attached tree view (aka ItemsControl)
                 //var behavior = d as BringVirtualTreeViewItemIntoViewBehavior;
                 //var tree = behavior.AssociatedObject;
-                var currentParent = tree;
+                var currentParent = tree as ItemsControl;
 
                 // Now loop through each item in the array of bound path items and make sure they exist
                 for (int i = 0; i < newNode.Length; i++)
@@ -90,14 +91,7 @@
                     var node = newNode[i];
 
                     // first try the easy way
-                    DependencyObject newParentObject = null;
-                    try
-                    {
-                        newParentObject = currentParent.ItemContainerGenerator.ContainerFromItem(node);
-                    }
-                    catch
-                    {
-                    }
+                    var newParentObject = currentParent.ItemContainerGenerator.ContainerFromItem(node);
                     var newParent = newParentObject as TreeViewItem;
 
                     if (newParent == null)
@@ -123,7 +117,7 @@
                             // This can be tricky, because Binding an ObservableDictionary to the treeview will
                             // require that we need an array of KeyValuePairs<K,T>[] here :-(
 #if DEBUG
-                            System.Console.WriteLine("Node '" + node + "' cannot be fount in container");
+                            System.Console.WriteLine("1> Node '" + node + "' cannot be fount in container");
                             return;
                             ////                    throw new InvalidOperationException("Node '" + node + "' cannot be fount in container");
 #else
@@ -132,21 +126,29 @@
 #endif
                         }
 
-                        if(index > 0)
+                        if (index >= 0) // Bugfix: Include index == 0 here
                         {
                             virtualizingPanel.BringIndexIntoViewPublic(index);
-                            newParent = currentParent.ItemContainerGenerator.ContainerFromIndex(index) as TreeViewItem;
+                            var obj = currentParent.ItemContainerGenerator.ContainerFromIndex(index);
+                            newParent = obj as TreeViewItem;
+
+                            if (newParent == null)
+                            {
+                                System.Console.WriteLine("3> Node '" + node + "' cannot be found in container");
+                                return;
+                            }
                         }
                     }
 
                     if (newParent == null)
                     {
 #if DEBUG
-                        System.Console.WriteLine("Node '" + node + "' cannot be fount in container");
+                        System.Console.WriteLine("2> Node '" + node + "' cannot be found in container");
+                        return;
                         ////               throw new InvalidOperationException("Tree view item cannot be found or created for node '" + node + "'");
 #else
                     // Use your favourite logger here since the exception will otherwise kill the appliaction
-                    System.Console.WriteLine("Node '" + node + "' cannot be fount in container");
+                    System.Console.WriteLine("2> Node '" + node + "' cannot be found in container");
 #endif
                     }
 

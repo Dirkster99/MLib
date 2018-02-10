@@ -2,7 +2,6 @@
 {
     using FileSystemModels;
     using FileSystemModels.Browse;
-    using FileSystemModels.Events;
     using FileSystemModels.Interfaces;
     using FileSystemModels.Interfaces.Bookmark;
     using FileSystemModels.Models.FSItems;
@@ -553,7 +552,15 @@
                         if (IsBrowsing == true)
                             return;
 
-                        BrowsePath(path, false);
+                        IPathModel location = null;
+                        try
+                        {
+                            location = PathFactory.Create(path);
+                            NavigateTo(location, false);
+                        }
+                        catch
+                        {
+                        }
                     },
                     (p) => { return ! IsBrowsing; });
                 }
@@ -591,7 +598,9 @@
                             if (IsBrowsing == true)
                                 return;
 
-                            BrowsePath(item.ItemPath);
+                            IPathModel location = null;
+                            location = PathFactory.Create(item.ItemPath);
+                            NavigateTo(location, false);
                         }
                         catch
                         {
@@ -739,43 +748,9 @@
         /// </summary>
         /// <param name="newPath"></param>
         /// <returns></returns>
-        public bool NavigateTo(IPathModel location)
+        bool INavigateable.NavigateTo(IPathModel location)
         {
-            CancellationTokenSource cts = null;
-            bool BrowseMessage = false;
-            try
-            {
-                IsBrowsing = true;
-
-                if (BrowseMessage == true)
-                {
-                    if (BrowseEvent != null)   // Tell subscribers that we started browsing this directory
-                        BrowseEvent(this, new BrowsingEventArgs(location, true));
-                }
-
-                IsBrowseViewEnabled = UpdateView = false;
-
-                SetInitialDrives(cts);
-
-////                        if (cts != null)
-////                            cts.Token.ThrowIfCancellationRequested();
-////
-                InternalBrowsePath(location.Path, true, cts);
-
-                return true;
-            }
-            finally
-            {
-                // Make sure that view updates at the end of browsing process
-                IsBrowsing = false;
-                IsBrowseViewEnabled = UpdateView = true;
-
-                if (BrowseMessage == true)
-                {
-                    if (BrowseEvent != null)   // Tell subscribers that we started browsing this directory
-                        BrowseEvent(this, new BrowsingEventArgs(location, false, BrowseResult.Complete));
-                }
-            }
+            return NavigateTo(location, false);
         }
 
         /// <summary>
@@ -787,7 +762,7 @@
         {
             return await Task.Run(() =>
             {
-                return NavigateTo(location);
+                return NavigateTo(location, false);
             });
         }
 
@@ -811,6 +786,52 @@
             this.IsSpecialFoldersVisisble = visible;
         }
 
+        /// <summary>
+        /// Controller can start browser process if IsBrowsing = false
+        /// </summary>
+        /// <param name="newPath"></param>
+        /// <returns></returns>
+        private bool NavigateTo(IPathModel location,
+                                bool BrowseMessage,
+                                bool ResetBrowserStatus = true)
+        {
+            CancellationTokenSource cts = null;
+            try
+            {
+                IsBrowsing = true;
+
+                if (BrowseMessage == true)
+                {
+                    if (BrowseEvent != null)   // Tell subscribers that we started browsing this directory
+                        BrowseEvent(this, new BrowsingEventArgs(location, true));
+                }
+
+                IsBrowseViewEnabled = UpdateView = false;
+
+                bool ret = false;
+                var t = new Task(async () =>
+                {
+                    ret = await InternalBrowsePathAsync(location.Path, ResetBrowserStatus, cts);
+                });
+
+                t.RunSynchronously();
+
+                return ret;
+            }
+            finally
+            {
+                // Make sure that view updates at the end of browsing process
+                IsBrowsing = false;
+                IsBrowseViewEnabled = UpdateView = true;
+
+                if (BrowseMessage == true)
+                {
+                    if (BrowseEvent != null)   // Tell subscribers that we started browsing this directory
+                        BrowseEvent(this, new BrowsingEventArgs(location, false, BrowseResult.Complete));
+                }
+            }
+        }
+/***
         /// <summary>
         /// Call this method from the OnLoad method of the view
         /// in order to initialize a location as soon as the view
@@ -859,15 +880,13 @@
 
             }, ProcessFinishedEvent, "This process is already running.");
         }
-
-        private bool InternalBrowsePath(string path,
+**/
+        private async Task<bool> InternalBrowsePathAsync(string path,
                                         bool ResetBrowserStatus,
                                         CancellationTokenSource cts = null)
         {
             if (ResetBrowserStatus == true)
                 ClearBrowserStates();
-
-            DisplayMessage.IsErrorMessageAvailable = false;
 
             if (System.IO.Directory.Exists(path) == false)
             {
@@ -876,9 +895,23 @@
                 return false;
             }
 
-            SelectDirectory(PathFactory.Create(path, FSItemType.Folder), cts);
+            if (_Root.Count == 0)        // Make sure drives are available
+                SetInitialDrives(cts);
+            
+            if (cts != null)
+                cts.Token.ThrowIfCancellationRequested();
 
-            return true;
+            var pathItem = await SelectDirectory(PathFactory.Create(path, FSItemType.Folder), cts);
+
+            if (pathItem != null)
+            {
+                if (pathItem.Length > 0)
+                    SelectedItem = pathItem[pathItem.Length-1];
+
+                return true;
+            }
+
+            return false;
         }
 
         private void AddFolder(string name, ITreeItemViewModel folder)
@@ -923,10 +956,9 @@
                 if (cts != null)
                     cts.Token.ThrowIfCancellationRequested();
 
-                var vmItem = new DriveViewModel(item.Model, null);
-
                 Application.Current.Dispatcher.Invoke(() =>
                 {
+                    var vmItem = new DriveViewModel(item.Model, null);
                     _Root.AddItem(vmItem);
                 });
             }
@@ -940,54 +972,66 @@
             });
         }
 
-        private void SelectDirectory(IPathModel path,
-                                     CancellationTokenSource cts = null)
+        internal async Task<ITreeItemViewModel[]> SelectDirectory(
+            IPathModel inputPath,
+            CancellationTokenSource cts = null)
         {
-            string[] dirs = PathFactory.GetDirectories(path.Path);
-            List<ITreeItemViewModel> PathItems = new List<ITreeItemViewModel>();
-
-            if (dirs == null)
-                return;
-
-            ITreeItemViewModel root = _Root.TryGet(dirs[0]);
-
-            // Find drive in which we will have to insert this
-            if (root == null)
+            try
             {
-                // Looks like this is a new drive - lets create it then ...
-                root = new DriveViewModel(PathFactory.Create(dirs[0], FSItemType.LogicalDrive), null);
+                // Check if a given path exists
+                var exists = await PathFactory.DirectoryPathExistsAsync(inputPath.Path);
 
-                AddFolder(root.ItemName, root);
-            }
+                if (exists == false)
+                    return null;
 
-            PathItems.Add(root);
-            var folderItem = MergeFolders(root, dirs, dirs[0], PathItems);
+                // Transform string into array of normalized path elements
+                // Drive 'C:\' , 'Folder', 'SubFolder', etc...
+                //
+                var folders = PathFactory.GetDirectories(inputPath.Path);
 
-            for (int i = 0; i < PathItems.Count; i++)
-            {
-                if (cts != null)
-                    cts.Token.ThrowIfCancellationRequested();
-
-                var folder1 = (PathItems[i] as TreeItemViewModel);
-
-                if (folder1.HasDummyChild == false)
-                    folder1.IsExpanded = true;
-                else
+                if (folders != null)
                 {
-                    folder1.LoadFolders();
+                    // Find the drive that is the root of this path
+                    var drive = this._Root.TryGet(folders[0]);
 
-                    if (folder1.HasDummyChild == false)
-                        folder1.IsExpanded = true;
-                    else
-                        folder1.ClearFolders();
-
+                    return await NavigatePathAsync(drive, folders);
                 }
+
+                return null;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private async Task<ITreeItemViewModel[]> NavigatePathAsync(
+            ITreeItemViewModel parent
+          , string[] folders
+          , int iMatchIdx = 0)
+        {
+            ITreeItemViewModel[] pathFolders = new ITreeItemViewModel[folders.Count()];
+
+            pathFolders[0] = parent;
+
+            int iNext = iMatchIdx + 1;
+            for (; iNext < folders.Count(); iNext++)
+            {
+                if (parent.HasDummyChild == true)
+                    await parent.LoadChildrenAsync();
+
+                var nextChild = parent.ChildTryGet(folders[iNext]);
+
+                if (nextChild != null)
+                {
+                    pathFolders[iNext] = nextChild;
+                    parent = nextChild;
+                }
+                else
+                    return null; // couln not find target
             }
 
-            ////PathItems[PathItems.Count - 1].IsExpanded = true;
-            var folder = PathItems[PathItems.Count - 1] as TreeItemViewModel;
-            SelectedItem = folder;
-            folder.IsSelected = true;
+            return pathFolders;
         }
 
         private ITreeItemViewModel MergeFolders(ITreeItemViewModel root,

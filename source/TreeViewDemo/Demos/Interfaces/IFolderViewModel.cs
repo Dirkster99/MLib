@@ -1,8 +1,7 @@
-﻿using System.Threading.Tasks;
-using TreeViewDemo.Demos.ViewModels;
-
-namespace TreeViewDemo.Demos.Interfaces
+﻿namespace TreeViewDemo.Demos.Interfaces
 {
+    using System.Threading.Tasks;
+
     public interface IFolder
     {
         #region properties
