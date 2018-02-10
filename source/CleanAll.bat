@@ -182,12 +182,6 @@ RMDIR /S /Q "More_Components/fs3_Components/UserNotification\bin"
 RMDIR /S /Q "More_Components/fs3_Components/UserNotification\obj"
 
 ECHO.
-ECHO Deleting BIN and OBJ Folders in 
-ECHO.
-RMDIR /S /Q "More_Components/fs3_Components/WPFProcessingLib\bin"
-RMDIR /S /Q "More_Components/fs3_Components/WPFProcessingLib\obj"
-
-ECHO.
 ECHO Deleting BIN and OBJ Folders in TestFileSystemModels
 ECHO.
 RMDIR /S /Q "More_Components/fs3_Components/TestFileSystemModels\bin"

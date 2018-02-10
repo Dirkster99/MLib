@@ -158,10 +158,6 @@
       <Project>{8391f556-c4cb-4aa9-9874-bf665fb2b072}</Project>
       <Name>FsCore</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WPFProcessingLib\WPFProcessingLib.csproj">
-      <Project>{077c358b-9731-4c5e-9ea7-f2cd7487acbe}</Project>
-      <Name>WPFProcessingLib</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\Generic\BrowseButton\arrow-right-b.svg" />

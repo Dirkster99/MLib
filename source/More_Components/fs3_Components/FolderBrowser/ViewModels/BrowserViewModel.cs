@@ -18,8 +18,6 @@
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Threading;
-    using WPFProcessingLib;
-    using WPFProcessingLib.Interfaces;
 
     /// <summary>
     /// A browser viewmodel is about managing activities and properties related
@@ -46,8 +44,6 @@
         private ICommand _RefreshViewCommand;
 
         private bool _IsBrowsing;
-        private IProcessViewModel _Processor = null;
-        private readonly IProcessViewModel _ExpandProcessor = null;
 
         private bool _IsExpanding = false;
 
@@ -74,9 +70,6 @@
             _CopyPathCommand = null;
 
             _Root = new SortableObservableDictionaryCollection();
-
-            _ExpandProcessor = ProcessFactory.CreateProcessViewModel();
-            _Processor = ProcessFactory.CreateProcessViewModel();
 
             InitialPath = string.Empty;
 
@@ -259,18 +252,19 @@
                 {
                     _CancelBrowsingCommand = new RelayCommand<object>((p) =>
                     {
-                        if (_Processor != null)
-                        {
-                            if (_Processor.IsCancelable == true)
-                                _Processor.Cancel();
-                        }
+//// TODO XXX
+////                        if (_Processor != null)
+////                        {
+////                            if (_Processor.IsCancelable == true)
+////                                _Processor.Cancel();
+////                        }
                     },
                     (p) =>
                     {
                         if (IsBrowsing == true)
                         {
-                            if (_Processor.IsCancelable == true)
-                                return _Processor.IsProcessing;
+//// TODO XXX                            if (_Processor.IsCancelable == true)
+////                                 return _Processor.IsProcessing;
                         }
 
                         return false;
@@ -383,7 +377,7 @@
             {
                 if (_ExpandCommand == null)
                 {
-                    _ExpandCommand = new RelayCommand<object>((p) =>
+                    _ExpandCommand = new RelayCommand<object>(async (p) =>
                     {
                         if (IsBrowsing == true) // This is probably not relevant since the
                         {                      // viewmodel is currently processing a navigation
@@ -395,7 +389,7 @@
                         if (expandedItem != null && _IsExpanding == false)
                         {
                             if (expandedItem.HasDummyChild == true)
-                                ExpandDummyFolder(expandedItem);
+                                await ExpandDummyFolderAsync(expandedItem);
                         }
                     });
                 }
@@ -619,23 +613,27 @@
         /// Expand folder for the very first time (using the process background viewmodel).
         /// </summary>
         /// <param name="expandedItem"></param>
-        private void ExpandDummyFolder(ITreeItemViewModel expandedItem)
+        private async Task ExpandDummyFolderAsync(ITreeItemViewModel expandedItem)
         {
             if (expandedItem != null && _IsExpanding == false)
             {
                 if (expandedItem.HasDummyChild == true)
                 {
                     _IsExpanding = true;
-
-                    _ExpandProcessor.StartProcess(() =>
+                    try
                     {
-                        expandedItem.ClearFolders();                    // Requery sub-folders of this item
-                        (expandedItem as TreeItemViewModel).LoadFolders();
+                        if ((expandedItem is TreeItemViewModel) == true)
+                        {
+                            var item = expandedItem as TreeItemViewModel;
 
-                        ////expandedItem.IsSelected = true;
-                        ////SelectedFolder = expandedItem.FolderPath;
-
-                    }, ExpandProcessinishedEvent, "This process is already running.");
+                            item.ClearFolders();  // Requery sub-folders of this item
+                            await item.LoadChildrenAsync();
+                        }
+                    }
+                    finally
+                    {
+                        _IsExpanding = false;
+                    }
                 }
             }
         }
