@@ -1,5 +1,6 @@
 namespace FileListViewTest.ViewModels
 {
+    using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Input;
@@ -22,6 +23,8 @@ namespace FileListViewTest.ViewModels
     internal class ListControllerViewModel : Base.ViewModelBase, IListControllerViewModel
     {
         #region fields
+        private SemaphoreSlim SlowStuffSemaphore = null;
+
         private string _SelectedFolder = string.Empty;
         private object _LockObject = new object();
         private ICommand mRefreshCommand;
@@ -48,6 +51,8 @@ namespace FileListViewTest.ViewModels
         /// </summary>
         public ListControllerViewModel()
         {
+            SlowStuffSemaphore = new SemaphoreSlim(1, 1);
+
             FolderItemsView = FileListView.Factory.CreateFileListViewModel(new BrowseNavigation());
             FolderTextPath = FolderControlsLib.Factory.CreateFolderComboBoxVM();
             RecentFolders = FileSystemModels.Factory.CreateBookmarksViewModel();
@@ -83,9 +88,9 @@ namespace FileListViewTest.ViewModels
             {
                 if (this.mRefreshCommand == null)
                     this.mRefreshCommand = new RelayCommand<object>
-                        (async (p) =>
+                        ((p) =>
                         {
-                            await RefreshCommand_ExecutedAsync(p as string);
+                            RefreshCommand_ExecutedAsync(p as string);
                         });
 
                 return this.mRefreshCommand;
@@ -358,9 +363,8 @@ namespace FileListViewTest.ViewModels
         /// <param name="requestor"</param>
         public void NavigateToFolder(IPathModel itemPath)
         {
-            var t = new Task(async () => { await NavigateToFolderAsync(itemPath, null); });
-
-            t.RunSynchronously();
+            // XXX Todo Keep task reference, support cancel, and remove on end?
+            var t =  NavigateToFolderAsync(itemPath, null);
         }
 
         /// <summary>
@@ -372,22 +376,26 @@ namespace FileListViewTest.ViewModels
         /// <param name="requestor"</param>
         private async Task NavigateToFolderAsync(IPathModel itemPath, object sender)
         {
+            // Make sure the task always processes the last input but is not started twice
+            await SlowStuffSemaphore.WaitAsync();
             try
             {
                 FolderItemsView.SetExternalBrowsingState(true);
                 FolderTextPath.SetExternalBrowsingState(true);
                 SelectedFolder = itemPath.Path;
 
+                bool? browseResult = null;
+
                 if (FolderTextPath != sender)
                 {
                     // Navigate Folder ComboBox to this folder
-                    await FolderTextPath.NavigateToAsync(itemPath);
+                    browseResult = await FolderTextPath.NavigateToAsync(itemPath);
                 }
 
-                if (FolderItemsView != sender)
+                if (FolderItemsView != sender && browseResult != false)
                 {
                     // Navigate Folder/File ListView to this folder
-                    await FolderItemsView.NavigateToAsync(itemPath);
+                    browseResult = await FolderItemsView.NavigateToAsync(itemPath);
                 }
             }
             catch{}
@@ -395,6 +403,8 @@ namespace FileListViewTest.ViewModels
             {
                 FolderItemsView.SetExternalBrowsingState(false);
                 FolderTextPath.SetExternalBrowsingState(false);
+
+                SlowStuffSemaphore.Release();
             }
         }
 
@@ -404,7 +414,7 @@ namespace FileListViewTest.ViewModels
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        private async Task RefreshCommand_ExecutedAsync(string path = null)
+        private void RefreshCommand_ExecutedAsync(string path = null)
         {
             try
             {
@@ -414,7 +424,8 @@ namespace FileListViewTest.ViewModels
                 else
                     location = PathFactory.Create(FolderTextPath.CurrentFolder);
 
-                await NavigateToFolderAsync(location, null);
+                // XXX Todo Keep task reference, support cancel, and remove on end?
+                var t = NavigateToFolderAsync(location, null);
             }
             catch
             {

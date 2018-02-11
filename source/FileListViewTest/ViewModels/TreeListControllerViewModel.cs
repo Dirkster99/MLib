@@ -97,9 +97,9 @@ namespace FileListViewTest.ViewModels
             {
                 if (this._RefreshCommand == null)
                     this._RefreshCommand = new RelayCommand<object>
-                        (async (p) =>
+                        ((p) =>
                         {
-                            await RefreshCommand_ExecutedAsync(p as string);
+                            RefreshCommand_Executed(p as string);
                         });
 
                 return this._RefreshCommand;
@@ -377,12 +377,8 @@ namespace FileListViewTest.ViewModels
         /// <param name="requestor"</param>
         public void NavigateToFolder(IPathModel itemPath)
         {
-            var t = new Task(async () =>
-            {
-                await NavigateToFolderAsync(itemPath, null);
-            });
-
-            t.RunSynchronously();
+            // XXX Todo Keep task reference, support cancel, and remove on end?
+            var t = NavigateToFolderAsync(itemPath, null);
         }
 
         /// <summary>
@@ -390,7 +386,7 @@ namespace FileListViewTest.ViewModels
         /// to refresh the currently displayed list of items.
         /// </summary>
         /// <returns></returns>
-        protected async Task RefreshCommand_ExecutedAsync(string path = null)
+        protected void RefreshCommand_Executed(string path = null)
         {
             try
             {
@@ -400,7 +396,8 @@ namespace FileListViewTest.ViewModels
                 else
                     location = PathFactory.Create(FolderTextPath.CurrentFolder);
 
-                await NavigateToFolderAsync(location, null);
+                // XXX Todo Keep task reference, support cancel, and remove on end?
+                var t = NavigateToFolderAsync(location, null);
             }
             catch
             {
@@ -469,16 +466,23 @@ namespace FileListViewTest.ViewModels
                 TreeBrowser.SetExternalBrowsingState(true);
                 FolderItemsView.SetExternalBrowsingState(true);
                 FolderTextPath.SetExternalBrowsingState(true);
-                SelectedFolder = itemPath.Path;
 
-                if (TreeBrowser != sender)       // Navigate TreeView to this file system location
-                    TreeBrowser.NavigateTo(itemPath);
+                bool? browseResult = null;
 
-                if (FolderTextPath != sender)    // Navigate Folder ComboBox to this folder
-                    FolderTextPath.NavigateTo(itemPath);
+                // Navigate TreeView to this file system location
+                if (TreeBrowser != sender)
+                    browseResult = await TreeBrowser.NavigateToAsync(itemPath);
 
-                if (FolderItemsView != sender)   // Navigate Folder/File ListView to this folder
-                    FolderItemsView.NavigateTo(itemPath);
+                // Navigate Folder ComboBox to this folder
+                if (FolderTextPath != sender && browseResult != false)
+                    browseResult = await FolderTextPath.NavigateToAsync(itemPath);
+
+                // Navigate Folder/File ListView to this folder
+                if (FolderItemsView != sender && browseResult != false)
+                    browseResult = await FolderItemsView.NavigateToAsync(itemPath);
+
+                if (browseResult == true)
+                    SelectedFolder = itemPath.Path;
             }
             catch { }
             finally
@@ -500,12 +504,8 @@ namespace FileListViewTest.ViewModels
 
             if (e.IsBrowsing == false && e.Result == BrowseResult.Complete)
             {
-                var t = new Task(async () =>
-                {
-                    await NavigateToFolderAsync(location, sender);
-                });
-
-                t.RunSynchronously();
+                // XXX Todo Keep task reference, support cancel, and remove on end?
+                var t = NavigateToFolderAsync(location, sender);
             }
             else
             {

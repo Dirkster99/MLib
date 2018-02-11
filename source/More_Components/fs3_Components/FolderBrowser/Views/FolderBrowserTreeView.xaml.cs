@@ -37,9 +37,10 @@ namespace FolderBrowser.Views
                 IPathModel location = null;
                 try
                 {
-                    //vm.BrowsePath(vm.InitialPath);
                     location = PathFactory.Create(vm.InitialPath);
-                    vm.NavigateTo(location);
+
+                    // XXX Todo Keep task reference, support cancel, and remove on end?
+                    var t = vm.NavigateToAsync(location);
                 }
                 catch
                 {

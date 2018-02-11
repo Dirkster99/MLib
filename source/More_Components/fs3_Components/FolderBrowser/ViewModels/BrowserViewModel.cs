@@ -794,23 +794,20 @@
         {
             CancellationTokenSource cts = null;
             bool ret = false;
-            var t = new Task(async () =>
-            {
-                IsBrowsing = true;
-                IsBrowseViewEnabled = UpdateView = false;
 
-                try
-                {
-                    ret = await InternalBrowsePathAsync(location.Path, ResetBrowserStatus, cts);
-                }
-                finally
-                {
-                    // Make sure that view updates at the end of browsing process
-                    IsBrowsing = false;
-                    IsBrowseViewEnabled = UpdateView = true;
-                }
-            });
-            t.RunSynchronously();
+            IsBrowsing = true;
+            IsBrowseViewEnabled = UpdateView = false;
+
+            try
+            {
+                ret = InternalBrowsePathAsync(location.Path, ResetBrowserStatus, cts);
+            }
+            finally
+            {
+                // Make sure that view updates at the end of browsing process
+                IsBrowsing = false;
+                IsBrowseViewEnabled = UpdateView = true;
+            }
 
             return ret;
         }
@@ -846,9 +843,9 @@
             });
         }
 
-        private async Task<bool> InternalBrowsePathAsync(string path,
-                                                         bool ResetBrowserStatus,
-                                                         CancellationTokenSource cts = null)
+        private bool InternalBrowsePathAsync(string path,
+                                             bool ResetBrowserStatus,
+                                             CancellationTokenSource cts = null)
         {
             if (ResetBrowserStatus == true)
                 ClearBrowserStates();
@@ -866,7 +863,7 @@
             if (cts != null)
                 cts.Token.ThrowIfCancellationRequested();
 
-            var pathItem = await SelectDirectory(PathFactory.Create(path, FSItemType.Folder), cts);
+            var pathItem = SelectDirectory(PathFactory.Create(path, FSItemType.Folder), cts);
 
             if (pathItem != null)
             {
@@ -879,14 +876,14 @@
             return false;
         }
 
-        internal async Task<ITreeItemViewModel[]> SelectDirectory(
+        internal ITreeItemViewModel[] SelectDirectory(
             IPathModel inputPath,
             CancellationTokenSource cts = null)
         {
             try
             {
                 // Check if a given path exists
-                var exists = await PathFactory.DirectoryPathExistsAsync(inputPath.Path);
+                var exists = PathFactory.DirectoryPathExists(inputPath.Path);
 
                 if (exists == false)
                     return null;
@@ -900,7 +897,7 @@
                     // Find the drive that is the root of this path
                     var drive = this._Root.TryGet(folders[0]);
 
-                    return await NavigatePathAsync(drive, folders);
+                    return NavigatePath(drive, folders);
                 }
 
                 return null;
@@ -911,7 +908,7 @@
             }
         }
 
-        private async Task<ITreeItemViewModel[]> NavigatePathAsync(
+        private ITreeItemViewModel[] NavigatePath(
             ITreeItemViewModel parent
           , string[] folders
           , int iMatchIdx = 0)
@@ -924,7 +921,7 @@
             for (; iNext < folders.Count(); iNext++)
             {
                 if (parent.HasDummyChild == true)
-                    await parent.ChildrenLoadAsync();
+                    parent.ChildrenLoad();
 
                 var nextChild = parent.ChildTryGet(folders[iNext]);
 

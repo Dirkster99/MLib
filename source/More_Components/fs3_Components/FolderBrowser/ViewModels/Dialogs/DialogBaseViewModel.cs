@@ -117,8 +117,8 @@ namespace FolderBrowser.Dialogs.ViewModels
         {
             if (e.IsBrowsing == false && e.Result == BrowseResult.Complete)
             {
-                //TreeBrowser.BrowsePath(e.Location.Path, false);
-                TreeBrowser.NavigateTo(e.Location);
+                // XXX Todo Keep task reference, support cancel, and remove on end?
+                var t = TreeBrowser.NavigateToAsync(e.Location);
             }
         }
 
