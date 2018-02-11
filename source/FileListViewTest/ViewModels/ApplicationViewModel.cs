@@ -24,20 +24,28 @@ namespace FileListViewTest.ViewModels
         /// </summary>
         public ApplicationViewModel()
         {
+            // Create and initialize list and combobox viemodel
             FolderView = FileListViewTestFactory.CreateList();
-            FolderTreeView = FileListViewTestFactory.CreateTreeList();
 
             FolderView.AddRecentFolder(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
             FolderView.AddRecentFolder(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), true);
-
-            FolderTreeView.AddRecentFolder(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
-            FolderTreeView.AddRecentFolder(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), true);
 
             FolderView.AddFilter("Executeable files", "*.exe;*.bat");
             FolderView.AddFilter("Image files", "*.png;*.jpg;*.jpeg");
             FolderView.AddFilter("LaTex files", "*.tex");
             FolderView.AddFilter("Text files", "*.txt");
             FolderView.AddFilter("All Files", "*.*");
+
+            // Create and initialize tree, list, and combobox viemodel
+            FolderTreeView = FileListViewTestFactory.CreateTreeList();
+            FolderTreeView.AddRecentFolder(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
+            FolderTreeView.AddRecentFolder(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), true);
+
+            FolderTreeView.AddFilter("Executeable files", "*.exe;*.bat");
+            FolderTreeView.AddFilter("Image files", "*.png;*.jpg;*.jpeg");
+            FolderTreeView.AddFilter("LaTex files", "*.tex");
+            FolderTreeView.AddFilter("Text files", "*.txt");
+            FolderTreeView.AddFilter("All Files", "*.*");
         }
         #endregion constructor
 
