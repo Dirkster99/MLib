@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factory.cs" />
+    <Compile Include="Themes\ResourceKeys.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
     <Compile Include="ViewModels\FilterComboBoxViewModel.cs" />
     <Compile Include="ViewModels\FilterItemViewModel.cs" />

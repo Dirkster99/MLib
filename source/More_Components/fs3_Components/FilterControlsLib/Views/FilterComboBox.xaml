@@ -1,12 +1,13 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					xmlns:local="clr-namespace:FilterControlsLib.Views"
+          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          xmlns:local="clr-namespace:FilterControlsLib.Views"
 
-                    xmlns:vm="clr-namespace:FilterControlsLib.ViewModels"
+          xmlns:vm="clr-namespace:FilterControlsLib.ViewModels"
+          xmlns:reskeys="clr-namespace:FilterControlsLib.Themes"                    
           >
-    <ResourceDictionary.MergedDictionaries>
+    <!-- ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/FilterControlsLib;component/Themes/GenericBrushes.xaml" />
-    </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary.MergedDictionaries -->
 
     <ControlTemplate x:Key="FilterComboBoxToggleButton" TargetType="ToggleButton" >
         <Grid>
@@ -16,30 +17,30 @@
             </Grid.ColumnDefinitions>
             <!-- CornerRadius="2" -->
             <Border x:Name="Border" 
-              Grid.ColumnSpan="2"
-              Background="{TemplateBinding Background}"
-              BorderBrush="{StaticResource FilterCmbNormalBorderBrush}"
-              BorderThickness="0" />
+                    Grid.ColumnSpan="2"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{DynamicResource {x:Static reskeys:ResourceKeys.FilterCmbNormalBorderBrushKey}}"
+                    BorderThickness="0" />
             <Border  Margin="2,0" Grid.Column="1" Background="Transparent" BorderBrush="Transparent">
                 <Path x:Name="Arrow"
-              Fill="{StaticResource FilterCmbGlyphBrush}"
-              HorizontalAlignment="Center"
-              VerticalAlignment="Center"
-              Data="M 0 0 L 4 4 L 8 0 Z"/>
+                      Fill="{DynamicResource {x:Static reskeys:ResourceKeys.FilterCmbGlyphBrushKey}}"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Data="M 0 0 L 4 4 L 8 0 Z"/>
             </Border>
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="ToggleButton.IsMouseOver" Value="true">
-                <Setter TargetName="Border" Property="Background" Value="{StaticResource FilterCmbDarkBrush}" />
+                <Setter TargetName="Border" Property="Background" Value="{DynamicResource {x:Static reskeys:ResourceKeys.FilterCmbDarkBrushKey}}" />
             </Trigger>
             <Trigger Property="ToggleButton.IsChecked" Value="true">
-                <Setter TargetName="Border" Property="Background" Value="{StaticResource FilterCmbPressedBrush}" />
+                <Setter TargetName="Border" Property="Background" Value="{DynamicResource {x:Static reskeys:ResourceKeys.FilterCmbPressedBrushKey}}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Background" Value="{StaticResource FilterCmbDisabledBackgroundBrush}" />
-                <Setter Property="BorderBrush" Value="{StaticResource FilterCmbDisabledBorderBrush}" />
-                <Setter Property="Foreground" Value="{StaticResource FilterCmbDisabledForegroundBrush}"/>
-                <Setter TargetName="Arrow" Property="Fill" Value="{StaticResource FilterCmbDisabledForegroundBrush}" />
+                <Setter Property="Background" Value="{DynamicResource {x:Static reskeys:ResourceKeys.FilterCmbDisabledBackgroundBrushKey}}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource {x:Static reskeys:ResourceKeys.FilterCmbDisabledBorderBrushKey}}" />
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static reskeys:ResourceKeys.FilterCmbDisabledForegroundBrushKey}}"/>
+                <Setter TargetName="Arrow" Property="Fill" Value="{DynamicResource {x:Static reskeys:ResourceKeys.FilterCmbDisabledForegroundBrushKey}}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -90,8 +91,8 @@
                 <ControlTemplate TargetType="{x:Type local:FilterComboBox}">
                     <Border x:Name="ControlBorder"
                             Background="{TemplateBinding Background}"
-							BorderBrush="{TemplateBinding BorderBrush}"
-							BorderThickness="{TemplateBinding BorderThickness}">
+              BorderBrush="{TemplateBinding BorderBrush}"
+              BorderThickness="{TemplateBinding BorderThickness}">
 
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -114,28 +115,28 @@
                                 Grid.Column="0" />
 
                             <TextBox x:Name="PART_EditableTextBox"
-                                    Style="{StaticResource FilterComboBoxTextBoxStyle}"
-                                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                    VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                    Margin="1,0"
-                                    Focusable="True"
-                                    Visibility="Hidden"
-                                    IsReadOnly="{TemplateBinding IsReadOnly}" Grid.Column="0"
+                                     Style="{StaticResource FilterComboBoxTextBoxStyleKey}"
+                                     HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                     HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                     VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                     VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                     Margin="1,0"
+                                     Focusable="True"
+                                     Visibility="Hidden"
+                                     IsReadOnly="{TemplateBinding IsReadOnly}" Grid.Column="0"
                             />
 
 
                             <ToggleButton Name="ToggleButton"
-                                Margin="0"
-                                Padding="0"
-                                Template="{StaticResource FilterComboBoxToggleButton}" 
-                                Grid.Column="1"
-                                Focusable="false"
-                                VerticalAlignment="Stretch"
-                                IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
-                                ClickMode="Press"
-                            />
+                                          Margin="0"
+                                          Padding="0"
+                                          Template="{StaticResource FilterComboBoxToggleButtonKey}" 
+                                          Grid.Column="1"
+                                          Focusable="false"
+                                          VerticalAlignment="Stretch"
+                                          IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+                                          ClickMode="Press"
+                                      />
 
                             <Popup Name="PART_Popup"
                                   Placement="Bottom"
@@ -149,9 +150,9 @@
                                       MinWidth="{TemplateBinding ActualWidth}"
                                       MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                     <Border x:Name="DropDownBorder"
-                                            Background="{StaticResource FilterCmbWindowBackgroundBrush}"
+                                            Background="{DynamicResource {x:Static reskeys:ResourceKeys.FilterCmbWindowBackgroundBrushKey}}"
                                             BorderThickness="1"
-                                            BorderBrush="{StaticResource FilterCmbSolidBorderBrush}"/>
+                                            BorderBrush="{DynamicResource {x:Static reskeys:ResourceKeys.FilterCmbSolidBorderBrushKey}}"/>
 
                                     <ScrollViewer SnapsToDevicePixels="True">
                                         <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
@@ -163,15 +164,15 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="ControlBorder" Property="BorderBrush" Value="{StaticResource FilterCmbHighlighColorBrush}" />
-                            <Setter TargetName="ToggleButton" Property="Background" Value="{StaticResource FilterCmbDarkBrush}" />
+                            <Setter TargetName="ControlBorder" Property="BorderBrush" Value="{DynamicResource {x:Static reskeys:ResourceKeys.FilterCmbHighlighColorBrushKey}}" />
+                            <Setter TargetName="ToggleButton" Property="Background" Value="{DynamicResource {x:Static reskeys:ResourceKeys.FilterCmbDarkBrushKey}}" />
                         </Trigger>
 
                         <Trigger Property="HasItems" Value="false">
                             <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="{StaticResource FilterCmbDisabledForegroundBrush}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static reskeys:ResourceKeys.FilterCmbDisabledForegroundBrushKey}}"/>
                         </Trigger>
                         <Trigger Property="IsGrouping" Value="true">
                             <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
