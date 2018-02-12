@@ -23,10 +23,10 @@ namespace FileListViewTest.ViewModels
     internal class ListControllerViewModel : Base.ViewModelBase, IListControllerViewModel
     {
         #region fields
-        private SemaphoreSlim SlowStuffSemaphore = null;
+        private readonly SemaphoreSlim SlowStuffSemaphore;
+        private readonly object _LockObject;
 
         private string _SelectedFolder = string.Empty;
-        private object _LockObject = new object();
         private ICommand mRefreshCommand;
         #endregion fields
 
@@ -52,6 +52,7 @@ namespace FileListViewTest.ViewModels
         public ListControllerViewModel()
         {
             SlowStuffSemaphore = new SemaphoreSlim(1, 1);
+            _LockObject = new object();
 
             FolderItemsView = FileListView.Factory.CreateFileListViewModel(new BrowseNavigation());
             FolderTextPath = FolderControlsLib.Factory.CreateFolderComboBoxVM();
@@ -364,7 +365,7 @@ namespace FileListViewTest.ViewModels
         public void NavigateToFolder(IPathModel itemPath)
         {
             // XXX Todo Keep task reference, support cancel, and remove on end?
-            var t =  NavigateToFolderAsync(itemPath, null);
+            var t = NavigateToFolderAsync(itemPath, null);
         }
 
         /// <summary>
@@ -380,9 +381,12 @@ namespace FileListViewTest.ViewModels
             await SlowStuffSemaphore.WaitAsync();
             try
             {
-                FolderItemsView.SetExternalBrowsingState(true);
-                FolderTextPath.SetExternalBrowsingState(true);
-                SelectedFolder = itemPath.Path;
+                lock (_LockObject)
+                {
+                    FolderItemsView.SetExternalBrowsingState(true);
+                    FolderTextPath.SetExternalBrowsingState(true);
+                    SelectedFolder = itemPath.Path;
+                }
 
                 bool? browseResult = null;
 
@@ -398,7 +402,7 @@ namespace FileListViewTest.ViewModels
                     browseResult = await FolderItemsView.NavigateToAsync(itemPath);
                 }
             }
-            catch{}
+            catch { }
             finally
             {
                 FolderItemsView.SetExternalBrowsingState(false);

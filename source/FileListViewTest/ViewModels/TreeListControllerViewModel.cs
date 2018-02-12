@@ -26,10 +26,10 @@ namespace FileListViewTest.ViewModels
     internal class TreeListControllerViewModel : Base.ViewModelBase, ITreeListControllerViewModel
     {
         #region fields
-        private SemaphoreSlim SlowStuffSemaphore = null;
+        private readonly SemaphoreSlim SlowStuffSemaphore;
+        private readonly object _LockObject;
 
         private string _SelectedFolder = string.Empty;
-        private object _LockObject = new object();
         private ICommand _RefreshCommand;
         #endregion fields
 
@@ -55,6 +55,7 @@ namespace FileListViewTest.ViewModels
         public TreeListControllerViewModel()
         {
             SlowStuffSemaphore = new SemaphoreSlim(1, 1);
+            _LockObject = new object();
 
             FolderItemsView = FileListView.Factory.CreateFileListViewModel(new BrowseNavigation());
             FolderTextPath = FolderControlsLib.Factory.CreateFolderComboBoxVM();
@@ -107,23 +108,6 @@ namespace FileListViewTest.ViewModels
         }
 
         /// <summary>
-        /// Gets the currently selected recent location string (if any) or null.
-        /// </summary>
-        public string SelectedRecentLocation
-        {
-            get
-            {
-                if (this.RecentFolders != null)
-                {
-                    if (this.RecentFolders.SelectedItem != null)
-                        return this.RecentFolders.SelectedItem.FullPath;
-                }
-
-                return null;
-            }
-        }
-
-        /// <summary>
         /// Gets the viewmodel that exposes recently visited locations (bookmarked folders).
         /// </summary>
         public IBookmarksViewModel RecentFolders { get; }
@@ -150,7 +134,7 @@ namespace FileListViewTest.ViewModels
         /// <summary>
         /// Gets the viewmodel that drives the folder picker control.
         /// </summary>
-        public IBrowserViewModel TreeBrowser { get;  }
+        public IBrowserViewModel TreeBrowser { get; }
 
         /// <summary>
         /// Gets the currently selected folder path string.
@@ -169,6 +153,23 @@ namespace FileListViewTest.ViewModels
                     this._SelectedFolder = value;
                     base.NotifyPropertyChanged(() => this.SelectedFolder);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Gets the currently selected recent location string (if any) or null.
+        /// </summary>
+        public string SelectedRecentLocation
+        {
+            get
+            {
+                if (this.RecentFolders != null)
+                {
+                    if (this.RecentFolders.SelectedItem != null)
+                        return this.RecentFolders.SelectedItem.FullPath;
+                }
+
+                return null;
             }
         }
         #endregion properties
@@ -463,9 +464,12 @@ namespace FileListViewTest.ViewModels
             await SlowStuffSemaphore.WaitAsync();
             try
             {
-                TreeBrowser.SetExternalBrowsingState(true);
-                FolderItemsView.SetExternalBrowsingState(true);
-                FolderTextPath.SetExternalBrowsingState(true);
+                lock (_LockObject)
+                {
+                    TreeBrowser.SetExternalBrowsingState(true);
+                    FolderItemsView.SetExternalBrowsingState(true);
+                    FolderTextPath.SetExternalBrowsingState(true);
+                }
 
                 bool? browseResult = null;
 
@@ -495,6 +499,12 @@ namespace FileListViewTest.ViewModels
             }
         }
 
+        /// <summary>
+        /// One of the controls has changed its location in the filesystem.
+        /// This method is invoked to synchronize this change with all other controls.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FolderTextPath_BrowseEvent(object sender,
                                                 FileSystemModels.Browse.BrowsingEventArgs e)
         {

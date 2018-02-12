@@ -8,6 +8,10 @@ namespace FileListViewTest.Interfaces
     /// </summary>
     public interface ITreeListControllerViewModel : IListControllerViewModel
     {
+        /// <summary>
+        /// Gets the folder browser viewmodel that drives the tree view which displays
+        /// drives and their folder items.
+        /// </summary>
         IBrowserViewModel TreeBrowser { get; }
     }
 }
