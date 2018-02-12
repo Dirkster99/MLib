@@ -7,13 +7,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid xmlns:conv="clr-namespace:FileListViewTest.Converter">
-  <Grid.RowDefinitions>
-    <RowDefinition Height="Auto" />
-    <RowDefinition Height="Auto" />
-    <RowDefinition Height="Auto" />
-    <RowDefinition Height="*" />
-  </Grid.RowDefinitions>
-    <!-- This is only interesting for testing 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <!-- This is only interesting for testing 
     <GroupBox Header="FolderComboBoxViewModel" HorizontalAlignment="Stretch">
       <StackPanel Orientation="Vertical">
         <Grid Margin="3">
@@ -48,58 +49,57 @@
       </StackPanel>
     </GroupBox>
 -->
-    <GroupBox DataContext="{Binding FolderView}"
-              Header="FolderListViewModel"
+        <GroupBox Header="FolderListViewModel" DataContext="{Binding SelectedControllerTestViewModel}"
               HorizontalAlignment="Stretch" Grid.Row="0">
-      <StackPanel Orientation="Vertical">
-        <Grid Margin="3">
-          <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-          </Grid.RowDefinitions>
-          <TextBlock Text="Selected Folder:" Margin="3,3,3,0" Grid.Row="0"/>
-          <TextBox Margin="3,1,3,3"
+            <StackPanel Orientation="Vertical">
+                <Grid Margin="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Selected Folder:" Margin="3,3,3,0" Grid.Row="0"/>
+                    <TextBox Margin="3,1,3,3"
                     Text="{Binding Path=SelectedFolder,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}"
                     TextWrapping="WrapWithOverflow"
                     IsReadOnly="True"
                     BorderThickness="1"
                     BorderBrush="AliceBlue"
                     Grid.Row="1"/>
-        </Grid>
-      </StackPanel>
-    </GroupBox>
+                </Grid>
+            </StackPanel>
+        </GroupBox>
 
-    <GroupBox DataContext="{Binding FolderView}"
-              Header="FileListViewModel" HorizontalAlignment="Stretch"  Grid.Row="1">
-      <StackPanel Orientation="Vertical">
-        <CheckBox Content="Show Icons" IsEnabled="False"
+        <GroupBox DataContext="{Binding SelectedControllerTestViewModel}"
+                  Header="FileListViewModel" HorizontalAlignment="Stretch"  Grid.Row="1">
+            <StackPanel Orientation="Vertical">
+                <CheckBox Content="Show Icons" IsEnabled="False"
                   DataContext="{Binding FolderItemsView}" 
                   IsChecked="{Binding ShowIcons,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" />
 
-        <CheckBox Content="Show Folders" IsEnabled="False"
+                <CheckBox Content="Show Folders" IsEnabled="False"
                   DataContext="{Binding FolderItemsView}" 
                   IsChecked="{Binding ShowFolders,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" />
 
-        <CheckBox Content="Show Hidden Files/Folders" IsEnabled="False"
+                <CheckBox Content="Show Hidden Files/Folders" IsEnabled="False"
                   DataContext="{Binding FolderItemsView}" 
                   IsChecked="{Binding ShowHidden,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" />
-      </StackPanel>
-    </GroupBox>
+            </StackPanel>
+        </GroupBox>
 
-    <Label Content="Folder Bookmarks:" Grid.Row="2"/>
-    <Grid  Grid.Row="3">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="Auto"/>
-        <ColumnDefinition Width="*"/>
-      </Grid.ColumnDefinitions>
+        <Label Content="Folder Bookmarks:" Grid.Row="2"/>
+        <Grid  Grid.Row="3" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-            <StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="0">
                 <Button Content="+" Margin="3" MinWidth="30"
                         Command="{Binding AddRecentFolder}">
                     <Button.CommandParameter>
                         <MultiBinding Converter="{conv:MultiBindingToObjectListConverter}">
-                            <Binding Path="FolderView.RecentFolders.SelectedItem" />
-                            <Binding Path="FolderView" />
+                            <Binding Path="SelectedControllerTestViewModel.RecentFolders.SelectedItem" />
+                            <Binding Path="SelectedControllerTestViewModel" />
                             <!-- This is the viewmodel that request to add a recent folder entry -->
                         </MultiBinding>
                     </Button.CommandParameter>
@@ -109,8 +109,8 @@
                         Command="{Binding RemoveRecentFolder}">
                     <Button.CommandParameter>
                         <MultiBinding Converter="{conv:MultiBindingToObjectListConverter}">
-                            <Binding Path="FolderView.RecentFolders.SelectedItem" />
-                            <Binding Path="FolderView" />
+                            <Binding Path="SelectedControllerTestViewModel.RecentFolders.SelectedItem" />
+                            <Binding Path="SelectedControllerTestViewModel" />
                             <!-- This is the viewmodel that request to add a recent folder entry -->
                         </MultiBinding>
                     </Button.CommandParameter>
@@ -118,13 +118,40 @@
 
             </StackPanel>
 
-            <ListBox DataContext="{Binding FolderView}"
+            <ListBox DataContext="{Binding SelectedControllerTestViewModel}"
                      ItemsSource="{Binding RecentFolders.DropDownItems}"
                      SelectedItem="{Binding RecentFolders.SelectedItem}"
                      ToolTip="Bookmarked Folder List"
                      VerticalAlignment="Stretch"
                      HorizontalAlignment="Stretch"
-                     Grid.Column="1" />
+                     Grid.Row="1" />
+        </Grid>
+
+        <Grid Grid.Row="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="3">
+                <Button Content="Save Config"
+                        Command="{Binding TestSaveConfigCommand}"
+                        CommandParameter="{Binding SelectedControllerTestViewModel}"
+                        Margin="3"/>
+                
+                <Button Content="Load Config"
+                        Command="{Binding TestLoadConfigCommand}"
+                        CommandParameter="{Binding SelectedControllerTestViewModel}"
+                        Margin="3"/>
+            </StackPanel>
+
+            <TextBox
+                HorizontalScrollBarVisibility="Auto"
+                VerticalScrollBarVisibility="Auto"
+                Text="{Binding DebuggerText, UpdateSourceTrigger=PropertyChanged}"
+                Grid.Row="1"
+                VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                Margin="3"/>
+        </Grid>
     </Grid>
-  </Grid>
 </UserControl>

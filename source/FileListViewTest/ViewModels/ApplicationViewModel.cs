@@ -2,10 +2,14 @@ namespace FileListViewTest.ViewModels
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
+    using System.Windows;
     using System.Windows.Input;
+    using System.Xml.Serialization;
     using FileListViewTest.Command;
     using FileListViewTest.Interfaces;
     using FileSystemModels.Interfaces;
+    using FileSystemModels.Models;
     using FolderBrowser;
 
     /// <summary>
@@ -16,6 +20,13 @@ namespace FileListViewTest.ViewModels
         #region fields
         private ICommand mAddRecentFolder;
         private ICommand mRemoveRecentFolder;
+
+        private int _SelectedTestviewModelIndex;
+        private object[] _SelectedControllerTestViewModel;
+
+        private string _DebuggerText = string.Empty;
+        private ICommand mTestSaveConfigCommand;
+        private ICommand mTestLoadConfigCommand;
         #endregion fields
 
         #region constructor
@@ -46,6 +57,13 @@ namespace FileListViewTest.ViewModels
             FolderTreeView.AddFilter("LaTex files", "*.tex");
             FolderTreeView.AddFilter("Text files", "*.txt");
             FolderTreeView.AddFilter("All Files", "*.*");
+
+            _SelectedControllerTestViewModel = new object[2];
+            _SelectedControllerTestViewModel[0] = FolderView;
+            _SelectedControllerTestViewModel[1] = FolderTreeView;
+
+            // Set this as selected test by default ...
+            SelectedTestviewModelIndex = 1;
         }
         #endregion constructor
 
@@ -56,9 +74,111 @@ namespace FileListViewTest.ViewModels
         /// </summary>
         public IListControllerViewModel FolderView { get; }
 
+        /// <summary>
+        /// Gets a viewmodel that drives the folderbrowser in sync with the
+        /// folder listview and combobox...
+        /// </summary>
         public ITreeListControllerViewModel FolderTreeView { get; }
 
-        #region Commands for test case without folderBrowser
+        /// <summary>
+        /// Gets the currently selected index to a test viewmodel for andvanced testing
+        /// such as config persistence and restore ...
+        /// </summary>
+        public int SelectedTestviewModelIndex
+        {
+            get { return _SelectedTestviewModelIndex; }
+            set
+            {
+                if (_SelectedTestviewModelIndex != value)
+                {
+
+                    _SelectedTestviewModelIndex = value;
+                    NotifyPropertyChanged(() => this.SelectedTestviewModelIndex);
+                    NotifyPropertyChanged(() => this.SelectedControllerTestViewModel);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the viewmodel that is aasociated with the currently selected test index.
+        /// </summary>
+        public object SelectedControllerTestViewModel
+        {
+            get
+            {
+                return _SelectedControllerTestViewModel[_SelectedTestviewModelIndex];
+            }
+        }
+
+        public string DebuggerText
+        {
+            get { return _DebuggerText; }
+            set
+            {
+                if (_DebuggerText != value)
+                {
+                    _DebuggerText = value;
+                    NotifyPropertyChanged(() => this.DebuggerText);
+                }
+            }
+        }
+
+        public ICommand TestSaveConfigCommand
+        {
+            get
+            {
+                if (this.mTestSaveConfigCommand == null)
+                    this.mTestSaveConfigCommand = new RelayCommand<object>(
+                         (p) =>
+                         {
+                             var param = p as IConfigExplorerSettings;
+
+                             if (param == null)
+                                 return;
+
+                             var model = new ExplorerSettingsModel();
+                             var result = param.GetExplorerSettings(null);
+
+                             var serializer = new XmlSerializer(typeof(ExplorerSettingsModel));
+                             using (var writer = new StringWriter())        // Write Xml to string
+                             {
+                                 serializer.Serialize(writer, result);
+                                 this.DebuggerText = writer.ToString();                // Convert result to string to read below
+                             }
+                         });
+
+                return this.mTestSaveConfigCommand;
+            }
+        }
+
+        public ICommand TestLoadConfigCommand
+        {
+            get
+            {
+                if (this.mTestLoadConfigCommand == null)
+                    this.mTestLoadConfigCommand = new RelayCommand<object>(
+                         (p) =>
+                         {
+                             var param = p as IConfigExplorerSettings;
+
+                             if (param == null)
+                                 return;
+
+                             ExplorerSettingsModel settings = new ExplorerSettingsModel();
+                             var deserializer = new XmlSerializer(typeof(ExplorerSettingsModel));
+                             using (var reader = new StringReader(DebuggerText))        // Read Xml from string
+                             {
+                                 settings = (ExplorerSettingsModel)deserializer.Deserialize(reader);
+                             }
+
+                             param.ConfigureExplorerSettings(settings);
+                         });
+
+                return this.mTestLoadConfigCommand;
+            }
+        }
+
+        #region Commands for tests with bookmarks
         /// <summary>
         /// Add a folder to the list of recent folders.
         /// </summary>
@@ -91,7 +211,7 @@ namespace FileListViewTest.ViewModels
             return this.mRemoveRecentFolder;
           }
         }
-        #endregion Commands for test case without folderBrowser
+        #endregion Commands for tests with bookmarks
         #endregion properties
 
         #region methods
