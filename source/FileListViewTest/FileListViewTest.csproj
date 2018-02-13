@@ -105,6 +105,7 @@
     <Compile Include="Interfaces\IListControllerViewModel.cs" />
     <Compile Include="ViewModels\ApplicationViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
+    <Compile Include="ViewModels\ControllerBaseViewModel.cs" />
     <Compile Include="ViewModels\TreeListControllerViewModel.cs" />
     <Compile Include="ViewModels\ListControllerViewModel.cs" />
     <Page Include="FileListItemOptionsView.xaml">

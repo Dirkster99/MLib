@@ -7,18 +7,18 @@
         Title="MainWindow" Height="650" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" MinWidth="300"/>
+            <ColumnDefinition Width="*" MinWidth="400"/>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
         <TabControl SelectedIndex="{Binding SelectedTestviewModelIndex}"
                     >
-            <TabItem Header="Test WITHOUT Folder Browser">
+            <TabItem Header="WITHOUT Treeview">
                     <localview:FileListItemView DataContext="{Binding FolderView}" Grid.Column="0" />
             </TabItem>
 
-            <TabItem Header="Test WITH Folder Browser">
+            <TabItem Header="WITH Treeview">
                     <localview:TreeListItemView DataContext="{Binding FolderTreeView}" Grid.Column="0" />
             </TabItem>
         </TabControl>

@@ -12,43 +12,10 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <!-- This is only interesting for testing 
-    <GroupBox Header="FolderComboBoxViewModel" HorizontalAlignment="Stretch">
-      <StackPanel Orientation="Vertical">
-        <Grid Margin="3">
-          <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-          </Grid.RowDefinitions>
-          <TextBlock Text="Selected Item:" Margin="3,3,3,0" Grid.Row="0"/>
-          <TextBox Margin="3,1,3,3"
-                Text="{Binding Path=FolderTextPath.SelectedItem,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}"
-                TextWrapping="WrapWithOverflow"
-                IsReadOnly="True"
-                BorderThickness="1"
-                BorderBrush="AliceBlue"
-                Grid.Row="1"/>
-        </Grid>
 
-        <Grid Margin="3">
-          <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-          </Grid.RowDefinitions>
-          <TextBlock Text="Current Folder:" Margin="3,3,3,0" Grid.Row="0"/>
-          <TextBox Margin="3,1,3,3"
-                Text="{Binding Path=FolderTextPath.CurrentFolder,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}"
-                TextWrapping="WrapWithOverflow"
-                IsReadOnly="True"
-                BorderThickness="1"
-                BorderBrush="AliceBlue"
-                Grid.Row="1"/>
-        </Grid>
-      </StackPanel>
-    </GroupBox>
--->
         <GroupBox Header="FolderListViewModel" DataContext="{Binding SelectedControllerTestViewModel}"
               HorizontalAlignment="Stretch" Grid.Row="0">
             <StackPanel Orientation="Vertical">
@@ -127,9 +94,12 @@
                      Grid.Row="1" />
         </Grid>
 
-        <Grid Grid.Row="4">
+        <GridSplitter Grid.Row="4" HorizontalAlignment="Stretch" MinHeight="6" />
+
+        <Grid Grid.Row="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
@@ -148,8 +118,16 @@
             <TextBox
                 HorizontalScrollBarVisibility="Auto"
                 VerticalScrollBarVisibility="Auto"
-                Text="{Binding DebuggerText, UpdateSourceTrigger=PropertyChanged}"
+                Text="{Binding SettingsXml, UpdateSourceTrigger=PropertyChanged}"
                 Grid.Row="1"
+                VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                Margin="3"/>
+
+            <TextBox
+                HorizontalScrollBarVisibility="Auto"
+                VerticalScrollBarVisibility="Auto"
+                Text="{Binding SessionXml, UpdateSourceTrigger=PropertyChanged}"
+                Grid.Row="2"
                 VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                 Margin="3"/>
         </Grid>

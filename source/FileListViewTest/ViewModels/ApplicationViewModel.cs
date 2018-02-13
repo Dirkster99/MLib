@@ -24,7 +24,9 @@ namespace FileListViewTest.ViewModels
         private int _SelectedTestviewModelIndex;
         private object[] _SelectedControllerTestViewModel;
 
-        private string _DebuggerText = string.Empty;
+        private string _SettingsXml = string.Empty;
+        private string _SessionXml = string.Empty;
+
         private ICommand mTestSaveConfigCommand;
         private ICommand mTestLoadConfigCommand;
         #endregion fields
@@ -110,19 +112,44 @@ namespace FileListViewTest.ViewModels
             }
         }
 
-        public string DebuggerText
+        /// <summary>
+        /// Gets/sets a text property for testing serialization and de-serialization
+        /// of settings data for this component.
+        /// </summary>
+        public string SettingsXml
         {
-            get { return _DebuggerText; }
+            get { return _SettingsXml; }
             set
             {
-                if (_DebuggerText != value)
+                if (_SettingsXml != value)
                 {
-                    _DebuggerText = value;
-                    NotifyPropertyChanged(() => this.DebuggerText);
+                    _SettingsXml = value;
+                    NotifyPropertyChanged(() => this.SettingsXml);
                 }
             }
         }
 
+        /// <summary>
+        /// Gets/sets a text property for testing serialization and de-serialization
+        /// of session data for this component.
+        /// </summary>
+        public string SessionXml
+        {
+            get { return _SessionXml; }
+            set
+            {
+                if (_SessionXml != value)
+                {
+                    _SessionXml = value;
+                    NotifyPropertyChanged(() => this.SessionXml);
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Gets/sets a command for testing the serialization of session
+        /// and settings data for this component.
+        /// </summary>
         public ICommand TestSaveConfigCommand
         {
             get
@@ -137,13 +164,22 @@ namespace FileListViewTest.ViewModels
                                  return;
 
                              var model = new ExplorerSettingsModel();
-                             var result = param.GetExplorerSettings(null);
+                             var result = param.GetExplorerSettings(model);
 
+                             // Write explorer settings into string for testing
                              var serializer = new XmlSerializer(typeof(ExplorerSettingsModel));
-                             using (var writer = new StringWriter())        // Write Xml to string
+                             using (var writer = new StringWriter())   // Write Xml to string
                              {
                                  serializer.Serialize(writer, result);
-                                 this.DebuggerText = writer.ToString();                // Convert result to string to read below
+                                 this.SettingsXml = writer.ToString(); // Convert result to string to read below
+                             }
+                             
+                             // Write explorer session data into string for testing
+                             serializer = new XmlSerializer(typeof(ExplorerUserProfile));
+                             using (var writer = new StringWriter())            // Write Xml to string
+                             {
+                                 serializer.Serialize(writer, result.UserProfile);
+                                 this.SessionXml = writer.ToString();  // Convert result to string to read below
                              }
                          });
 
@@ -151,6 +187,10 @@ namespace FileListViewTest.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets/sets a command for testing the de-serialization of session
+        /// and settings data for this component.
+        /// </summary>
         public ICommand TestLoadConfigCommand
         {
             get
@@ -164,14 +204,33 @@ namespace FileListViewTest.ViewModels
                              if (param == null)
                                  return;
 
-                             ExplorerSettingsModel settings = new ExplorerSettingsModel();
-                             var deserializer = new XmlSerializer(typeof(ExplorerSettingsModel));
-                             using (var reader = new StringReader(DebuggerText))        // Read Xml from string
+                             // Read Session data (if any useful available)
+                             ExplorerUserProfile userProfile = new ExplorerUserProfile();
+                             try
                              {
-                                 settings = (ExplorerSettingsModel)deserializer.Deserialize(reader);
+                               var deserializer = new XmlSerializer(typeof(ExplorerUserProfile));
+                               using (var reader = new StringReader(this.SessionXml))  // Read Xml from string
+                               {
+                                   
+                                   userProfile = (ExplorerUserProfile)deserializer.Deserialize(reader);
+                               }
                              }
+                             catch{}
 
-                             param.ConfigureExplorerSettings(settings);
+                             // Read Settings data (if any useful available)
+                             ExplorerSettingsModel settings = new ExplorerSettingsModel();
+                             try
+                             {
+                               var deserializer = new XmlSerializer(typeof(ExplorerSettingsModel));
+                               using (var reader = new StringReader(SettingsXml))        // Read Xml from string
+                               {
+                                 settings = (ExplorerSettingsModel)deserializer.Deserialize(reader);
+                               }
+                             }
+                             catch{}
+
+                             settings.SetUserProfile(userProfile);         // Bring session and settings together
+                             param.ConfigureExplorerSettings(settings); // and apply to current instance
                          });
 
                 return this.mTestLoadConfigCommand;
