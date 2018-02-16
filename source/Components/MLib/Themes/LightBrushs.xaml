@@ -297,4 +297,22 @@
                      ResourceId=GlyphBrushKey}"  options:Freeze="True"
                      Color="Black" />
 
+    <!-- GroupBox Colors -->
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
+                     ResourceId=GroupBoxForeground}"
+                     Color="#FFFFFFFF"/>
+
+    <!-- Same as ControlBackground Brush -->
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
+                     ResourceId=GroupBoxBackground}"
+                     Color="#FF444444"/>
+    
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
+                     ResourceId=GroupBoxBorderBrush}"
+                     Color="Transparent"/>
+
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
+                     ResourceId=GroupBoxContentBackground}"
+                     Color="#60444444"/>
+
 </ResourceDictionary>

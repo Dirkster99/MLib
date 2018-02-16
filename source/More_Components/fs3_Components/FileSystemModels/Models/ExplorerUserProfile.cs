@@ -92,7 +92,7 @@
                 }
                 catch
                 {
-                    CurrentPath = PathFactory.Create("C:\\");
+                    CurrentPath = PathFactory.SysDefault;
                 }
             }
 

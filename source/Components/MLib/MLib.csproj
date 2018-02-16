@@ -91,6 +91,7 @@
     <Compile Include="Controls\Metro\Extensions.cs" />
     <Compile Include="Controls\Metro\MetroProgressBar.cs" />
     <Compile Include="Controls\RelativeAnimatingContentControl.cs" />
+    <Compile Include="Converters\BackgroundToForegroundConverter.cs" />
     <Compile Include="Converters\ThicknessBindingConverter.cs" />
     <Compile Include="Converters\ToUpperConverter.cs" />
     <Compile Include="Converters\TreeViewMarginConverter.cs" />
@@ -127,6 +128,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Expander.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\GroupBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -195,6 +200,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\TreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ListBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

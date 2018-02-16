@@ -206,10 +206,10 @@ RMDIR /S /Q "More_Components/fs3_Components/FolderControlsLib\bin"
 RMDIR /S /Q "More_Components/fs3_Components/FolderControlsLib\obj"
 
 ECHO.
-ECHO Deleting BIN and OBJ Folders in FileListViewTest
+ECHO Deleting BIN and OBJ Folders in ExplorerTest
 ECHO.
-RMDIR /S /Q "FileListViewTest\bin"
-RMDIR /S /Q "FileListViewTest\obj"
+RMDIR /S /Q "ExplorerTest\Demo\ExplorerTest\bin"
+RMDIR /S /Q "ExplorerTest\Demo\ExplorerTest\obj"
 
 
 PAUSE

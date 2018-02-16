@@ -117,6 +117,10 @@
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Foreground" Value="Beige"/>
+                        </Trigger>
                         <!-- Trigger Property="Controls:ToggleButtonHelper.ContentDirection" Value="RightToLeft">
                             <Setter Property="Padding" Value="0 0 6 0" />
                             <Setter TargetName="LeftCol" Property="Width" Value="*" />

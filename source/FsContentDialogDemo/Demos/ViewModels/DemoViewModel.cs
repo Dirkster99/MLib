@@ -1,5 +1,6 @@
 ﻿namespace FsContentDialogDemo.Demos.ViewModels
 {
+    using FileSystemModels;
     using FileSystemModels.Browse;
     using FileSystemModels.Interfaces.Bookmark;
     using FolderBrowser;
@@ -275,7 +276,7 @@
                 if (string.IsNullOrEmpty(selectedPath) == false)
                     this.Path = selectedPath;
                 else
-                    this.Path = @"C:\\";
+                    this.Path = PathFactory.SysDefault.Path;
             }
         }
 

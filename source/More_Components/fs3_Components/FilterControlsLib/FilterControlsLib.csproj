@@ -49,26 +49,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factory.cs" />
-    <Compile Include="Themes\ResourceKeys.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
     <Compile Include="ViewModels\FilterComboBoxViewModel.cs" />
     <Compile Include="ViewModels\FilterItemViewModel.cs" />
-    <Compile Include="Views\FilterComboBox.xaml.cs">
-      <DependentUpon>FilterComboBox.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Themes\GenericBrushes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="Collections\SortableObservableCollection.cs" />
-    <Page Include="Views\FilterComboBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IFilterComboBoxViewModel.cs" />

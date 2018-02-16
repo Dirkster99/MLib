@@ -7,8 +7,8 @@ namespace FilterControlsLib.ViewModels
     using System.Windows.Input;
     using FilterControlsLib.Interfaces;
     using FileSystemModels.Events;
-    using FileSystemModels.ViewModels.Base;
     using FilterControlsLib.Collections;
+    using FileSystemModels.ViewModels.Base;
 
     /// <summary>
     /// Class implements a viewmodel for a combo box like control that
@@ -20,7 +20,7 @@ namespace FilterControlsLib.ViewModels
         private string _CurrentFilter = string.Empty;
         private IFilterItemViewModel _SelectedItem = null;
 
-        private RelayCommand<object> _SelectionChanged = null;
+        private ICommand _SelectionChanged = null;
 
         private readonly SortableObservableCollection<IFilterItemViewModel> _CurrentItems = null;
         #endregion fields

@@ -366,16 +366,16 @@
                                               IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                               UseLayoutRounding="False"
                                               >
-                                    <!-- ToggleButton.Foreground>
+                                    <ToggleButton.Foreground>
                                         <MultiBinding Converter="{x:Static converters:BackgroundToForegroundConverter.Instance}">
                                             <Binding RelativeSource="{RelativeSource TemplatedParent}"
                                                      Path="Background"
                                                      Mode="OneWay" />
-                                            <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                            <!-- Binding RelativeSource="{RelativeSource TemplatedParent}"
                                                      Path="(Controls:GroupBoxHelper.HeaderForeground)"
-                                                     Mode="OneWay" />
+                                                     Mode="OneWay" /-->
                                         </MultiBinding>
-                                    </ToggleButton.Foreground-->
+                                    </ToggleButton.Foreground>
                                 </ToggleButton>
                             </Border>
                             <!--

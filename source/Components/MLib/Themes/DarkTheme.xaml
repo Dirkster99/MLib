@@ -17,6 +17,9 @@
         <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/Label.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/Hyperlink.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/Button.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/GroupBox.xaml" />
+
+        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/ListBox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/ListView.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/ScrollBar.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/ToolTip.xaml" />

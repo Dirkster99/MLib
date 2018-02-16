@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                         >
     <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/BindToMLib;component/WatermarkControlsLib/DarkLightBrushs.xaml" />
         <ResourceDictionary Source="/BindToMLib;component/DropDownButtonLib/DarkBrushs.xaml" />
         <ResourceDictionary Source="/BindToMLib;component/MWindowLib/DarkBrushs.xaml" />
         <ResourceDictionary Source="/BindToMlib;component/MWindowDialogLib/DarkBrushs.xaml" />

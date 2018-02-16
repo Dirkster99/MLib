@@ -75,15 +75,15 @@
 
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
                      ResourceId=ControlButtonTextDisabledKey}"
-                     Color="#000000" />
+                     Color="#60FFFFFF" />
 
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
                      ResourceId=ControlDisabledBackgroundKey}"
-                     Color="#20FFFFFF" />
+                     Color="Transparent" />
 
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
                      ResourceId=ControlDisabledBorderKey}"
-                     Color="#20FFFFFF" />
+                     Color="Transparent" />
     
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
                      ResourceId=ControlButtonBackgroundHoverKey}"
@@ -210,7 +210,7 @@
                      Color="#d1d1d1" />
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
                      ResourceId=ControlInputBackgroundKey}"
-                     Color="#333333" />
+                     Color="#252526" />
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
                      ResourceId=ControlInputBorderKey}"
                      Color="#333333" />
@@ -285,16 +285,34 @@
 
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
                      ResourceId=TransparentWhiteBrushKey}"
-                     Color="#00FFFFFF"
+                     Color="Transparent"
                      />
 
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
                      ResourceId=SemiTransparentWhiteBrushKey}"
-                     Color="#55FFFFFF"
+                     Color="Transparent"
                      />
 
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
                      ResourceId=GlyphBrushKey}"  options:Freeze="True"
                      Color="White" />
+
+    <!-- GroupBox Colors -->
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
+                     ResourceId=GroupBoxForeground}"
+                     Color="#FFFFFFFF"/>
+
+    <!-- Same as ControlBackground Brush -->
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
+                     ResourceId=GroupBoxBackground}"
+                     Color="#FF444444"/>
+
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
+                     ResourceId=GroupBoxBorderBrush}"
+                     Color="Transparent"/>
+
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
+                     ResourceId=GroupBoxContentBackground}"
+                     Color="#60444444"/>
 
 </ResourceDictionary>

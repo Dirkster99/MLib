@@ -22,7 +22,7 @@
         <Style x:Key="TreeViewStyle"
                TargetType="{x:Type TreeView}"
                BasedOn="{StaticResource {x:Type TreeView}}" >
-                <Setter Property="TreeView.Background" Value="Transparent"/>
+                <!--Setter Property="TreeView.Background" Value="Transparent"/-->
                 <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="True"/>
                 <Setter Property="VirtualizingStackPanel.VirtualizationMode" Value="Recycling"/>
                 <Setter Property="TreeView.SnapsToDevicePixels" Value="True" />
@@ -52,7 +52,6 @@
         <TreeView behav:TreeViewSelectionChangedBehavior.ChangedCommand="{Binding SelectedFolderChangedCommand}"
                   behav:TreeViewVirtualItemBehaviour.SelectedItem="{Binding SelectedItem,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
 
-                  Style="{StaticResource TreeViewStyle}"
                   VirtualizingPanel.IsVirtualizing="True"
                   VirtualizingPanel.VirtualizationMode="Standard"
               >

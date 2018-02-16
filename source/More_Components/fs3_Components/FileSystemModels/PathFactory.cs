@@ -13,7 +13,27 @@ namespace FileSystemModels
     /// </summary>
     public sealed class PathFactory
     {
-        private PathFactory(){}
+        private PathFactory() { }
+
+        /// <summary>
+        /// Gets the default system drive - usually 'C:\'.
+        /// </summary>
+        /// <returns></returns>
+        public static IPathModel SysDefault
+        {
+            get
+            {
+                try
+                {
+                    var drive = new DirectoryInfo(Environment.SystemDirectory).Root.Name;
+                    return PathFactory.Create(drive, FSItemType.LogicalDrive);
+                }
+                catch
+                {
+                    return new PathModel(@"C:\", FSItemType.LogicalDrive);
+                }
+            }
+        }
 
         /// <summary>
         /// Constructs a new <seealso cref="IPathModel"/> object and returns it.

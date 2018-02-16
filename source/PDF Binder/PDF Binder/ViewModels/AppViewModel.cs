@@ -3,6 +3,7 @@
     using Base;
     using Doc.DocManager.Interfaces;
     using ExplorerLib;
+    using FileSystemModels;
     using FileSystemModels.Interfaces.Bookmark;
     using FolderBrowser;
     using MLib.Interfaces;
@@ -829,12 +830,16 @@
         }
 
         /// <summary>
-        /// Get a source or distination file path as default path
+        /// Get a source or distination file path as default path.
+        /// Default path will be system default drive if no value is given.
         /// </summary>
         /// <param name="defaultPath"></param>
         /// <returns></returns>
-        private string GetDefaultPath(string defaultPath = @"C:\")
+        private string GetDefaultPath(string defaultPath = null)
         {
+            if (defaultPath == null)
+                defaultPath = PathFactory.SysDefault.Path;
+
             // Prefer target as default over source file collection
             try
             {

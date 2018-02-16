@@ -4,6 +4,7 @@
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.IO;
 
     /// <summary>
     /// Implements a set of standard functions for accessing the
@@ -11,7 +12,19 @@
     /// </summary>
     public class Explorer : ExplorerLib.IExplorer
     {
-        private string DefaultDocumentsUserDir = @"C:\";
+        private string DefaultDocumentsUserDir;
+
+        public Explorer()
+        {
+            try
+            {
+                DefaultDocumentsUserDir = new DirectoryInfo(Environment.SystemDirectory).Root.Name;
+            }
+            catch
+            {
+                DefaultDocumentsUserDir = @"C:\";
+            }
+        }
 
         /// <summary>
         /// Let the user select a file to open

@@ -144,5 +144,11 @@
         public static readonly ComponentResourceKey SemiTransparentWhiteBrushKey = new ComponentResourceKey(typeof(ResourceKeys), "SemiTransparentWhiteBrushKey");
 
         public static readonly ComponentResourceKey GlyphBrushKey = new ComponentResourceKey(typeof(ResourceKeys), "GlyphBrushKey");
+
+        // GroupBox Colors
+        public static readonly ComponentResourceKey GroupBoxForeground = new ComponentResourceKey(typeof(ResourceKeys), "GroupBoxForeground");
+        public static readonly ComponentResourceKey GroupBoxBackground = new ComponentResourceKey(typeof(ResourceKeys), "GroupBoxBackground");
+        public static readonly ComponentResourceKey GroupBoxBorderBrush = new ComponentResourceKey(typeof(ResourceKeys), "GroupBoxBorderBrush");
+        public static readonly ComponentResourceKey GroupBoxContentBackground = new ComponentResourceKey(typeof(ResourceKeys), "GroupBoxContentBackground");
     }
 }

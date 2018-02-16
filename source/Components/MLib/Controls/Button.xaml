@@ -82,13 +82,19 @@
 
     <Style x:Key="{x:Type ToggleButton}"
            BasedOn="{StaticResource BaseButtonStyle}"
-           TargetType="{x:Type ToggleButton}"/>
+           TargetType="{x:Type ToggleButton}">
+        <Setter Property="Focusable" Value="False"/>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlButtonIsDefaultBorderBrushKey}}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
     <Style x:Key="{x:Type RepeatButton}"
            BasedOn="{StaticResource BaseButtonStyle}"
            TargetType="{x:Type RepeatButton}">
-        <Setter Property="Stylus.IsPressAndHoldEnabled"
-                Value="false"/>
+        <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
     </Style>
 
     <Style x:Key="{x:Type Button}"
