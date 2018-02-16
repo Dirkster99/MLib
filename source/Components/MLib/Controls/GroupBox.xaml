@@ -11,13 +11,13 @@
     <Thickness x:Key="GroupBoxHeaderThemePadding">4</Thickness>
 
     <Style x:Key="MetroGroupBox" TargetType="{x:Type GroupBox}">
-        <Setter Property="Background" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentBrushKey}}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentBrushKey}}" />
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Background" Value="{DynamicResource {x:Static reskeys:ResourceKeys.Gray8BrushKey}}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource {x:Static reskeys:ResourceKeys.Gray8BrushKey}}" />
+        <Setter Property="BorderThickness" Value="3" />
         <!--Setter Property="Controls:ControlsHelper.ContentCharacterCasing" Value="Upper" />
         <Setter Property="Controls:ControlsHelper.HeaderFontSize" Value="{DynamicResource ContentFontSize}" />
         <Setter Property="Controls:GroupBoxHelper.HeaderForeground" Value="{x:Null}" / -->
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlTextBrushKey}}" />
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static reskeys:ResourceKeys.BlackBrushKey}}" />
         <Setter Property="Padding" Value="4" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Template">
@@ -34,6 +34,7 @@
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                Padding="0,3,0,3"
                                 UseLayoutRounding="True">
                             <Controls:ContentControlEx x:Name="HeaderContent"
                                                        Content="{TemplateBinding Header}"
@@ -42,7 +43,10 @@
                                                        ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                                                        RecognizesAccessKey="True"
                                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                                       UseLayoutRounding="False">
+                                                       UseLayoutRounding="False"
+                                                       TextElement.Foreground="{DynamicResource {x:Static reskeys:ResourceKeys.BlackBrushKey}}"
+                                                       TextElement.FontWeight="Bold"
+                                                       >
                                 <!--
                                                        Margin="{DynamicResource GroupBoxHeaderThemePadding}"
                                                        ContentCharacterCasing="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:ControlsHelper.ContentCharacterCasing)}"

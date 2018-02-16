@@ -109,7 +109,6 @@
     <Compile Include="Themes\ResourceKeys.cs" />
     <Compile Include="Themes\ThemeDefinition.cs" />
     <Compile Include="Util\PasswordBoxHelper.cs" />
-    <Compile Include="Util\TabControlHelper.cs" />
     <Compile Include="Util\TransitioningContentControl.cs" />
     <Page Include="Controls\Button.xaml">
       <Generator>MSBuild:Compile</Generator>
