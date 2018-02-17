@@ -1,152 +1,348 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:reskeys="clr-namespace:MLib.Themes">
+                    
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:System="clr-namespace:System;assembly=mscorlib"
+                    mc:Ignorable="d"
+                    xmlns:reskeys="clr-namespace:MLib.Themes"
+    >
 
-    <!-- Source: MahApp.Metro -->
-    <Style x:Key="MetroListBox" TargetType="{x:Type ListBox}">
-        <Setter Property="Background" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlInputBackgroundKey}}" />
-        <!--Setter Property="BorderBrush" Value="{DynamicResource BlackBrush}" /-->
-        <!--  default to 0  -->
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
-        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
-        <Setter Property="ScrollViewer.PanningMode" Value="Both" />
-        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ListBox}">
-                    <Border Name="Border"
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-                        <ScrollViewer Padding="{TemplateBinding Padding}"
-                                      CanContentScroll="{TemplateBinding ScrollViewer.CanContentScroll}"
-                                      Focusable="False"
-                                      HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
-                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                      VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
-                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                        </ScrollViewer>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsGrouping" Value="false">
-                            <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Style.Triggers>
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="BorderBrush" Value="{DynamicResource {x:Static reskeys:ResourceKeys.Gray10BrushKey}}" /> <!--{DynamicResource GrayBrush9} -->
-            </Trigger>
-            <Trigger Property="VirtualizingStackPanel.IsVirtualizing" Value="True">
-                <Setter Property="ItemsPanel">
-                    <Setter.Value>
-                        <ItemsPanelTemplate>
-                            <VirtualizingStackPanel />
-                        </ItemsPanelTemplate>
-                    </Setter.Value>
-                </Setter>
-                <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
-            </Trigger>
-        </Style.Triggers>
-    </Style>
+    <!-- ********************************** THEME COLORS **********************************
+    Infragistics Themes For Microsoft Controls
+    https://github.com/Infragistics/InfragisticsThemesForMicrosoftControls
+    -->
+    <!--Base Colors-->
+    <!-- Color x:Key="Color_001">#FFFFFFFF</Color -->
+    <!-- Color x:Key="Color_002">#FFBABABA</Color -->
+    <!-- Color x:Key="Color_003">#FF858585</Color -->
+    <!-- Color x:Key="Color_004">#FF747474</Color -->
+    <!-- Color x:Key="Color_006">#FF454545</Color -->
+    <!-- Color x:Key="Color_009">#FF181818</Color -->
 
-    <Style x:Key="VirtualisedMetroListBox"
-           BasedOn="{StaticResource MetroListBox}"
-           TargetType="{x:Type ListBox}">
-        <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="True" />
-        <Setter Property="VirtualizingStackPanel.VirtualizationMode" Value="Recycling" />
-    </Style>
+    <!--Transparent and Whites with transparency-->
+    <!-- Color x:Key="Color_016">#00FFFFFF 0% White-->
 
-    <Style x:Key="MetroListBoxItem" TargetType="{x:Type ListBoxItem}">
-        <!-- Setter Property="Background" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlNormalBackgroundBrushKey}}" /-->
-        <Setter Property="BorderThickness" Value="0" />
-        <!-- Setter Property="Controls:ItemHelper.ActiveSelectionBackgroundBrush" Value="{DynamicResource AccentColorBrush}" /-->
-        <!-- Setter Property="Controls:ItemHelper.ActiveSelectionForegroundBrush" Value="{DynamicResource AccentSelectedColorBrush}" /-->
-        <!-- Setter Property="Controls:ItemHelper.DisabledForegroundBrush" Value="{DynamicResource GrayNormalBrush}" /-->
-        <!-- Setter Property="Controls:ItemHelper.DisabledSelectedBackgroundBrush" Value="{DynamicResource GrayBrush7}" /-->
-        <!-- Setter Property="Controls:ItemHelper.DisabledSelectedForegroundBrush" Value="{DynamicResource AccentSelectedColorBrush}" /-->
-        <!-- Setter Property="Controls:ItemHelper.HoverBackgroundBrush" Value="{DynamicResource AccentColorBrush3}" /-->
-        <!-- Setter Property="Controls:ItemHelper.HoverSelectedBackgroundBrush" Value="{DynamicResource AccentColorBrush}" /-->
-        <!-- Setter Property="Controls:ItemHelper.SelectedBackgroundBrush" Value="{DynamicResource AccentColorBrush2}" /-->
-        <!-- Setter Property="Controls:ItemHelper.SelectedForegroundBrush" Value="{DynamicResource AccentSelectedColorBrush}" /-->
+    <!--Theme Accent colors -
+    <Color x:Key="Color_024">#FF00AADE</Color> - ControlAccentColorKey -->
+
+    <!--Theme Error colors -->
+    <!-- SolidColorBrush x:Key="TransparentBrush" Color="{StaticResource Color_016}" / - Transparent         -->
+    <!-- SolidColorBrush x:Key="ForegroundBrush" Color="{StaticResource Color_002}" /  - ControlTextBrushKey -->
+
+    <!-- ListBox Brushes -->
+    <!-- SolidColorBrush x:Key="ListBoxBackgroundBrush" Color="{StaticResource Color_009}"          - ControlInputBackgroundKey      -->
+    <!-- SolidColorBrush x:Key="ListBoxBorderBrush" Color="{StaticResource Color_006}"              - ControlInputBorderKey          -->
+    <!-- SolidColorBrush x:Key="ListBoxItemHoverBackgroundBrush" Color="{StaticResource Color_006}" - ControlInputBackgroundHoverKey -->
+    <!-- SolidColorBrush x:Key="ListBoxItemHoverBorderBrush" Color="{StaticResource Color_004}"     - ControlInputBorderHoverKey     -->
+    <!-- SolidColorBrush x:Key="ListBoxItemPressedBackgroundBrush" Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}" /-->
+    <!-- SolidColorBrush x:Key="ListBoxItemPressedBorderBrush" Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}" / -->
+    <!-- SolidColorBrush x:Key="ListBoxItemSelectedBackgroundBrush" Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}" /-->
+    <!-- SolidColorBrush x:Key="ListBoxItemSelectedBorderBrush" Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}" / -->
+
+    <!--SolidColorBrush x:Key="LightForegroundBrush" Color="{StaticResource Color_001}"  - ControlTextBrushKey -->
+    <!-- SolidColorBrush x:Key="DisabledVisualElement" Color="#FF181818" Opacity="0.6" /--> <!--Color="{StaticResource Color_009}" -->
+
+    <!-- ValidationToolTip Brushes -->
+    <!-- SolidColorBrush x:Key="ValidationToolTipTemplateShadowBrush" Color="#FF858585"/ --> <!-- Color_003 -->
+    <!-- SolidColorBrush x:Key="ValidationErrorElement" Color="#FFD0284C" / -->              <!-- Color_028 -->
+
+    <!-- *********************************  ValidationToolTip Template  ********************************* -->
+    <ControlTemplate x:Key="ValidationToolTipTemplate">
+        <Grid x:Name="Root" Margin="5,0" Opacity="0" RenderTransformOrigin="0,0">
+            <Grid.RenderTransform>
+                <TranslateTransform x:Name="xform" X="-25" />
+            </Grid.RenderTransform>
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="OpenStates">
+                    <VisualStateGroup.Transitions>
+                        <VisualTransition GeneratedDuration="0" />
+                        <VisualTransition GeneratedDuration="0:0:0.2" To="Open">
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="X" Storyboard.TargetName="xform">
+                                    <DoubleAnimation.EasingFunction>
+                                        <BackEase Amplitude=".3" EasingMode="EaseOut" />
+                                    </DoubleAnimation.EasingFunction>
+                                </DoubleAnimation>
+                                <DoubleAnimation Duration="0:0:0.2" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="Root" />
+                            </Storyboard>
+                        </VisualTransition>
+                    </VisualStateGroup.Transitions>
+                    <VisualState x:Name="Closed">
+                        <Storyboard>
+                            <DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="Root" />
+                        </Storyboard>
+                    </VisualState>
+                    <VisualState x:Name="Open">
+                        <Storyboard>
+                            <DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="X" Storyboard.TargetName="xform" />
+                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="Root" />
+                        </Storyboard>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+            <Border Background="{DynamicResource {x:Static reskeys:ResourceKeys.ValidationToolTipTemplateShadowBrush}}" Margin="4,4,-4,-4" Opacity="0.02" />
+            <Border Background="{DynamicResource {x:Static reskeys:ResourceKeys.ValidationToolTipTemplateShadowBrush}}" Margin="3,3,-3,-3" Opacity="0.08" />
+            <Border Background="{DynamicResource {x:Static reskeys:ResourceKeys.ValidationToolTipTemplateShadowBrush}}" Margin="2,2,-2,-2" Opacity="0.15" />
+            <Border Background="{DynamicResource {x:Static reskeys:ResourceKeys.ValidationToolTipTemplateShadowBrush}}" Margin="1,1,-1,-1" Opacity="0.21" />
+            <Border Background="{DynamicResource {x:Static reskeys:ResourceKeys.ValidationErrorElement}}" />
+            <Border>
+                <TextBlock Foreground="{DynamicResource {x:Static reskeys:ResourceKeys.ControlTextBrushKey}}" MaxWidth="250" Margin="8,4,8,4" TextWrapping="Wrap" Text="{Binding (Validation.Errors)[0].ErrorContent}" UseLayoutRounding="false" />
+            </Border>
+        </Grid>
+    </ControlTemplate>
+
+    <!-- *********************************  ListBoxItem Style  ********************************* -->
+    <Style x:Key="ListBoxItemStyle" TargetType="ListBoxItem">
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlTextBrushKey}}" />
-        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, Mode=OneWay, FallbackValue=Stretch, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+        <Setter Property="FontSize" Value="14.667" />
+        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="MinHeight" Value="30" />
+        <Setter Property="Padding" Value="6,2" />
         <Setter Property="Margin" Value="0" />
-        <Setter Property="MinHeight" Value="25" />
-        <Setter Property="Padding" Value="5 0 0 0" />
-        <Setter Property="RenderOptions.ClearTypeHint" Value="{Binding Path=(RenderOptions.ClearTypeHint), Mode=OneWay, FallbackValue=Auto, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                    <Grid Background="{TemplateBinding Background}" RenderOptions.ClearTypeHint="{TemplateBinding RenderOptions.ClearTypeHint}">
-                        <Border x:Name="Border"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                        <Grid Margin="{TemplateBinding BorderThickness}">
-                            <ContentPresenter Margin="{TemplateBinding Padding}"
-                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                        </Grid>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Bd" Storyboard.TargetProperty="Fill">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlInputBackgroundHoverKey}}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Bd" Storyboard.TargetProperty="Stroke">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlInputBorderHoverKey}}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="contentControl">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlTextBrushKey}}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DisabledVisualElement">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="SelectionStates">
+                                <VisualState x:Name="Unselected" />
+                                <VisualState x:Name="Selected">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="BgSelected">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="contentControl">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Collapsed</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="contentControl1">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="Foreground" Storyboard.TargetName="contentControl1">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlTextBrushKey}}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="SelectedUnfocused">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="BgSelected">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="contentControl">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Collapsed</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="contentControl1">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="Foreground" Storyboard.TargetName="contentControl1">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlTextBrushKey}}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="FocusedVisualElement">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Rectangle x:Name="Bd" Fill="{TemplateBinding Background}" />
+                        <Rectangle x:Name="BgSelected"
+                                   Fill="{DynamicResource {x:Static reskeys:ResourceKeys.ListBoxItemSelectedBackgroundBrush}}"
+                                   Stroke="{DynamicResource {x:Static reskeys:ResourceKeys.ListBoxItemSelectedBorderBrush}}"
+                                   Visibility="Collapsed" />
+                        <ContentControl x:Name="contentControl" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="{TemplateBinding Padding}" Foreground="{TemplateBinding Foreground}">
+                            <ContentPresenter x:Name="contentPresenter" />
+                        </ContentControl>
+                        <ContentControl x:Name="contentControl1"
+                                        Visibility="Collapsed"
+                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        Margin="{TemplateBinding Padding}"
+                                        Foreground="{DynamicResource {x:Static reskeys:ResourceKeys.ControlTextBrushKey}}">
+                            <ContentPresenter x:Name="contentPresenter1" />
+                        </ContentControl>
+                        <Rectangle x:Name="FocusedVisualElement"
+                                   IsHitTestVisible="False"
+                                   Visibility="Collapsed"
+                                   Stroke="{DynamicResource {x:Static reskeys:ResourceKeys.ListBoxItemPressedBorderBrush}}"
+                                   StrokeThickness="2" />
+                        
+                        <Rectangle x:Name="DisabledVisualElement"
+                                   Fill="{DynamicResource {x:Static reskeys:ResourceKeys.DisabledVisualElement}}"
+                                   Visibility="Collapsed" />
                     </Grid>
-                    <ControlTemplate.Triggers>
-                        <!--Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Controls:ItemHelper.SelectedForegroundBrush), Mode=OneWay}" />
-                            <Setter TargetName="Border" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:ItemHelper.SelectedBackgroundBrush), Mode=OneWay}" />
-                        </Trigger-->
-                        <!--MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsSelected" Value="True" />
-                                <Condition Property="Selector.IsSelectionActive" Value="True" />
-                            </MultiTrigger.Conditions>
-                            <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Controls:ItemHelper.ActiveSelectionForegroundBrush), Mode=OneWay}" />
-                            <Setter TargetName="Border" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:ItemHelper.ActiveSelectionBackgroundBrush), Mode=OneWay}" />
-                        </MultiTrigger-->
-
-                        <!--MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsMouseOver" Value="True" />
-                                <Condition Property="IsSelected" Value="True" />
-                            </MultiTrigger.Conditions>
-                            <Setter TargetName="Border" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:ItemHelper.HoverSelectedBackgroundBrush), Mode=OneWay}" />
-                        </MultiTrigger-->
-                        <!--MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsMouseOver" Value="True" />
-                                <Condition Property="IsSelected" Value="False" />
-                            </MultiTrigger.Conditions>
-                            <Setter TargetName="Border" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:ItemHelper.HoverBackgroundBrush), Mode=OneWay}" />
-                        </MultiTrigger-->
-
-                        <!--Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Controls:ItemHelper.DisabledForegroundBrush), Mode=OneWay}" />
-                            <Setter TargetName="Border" Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Controls:ItemHelper.DisabledBackgroundBrush), Mode=OneWay}" />
-                        </Trigger-->
-                        <!--MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsEnabled" Value="False" />
-                                <Condition Property="IsSelected" Value="True" />
-                            </MultiTrigger.Conditions>
-                            <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Controls:ItemHelper.DisabledSelectedForegroundBrush), Mode=OneWay}" />
-                            <Setter TargetName="Border" Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Controls:ItemHelper.DisabledSelectedBackgroundBrush), Mode=OneWay}" />
-                        </MultiTrigger-->
-                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, Mode=OneWay, FallbackValue=Center, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
     </Style>
 
-    <Style BasedOn="{StaticResource MetroListBox}" TargetType="ListBox" />
+    <!-- *********************************  ListBox Style  ********************************* -->
+    <Style x:Key="ListBoxStyle" TargetType="ListBox">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Background" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlInputBackgroundKey}}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlInputBorderKey}}" />
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlTextBrushKey}}" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalContentAlignment" Value="Top" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="ItemContainerStyle" Value="{StaticResource ListBoxItemStyle}" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBox">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="ValidationStates">
+                                <VisualState x:Name="Valid" />
+                                <VisualState x:Name="InvalidUnfocused">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="ValidationErrorElement">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="InvalidFocused">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="ValidationErrorElement">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="IsOpen" Storyboard.TargetName="validationTooltip">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <System:Boolean>True</System:Boolean>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
+                            <ScrollViewer x:Name="ScrollViewer"
+                                          BorderThickness="0"
+                                          Padding="{TemplateBinding Padding}"
+                                          ><!--Style="{StaticResource ScrollViewerStyle}"-->
+                                <ItemsPresenter />
+                            </ScrollViewer>
+                        </Border>
+                        <Border x:Name="ValidationErrorElement"
+                                BorderBrush="{DynamicResource {x:Static reskeys:ResourceKeys.ValidationErrorElement}}"
+                                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2" Visibility="Collapsed">
+                            <ToolTipService.ToolTip>
+                                <ToolTip x:Name="validationTooltip"
+                                         DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                                         Placement="Right" PlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                                         Template="{StaticResource ValidationToolTipTemplate}">
+                                    <ToolTip.Triggers>
+                                        <EventTrigger RoutedEvent="Canvas.Loaded">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="IsHitTestVisible" Storyboard.TargetName="validationTooltip">
+                                                        <DiscreteObjectKeyFrame KeyTime="0">
+                                                            <DiscreteObjectKeyFrame.Value>
+                                                                <System:Boolean>true</System:Boolean>
+                                                            </DiscreteObjectKeyFrame.Value>
+                                                        </DiscreteObjectKeyFrame>
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </ToolTip.Triggers>
+                                </ToolTip>
+                            </ToolTipService.ToolTip>
+                            <Grid Background="Transparent"
+                                  HorizontalAlignment="Right" Height="10" Margin="0,-4,-4,0" VerticalAlignment="Top" Width="10">
+                                <Path Data="M 1,0 L6,0 A 2,2 90 0 1 8,2 L8,7 z"
+                                      Fill="{DynamicResource {x:Static reskeys:ResourceKeys.ValidationErrorElement}}"
+                                      Margin="-1,3,0,0" />
+                                
+                                <Path Data="M 0,0 L2,0 L 8,6 L8,8"
+                                      Fill="{DynamicResource {x:Static reskeys:ResourceKeys.ControlTextBrushKey}}"
+                                      Margin="-1,3,0,0" />
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource ListBoxStyle}" TargetType="{x:Type ListBox}" />
+    <Style BasedOn="{StaticResource ListBoxItemStyle}" TargetType="{x:Type ListBoxItem}" />
+
 </ResourceDictionary>

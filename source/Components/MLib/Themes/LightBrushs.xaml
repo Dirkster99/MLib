@@ -76,7 +76,7 @@
 
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
                      ResourceId=ControlButtonTextDisabledKey}"
-                     Color="#a1a1a1" />
+                     Color="#A0000000" />
 
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
                      ResourceId=ControlDisabledBackgroundKey}"
@@ -111,7 +111,6 @@
                      Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}"
                      Opacity=".55"
                      />
-
     
     <!-- Color definitions for ItemsControl based controls (Listview, Combobox, listbox etc...) -->
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
@@ -146,6 +145,28 @@
                      ResourceId=ControlItemBorderSelectedKey}"
                      Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}" />
 
+    <!-- ListBox Control Brush Keys XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
+                     ResourceId=ListBoxItemPressedBorderBrush}" Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}" />
+
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
+                     ResourceId=ListBoxItemSelectedBackgroundBrush}" Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}" />
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
+                     ResourceId=ListBoxItemSelectedBorderBrush}" Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}" />
+
+    <!--SolidColorBrush x:Key="LightForegroundBrush" Color="{StaticResource Color_001}"  - ControlTextBrushKey -->
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
+                     ResourceId=DisabledVisualElement}" Color="#FF181818" Opacity="0.6" />
+    <!--Color="{StaticResource Color_009}" -->
+
+    <!-- ValidationToolTip Brushes -->
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
+                     ResourceId=ValidationToolTipTemplateShadowBrush}" Color="#FF858585"/>
+    <!-- Color_003 -->
+
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
+                     ResourceId=ValidationErrorElement}" Color="#FFD0284C" />
+    <!-- Color_028 -->
 
     <!-- Color definitions for ScrollBar specific items -->
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},

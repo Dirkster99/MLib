@@ -71,6 +71,17 @@
         public static readonly ComponentResourceKey ControlItemBackgroundSelectedKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlItemBackgroundSelectedKey");
         public static readonly ComponentResourceKey ControlItemBorderSelectedKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlItemBorderSelectedKey");
 
+        // ListBox Definitions
+        public static readonly ComponentResourceKey ListBoxItemPressedBorderBrush          = new ComponentResourceKey(typeof(ResourceKeys), "ListBoxItemPressedBorderBrush");
+        public static readonly ComponentResourceKey ListBoxItemBackgroundBrush             = new ComponentResourceKey(typeof(ResourceKeys), "ListBoxItemBackgroundBrush");
+        public static readonly ComponentResourceKey ListBoxItemSelectedBackgroundBrush     = new ComponentResourceKey(typeof(ResourceKeys), "ListBoxItemSelectedBackgroundBrush");
+        public static readonly ComponentResourceKey ListBoxItemSelectedBorderBrush         = new ComponentResourceKey(typeof(ResourceKeys), "ListBoxItemSelectedBorderBrush");
+        public static readonly ComponentResourceKey DisabledVisualElement                  = new ComponentResourceKey(typeof(ResourceKeys), "DisabledVisualElement");
+
+        // ValidationToolTip Brushes -->
+        public static readonly ComponentResourceKey ValidationToolTipTemplateShadowBrush = new ComponentResourceKey(typeof(ResourceKeys), "ValidationToolTipTemplateShadowBrush");
+        public static readonly ComponentResourceKey ValidationErrorElement = new ComponentResourceKey(typeof(ResourceKeys), "ValidationErrorElement");
+
         // Color definitions for ScrollBar specific items
         public static readonly ComponentResourceKey ControlScrollBarThumbBackgroundKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlScrollBarThumbBackgroundKey");
         public static readonly ComponentResourceKey ControlScrollBarThumbBorderKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlScrollBarThumbBorderKey");
