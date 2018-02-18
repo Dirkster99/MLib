@@ -6,6 +6,7 @@ namespace FolderBrowser.Dialogs.ViewModels
     using FileSystemModels.ViewModels.Base;
     using FolderBrowser.Interfaces;
     using FolderBrowser.ViewModels;
+    using System.Windows;
 
     /// <summary>
     /// A base class for implementing a viewmodel that can drive dialogs
@@ -15,11 +16,11 @@ namespace FolderBrowser.Dialogs.ViewModels
     internal class DialogBaseViewModel : ViewModelBase
     {
         #region fields
-        private IBrowserViewModel mTreeBrowser = null;
-        private IBookmarksViewModel mBookmarkedLocations = null;
+        private IBrowserViewModel _TreeBrowser = null;
+        private IBookmarksViewModel _BookmarkedLocations = null;
         #endregion fields
 
-        #region constructor
+        #region constructors
         /// <summary>
         /// Class constructor
         /// </summary>
@@ -33,7 +34,7 @@ namespace FolderBrowser.Dialogs.ViewModels
 
             ResetBookmarks(recentLocations);
         }
-        #endregion constructor
+        #endregion constructors
 
         #region properties
         /// <summary>
@@ -43,14 +44,14 @@ namespace FolderBrowser.Dialogs.ViewModels
         {
             get
             {
-                return mTreeBrowser;
+                return _TreeBrowser;
             }
 
             private set
             {
-                if (mTreeBrowser != value)
+                if (_TreeBrowser != value)
                 {
-                    mTreeBrowser = value;
+                    _TreeBrowser = value;
                     RaisePropertyChanged(() => TreeBrowser);
                 }
             }
@@ -63,14 +64,14 @@ namespace FolderBrowser.Dialogs.ViewModels
         {
             get
             {
-                return mBookmarkedLocations;
+                return _BookmarkedLocations;
             }
 
             private set
             {
-                if (mBookmarkedLocations != value)
+                if (_BookmarkedLocations != value)
                 {
-                    mBookmarkedLocations = value;
+                    _BookmarkedLocations = value;
                     RaisePropertyChanged(() => BookmarkedLocations);
                 }
             }
@@ -88,10 +89,16 @@ namespace FolderBrowser.Dialogs.ViewModels
         {
             if (BookmarkedLocations != null)
             {
-                BookmarkedLocations.BrowseEvent -= RecentLocations_RequestChangeOfDirectory;
+                //BookmarkedLocations.BrowseEvent -= RecentLocations_RequestChangeOfDirectory;
+                WeakEventManager<ICanNavigate, BrowsingEventArgs>
+                    .RemoveHandler(BookmarkedLocations, "BrowseEvent", RecentLocations_RequestChangeOfDirectory);
 
                 if (TreeBrowser != null)
-                    TreeBrowser.BookmarkFolder.RequestEditBookmarkedFolders -= BookmarkFolder_RequestEditBookmarkedFolders;
+                {
+                    //TreeBrowser.BookmarkFolder.RequestEditBookmarkedFolders -= BookmarkFolder_RequestEditBookmarkedFolders;
+                    WeakEventManager<IEditBookmarks, EditBookmarkEvent>
+                        .RemoveHandler(TreeBrowser.BookmarkFolder, "RequestEditBookmarkedFolders", BookmarkFolder_RequestEditBookmarkedFolders);
+                }
             }
 
             if (recentLocations != null)
@@ -106,10 +113,14 @@ namespace FolderBrowser.Dialogs.ViewModels
 
             if (BookmarkedLocations != null)
             {
-                BookmarkedLocations.BrowseEvent += RecentLocations_RequestChangeOfDirectory;
+                //BookmarkedLocations.BrowseEvent += RecentLocations_RequestChangeOfDirectory;
+                WeakEventManager<ICanNavigate, BrowsingEventArgs>
+                    .AddHandler(BookmarkedLocations, "BrowseEvent", RecentLocations_RequestChangeOfDirectory);
             }
 
-            TreeBrowser.BookmarkFolder.RequestEditBookmarkedFolders += BookmarkFolder_RequestEditBookmarkedFolders;
+            //TreeBrowser.BookmarkFolder.RequestEditBookmarkedFolders += BookmarkFolder_RequestEditBookmarkedFolders;
+            WeakEventManager<IEditBookmarks, EditBookmarkEvent>
+                .AddHandler(TreeBrowser.BookmarkFolder, "RequestEditBookmarkedFolders", BookmarkFolder_RequestEditBookmarkedFolders);
         }
 
         private void RecentLocations_RequestChangeOfDirectory(object sender,

@@ -8,6 +8,7 @@
     using Settings.Interfaces;
     using Settings.UserProfile;
     using System;
+    using System.Diagnostics;
     using System.Globalization;
     using System.Threading;
     using System.Windows;
@@ -72,8 +73,9 @@
                 //                msgBox.Style = MsgBoxStyle.WPFThemed;
 
             }
-            catch
+            catch (Exception exp)
             {
+                Debug.WriteLine(exp.Message);
             }
 
             try

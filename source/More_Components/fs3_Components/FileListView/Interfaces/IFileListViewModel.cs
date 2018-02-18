@@ -7,19 +7,20 @@ namespace FileListView.Interfaces
     using FileSystemModels.Events;
     using FileSystemModels.Interfaces.Bookmark;
 
-    /// <summary>
-    /// Interface implements a common ground for a class that organizes a filter combobox
-    /// view with a file list view.
-    /// </summary>
-    public interface IFileListViewModel : INavigateable
+    public interface IFileOpenEventSource
     {
-        #region Events
         /// <summary>
         /// Event is fired to indicate that user wishes to open a file via this viewmodel.
         /// </summary>
         event EventHandler<FileOpenEventArgs> OnFileOpen;
-        #endregion
+    }
 
+    /// <summary>
+    /// Interface implements a common ground for a class that organizes a filter combobox
+    /// view with a file list view.
+    /// </summary>
+    public interface IFileListViewModel : INavigateable, IFileOpenEventSource
+    {
         #region properties
         /// <summary>
         /// Expose properties to commands that work with the bookmarking of folders.

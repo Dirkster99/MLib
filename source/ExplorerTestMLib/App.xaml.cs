@@ -8,6 +8,8 @@
     using Settings.Interfaces;
     using Settings.UserProfile;
     using System;
+    using System.ComponentModel;
+    using System.Diagnostics;
     using System.Globalization;
     using System.Threading;
     using System.Windows;
@@ -72,8 +74,9 @@
                 //                msgBox.Style = MsgBoxStyle.WPFThemed;
 
             }
-            catch
+            catch(Exception exp)
             {
+                Debug.WriteLine(exp.Message);
             }
 
             try
@@ -104,24 +107,30 @@
             if (MainWindow != null && _appVM != null)
             {
                 // and show it to the user ...
-                MainWindow.Loaded += MainWindow_Loaded;
-                MainWindow.Closing += OnClosing;
+                //MainWindow.Loaded += MainWindow_Loaded;
+                WeakEventManager<FrameworkElement, RoutedEventArgs>
+                    .AddHandler(MainWindow, "Loaded", MainWindow_Loaded);
+
+                //MainWindow.Closing += OnClosing;
+                WeakEventManager<Window, CancelEventArgs>
+                    .AddHandler(MainWindow, "Closing", OnClosing);
 
                 // When the ViewModel asks to be closed, close the window.
                 // Source: http://msdn.microsoft.com/en-us/magazine/dd419663.aspx
-                MainWindow.Closed += delegate
-                {
-                    // Save session data and close application
-                    OnClosed(_appVM, _mainWindow);
+                WeakEventManager<Window, EventArgs>
+                    .AddHandler(MainWindow, "Closed", delegate
+                    {
+                        // Save session data and close application
+                        OnClosed(_appVM, _mainWindow);
 
-                    var dispose = _appVM as IDisposable;
-                    if (dispose != null)
-                        dispose.Dispose();
+                        var dispose = _appVM as IDisposable;
+                        if (dispose != null)
+                            dispose.Dispose();
 
-                    _mainWindow.DataContext = null;
-                    _appVM = null;
-                    _mainWindow = null;
-                };
+                        _mainWindow.DataContext = null;
+                        _appVM = null;
+                        _mainWindow = null;
+                    });
 
                 ConstructMainWindowSession(_appVM, _mainWindow);
                 MainWindow.Show();

@@ -4,6 +4,8 @@
     using FileSystemModels;
     using FileSystemModels.Models.FSItems.Base;
     using Settings.UserProfile;
+    using System;
+    using System.Windows;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -14,13 +16,12 @@
         public MainWindow()
         {
             InitializeComponent();
-            Loaded += MainWindow_Loaded;
+
+            WeakEventManager<Window, EventArgs>.AddHandler(this, "Loaded", MainWindow_Loaded);
         }
 
-        private void MainWindow_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        private void MainWindow_Loaded(object sender, EventArgs e)
         {
-            Loaded -= MainWindow_Loaded;
-
             var viewModel = this.DataContext as AppViewModel;
 
             var newPath = PathFactory.SysDefault;

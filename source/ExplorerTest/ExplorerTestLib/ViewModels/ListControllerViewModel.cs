@@ -4,10 +4,13 @@ namespace ExplorerTestLib.ViewModels
     using System.Threading.Tasks;
     using System.Windows;
     using ExplorerTestLib.Interfaces;
+    using FileListView.Interfaces;
     using FileSystemModels.Browse;
     using FileSystemModels.Events;
     using FileSystemModels.Interfaces;
+    using FileSystemModels.Interfaces.Bookmark;
     using FileSystemModels.Models;
+    using FilterControlsLib.Interfaces;
 
     /// <summary>
     /// Class implements a folder/file view model class
@@ -30,11 +33,17 @@ namespace ExplorerTestLib.ViewModels
           : this()
         {
             // Remove the standard constructor event that is fired when a user opens a file
-            this.FolderItemsView.OnFileOpen -= this.FolderItemsView_OnFileOpen;
+            //FolderItemsView.OnFileOpen -= this.FolderItemsView_OnFileOpen;
+            WeakEventManager<IFileOpenEventSource, FileOpenEventArgs>
+                .RemoveHandler(FolderItemsView, "OnFileOpen", FolderItemsView_OnFileOpen);
 
             // ...and establish a new link (if any)
             if (onFileOpenMethod != null)
-                this.FolderItemsView.OnFileOpen += onFileOpenMethod;
+            {
+                //FolderItemsView.OnFileOpen += onFileOpenMethod;
+                WeakEventManager<IFileOpenEventSource, FileOpenEventArgs>
+                    .AddHandler(FolderItemsView, "OnFileOpen", onFileOpenMethod);
+            }
         }
 
         /// <summary>
@@ -50,22 +59,34 @@ namespace ExplorerTestLib.ViewModels
             RecentFolders = FileSystemModels.Factory.CreateBookmarksViewModel();
 
             // This is fired when the user selects a new folder bookmark from the drop down button
-            RecentFolders.BrowseEvent += FolderTextPath_BrowseEvent;
+            //RecentFolders.BrowseEvent += FolderTextPath_BrowseEvent;
+            WeakEventManager<ICanNavigate, BrowsingEventArgs>
+                .AddHandler(RecentFolders, "BrowseEvent", FolderTextPath_BrowseEvent);
 
             // This is fired when the text path in the combobox changes to another existing folder
-            FolderTextPath.BrowseEvent += FolderTextPath_BrowseEvent;
+            //FolderTextPath.BrowseEvent += FolderTextPath_BrowseEvent;
+            WeakEventManager<ICanNavigate, BrowsingEventArgs>
+                .AddHandler(FolderTextPath, "BrowseEvent", FolderTextPath_BrowseEvent);
 
             Filters = FilterControlsLib.Factory.CreateFilterComboBoxViewModel();
-            Filters.OnFilterChanged += this.FileViewFilter_Changed;
+            //Filters.OnFilterChanged += FileViewFilter_Changed;
+            WeakEventManager<IFilterComboBoxViewModel, FilterChangedEventArgs>
+                .AddHandler(Filters, "OnFilterChanged", FileViewFilter_Changed);
 
             // This is fired when the current folder in the listview changes to another existing folder
-            this.FolderItemsView.BrowseEvent += FolderTextPath_BrowseEvent;
+            //FolderItemsView.BrowseEvent += FolderTextPath_BrowseEvent;
+            WeakEventManager<ICanNavigate, BrowsingEventArgs>
+                .AddHandler(FolderItemsView, "BrowseEvent", FolderTextPath_BrowseEvent);
 
             // This is fired when the user requests to add a folder into the list of recently visited folders
-            this.FolderItemsView.BookmarkFolder.RequestEditBookmarkedFolders += this.FolderItemsView_RequestEditBookmarkedFolders;
+            //FolderItemsView.BookmarkFolder.RequestEditBookmarkedFolders += this.FolderItemsView_RequestEditBookmarkedFolders;
+            WeakEventManager<IEditBookmarks, EditBookmarkEvent>
+                .AddHandler(FolderItemsView.BookmarkFolder, "RequestEditBookmarkedFolders", FolderItemsView_RequestEditBookmarkedFolders);
 
             // This event is fired when a user opens a file
-            this.FolderItemsView.OnFileOpen += this.FolderItemsView_OnFileOpen;
+            //FolderItemsView.OnFileOpen += this.FolderItemsView_OnFileOpen;
+            WeakEventManager<IFileOpenEventSource, FileOpenEventArgs>
+                .AddHandler(FolderItemsView, "OnFileOpen", FolderItemsView_OnFileOpen);
         }
         #endregion constructor
 

@@ -3,6 +3,7 @@ namespace FolderBrowser.Views
     using FileSystemModels;
     using FileSystemModels.Interfaces;
     using FolderBrowser.Interfaces;
+    using System.Windows;
     using System.Windows.Controls;
 
     /// <summary>
@@ -18,7 +19,10 @@ namespace FolderBrowser.Views
         public FolderBrowserTreeView()
         {
             InitializeComponent();
-            Loaded += FolderBrowserTreeView_Loaded;
+
+            //Loaded += FolderBrowserTreeView_Loaded;
+            WeakEventManager<FrameworkElement, RoutedEventArgs>
+                .AddHandler(this, "Loaded", FolderBrowserTreeView_Loaded);
         }
 
         /// <summary>
@@ -26,10 +30,9 @@ namespace FolderBrowser.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void FolderBrowserTreeView_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        private void FolderBrowserTreeView_Loaded(object sender,
+                                                  System.Windows.RoutedEventArgs e)
         {
-            Loaded -= FolderBrowserTreeView_Loaded;
-
             var vm = DataContext as IBrowserViewModel;
 
             if (vm != null)

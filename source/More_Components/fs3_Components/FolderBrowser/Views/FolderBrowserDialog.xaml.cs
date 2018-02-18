@@ -1,6 +1,7 @@
 ﻿namespace FolderBrowser.Views
 {
     using FolderBrowser.Dialogs.ViewModels;
+    using System.ComponentModel;
     using System.Windows;
 
     /// <summary>
@@ -16,7 +17,9 @@
         {
             InitializeComponent();
 
-            Closing += FolderBrowserDialog_Closing;
+            //Closing += FolderBrowserDialog_Closing;
+            WeakEventManager<Window, CancelEventArgs>
+                .AddHandler(this, "Closing", FolderBrowserDialog_Closing);
         }
 
         private void FolderBrowserDialog_Closing(object sender, System.ComponentModel.CancelEventArgs e)
