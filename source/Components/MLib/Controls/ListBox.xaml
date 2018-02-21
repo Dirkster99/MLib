@@ -189,8 +189,11 @@
                                                 </DiscreteObjectKeyFrame.Value>
                                             </DiscreteObjectKeyFrame>
                                         </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="Foreground" Storyboard.TargetName="contentControl1">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlTextBrushKey}}" />
+                                        <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="Fill" Storyboard.TargetName="BgSelected">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccent10BrushKey}}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="Stroke" Storyboard.TargetName="BgSelected">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccent10BrushKey}}" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -230,7 +233,7 @@
                                    IsHitTestVisible="False"
                                    Visibility="Collapsed"
                                    Stroke="{DynamicResource {x:Static reskeys:ResourceKeys.ListBoxItemPressedBorderBrush}}"
-                                   StrokeThickness="2" />
+                                   StrokeThickness="1" />
                         
                         <Rectangle x:Name="DisabledVisualElement"
                                    Fill="{DynamicResource {x:Static reskeys:ResourceKeys.DisabledVisualElement}}"

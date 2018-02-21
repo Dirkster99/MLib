@@ -152,11 +152,11 @@
 
                         <Trigger SourceName="Bd" Property="IsMouseOver" Value="True">
                             <!-- Setter Property="Foreground" Value="{DynamicResource BlackColorBrush}" / -->
-                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentBrushKey}}" />
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlInputBackgroundHoverKey}}" />
                         </Trigger>
-                        <Trigger Property="IsSelected" Value="True">
+                        <Trigger Property="IsSelected" Value="True"><!-- Selected Item has no focus -->
                             <!-- Setter Property="Foreground" Value="{DynamicResource AccentSelectedColorBrush}" / -->
-                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentBrushKey}}" />
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccent10BrushKey}}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Foreground" Value="{DynamicResource {x:Static reskeys:ResourceKeys.Gray7BrushKey}}" />
@@ -176,7 +176,7 @@
                                 <Condition Property="IsSelected" Value="True" />
                                 <Condition Property="Selector.IsSelectionActive" Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentBrushKey}}" />
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccent70BrushKey}}" />
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
