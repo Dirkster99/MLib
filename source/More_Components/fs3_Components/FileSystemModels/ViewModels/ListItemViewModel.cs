@@ -164,17 +164,6 @@
         /// Gets whether or not to show a tooltip for this item.
         /// </summary>
         public bool ShowIcon { get; private set; }
-
-        /// <summary>
-        /// Gets a copy of the internal <seealso cref="IPathModel"/> object.
-        /// </summary>
-        public IPathModel GetModel
-        {
-            get
-            {
-                return this._PathObject.Clone() as IPathModel;
-            }
-        }
         #endregion properties
 
         #region methods
@@ -185,6 +174,14 @@
         public override string ToString()
         {
             return this.ItemPath;
+        }
+
+        /// <summary>
+        /// Gets a copy of the internal <seealso cref="IPathModel"/> object.
+        /// </summary>
+        public IPathModel GetModel()
+        {
+            return this._PathObject.Clone() as IPathModel;
         }
         #endregion methods
     }

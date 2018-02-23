@@ -335,7 +335,7 @@
         /// <param name="param"></param>
         private void RemoveFolderBookmark_Executed(IListItemViewModel param)
         {
-            this.RemoveFolder(param.GetModel);
+            this.RemoveFolder(param.GetModel());
         }
         #endregion methods
     }

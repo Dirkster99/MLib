@@ -405,12 +405,12 @@ namespace FolderControlsLib.ViewModels
 
                             if (newPath != null)
                             {
-                                var model = newPath.GetModel;
+                                var model = newPath.GetModel();
 
                                 // This breaks a possible recursion, if a new view is requested even though its
                                 // already available, because this could, otherwise, change the SelectedItem
                                 // which in turn could request another PopulateView(...) -> SelectedItem etc ...
-                                if (model.Equals(SelectedItem.GetModel))
+                                if (model.Equals(SelectedItem.GetModel()))
                                     return;
 
                                 await InternalPopulateViewAsync(model, true);

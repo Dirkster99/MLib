@@ -400,7 +400,7 @@ namespace FileListView.ViewModels
                             if (info.ItemType == FSItemType.Folder || info.ItemType == FSItemType.LogicalDrive)
                             {
                                 mBrowseNavigation.BrowseDown(info.ItemType, info.ItemPath);
-                                PopulateView(info.GetModel);
+                                PopulateView(info.GetModel());
                             }
                             else
                             {

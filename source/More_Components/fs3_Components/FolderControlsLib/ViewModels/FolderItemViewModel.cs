@@ -163,17 +163,6 @@ namespace FolderControlsLib.ViewModels
         /// Gets whether or not to show a tooltip for this item.
         /// </summary>
         public bool ShowIcon { get; private set; }
-
-        /// <summary>
-        /// Gets a copy of the internal <seealso cref="PathModel"/> object.
-        /// </summary>
-        public IPathModel GetModel
-        {
-            get
-            {
-                return this._PathObject.Clone() as IPathModel;
-            }
-        }
         #endregion properties
 
         #region methods
@@ -193,6 +182,14 @@ namespace FolderControlsLib.ViewModels
         internal void SetDisplayName(string stringToDisplay)
         {
             ItemName = stringToDisplay;
+        }
+
+        /// <summary>
+        /// Gets a copy of the internal <seealso cref="PathModel"/> object.
+        /// </summary>
+        public IPathModel GetModel()
+        {
+            return this._PathObject.Clone() as IPathModel;
         }
         #endregion methods
     }

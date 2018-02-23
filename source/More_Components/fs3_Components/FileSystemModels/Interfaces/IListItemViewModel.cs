@@ -8,11 +8,6 @@
     {
         #region properties
         /// <summary>
-        /// Gets the type (folder, file) of this item
-        /// </summary>
-        IPathModel GetModel { get; }
-
-        /// <summary>
         /// Gets whether or not to show an Icon for this item or not.
         /// </summary>
         bool ShowIcon { get; }
@@ -24,6 +19,11 @@
         /// </summary>
         /// <returns>true if this directory exists and otherwise false</returns>
         bool DirectoryPathExists();
+
+        /// <summary>
+        /// Gets the type (folder, file) of this item
+        /// </summary>
+        IPathModel GetModel();
         #endregion methods
     }
 }

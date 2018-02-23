@@ -172,17 +172,6 @@ namespace FileListView.ViewModels
         /// Gets whether or not to show an Icon for this item.
         /// </summary>
         public bool ShowIcon { get; private set; }
-
-        /// <summary>
-        /// Gets a copy of the internal <seealso cref="PathModel"/> object.
-        /// </summary>
-        public IPathModel GetModel
-        {
-            get
-            {
-                return this._PathObject.Clone() as IPathModel;
-            }
-        }
         #endregion properties
 
         #region methods
@@ -226,6 +215,14 @@ namespace FileListView.ViewModels
             {
                 this.RaisePropertyChanged(() => this.ItemPath);
             }
+        }
+
+        /// <summary>
+        /// Gets a copy of the internal <seealso cref="PathModel"/> object.
+        /// </summary>
+        public IPathModel GetModel()
+        {
+            return this._PathObject.Clone() as IPathModel;
         }
         #endregion methods
     }
