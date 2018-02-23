@@ -70,7 +70,7 @@
                                    Source="{Binding Path=.,Converter={StaticResource FolderBrowseItemTypeToShellImageConverter}}"
                                    />
 
-                            <TextBlock Grid.Column="1" Text="{Binding FullPath}" />
+                            <TextBlock Grid.Column="1" Text="{Binding ItemPath}" />
                         </Grid>
                     </DataTemplate>
                 </combobox:WatermarkComboBox.ItemTemplate>
@@ -117,7 +117,7 @@
                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                 HorizontalContentAlignment="Left"
                                 BorderBrush="Transparent"
-                                ToolTip="{Binding Path=FullPath}"
+                                ToolTip="{Binding Path=ItemPath}"
                                 Margin="3,0,0,0"
                                >
                                 <Button.Style>

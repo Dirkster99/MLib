@@ -147,7 +147,7 @@ namespace FolderControlsLib.ViewModels
             get
             {
                 if (_SelectedItem != null)
-                    return _SelectedItem.FullPath;
+                    return _SelectedItem.ItemPath;
 
                 return string.Empty;
             }

@@ -399,13 +399,13 @@ namespace FileListView.ViewModels
                         {
                             if (info.ItemType == FSItemType.Folder || info.ItemType == FSItemType.LogicalDrive)
                             {
-                                mBrowseNavigation.BrowseDown(info.ItemType, info.FullPath);
+                                mBrowseNavigation.BrowseDown(info.ItemType, info.ItemPath);
                                 PopulateView(info.GetModel);
                             }
                             else
                             {
                                 if (this.OnFileOpen != null && info.ItemType == FSItemType.File)
-                                    this.OnFileOpen(this, new FileOpenEventArgs() { FileName = info.FullPath });
+                                    this.OnFileOpen(this, new FileOpenEventArgs() { FileName = info.ItemPath });
                             }
                         }
                         catch
@@ -496,10 +496,10 @@ namespace FileListView.ViewModels
                           if (path == null)
                               return;
 
-                          if (string.IsNullOrEmpty(path.FullPath) == true)
+                          if (string.IsNullOrEmpty(path.ItemPath) == true)
                               return;
 
-                          FileSystemCommands.OpenContainingFolder(path.FullPath);
+                          FileSystemCommands.OpenContainingFolder(path.ItemPath);
                       });
 
                 return this.mOpenContainingFolderCommand;
@@ -525,10 +525,10 @@ namespace FileListView.ViewModels
                           if (path == null)
                               return;
 
-                          if (string.IsNullOrEmpty(path.FullPath) == true)
+                          if (string.IsNullOrEmpty(path.ItemPath) == true)
                               return;
 
-                          FileSystemCommands.OpenInWindows(path.FullPath);
+                          FileSystemCommands.OpenInWindows(path.ItemPath);
                       });
 
                 return this.mOpenInWindowsCommand;
@@ -552,10 +552,10 @@ namespace FileListView.ViewModels
                           if (path == null)
                               return;
 
-                          if (string.IsNullOrEmpty(path.FullPath) == true)
+                          if (string.IsNullOrEmpty(path.ItemPath) == true)
                               return;
 
-                          FileListViewModel.CopyPathCommand_Executed(path.FullPath);
+                          FileListViewModel.CopyPathCommand_Executed(path.ItemPath);
                       });
 
                 return this.mCopyPathCommand;

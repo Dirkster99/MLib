@@ -6,19 +6,9 @@
     /// Define the properties and methods of a viewmodel for
     /// a file system item.
     /// </summary>
-    public interface IListItemViewModel
+    public interface IListItemViewModel : IItem
     {
         #region properties
-        /// <summary>
-        /// Gets the type (folder, file) of this item
-        /// </summary>
-        FSItemType ItemType { get; }
-
-        /// <summary>
-        /// Gets the path to this item
-        /// </summary>
-        string FullPath { get; }
-
         /// <summary>
         /// Gets a name that can be used for display
         /// (is not necessarily the same as path)

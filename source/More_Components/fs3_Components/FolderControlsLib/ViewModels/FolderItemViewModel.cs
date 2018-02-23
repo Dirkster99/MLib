@@ -96,6 +96,36 @@ namespace FolderControlsLib.ViewModels
 
         #region properties
         /// <summary>
+        /// Gets the type (folder, file) of this item
+        /// </summary>
+        public FSItemType ItemType
+        {
+            get
+            {
+                return (this._PathObject != null ? this._PathObject.PathType : FSItemType.Unknown);
+            }
+        }
+
+        /// <summary>
+        /// Gets the path to this item
+        /// </summary>
+        public string ItemPath
+        {
+            get
+            {
+                return (this._PathObject != null ? this._PathObject.Path : null);
+            }
+        }
+
+        /// <summary>
+        /// Gets whether this folder is currently expanded or not.
+        /// 
+        /// This viewmodel, currently, has no use case for an expanded item.
+        /// Therefore, this property returns a constanst false value.
+        /// </summary>
+        public bool IsExpanded { get { return false; } }
+
+        /// <summary>
         /// Gets a name that can be used for display
         /// (is not necessarily the same as path)
         /// </summary>
@@ -113,28 +143,6 @@ namespace FolderControlsLib.ViewModels
                     this._DisplayName = value;
                     this.RaisePropertyChanged(() => this.DisplayName);
                 }
-            }
-        }
-
-        /// <summary>
-        /// Gets the path to this item
-        /// </summary>
-        public string FullPath
-        {
-            get
-            {
-                return (this._PathObject != null ? this._PathObject.Path : null);
-            }
-        }
-
-        /// <summary>
-        /// Gets the type (folder, file) of this item
-        /// </summary>
-        public FSItemType ItemType
-        {
-            get
-            {
-                return (this._PathObject != null ? this._PathObject.PathType : FSItemType.Unknown);
             }
         }
 
@@ -174,7 +182,7 @@ namespace FolderControlsLib.ViewModels
         /// <returns></returns>
         public override string ToString()
         {
-            return this.FullPath;
+            return this.ItemPath;
         }
 
         /// <summary>
@@ -200,31 +208,31 @@ namespace FolderControlsLib.ViewModels
                     {
                         if (this._VolumeLabel == null)
                         {
-                            DriveInfo di = new System.IO.DriveInfo(this.FullPath);
+                            DriveInfo di = new System.IO.DriveInfo(this.ItemPath);
 
                             if (di.IsReady == true)
                                 this._VolumeLabel = di.VolumeLabel;
                             else
-                                return string.Format("{0} ({1})", this.FullPath, FileSystemModels.Local.Strings.STR_MSG_DEVICE_NOT_READY);
+                                return string.Format("{0} ({1})", this.ItemPath, FileSystemModels.Local.Strings.STR_MSG_DEVICE_NOT_READY);
                         }
 
-                        return string.Format("{0} {1}", this.FullPath, (string.IsNullOrEmpty(this._VolumeLabel)
+                        return string.Format("{0} {1}", this.ItemPath, (string.IsNullOrEmpty(this._VolumeLabel)
                                                                         ? string.Empty
                                                                         : string.Format("({0})", this._VolumeLabel)));
                     }
                     catch (Exception exp)
                     {
-                        Logger.Warn("DriveInfo cannot be optained for:" + this.FullPath, exp);
+                        Logger.Warn("DriveInfo cannot be optained for:" + this.ItemPath, exp);
 
                         // Just return a folder name if everything else fails (drive may not be ready etc).
-                        return string.Format("{0} ({1})", this.FullPath, exp.Message.Trim());
+                        return string.Format("{0} ({1})", this.ItemPath, exp.Message.Trim());
                     }
 
                 case FSItemType.Folder:
                 case FSItemType.File:
                 case FSItemType.Unknown:
                 default:
-                    return this.FullPath;
+                    return this.ItemPath;
             }
         }
 

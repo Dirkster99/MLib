@@ -361,7 +361,7 @@ namespace ExplorerTestLib.ViewModels
                     var pathItem = item as IListItemViewModel;
 
                     if (pathItem != null)
-                        path = pathItem.FullPath;
+                        path = pathItem.ItemPath;
                 }
                 else
                     if (item is IListControllerViewModel)

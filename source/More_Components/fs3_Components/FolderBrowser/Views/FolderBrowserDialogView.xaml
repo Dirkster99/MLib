@@ -132,7 +132,7 @@
                                             HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                             HorizontalContentAlignment="Left"
                                             BorderBrush="Transparent"
-                                            ToolTip="{Binding FullPath}"
+                                            ToolTip="{Binding ItemPath}"
                                             Margin="3,0,0,0"
                                         >
                                     <Button.Style>

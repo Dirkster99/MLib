@@ -1,6 +1,6 @@
 ﻿namespace FolderBrowser.Interfaces
 {
-    using FileSystemModels.Models.FSItems.Base;
+    using FileSystemModels.Interfaces;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using System.Windows.Media.Imaging;
@@ -9,26 +9,9 @@
     /// Defines an interface to an object in the tree hierarchy that can have
     /// child items (e.g.: folders) and a parent item (drive or folder).
     /// </summary>
-    public interface ITreeItemViewModel : IParent
+    public interface ITreeItemViewModel : IItem, IParent
     {
         #region properties
-        /// <summary>
-        /// Gets the type of the underlying model that is represented by this object.
-        /// The underlying can be LogicalDrive, Folder, or some other item.
-        /// </summary>
-        FSItemType ItemType { get; }
-
-        /// <summary>
-        /// Gets the complete path and filder name that
-        /// represents the address of this folder.
-        /// </summary>
-        string ItemPath { get; }
-
-        /// <summary>
-        /// Gets whether this folder is currently expanded or not.
-        /// </summary>
-        bool IsExpanded { get; }
-
         /// <summary>
         /// Gets the name (without the path) of this item.
         /// </summary>

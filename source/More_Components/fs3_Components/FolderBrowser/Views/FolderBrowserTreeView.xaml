@@ -10,6 +10,7 @@
              xmlns:bindLocal="clr-namespace:FolderBrowser.Views"
              xmlns:behav="clr-namespace:FolderBrowser.Views.Behaviours"
              xmlns:conv="clr-namespace:FolderBrowser.Converters"
+             xmlns:fsconv="clr-namespace:FileSystemModels.Converters;assembly=FileSystemModels"
              xmlns:EditInPlace="clr-namespace:InplaceEditBoxLib.Views;assembly=InplaceEditBoxLib"
              xmlns:loc="clr-namespace:FileSystemModels.Local;assembly=FileSystemModels"
                           
@@ -67,7 +68,7 @@
                 <!-- Use a proxy to bind items to root properties of this collection -->
                 <bindLocal:BindingProxy x:Key="DataContextProxy"  Data="{Binding}" />
 
-                <conv:BrowseItemTypeToShellImageConverter x:Key="BrowseItemTypeToShellImageConverter" />
+                <fsconv:BrowseItemTypeToShellImageConverter x:Key="BrowseItemTypeToShellImageConverter" />
             </TreeView.Resources>
 
             <TreeView.ItemTemplate>

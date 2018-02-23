@@ -95,7 +95,6 @@
   <ItemGroup>
     <Compile Include="Converters\BoolToVisibilityConverter .cs" />
     <Compile Include="Converters\BrowseItemTypeToImageConverter .cs" />
-    <Compile Include="Converters\BrowseItemTypeToShellImageConverter.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\SpecialFolderToImageConverter .cs" />
     <Compile Include="Converters\UpdateBindingConverter.cs" />

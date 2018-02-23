@@ -57,8 +57,8 @@
             // Select quivalent item in target collection
             if (copyThis.SelectedItem != null)
             {
-                string fullPath = copyThis.SelectedItem.FullPath;
-                var result = DropDownItems.SingleOrDefault(item => fullPath == item.FullPath);
+                string fullPath = copyThis.SelectedItem.ItemPath;
+                var result = DropDownItems.SingleOrDefault(item => fullPath == item.ItemPath);
 
                 if (result != null)
                     SelectedItem = result;
@@ -222,7 +222,7 @@
                     return;
 
                 // select this path if its already there
-                var results = this.DropDownItems.Where<IListItemViewModel>(folder => string.Compare(folder.FullPath, folderPath, true) == 0);
+                var results = this.DropDownItems.Where<IListItemViewModel>(folder => string.Compare(folder.ItemPath, folderPath, true) == 0);
 
                 // Do not add this twice
                 if (results != null)
@@ -261,7 +261,7 @@
                 // Find all items that satisfy the query match and remove them
                 // (This statement requires a Linq extension method to work)
                 // See FileSystemModels.Utils for more details
-                _DropDownItems.Remove(i => string.Compare(folderPath.Path, i.FullPath, true) == 0);
+                _DropDownItems.Remove(i => string.Compare(folderPath.Path, i.ItemPath, true) == 0);
             }
         }
 
@@ -303,7 +303,7 @@
 
             if (BrowseEvent != null)
             {
-                var targetPath = PathFactory.Create(path.FullPath);
+                var targetPath = PathFactory.Create(path.ItemPath);
                 BrowseEvent(this, new BrowsingEventArgs(targetPath, false, BrowseResult.Complete));
             }
         }

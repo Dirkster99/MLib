@@ -11,7 +11,7 @@ namespace FileSystemModels.Converters
     /// XAML markup extension to convert <seealso cref="FSItemType"/> enum members
     /// into <seealso cref="ImageSource"/> from ResourceDictionary or fallback from static resource.
     /// </summary>
-    [ValueConversion(typeof(IListItemViewModel), typeof(System.Windows.Media.ImageSource))]
+    [ValueConversion(typeof(IItem), typeof(System.Windows.Media.ImageSource))]
     public class BrowseItemTypeToShellImageConverter : IValueConverter
     {
         #region fields
@@ -42,7 +42,7 @@ namespace FileSystemModels.Converters
         public object Convert(object value, Type targetType,
                               object parameter, CultureInfo culture)
         {
-            var item = value as IListItemViewModel;
+            var item = value as IItem;
 
             if (item == null)
                 return Binding.DoNothing;
@@ -53,10 +53,10 @@ namespace FileSystemModels.Converters
             {
                 // a folder can be represented with a seperate icon for its expanded state
                 if (item.ItemType == FSItemType.Folder)
-                    displayIcon = IconExtractor.GetFolderIcon(item.FullPath,
-                                                              false).ToImageSource();
+                    displayIcon = IconExtractor.GetFolderIcon(item.ItemPath,
+                                                              item.IsExpanded).ToImageSource();
                 else
-                    displayIcon = IconExtractor.GetFileIcon(item.FullPath).ToImageSource();
+                    displayIcon = IconExtractor.GetFileIcon(item.ItemPath).ToImageSource();
             }
             catch
             {

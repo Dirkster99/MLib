@@ -98,6 +98,7 @@
     <Compile Include="Interfaces\Bookmark\IEditBookmarks.cs" />
     <Compile Include="Interfaces\IBrowseNavigation.cs" />
     <Compile Include="Interfaces\IConfigExplorerSettings.cs" />
+    <Compile Include="Interfaces\IItem.cs" />
     <Compile Include="Interfaces\IListItemViewModel.cs" />
     <Compile Include="Interfaces\IPathModel.cs" />
     <Compile Include="Local\Strings.de-DE.Designer.cs">

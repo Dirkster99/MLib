@@ -107,7 +107,7 @@
             {
                 this.RequestEditBookmarkedFolders(this,
                     new EditBookmarkEvent(
-                        PathFactory.Create(item.FullPath, FSItemType.Folder), action));
+                        PathFactory.Create(item.ItemPath, FSItemType.Folder), action));
             }
         }
         #endregion methods

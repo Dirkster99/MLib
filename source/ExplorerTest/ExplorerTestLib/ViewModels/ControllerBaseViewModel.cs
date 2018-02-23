@@ -53,7 +53,7 @@
                 if (this.RecentFolders != null)
                 {
                     if (this.RecentFolders.SelectedItem != null)
-                        return this.RecentFolders.SelectedItem.FullPath;
+                        return this.RecentFolders.SelectedItem.ItemPath;
                 }
 
                 return null;
@@ -197,7 +197,7 @@
                 }
 
                 foreach (var item in this.RecentFolders.DropDownItems)
-                    settings.AddRecentFolder(item.FullPath);
+                    settings.AddRecentFolder(item.ItemPath);
 
                 if (string.IsNullOrEmpty(this.SelectedRecentLocation) == false)
                 {
@@ -264,7 +264,7 @@
 
             // Set collection of recent folder locations
             foreach (var item in srcRecentFolders.DropDownItems)
-                dstRecentFolders.AddFolder(item.FullPath);
+                dstRecentFolders.AddFolder(item.ItemPath);
         }
         #endregion Bookmarked Folders Methods
 
