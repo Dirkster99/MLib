@@ -11,8 +11,8 @@
     public class FilterItemModel : IComparable
     {
         #region fields
-        private string mFilterText;
-        private string mFilterDisplayName;
+        private string _FilterText;
+        private string _FilterDisplayName;
         #endregion fields
 
         #region constructor
@@ -26,8 +26,8 @@
             if (item == null)
                 return;
 
-            this.mFilterDisplayName = item.FilterDisplayName;
-            this.mFilterText = item.FilterText;
+            this._FilterDisplayName = item.FilterDisplayName;
+            this._FilterText = item.FilterText;
         }
 
         /// <summary>
@@ -38,7 +38,7 @@
         {
             if (string.IsNullOrEmpty(filter) == false)
             {
-                this.mFilterText = filter;
+                this._FilterText = filter;
             }
         }
 
@@ -72,13 +72,13 @@
         {
             get
             {
-                return this.mFilterText;
+                return this._FilterText;
             }
 
             set
             {
-                if (this.mFilterText != value)
-                    this.mFilterText = value;
+                if (this._FilterText != value)
+                    this._FilterText = value;
             }
         }
 
@@ -91,13 +91,13 @@
         {
             get
             {
-                return this.mFilterDisplayName;
+                return this._FilterDisplayName;
             }
 
             set
             {
-                if (this.mFilterDisplayName != value)
-                    this.mFilterDisplayName = value;
+                if (this._FilterDisplayName != value)
+                    this._FilterDisplayName = value;
             }
         }
         #endregion properties

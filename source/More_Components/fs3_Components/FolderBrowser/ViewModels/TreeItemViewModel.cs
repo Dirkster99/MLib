@@ -3,6 +3,7 @@
     using FileSystemModels;
     using FileSystemModels.Interfaces;
     using FileSystemModels.Models.FSItems.Base;
+    using FileSystemModels.Utils;
     using FolderBrowser.Interfaces;
     using InplaceEditBoxLib.ViewModels;
     using System;
@@ -27,7 +28,6 @@
 
         private readonly SortableObservableDictionaryCollection _Folders;
         private readonly ITreeItemViewModel _Parent;
-        private string _VolumeLabel;
 
         private object _LockObject = new object();
         #endregion fields
@@ -67,8 +67,6 @@
 
             // Add dummy folder by default to make tree view show expander by default
             _Folders = new SortableObservableDictionaryCollection();
-
-            _VolumeLabel = null;
         }
         #endregion constructor
 
@@ -117,42 +115,11 @@
         /// This string can evaluete to 'C:\ (Windows)' for drives,
         /// if the 'C:\' drive was named 'Windows'.
         /// </summary>
-        public string DisplayItemString
+        public string ItemDisplayString
         {
             get
             {
-                switch (ItemType)
-                {
-                    case FSItemType.LogicalDrive:
-                        try
-                        {
-                            if (_VolumeLabel == null)
-                            {
-                                DriveInfo di = new System.IO.DriveInfo(ItemName);
-
-                                if (di.IsReady == true)
-                                    _VolumeLabel = di.VolumeLabel;
-                                else
-                                    return string.Format("{0} ({1})", ItemName, "device is not ready");
-                            }
-
-                            return string.Format("{0} {1}", ItemName, (string.IsNullOrEmpty(_VolumeLabel)
-                                                                                ? string.Empty
-                                                                                : string.Format("({0})", _VolumeLabel)));
-                        }
-                        catch (Exception exp)
-                        {
-                            ////base.ShowNotification("DriveInfo cannot be optained for:" + FolderName, FileSystemModels.Local.Strings.STR_MSG_UnknownError);
-
-                            // Just return a folder name if everything else fails (drive may not be ready etc).
-                            return string.Format("{0} ({1})", ItemName, exp.Message.Trim());
-                        }
-
-                    case FSItemType.Folder:
-                    case FSItemType.Unknown:
-                    default:
-                        return ItemName;
-                }
+                return IItemExtension.GetDisplayString(this as IItem);
             }
         }
 
@@ -324,7 +291,7 @@
                 {
                     RaisePropertyChanged(() => ItemName);
                     RaisePropertyChanged(() => ItemPath);
-                    RaisePropertyChanged(() => DisplayItemString);
+                    RaisePropertyChanged(() => ItemDisplayString);
                 }
             }
         }

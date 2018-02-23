@@ -8,7 +8,8 @@ namespace FileSystemModels
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Class implements base services for working with the <see ref="IPathModel">
+    /// Class implements base services for working with the
+    /// <see cref="FileSystemModels.Interfaces.IPathModel"/>
     /// interface and its associated methods.
     /// </summary>
     public sealed class PathFactory
@@ -83,7 +84,7 @@ namespace FileSystemModels
         /// Make sure that a path reference does actually work with
         /// <see cref="System.IO.DirectoryInfo"/> by replacing 'C:' by 'C:\'.
         /// </summary>
-        /// <param name="dirOrFilePath"></param>
+        /// <param name="dirOrfilePath"></param>
         /// <returns></returns>
         public static string NormalizePath(string dirOrfilePath)
         {
@@ -196,13 +197,6 @@ namespace FileSystemModels
         /// <param name="folderPath"></param>
         /// <param name="newDefaultFolderName">Compute default name for new folder</param>
         /// <returns>PathModel object to new folder or null</returns>
-        /// <summary>
-        /// Create a new folder new standard sub folder in <paramref name="folderPath"/>.
-        /// The new folder has a standard name like 'New folder n'.
-        /// </summary>
-        /// <param name="folderPath"></param>
-        /// <param name="newDefaultFolderName">Compute default name for new folder</param>
-        /// <returns>PathModel object to new folder or null</returns>
         public static IPathModel CreateDir(IPathModel folderPath,
                                            string newDefaultFolderName = "New Folder")
         {
@@ -240,6 +234,13 @@ namespace FileSystemModels
             return await PathModel.LoadFoldersAsync(fullPath);
         }
 
+        /// <summary>
+        /// Attempts to create an <see cref="IPathModel"/> instance from a given string.
+        /// This method will throw a <see cref="NotSupportedException"/> if the string
+        /// apeears to be invalid or is indeed not supported by this model.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static IPathModel Create(string path)
         {
             if (System.IO.Directory.Exists(path) == true)

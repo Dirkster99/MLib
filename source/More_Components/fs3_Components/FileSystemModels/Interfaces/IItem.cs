@@ -19,6 +19,18 @@
         string ItemPath { get; }
 
         /// <summary>
+        /// Gets the name (without the path) of this item.
+        /// </summary>
+        string ItemName { get; }
+
+        /// <summary>
+        /// Gets a folder item string for display purposes.
+        /// This string can evaluete to 'C:\ (Windows)' for drives,
+        /// if the 'C:\' drive was named 'Windows'.
+        /// </summary>
+        string ItemDisplayString { get; }
+
+        /// <summary>
         /// Gets whether this folder is currently expanded or not.
         /// </summary>
         bool IsExpanded { get; }

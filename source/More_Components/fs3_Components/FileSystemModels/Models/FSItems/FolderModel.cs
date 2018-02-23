@@ -7,6 +7,10 @@
     using System.Linq;
     using System.Security;
 
+    /// <summary>
+    /// Implements a low level wrapper class for folder items stored on a
+    /// drive or other folders.
+    /// </summary>
     public class FolderModel : Base.FileSystemModel
     {
         #region constructors
@@ -60,14 +64,14 @@
         #endregion properties
 
         #region methods
-        /// <summary>
-        /// Fills the CurrentItems property for display in ItemsControl
-        /// based view (ListBox, ListView etc.)
-        /// 
-        /// This version is parameterized since the filterstring can be parsed
-        /// seperately and does not need to b parsed each time when this method
-        /// executes.
-        /// </summary>
+        // <summary>
+        // Fills the CurrentItems property for display in ItemsControl
+        // based view (ListBox, ListView etc.)
+        // 
+        // This version is parameterized since the filterstring can be parsed
+        // seperately and does not need to b parsed each time when this method
+        // executes.
+        // </summary>
         /*
         internal static Response GetSubFolderItems(string[] filterString,
                                                     bool IsFiltered,

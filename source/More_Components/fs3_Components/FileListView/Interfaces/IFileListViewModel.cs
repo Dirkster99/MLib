@@ -1,19 +1,9 @@
 namespace FileListView.Interfaces
 {
-    using System;
     using System.Collections.Generic;
     using System.Windows.Input;
     using FileSystemModels.Browse;
-    using FileSystemModels.Events;
     using FileSystemModels.Interfaces.Bookmark;
-
-    public interface IFileOpenEventSource
-    {
-        /// <summary>
-        /// Event is fired to indicate that user wishes to open a file via this viewmodel.
-        /// </summary>
-        event EventHandler<FileOpenEventArgs> OnFileOpen;
-    }
 
     /// <summary>
     /// Interface implements a common ground for a class that organizes a filter combobox

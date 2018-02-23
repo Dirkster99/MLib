@@ -13,18 +13,6 @@
     {
         #region properties
         /// <summary>
-        /// Gets the name (without the path) of this item.
-        /// </summary>
-        string ItemName { get; }
-
-        /// <summary>
-        /// Gets a string that is to be displayed for this item.
-        /// This is primarily used for drives which can show more
-        /// information than just their path portion ... 'C:'
-        /// </summary>
-        string DisplayItemString { get; }
-
-        /// <summary>
         /// Gets a collection of sub-folders (if any) that are contained within this folder.
         /// </summary>
         IEnumerable<ITreeItemViewModel> Folders { get; }

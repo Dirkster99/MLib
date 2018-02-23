@@ -9,18 +9,5 @@
     /// </summary>
     public interface IFolderItemViewModel : IListItemViewModel
     {
-        #region properties
-        /// <summary>
-        /// Gets an indendation (if any) for this item.
-        /// An indendation allows the display of path
-        /// items
-        ///      in
-        ///        stair
-        ///             like
-        ///                 display
-        ///                        fashion.
-        /// </summary>
-        int Indentation { get; }
-        #endregion properties
     }
 }

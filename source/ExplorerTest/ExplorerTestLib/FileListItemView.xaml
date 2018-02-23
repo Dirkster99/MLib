@@ -107,7 +107,7 @@
                                             x:Name="RemoveFolderBookmarkButton"
                                             />
 
-                        <Button Content="{Binding DisplayName}"
+                        <Button Content="{Binding ItemName}"
                                 Command="{Binding Path=Data.ChangeOfDirectoryCommand, Source={StaticResource DropDownItemsButtonProxy}}"
                                 CommandParameter="{Binding}"
                                 Grid.Column="1"
@@ -358,8 +358,8 @@
                             </Image>
 
                             <EditInPlace:EditBox Grid.Column="1"
-                                                 Text="{Binding DisplayName}"
-                                                 DisplayText="{Binding DisplayName}"
+                                                 Text="{Binding ItemName}"
+                                                 DisplayText="{Binding ItemDisplayString}"
                                                  RenameCommand="{Binding Path=Data.RenameCommand, Source={StaticResource DataContextProxy}}"
                                                  ToolTipService.ShowOnDisabled="True"
                                                  

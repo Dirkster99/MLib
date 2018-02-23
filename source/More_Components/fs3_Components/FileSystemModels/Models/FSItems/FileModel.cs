@@ -4,6 +4,10 @@
     using System.IO;
     using System.Security;
 
+    /// <summary>
+    /// Implements a low level wrapper class for file items stored on a
+    /// drive or folder.
+    /// </summary>
     public class FileModel : Base.FileSystemModel
     {
         #region constructors

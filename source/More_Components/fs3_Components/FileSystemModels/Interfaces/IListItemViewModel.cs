@@ -1,7 +1,5 @@
 ﻿namespace FileSystemModels.Interfaces
 {
-    using FileSystemModels.Models.FSItems.Base;
-
     /// <summary>
     /// Define the properties and methods of a viewmodel for
     /// a file system item.
@@ -9,12 +7,6 @@
     public interface IListItemViewModel : IItem
     {
         #region properties
-        /// <summary>
-        /// Gets a name that can be used for display
-        /// (is not necessarily the same as path)
-        /// </summary>
-        string DisplayName { get; }
-
         /// <summary>
         /// Gets the type (folder, file) of this item
         /// </summary>
@@ -32,13 +24,6 @@
         /// </summary>
         /// <returns>true if this directory exists and otherwise false</returns>
         bool DirectoryPathExists();
-
-        /// <summary>
-        /// Gets a folder item string for display purposes.
-        /// This string can evaluete to 'C:\ (Windows)' for drives,
-        /// if the 'C:\' drive was named 'Windows'.
-        /// </summary>
-        string DisplayItemString();
         #endregion methods
     }
 }

@@ -144,7 +144,7 @@
                                    />
 
                         <EditInPlace:EditBox Text="{Binding Path=ItemName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                                 DisplayText="{Binding DisplayItemString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 DisplayText="{Binding ItemDisplayString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                                  ToolTip="{Binding ItemPath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                                  Focusable="True"
                                    

@@ -2,7 +2,6 @@ namespace FolderControlsLib.ViewModels
 {
     using System;
     using System.IO;
-    using System.Windows.Media;
     using FileSystemModels;
     using FileSystemModels.Interfaces;
     using FileSystemModels.Models.FSItems.Base;
@@ -21,9 +20,8 @@ namespace FolderControlsLib.ViewModels
         /// </summary>
         protected new static readonly log4net.ILog Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private string _DisplayName;
+        private string _ItemName;
         private IPathModel _PathObject;
-        private string _VolumeLabel;
         #endregion fields
 
         #region constructor
@@ -38,9 +36,8 @@ namespace FolderControlsLib.ViewModels
         public FolderItemViewModel(string curdir,
                         FSItemType itemType,
                         string displayName,
-                        bool showIcon,
-                        int indentation = 0)
-          : this(curdir, itemType, displayName, indentation)
+                        bool showIcon)
+          : this(curdir, itemType, displayName)
         {
             this.ShowIcon = showIcon;
         }
@@ -50,35 +47,31 @@ namespace FolderControlsLib.ViewModels
         /// </summary>
         /// <param name="curdir"></param>
         /// <param name="itemType"></param>
-        /// <param name="displayName"></param>
+        /// <param name="itemName"></param>
         /// <param name="indentation"></param>
         public FolderItemViewModel(string curdir,
                         FSItemType itemType,
-                        string displayName,
-                        int indentation = 0)
+                        string itemName)
           : this()
         {
             this._PathObject = PathFactory.Create(curdir, itemType);
-            this.DisplayName = displayName;
-            this.Indentation = indentation;
+            this.ItemName = itemName;
         }
 
         /// <summary>
         /// class constructor
         /// </summary>
         /// <param name="model"></param>
-        /// <param name="displayName"></param>
+        /// <param name="itemName"></param>
         /// <param name="indentation"></param>
         public FolderItemViewModel(IPathModel model,
-                        string displayName,
-                        bool isReadOnly = false,
-                        int indentation = 0)
+                        string itemName,
+                        bool isReadOnly = false)
             : this()
         {
             _PathObject = model.Clone() as IPathModel;
-            DisplayName = displayName;
+            ItemName = itemName;
             IsReadOnly = isReadOnly;
-            Indentation = indentation;
         }
 
         /// <summary>
@@ -87,9 +80,7 @@ namespace FolderControlsLib.ViewModels
         protected FolderItemViewModel()
         {
             _PathObject = null;
-            _VolumeLabel = null;
 
-            Indentation = 0;
             ShowIcon = true;
         }
         #endregion constructor
@@ -129,22 +120,49 @@ namespace FolderControlsLib.ViewModels
         /// Gets a name that can be used for display
         /// (is not necessarily the same as path)
         /// </summary>
-        public string DisplayName
+        public string ItemName
         {
             get
             {
-                return this._DisplayName;
+                return this._ItemName;
             }
 
             protected set
             {
-                if (this._DisplayName != value)
+                if (this._ItemName != value)
                 {
-                    this._DisplayName = value;
-                    this.RaisePropertyChanged(() => this.DisplayName);
+                    this._ItemName = value;
+                    this.RaisePropertyChanged(() => this.ItemName);
                 }
             }
         }
+
+        /// <summary>
+        /// Gets a folder item string for display purposes.
+        /// This string can evaluete to 'C:\ (Windows)' for drives,
+        /// if the 'C:\' drive was named 'Windows'.
+        /// </summary>
+        public string ItemDisplayString
+        {
+            get
+            {
+                return IItemExtension.GetDisplayString(this as IItem);
+            }
+        }
+
+        /// <summary>
+        /// Determine whether a given path is an exeisting directory or not.
+        /// </summary>
+        /// <returns>true if this directory exists and otherwise false</returns>
+        public bool DirectoryPathExists()
+        {
+            return this._PathObject.DirectoryPathExists();
+        }
+
+        /// <summary>
+        /// Gets whether or not to show a tooltip for this item.
+        /// </summary>
+        public bool ShowIcon { get; private set; }
 
         /// <summary>
         /// Gets a copy of the internal <seealso cref="PathModel"/> object.
@@ -156,23 +174,6 @@ namespace FolderControlsLib.ViewModels
                 return this._PathObject.Clone() as IPathModel;
             }
         }
-
-        /// <summary>
-        /// Gets whether or not to show a tooltip for this item.
-        /// </summary>
-        public bool ShowIcon { get; private set; }
-
-        /// <summary>
-        /// Gets an indendation (if any) for this item.
-        /// An indendation allows the display of path
-        /// items
-        ///      in
-        ///        stair
-        ///             like
-        ///                 display
-        ///                        fashion.
-        /// </summary>
-        public int Indentation { get; private set; }
         #endregion properties
 
         #region methods
@@ -186,63 +187,12 @@ namespace FolderControlsLib.ViewModels
         }
 
         /// <summary>
-        /// Determine whether a given path is an exeisting directory or not.
-        /// </summary>
-        /// <returns>true if this directory exists and otherwise false</returns>
-        public bool DirectoryPathExists()
-        {
-            return this._PathObject.DirectoryPathExists();
-        }
-
-        /// <summary>
-        /// Gets a folder item string for display purposes.
-        /// This string can evaluete to 'C:\ (Windows)' for drives,
-        /// if the 'C:\' drive was named 'Windows'.
-        /// </summary>
-        public string DisplayItemString()
-        {
-            switch (this._PathObject.PathType)
-            {
-                case FSItemType.LogicalDrive:
-                    try
-                    {
-                        if (this._VolumeLabel == null)
-                        {
-                            DriveInfo di = new System.IO.DriveInfo(this.ItemPath);
-
-                            if (di.IsReady == true)
-                                this._VolumeLabel = di.VolumeLabel;
-                            else
-                                return string.Format("{0} ({1})", this.ItemPath, FileSystemModels.Local.Strings.STR_MSG_DEVICE_NOT_READY);
-                        }
-
-                        return string.Format("{0} {1}", this.ItemPath, (string.IsNullOrEmpty(this._VolumeLabel)
-                                                                        ? string.Empty
-                                                                        : string.Format("({0})", this._VolumeLabel)));
-                    }
-                    catch (Exception exp)
-                    {
-                        Logger.Warn("DriveInfo cannot be optained for:" + this.ItemPath, exp);
-
-                        // Just return a folder name if everything else fails (drive may not be ready etc).
-                        return string.Format("{0} ({1})", this.ItemPath, exp.Message.Trim());
-                    }
-
-                case FSItemType.Folder:
-                case FSItemType.File:
-                case FSItemType.Unknown:
-                default:
-                    return this.ItemPath;
-            }
-        }
-
-        /// <summary>
         /// Sets the display name of this item.
         /// </summary>
         /// <param name="stringToDisplay"></param>
         internal void SetDisplayName(string stringToDisplay)
         {
-            DisplayName = stringToDisplay;
+            ItemName = stringToDisplay;
         }
         #endregion methods
     }

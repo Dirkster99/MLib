@@ -210,7 +210,7 @@ namespace FileSystemModels.Models.FSItems.Base
         /// Make sure that a path reference does actually work with
         /// <see cref="System.IO.DirectoryInfo"/> by replacing 'C:' by 'C:\'.
         /// </summary>
-        /// <param name="dirOrFilePath"></param>
+        /// <param name="dirOrfilePath"></param>
         /// <returns></returns>
         public static string NormalizePath(string dirOrfilePath)
         {
@@ -624,7 +624,7 @@ namespace FileSystemModels.Models.FSItems.Base
         /// Determine whether two <seealso cref="PathModel"/> objects describe
         /// the same location/item in the file system or not.
         ///
-        /// Method implements <seealso cref="IEqualityComparer"/> interface.
+        /// Method implements <seealso cref="System.Collections.IEqualityComparer"/> interface.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -643,7 +643,7 @@ namespace FileSystemModels.Models.FSItems.Base
         /// <summary>
         /// Serves as the default hash function.
         ///
-        /// Method implements <seealso cref="IEqualityComparer"/> interface.
+        /// Method implements <seealso cref="System.Collections.IEqualityComparer"/> interface.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns>A hash code for the current object.</returns>

@@ -21,11 +21,11 @@
         /// <returns></returns>
         public static IFolderItemViewModel CreateLogicalDrive(string curdir)
         {
-            var item = new FolderItemViewModel(
-                PathFactory.Create(curdir, FSItemType.LogicalDrive),
-                string.Empty, true);
+            var model = PathFactory.Create(curdir, FSItemType.LogicalDrive);
 
-            item.SetDisplayName(item.DisplayItemString());
+            var item = new FolderItemViewModel(model, model.Name, true);
+
+            item.SetDisplayName(item.ItemDisplayString);
 
             return item;
         }

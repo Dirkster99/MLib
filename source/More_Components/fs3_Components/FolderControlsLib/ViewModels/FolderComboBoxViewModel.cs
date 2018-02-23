@@ -281,7 +281,7 @@ namespace FolderControlsLib.ViewModels
                                     string curdir = PathFactory.Join(dirs, 0, i + 1);
 
                                     var curPath = PathFactory.Create(curdir);
-                                    info = new FolderItemViewModel(curPath, dirs[i], false, i * 10);
+                                    info = new FolderItemViewModel(curPath, dirs[i], false);
 
                                     CurrentItemAdd(info);
                                 }

@@ -8,8 +8,9 @@ namespace FileSystemModels.Converters
     using System.Windows.Data;
 
     /// <summary>
-    /// XAML markup extension to convert <seealso cref="FSItemType"/> enum members
-    /// into <seealso cref="ImageSource"/> from ResourceDictionary or fallback from static resource.
+    /// Converts an <seealso cref="IItem"/>
+    /// into <seealso cref="System.Windows.Media.ImageSource"/>
+    /// using available Windows Shell Icons.
     /// </summary>
     [ValueConversion(typeof(IItem), typeof(System.Windows.Media.ImageSource))]
     public class BrowseItemTypeToShellImageConverter : IValueConverter
@@ -32,7 +33,7 @@ namespace FileSystemModels.Converters
 
         #region methods
         /// <summary>
-        /// Convert a <see cref="ITreeItemViewModel"/> into an image representation.
+        /// Convert a <see cref="IItem"/> into an image representation.
         /// </summary>
         /// <param name="value"></param>
         /// <param name="targetType"></param>
@@ -65,6 +66,14 @@ namespace FileSystemModels.Converters
             return displayIcon;
         }
 
+        /// <summary>
+        /// Not Implemented - throws <see cref="NotImplementedException"/>.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="targetType"></param>
+        /// <param name="parameter"></param>
+        /// <param name="culture"></param>
+        /// <returns></returns>
         public object ConvertBack(object value, Type targetType,
                                   object parameter, CultureInfo culture)
         {

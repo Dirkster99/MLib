@@ -13,14 +13,14 @@
         #region properties
         /// <summary>
         /// Request a change of current directory to the directory
-        /// stated in <seealso cref="FSItemViewModel"/> in CommandParameter.
+        /// stated in <seealso cref="IListItemViewModel"/> in CommandParameter.
         /// </summary>
         ICommand ChangeOfDirectoryCommand { get; }
 
         /// <summary>
         /// Command removes a folder bookmark from the list of
         /// currently bookmarked folders. Required command parameter
-        /// is of type <seealso cref="FSItemViewModel"/>.
+        /// is of type <seealso cref="IListItemViewModel"/>.
         /// </summary>
         ICommand RemoveFolderBookmark { get; }
 

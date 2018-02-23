@@ -3,6 +3,7 @@
     using FileSystemModels;
     using FileSystemModels.Interfaces;
     using FileSystemModels.Models.FSItems.Base;
+    using FileSystemModels.Utils;
     using FileSystemModels.ViewModels.Base;
     using System;
     using System.IO;
@@ -19,7 +20,7 @@
         /// </summary>
         protected static readonly log4net.ILog Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private string _DisplayName;
+        private string _ItemName;
         private IPathModel _PathObject;
         private string _VolumeLabel;
         #endregion fields
@@ -29,15 +30,14 @@
         /// class constructor
         /// </summary>
         /// <param name="curdir"></param>
-        /// <param name="displayName"></param>
+        /// <param name="itemName"></param>
         /// <param name="itemType"></param>
         /// <param name="showIcon"></param>
-        /// <param name="indentation"></param>
         public ListItemViewModel(string curdir,
                         FSItemType itemType,
-                        string displayName,
+                        string itemName,
                         bool showIcon)
-            : this(curdir, itemType, displayName)
+            : this(curdir, itemType, itemName)
         {
             this.ShowIcon = showIcon;
         }
@@ -46,29 +46,28 @@
         /// class constructor
         /// </summary>
         /// <param name="curdir"></param>
-        /// <param name="displayName"></param>
+        /// <param name="itemName"></param>
         /// <param name="itemType"></param>
-        /// <param name="indentation"></param>
         public ListItemViewModel(string curdir,
                         FSItemType itemType,
-                        string displayName)
+                        string itemName)
             : this()
         {
             this._PathObject = PathFactory.Create(curdir, itemType);
-            this.DisplayName = displayName;
+            this.ItemName = itemName;
         }
 
         /// <summary>
         /// Copy constructor
         /// </summary>
-        /// <param name="item"></param>
+        /// <param name="copyThis"></param>
         public ListItemViewModel(ListItemViewModel copyThis)
             : this()
         {
             if (copyThis == null)
                 return;
 
-            _DisplayName = copyThis._DisplayName;
+            _ItemName = copyThis._ItemName;
 
             _PathObject = copyThis._PathObject.Clone() as IPathModel;
             _VolumeLabel = copyThis._VolumeLabel;
@@ -122,48 +121,34 @@
         /// Gets a name that can be used for display
         /// (is not necessarily the same as path)
         /// </summary>
-        public string DisplayName
+        public string ItemName
         {
             get
             {
-                return this._DisplayName;
+                return this._ItemName;
             }
 
             private set
             {
-                if (this._DisplayName != value)
+                if (this._ItemName != value)
                 {
-                    this._DisplayName = value;
-                    this.RaisePropertyChanged(() => this.DisplayName);
+                    this._ItemName = value;
+                    this.RaisePropertyChanged(() => this.ItemName);
                 }
             }
         }
 
         /// <summary>
-        /// Gets a copy of the internal <seealso cref="IPathModel"/> object.
+        /// Gets a folder item string for display purposes.
+        /// This string can evaluete to 'C:\ (Windows)' for drives,
+        /// if the 'C:\' drive was named 'Windows'.
         /// </summary>
-        public IPathModel GetModel
+        public string ItemDisplayString
         {
             get
             {
-                return this._PathObject.Clone() as IPathModel;
+                return IItemExtension.GetDisplayString(this as IItem);
             }
-        }
-
-        /// <summary>
-        /// Gets whether or not to show a tooltip for this item.
-        /// </summary>
-        public bool ShowIcon { get; private set; }
-        #endregion properties
-
-        #region methods
-        /// <summary>
-        /// Standard method to display contents of this class.
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            return this.ItemPath;
         }
 
         /// <summary>
@@ -176,45 +161,30 @@
         }
 
         /// <summary>
-        /// Gets a folder item string for display purposes.
-        /// This string can evaluete to 'C:\ (Windows)' for drives,
-        /// if the 'C:\' drive was named 'Windows'.
+        /// Gets whether or not to show a tooltip for this item.
         /// </summary>
-        public string DisplayItemString()
+        public bool ShowIcon { get; private set; }
+
+        /// <summary>
+        /// Gets a copy of the internal <seealso cref="IPathModel"/> object.
+        /// </summary>
+        public IPathModel GetModel
         {
-            switch (this._PathObject.PathType)
+            get
             {
-                case FSItemType.LogicalDrive:
-                    try
-                    {
-                        if (this._VolumeLabel == null)
-                        {
-                            DriveInfo di = new System.IO.DriveInfo(this.ItemPath);
-
-                            if (di.IsReady == true)
-                                this._VolumeLabel = di.VolumeLabel;
-                            else
-                                return string.Format("{0} ({1})", this.ItemPath, FileSystemModels.Local.Strings.STR_MSG_DEVICE_NOT_READY);
-                        }
-
-                        return string.Format("{0} {1}", this.ItemPath, (string.IsNullOrEmpty(this._VolumeLabel)
-                                                                        ? string.Empty
-                                                                        : string.Format("({0})", this._VolumeLabel)));
-                    }
-                    catch (Exception exp)
-                    {
-                        Logger.Warn("DriveInfo cannot be optained for:" + this.ItemPath, exp);
-
-                        // Just return a folder name if everything else fails (drive may not be ready etc).
-                        return string.Format("{0} ({1})", this.ItemPath, exp.Message.Trim());
-                    }
-
-                case FSItemType.Folder:
-                case FSItemType.File:
-                case FSItemType.Unknown:
-                default:
-                    return this.ItemPath;
+                return this._PathObject.Clone() as IPathModel;
             }
+        }
+        #endregion properties
+
+        #region methods
+        /// <summary>
+        /// Standard method to display contents of this class.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return this.ItemPath;
         }
         #endregion methods
     }

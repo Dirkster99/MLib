@@ -7,6 +7,10 @@
     using System.IO;
     using System.Security;
 
+    /// <summary>
+    /// Implements a low level wrapper class for drive items with storage space
+    /// for files and folders.
+    /// </summary>
     public class DriveModel : Base.FileSystemModel
     {
         #region constructors

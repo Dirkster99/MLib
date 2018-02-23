@@ -77,7 +77,7 @@
         #region properties
         /// <summary>
         /// Gets a command that requests a change of current directory to the
-        /// directory stated in <seealso cref="ListItemViewModel"/> in
+        /// directory stated in <seealso cref="IListItemViewModel"/> in
         /// CommandParameter.  -> Fires a FolderChange Event.
         /// </summary>
         public ICommand ChangeOfDirectoryCommand

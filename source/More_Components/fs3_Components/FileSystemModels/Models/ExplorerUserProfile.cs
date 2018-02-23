@@ -54,9 +54,10 @@
         }
 
         /// <summary>
-        /// Resets the currently viewed path to the path indicated by <paramref name="path"/>.
+        /// Resets the currently viewed path to the path indicated by the
+        /// <paramref name="model"/>.
         /// </summary>
-        /// <param name="path"></param>
+        /// <param name="model"></param>
         public void SetCurrentFilter(FilterItemModel model)
         {
             CurrentFilter = model;

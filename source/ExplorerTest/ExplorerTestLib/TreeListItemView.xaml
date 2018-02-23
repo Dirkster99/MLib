@@ -110,15 +110,15 @@
                                             x:Name="RemoveFolderBookmarkButton"
                                             />
 
-                            <Button Content="{Binding DisplayName}"
-                                Command="{Binding Path=Data.ChangeOfDirectoryCommand, Source={StaticResource DropDownItemsButtonProxy}}"
-                                CommandParameter="{Binding}"
-                                Grid.Column="1"
-                                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                HorizontalContentAlignment="Left"
-                                BorderBrush="Transparent"
-                                ToolTip="{Binding Path=ItemPath}"
-                                Margin="3,0,0,0"
+                            <Button Content="{Binding ItemName}"
+                                    Command="{Binding Path=Data.ChangeOfDirectoryCommand, Source={StaticResource DropDownItemsButtonProxy}}"
+                                    CommandParameter="{Binding}"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                    HorizontalContentAlignment="Left"
+                                    BorderBrush="Transparent"
+                                    ToolTip="{Binding Path=ItemPath}"
+                                    Margin="3,0,0,0"
                                >
                                 <Button.Style>
                                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
@@ -365,8 +365,8 @@
                             </Image>
 
                             <EditInPlace:EditBox Grid.Column="1"
-                                                 Text="{Binding DisplayName}"
-                                                 DisplayText="{Binding DisplayName}"
+                                                 Text="{Binding ItemName}"
+                                                 DisplayText="{Binding ItemDisplayString}"
                                                  RenameCommand="{Binding Path=Data.RenameCommand, Source={StaticResource DataContextProxy}}"
                                                  ToolTipService.ShowOnDisabled="True"
                                                  

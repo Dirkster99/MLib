@@ -47,7 +47,7 @@
                                 x:Name="RemoveFolderBookmarkButton">
                         </Button>
 
-                        <Button Content="{Binding DisplayName}"
+                        <Button Content="{Binding ItemName}"
                                 Command="{Binding Path=Data.ChangeOfDirectoryCommand, Source={StaticResource DropDownItemsButtonProxy}}"
                                 CommandParameter="{Binding}"
                                 Grid.Column="1"
