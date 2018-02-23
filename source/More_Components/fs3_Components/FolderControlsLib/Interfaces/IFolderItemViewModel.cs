@@ -1,8 +1,6 @@
 ﻿namespace FolderControlsLib.Interfaces
 {
     using FileSystemModels.Interfaces;
-    using FileSystemModels.Models.FSItems.Base;
-    using System.Windows.Media;
 
     /// <summary>
     /// Defines properties and methods of an item that is used to display folder

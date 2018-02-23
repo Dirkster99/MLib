@@ -16,12 +16,14 @@
              xmlns:EditInPlace="clr-namespace:InplaceEditBoxLib.Views;assembly=InplaceEditBoxLib"
              xmlns:view ="clr-namespace:UserNotification.View;assembly=UserNotification"
              xmlns:conv="clr-namespace:FolderBrowser.Converters;assembly=FolderBrowser"
+             xmlns:fsconv="clr-namespace:FileSystemModels.Converters;assembly=FileSystemModels"
 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="400">
     <Grid Grid.Column="0">
         <Grid.Resources>
             <conv:InverseBooleanConverter x:Key="inverter" />
+            <fsconv:BrowseItemTypeToShellImageConverter x:Key="FolderBrowseItemTypeToShellImageConverter" />
         </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -37,20 +39,42 @@
             </Grid.ColumnDefinitions>
 
             <!-- Folder Select/View ComboBox -->
-            <combobox:WatermarkComboBox DataContext="{Binding FolderTextPath}" Name="PathTextInput"
-                                    ItemsSource="{Binding CurrentItems, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                    SelectedItem="{Binding SelectedItem, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            <combobox:WatermarkComboBox
+                DataContext="{Binding FolderTextPath}" Name="PathTextInput"
+                ItemsSource="{Binding CurrentItems, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding SelectedItem, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                 
-                                    IsEditable="True"
-                                    Text="{Binding CurrentFolder, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                    ToolTip="{Binding CurrentFolderToolTip, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                    ToolTipService.IsEnabled="True"
+                IsEditable="True"
+                Text="{Binding CurrentFolder, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                ToolTip="{Binding CurrentFolderToolTip, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                ToolTipService.IsEnabled="True"
                                 
-                                    fvbehav:SelectionChangedCommand.ChangedCommand="{Binding SelectionChanged}"
-                                    VerticalAlignment="Top"
-                                    HorizontalAlignment="Stretch"
-                                    Grid.Column="0" Margin="3"
-            />
+                fvbehav:SelectionChangedCommand.ChangedCommand="{Binding SelectionChanged}"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Stretch"
+                Grid.Column="0" Margin="3"
+            >
+                <combobox:WatermarkComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Margin="2,0"
+                                   VerticalAlignment="Center"
+                                   Width="16"
+                                   Height="16"
+                                   Focusable="False"
+                                   Source="{Binding Path=.,Converter={StaticResource FolderBrowseItemTypeToShellImageConverter}}"
+                                   />
+
+                            <TextBlock Grid.Column="1" Text="{Binding FullPath}" />
+                        </Grid>
+                    </DataTemplate>
+                </combobox:WatermarkComboBox.ItemTemplate>
+            </combobox:WatermarkComboBox>
 
             <ctrls:SplitItemsButton ToolTip="{x:Static fvloc:Strings.RefreshCommand_TT}"
                                     ItemsSource="{Binding RecentFolders.DropDownItems}"
@@ -97,7 +121,7 @@
                                 Margin="3,0,0,0"
                                >
                                 <Button.Style>
-                                    <Style TargetType="{x:Type Button}">
+                                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                                         <Setter Property="Background" Value="Transparent"/>
                                         <Setter Property="Template">
                                             <Setter.Value>
@@ -208,6 +232,7 @@
                 </ToggleButton>
             </StackPanel>
 
+            <!-- Filter Selection -->
             <combobox:WatermarkComboBox ItemsSource="{Binding Filters.CurrentItems}"
                                         SelectedItem="{Binding Filters.SelectedItem, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                         
@@ -262,7 +287,6 @@
                 <ListBox.Resources>
                     <BooleanToVisibilityConverter x:Key="boolToVis" />
                     <bindLocal:BindingProxy  x:Key="DataContextProxy"  Data="{Binding}" />
-
                 </ListBox.Resources>
                 <ListBox.ContextMenu>
                     <ContextMenu>
@@ -328,7 +352,7 @@
 
                             <Image Visibility="{Binding Path=Data.ShowIcons,Mode=OneWay,UpdateSourceTrigger=PropertyChanged, Source={StaticResource DataContextProxy}, Converter={StaticResource boolToVis}}"
                                    Margin="3,0"
-                                   Source="{Binding Path=DisplayIcon}"
+                                   Source="{Binding Path=.,Converter={StaticResource FolderBrowseItemTypeToShellImageConverter}}"
                                    SnapsToDevicePixels="True" 
                                    Grid.Column="0"
                                    Width="16" Height="16" 

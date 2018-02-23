@@ -31,23 +31,12 @@
         IPathModel GetModel { get; }
 
         /// <summary>
-        /// Gets an icon to display for this item.
-        /// </summary>
-        System.Windows.Media.ImageSource DisplayIcon { get; }
-
-        /// <summary>
         /// Gets whether or not to show an Icon for this item or not.
         /// </summary>
         bool ShowIcon { get; }
         #endregion properties
 
         #region methods
-        /// <summary>
-        /// Assign a certain icon to this item.
-        /// </summary>
-        /// <param name="src"></param>
-        void SetDisplayIcon(System.Windows.Media.ImageSource src = null);
-
         /// <summary>
         /// Determine whether a given path is an exeisting directory or not.
         /// </summary>

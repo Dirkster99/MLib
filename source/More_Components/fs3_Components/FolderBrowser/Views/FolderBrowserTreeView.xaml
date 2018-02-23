@@ -66,6 +66,8 @@
             <TreeView.Resources>
                 <!-- Use a proxy to bind items to root properties of this collection -->
                 <bindLocal:BindingProxy x:Key="DataContextProxy"  Data="{Binding}" />
+
+                <conv:BrowseItemTypeToShellImageConverter x:Key="BrowseItemTypeToShellImageConverter" />
             </TreeView.Resources>
 
             <TreeView.ItemTemplate>
@@ -132,20 +134,15 @@
                                           />
                             </ContextMenu>
                         </StackPanel.ContextMenu>
-                            <Image Margin="2,0"
+                        <Image Margin="2,0"
                                    VerticalAlignment="Center"
                                    Width="16"
                                    Height="16"
-                                   Focusable="False">
-                                <Image.Source>
-                                    <MultiBinding Converter="{conv:BrowseItemTypeToImageConverter}">
-                                        <Binding Path="IsExpanded" />
-                                        <Binding Path="ItemType" />
-                                    </MultiBinding>
-                                </Image.Source>
-                            </Image>
+                                   Focusable="False"
+                                   Source="{Binding Path=.,Converter={StaticResource BrowseItemTypeToShellImageConverter}}"
+                                   />
 
-                            <EditInPlace:EditBox Text="{Binding Path=ItemName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        <EditInPlace:EditBox Text="{Binding Path=ItemName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                                  DisplayText="{Binding DisplayItemString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                                  ToolTip="{Binding ItemPath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                                  Focusable="True"

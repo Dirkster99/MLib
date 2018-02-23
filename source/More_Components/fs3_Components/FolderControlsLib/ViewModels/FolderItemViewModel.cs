@@ -21,10 +21,9 @@ namespace FolderControlsLib.ViewModels
         /// </summary>
         protected new static readonly log4net.ILog Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private string mDisplayName;
-        private ImageSource mDisplayIcon;
-        private IPathModel mPathObject;
-        private string mVolumeLabel;
+        private string _DisplayName;
+        private IPathModel _PathObject;
+        private string _VolumeLabel;
         #endregion fields
 
         #region constructor
@@ -59,7 +58,7 @@ namespace FolderControlsLib.ViewModels
                         int indentation = 0)
           : this()
         {
-            this.mPathObject = PathFactory.Create(curdir, itemType);
+            this._PathObject = PathFactory.Create(curdir, itemType);
             this.DisplayName = displayName;
             this.Indentation = indentation;
         }
@@ -76,7 +75,7 @@ namespace FolderControlsLib.ViewModels
                         int indentation = 0)
             : this()
         {
-            mPathObject = model.Clone() as IPathModel;
+            _PathObject = model.Clone() as IPathModel;
             DisplayName = displayName;
             IsReadOnly = isReadOnly;
             Indentation = indentation;
@@ -87,9 +86,8 @@ namespace FolderControlsLib.ViewModels
         /// </summary>
         protected FolderItemViewModel()
         {
-            mDisplayIcon = null;
-            mPathObject = null;
-            mVolumeLabel = null;
+            _PathObject = null;
+            _VolumeLabel = null;
 
             Indentation = 0;
             ShowIcon = true;
@@ -105,14 +103,14 @@ namespace FolderControlsLib.ViewModels
         {
             get
             {
-                return this.mDisplayName;
+                return this._DisplayName;
             }
 
             protected set
             {
-                if (this.mDisplayName != value)
+                if (this._DisplayName != value)
                 {
-                    this.mDisplayName = value;
+                    this._DisplayName = value;
                     this.RaisePropertyChanged(() => this.DisplayName);
                 }
             }
@@ -125,7 +123,7 @@ namespace FolderControlsLib.ViewModels
         {
             get
             {
-                return (this.mPathObject != null ? this.mPathObject.Path : null);
+                return (this._PathObject != null ? this._PathObject.Path : null);
             }
         }
 
@@ -136,7 +134,7 @@ namespace FolderControlsLib.ViewModels
         {
             get
             {
-                return (this.mPathObject != null ? this.mPathObject.PathType : FSItemType.Unknown);
+                return (this._PathObject != null ? this._PathObject.PathType : FSItemType.Unknown);
             }
         }
 
@@ -147,40 +145,7 @@ namespace FolderControlsLib.ViewModels
         {
             get
             {
-                return this.mPathObject.Clone() as IPathModel;
-            }
-        }
-
-        /// <summary>
-        /// Gets an icon to display for this item.
-        /// </summary>
-        public ImageSource DisplayIcon
-        {
-            get
-            {
-                if (this.mDisplayIcon == null && ShowIcon == true)
-                {
-                    try
-                    {
-                        if (Type == FSItemType.Folder)
-                            mDisplayIcon = IconExtractor.GetFolderIcon(this.FullPath).ToImageSource();
-                        else
-                            mDisplayIcon = IconExtractor.GetFileIcon(this.FullPath).ToImageSource();
-                    }
-                    catch
-                    {
-                    }
-                }
-
-                return this.mDisplayIcon;
-            }
-
-            private set
-            {
-                if (this.mDisplayIcon != value)
-                {
-                    this.mDisplayIcon = value;
-                }
+                return this._PathObject.Clone() as IPathModel;
             }
         }
 
@@ -218,7 +183,7 @@ namespace FolderControlsLib.ViewModels
         /// <returns>true if this directory exists and otherwise false</returns>
         public bool DirectoryPathExists()
         {
-            return this.mPathObject.DirectoryPathExists();
+            return this._PathObject.DirectoryPathExists();
         }
 
         /// <summary>
@@ -228,24 +193,24 @@ namespace FolderControlsLib.ViewModels
         /// </summary>
         public string DisplayItemString()
         {
-            switch (this.mPathObject.PathType)
+            switch (this._PathObject.PathType)
             {
                 case FSItemType.LogicalDrive:
                     try
                     {
-                        if (this.mVolumeLabel == null)
+                        if (this._VolumeLabel == null)
                         {
                             DriveInfo di = new System.IO.DriveInfo(this.FullPath);
 
                             if (di.IsReady == true)
-                                this.mVolumeLabel = di.VolumeLabel;
+                                this._VolumeLabel = di.VolumeLabel;
                             else
                                 return string.Format("{0} ({1})", this.FullPath, FileSystemModels.Local.Strings.STR_MSG_DEVICE_NOT_READY);
                         }
 
-                        return string.Format("{0} {1}", this.FullPath, (string.IsNullOrEmpty(this.mVolumeLabel)
+                        return string.Format("{0} {1}", this.FullPath, (string.IsNullOrEmpty(this._VolumeLabel)
                                                                         ? string.Empty
-                                                                        : string.Format("({0})", this.mVolumeLabel)));
+                                                                        : string.Format("({0})", this._VolumeLabel)));
                     }
                     catch (Exception exp)
                     {
@@ -261,18 +226,6 @@ namespace FolderControlsLib.ViewModels
                 default:
                     return this.FullPath;
             }
-        }
-
-        /// <summary>
-        /// Assign a certain icon to this item.
-        /// </summary>
-        /// <param name="src"></param>
-        public void SetDisplayIcon(ImageSource src = null)
-        {
-            if (src == null)
-                this.DisplayIcon = IconExtractor.GetFolderIcon(FullPath, true).ToImageSource();
-            else
-                this.DisplayIcon = src;
         }
 
         /// <summary>
