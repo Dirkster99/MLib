@@ -13,10 +13,26 @@
     {
         #region properties
         /// <summary>
-        /// Determine whether child is a dummy (must be evaluated and replaced
-        /// with real data) or not.
+        /// Gets the type of the underlying model that is represented by this object.
+        /// The underlying can be LogicalDrive, Folder, or some other item.
         /// </summary>
-        bool HasDummyChild { get; }
+        FSItemType ItemType { get; }
+
+        /// <summary>
+        /// Gets the complete path and filder name that
+        /// represents the address of this folder.
+        /// </summary>
+        string ItemPath { get; }
+
+        /// <summary>
+        /// Gets whether this folder is currently expanded or not.
+        /// </summary>
+        bool IsExpanded { get; }
+
+        /// <summary>
+        /// Gets the name (without the path) of this item.
+        /// </summary>
+        string ItemName { get; }
 
         /// <summary>
         /// Gets a string that is to be displayed for this item.
@@ -26,36 +42,20 @@
         string DisplayItemString { get; }
 
         /// <summary>
-        /// Gets the name (without the path) of this item.
-        /// </summary>
-        string ItemName { get; }
-
-        /// <summary>
-        /// Gets the complete path and filder name that
-        /// represents the address of this folder.
-        /// </summary>
-        string ItemPath { get; }
-
-        /// <summary>
         /// Gets a collection of sub-folders (if any) that are contained within this folder.
         /// </summary>
         IEnumerable<ITreeItemViewModel> Folders { get; }
 
         /// <summary>
-        /// Gets whether this folder is currently expanded or not.
+        /// Determine whether child is a dummy (must be evaluated and replaced
+        /// with real data) or not.
         /// </summary>
-        bool IsExpanded { get; }
+        bool HasDummyChild { get; }
 
         /// <summary>
         /// Get/set whether this folder is currently selected or not.
         /// </summary>
         bool IsSelected { get; }
-
-        /// <summary>
-        /// Gets the type of the underlying model that is represented by this object.
-        /// The underlying can be LogicalDrive, Folder, or some other item.
-        /// </summary>
-        FSItemType ItemType { get; }
         #endregion properties
 
         #region methods

@@ -131,7 +131,7 @@ namespace FileListView.ViewModels
         /// <summary>
         /// Gets the type (folder, file) of this item
         /// </summary>
-        public FSItemType Type
+        public FSItemType ItemType
         {
             get
             {

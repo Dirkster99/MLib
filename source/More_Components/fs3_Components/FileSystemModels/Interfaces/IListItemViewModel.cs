@@ -10,10 +10,9 @@
     {
         #region properties
         /// <summary>
-        /// Gets a name that can be used for display
-        /// (is not necessarily the same as path)
+        /// Gets the type (folder, file) of this item
         /// </summary>
-        string DisplayName { get; }
+        FSItemType ItemType { get; }
 
         /// <summary>
         /// Gets the path to this item
@@ -21,9 +20,10 @@
         string FullPath { get; }
 
         /// <summary>
-        /// Gets the type (folder, file) of this item
+        /// Gets a name that can be used for display
+        /// (is not necessarily the same as path)
         /// </summary>
-        FSItemType Type { get; }
+        string DisplayName { get; }
 
         /// <summary>
         /// Gets the type (folder, file) of this item

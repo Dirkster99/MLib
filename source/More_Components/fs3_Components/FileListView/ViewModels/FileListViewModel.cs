@@ -397,14 +397,14 @@ namespace FileListView.ViewModels
 
                         try
                         {
-                            if (info.Type == FSItemType.Folder || info.Type == FSItemType.LogicalDrive)
+                            if (info.ItemType == FSItemType.Folder || info.ItemType == FSItemType.LogicalDrive)
                             {
-                                mBrowseNavigation.BrowseDown(info.Type, info.FullPath);
+                                mBrowseNavigation.BrowseDown(info.ItemType, info.FullPath);
                                 PopulateView(info.GetModel);
                             }
                             else
                             {
-                                if (this.OnFileOpen != null && info.Type == FSItemType.File)
+                                if (this.OnFileOpen != null && info.ItemType == FSItemType.File)
                                     this.OnFileOpen(this, new FileOpenEventArgs() { FileName = info.FullPath });
                             }
                         }

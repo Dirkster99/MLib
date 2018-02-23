@@ -52,7 +52,7 @@ namespace FileSystemModels.Converters
             try
             {
                 // a folder can be represented with a seperate icon for its expanded state
-                if (item.Type == FSItemType.Folder)
+                if (item.ItemType == FSItemType.Folder)
                     displayIcon = IconExtractor.GetFolderIcon(item.FullPath,
                                                               false).ToImageSource();
                 else

@@ -1,7 +1,6 @@
 ﻿namespace FileSystemModels.ViewModels
 {
     using FileSystemModels;
-    using FileSystemModels.Events;
     using FileSystemModels.Interfaces;
     using FileSystemModels.Models.FSItems.Base;
     using FileSystemModels.ViewModels.Base;
