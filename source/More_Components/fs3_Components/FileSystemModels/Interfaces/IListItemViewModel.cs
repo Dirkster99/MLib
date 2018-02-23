@@ -19,11 +19,6 @@
         /// </summary>
         /// <returns>true if this directory exists and otherwise false</returns>
         bool DirectoryPathExists();
-
-        /// <summary>
-        /// Gets the type (folder, file) of this item
-        /// </summary>
-        IPathModel GetModel();
         #endregion methods
     }
 }

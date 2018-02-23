@@ -151,15 +151,6 @@ namespace FolderControlsLib.ViewModels
         }
 
         /// <summary>
-        /// Determine whether a given path is an exeisting directory or not.
-        /// </summary>
-        /// <returns>true if this directory exists and otherwise false</returns>
-        public bool DirectoryPathExists()
-        {
-            return this._PathObject.DirectoryPathExists();
-        }
-
-        /// <summary>
         /// Gets whether or not to show a tooltip for this item.
         /// </summary>
         public bool ShowIcon { get; private set; }
@@ -176,20 +167,21 @@ namespace FolderControlsLib.ViewModels
         }
 
         /// <summary>
+        /// Determine whether a given path is an exeisting directory or not.
+        /// </summary>
+        /// <returns>true if this directory exists and otherwise false</returns>
+        public bool DirectoryPathExists()
+        {
+            return this._PathObject.DirectoryPathExists();
+        }
+
+        /// <summary>
         /// Sets the display name of this item.
         /// </summary>
         /// <param name="stringToDisplay"></param>
         internal void SetDisplayName(string stringToDisplay)
         {
             ItemName = stringToDisplay;
-        }
-
-        /// <summary>
-        /// Gets a copy of the internal <seealso cref="PathModel"/> object.
-        /// </summary>
-        public IPathModel GetModel()
-        {
-            return this._PathObject.Clone() as IPathModel;
         }
         #endregion methods
     }

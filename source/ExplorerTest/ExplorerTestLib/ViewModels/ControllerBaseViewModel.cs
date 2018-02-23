@@ -364,7 +364,7 @@
             switch (e.Action)
             {
                 case EditBookmarkEvent.RecentFolderAction.Remove:
-                    this.RecentFolders.RemoveFolder(e.Folder);
+                    this.RecentFolders.RemoveFolder(e.Folder.Path);
                     break;
 
                 case EditBookmarkEvent.RecentFolderAction.Add:

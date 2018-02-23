@@ -251,7 +251,7 @@
         /// list to store user specific customized folder short-cuts.
         /// </summary>
         /// <param name="folderPath"></param>
-        public void RemoveFolder(IPathModel folderPath)
+        public void RemoveFolder(string folderPath)
         {
             lock (this.mLockObject)
             {
@@ -261,7 +261,7 @@
                 // Find all items that satisfy the query match and remove them
                 // (This statement requires a Linq extension method to work)
                 // See FileSystemModels.Utils for more details
-                _DropDownItems.Remove(i => string.Compare(folderPath.Path, i.ItemPath, true) == 0);
+                _DropDownItems.Remove(i => string.Compare(folderPath, i.ItemPath, true) == 0);
             }
         }
 
@@ -272,20 +272,6 @@
         {
             if (this.DropDownItems != null)
                 _DropDownItems.Clear();
-        }
-
-        /// <summary>
-        /// Removes all data items from the current collection of recent folders.
-        /// </summary>
-        public void RemoveFolder(string path)
-        {
-            try
-            {
-                this.RemoveFolder(PathFactory.Create(path, FSItemType.Folder));
-            }
-            catch
-            {
-            }
         }
 
         /// <summary>
@@ -335,7 +321,7 @@
         /// <param name="param"></param>
         private void RemoveFolderBookmark_Executed(IListItemViewModel param)
         {
-            this.RemoveFolder(param.GetModel());
+            this.RemoveFolder(param.ItemPath);
         }
         #endregion methods
     }

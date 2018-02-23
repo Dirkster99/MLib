@@ -160,15 +160,6 @@ namespace FileListView.ViewModels
         }
 
         /// <summary>
-        /// Determine whether a given path is an exeisting directory or not.
-        /// </summary>
-        /// <returns>true if this directory exists and otherwise false</returns>
-        public bool DirectoryPathExists()
-        {
-            return this._PathObject.DirectoryPathExists();
-        }
-
-        /// <summary>
         /// Gets whether or not to show an Icon for this item.
         /// </summary>
         public bool ShowIcon { get; private set; }
@@ -218,11 +209,12 @@ namespace FileListView.ViewModels
         }
 
         /// <summary>
-        /// Gets a copy of the internal <seealso cref="PathModel"/> object.
+        /// Determine whether a given path is an exeisting directory or not.
         /// </summary>
-        public IPathModel GetModel()
+        /// <returns>true if this directory exists and otherwise false</returns>
+        public bool DirectoryPathExists()
         {
-            return this._PathObject.Clone() as IPathModel;
+            return this._PathObject.DirectoryPathExists();
         }
         #endregion methods
     }

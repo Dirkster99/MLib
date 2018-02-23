@@ -65,14 +65,6 @@
         void ClearFolderCollection();
 
         /// <summary>
-        /// Remove a recent folder location from the collection of recent folders.
-        /// This collection can then be used in the folder combobox drop down
-        /// list to store user specific customized folder short-cuts.
-        /// </summary>
-        /// <param name="folderPath"></param>
-        void RemoveFolder(IPathModel folderPath);
-
-        /// <summary>
         /// Removes all data items from the current collection of recent folders.
         /// </summary>
         void RemoveFolder(string path);
