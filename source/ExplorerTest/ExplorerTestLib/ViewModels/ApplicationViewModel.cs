@@ -66,7 +66,7 @@ namespace ExplorerTestLib.ViewModels
             _SelectedControllerTestViewModel[1] = FolderTreeView;
 
             // Set this as selected test by default ...
-            SelectedTestviewModelIndex = 1;
+            SelectedTestviewModelIndex = 0;
         }
         #endregion constructor
 

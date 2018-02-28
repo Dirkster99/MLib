@@ -144,6 +144,10 @@
       <Project>{7d4bd5f8-a98e-4966-abbd-cbe202dfbef7}</Project>
       <Name>FolderBrowser</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\More_Components\fs3_Components\HistoryControlLib\HistoryControlLib.csproj">
+      <Project>{54a1d71e-3dad-4eab-b2a4-22e0c69ddb2e}</Project>
+      <Name>HistoryControlLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ExplorerTestLib\ExplorerTestLib.csproj">
       <Project>{abd0c546-0168-49b9-9c27-c7211293d461}</Project>
       <Name>ExplorerTestLib</Name>

@@ -154,6 +154,10 @@
       <Project>{511fa2d6-2022-4de1-9a3e-731e04e8f10c}</Project>
       <Name>FolderControlsLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\More_Components\fs3_Components\HistoryControlLib\HistoryControlLib.csproj">
+      <Project>{54a1d71e-3dad-4eab-b2a4-22e0c69ddb2e}</Project>
+      <Name>HistoryControlLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\More_Components\ServiceLocator\ServiceLocator.csproj">
       <Project>{252126d1-e1d9-49c3-910b-fcf2266265ef}</Project>
       <Name>ServiceLocator</Name>

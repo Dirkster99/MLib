@@ -1,0 +1,212 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:HistoryControlLib.Controls"
+                    xmlns:reskeys="clr-namespace:HistoryControlLib.Themes"
+                    >
+
+    <!-- =============================================================================== -->
+    <!-- LocationsDropDown Template                                                      -->
+    <!-- =============================================================================== -->
+    <ControlTemplate x:Key="LocationsDropDownTemplate" TargetType="{x:Type local:LocationsDropDown}">
+        <Grid>
+            <Border x:Name="ControlBorder"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    Background="{TemplateBinding Background}">
+                <Grid x:Name="templateRoot"
+                      SnapsToDevicePixels="True">
+
+                    <Popup x:Name="PART_Popup" AllowsTransparency="True"
+                           Grid.ColumnSpan="2"
+                           IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                           Margin="0"
+                           PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}"
+                           Placement="Bottom">
+                        <Grid x:Name="DropDown"
+                              MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                              MinWidth="{TemplateBinding ActualWidth}"
+                              SnapsToDevicePixels="True">
+                            <Border x:Name="DropDownBorder"
+                                   BorderThickness="1"
+                                   BorderBrush="{DynamicResource {x:Static reskeys:ResourceKeys.PopUpControlNormalBorderKey}}" 
+                                   Background="{DynamicResource {x:Static reskeys:ResourceKeys.PopUpControlNormalBackgroundKey}}">
+                                <ScrollViewer x:Name="DropDownScrollViewer">
+                                    <Grid x:Name="grid">
+                                        <Canvas x:Name="canvas"
+                                                HorizontalAlignment="Left"
+                                                Height="0"
+                                                VerticalAlignment="Top"
+                                                Width="0">
+                                            <Rectangle x:Name="OpaqueRect"
+                                                      Fill="{Binding Background, ElementName=DropDownBorder}"
+                                                      Height="{Binding ActualHeight, ElementName=DropDownBorder}"
+                                                      Width="{Binding ActualWidth, ElementName=DropDownBorder}" />
+                                        </Canvas>
+                                        <ItemsPresenter x:Name="ItemsPresenter"
+                                                        KeyboardNavigation.DirectionalNavigation="Contained"
+                                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                        />
+                                    </Grid>
+                                </ScrollViewer>
+                            </Border>
+                        </Grid>
+                    </Popup>
+                    <ToggleButton BorderBrush="{TemplateBinding BorderBrush}"
+                                  BorderThickness="{TemplateBinding BorderThickness}"
+                                  Background="{TemplateBinding Background}"
+                                  IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                  HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+                                  VerticalAlignment="Stretch"
+                                  Style="{DynamicResource {x:Static reskeys:ResourceKeys.HistoryToggleButtonStyleKey}}"
+                        >
+                        <ToggleButton.Content>
+                            <!-- Show a Down Chevron Symbol in the toggle button -->
+                            <TextBlock FontFamily="Segoe UI Symbol"
+                                       Text="&#xE0E5;"
+                                       VerticalAlignment="Center" HorizontalAlignment="Left"
+                            />
+                        </ToggleButton.Content>
+                    </ToggleButton>
+                </Grid>
+            </Border>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="HasItems" Value="False">
+                <Setter Property="Height" TargetName="DropDownBorder" Value="95" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsGrouping" Value="True" />
+                    <!--<Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="False" />-->
+                </MultiTrigger.Conditions>
+                <Setter Property="ScrollViewer.CanContentScroll" Value="False" />
+            </MultiTrigger>
+            <Trigger Property="CanContentScroll" SourceName="DropDownScrollViewer" Value="False">
+                <Setter Property="Canvas.Top" TargetName="OpaqueRect" Value="{Binding VerticalOffset, ElementName=DropDownScrollViewer}" />
+                <Setter Property="Canvas.Left" TargetName="OpaqueRect"  Value="{Binding HorizontalOffset, ElementName=DropDownScrollViewer}" />
+            </Trigger>
+            <Trigger Property="IsEditable" Value="True">
+                <Setter Property="IsTabStop" Value="False" />
+                <Setter Property="Padding" Value="2" />
+                <!-- Setter Property="Visibility" Value="Visible" TargetName="Border" / -->
+                <!-- Setter Property="Visibility" Value="Collapsed" TargetName="contentPresenter" / -->
+            </Trigger>
+
+            <!-- Control is editable but NOT enabled -->
+            <!-- MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsEditable" Value="True" />
+                    <Condition Property="IsEnabled" Value="False" />
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Background" TargetName="Border" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlDisabledBackgroundKey}}" />
+                </MultiTrigger.Setters>
+            </MultiTrigger -->
+
+            <!-- MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsKeyboardFocusWithin" Value="False" />
+                    <Condition Property="Text" Value="" />
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Visibility" TargetName="PART_WatermarkHost" Value="Visible" />
+                </MultiTrigger.Setters>
+            </MultiTrigger -->
+
+            <!-- MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsKeyboardFocusWithin" Value="True" />
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter TargetName="ControlBorder" Property="BorderBrush" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlItemBorderSelectedKey}}" />
+                    <Setter TargetName="ControlBorder" Property="BorderThickness" Value="1" />
+                </MultiTrigger.Setters>
+            </MultiTrigger -->
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!-- =============================================================================== -->
+    <!-- LocationsDropDown Style                                                         -->
+    <!-- =============================================================================== -->
+    <Style x:Key="LocationsDropDownBox" TargetType="{x:Type local:LocationsDropDown}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlNormalForegroundBrushKey}}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
+        <Setter Property="Template" Value="{StaticResource LocationsDropDownTemplate}" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="{x:Type ComboBoxItem}">
+                    <Setter Property="HorizontalContentAlignment" Value="{Binding Path=HorizontalContentAlignment,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                    <Setter Property="VerticalContentAlignment" Value="{Binding Path=VerticalContentAlignment,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                    <Setter Property="Padding" Value="7,2,8,2"/>
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                                <Border Name="Bd"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        Padding="{TemplateBinding Padding}"
+                                        SnapsToDevicePixels="true">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock FontFamily="Segoe UI Symbol"
+                                                   Text="X"
+                                                   Margin="0,0,6,0"
+                                                   x:Name="MeasurTextBlock"
+                                                   Visibility="Hidden"
+                                                   />
+
+                                        <TextBlock FontFamily="Segoe UI Symbol"
+                                                   Text=" "
+                                                   Margin="0,0,6,0"
+                                                   MinWidth="{Binding ElementName=MeasurTextBlock,Path=ActualWidth}"
+                                                   x:Name="ItemIndicator"
+                                                   />
+
+                                        <ContentPresenter
+                                            Grid.Column="1"
+                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                    </Grid>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <!-- Show selected item as selected until another item is selected -->
+                                        <Setter TargetName="Bd" Property="Background" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlItemBackgroundSelectedKey}}"/>
+                                        <Setter Property="Foreground" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlItemTextSelectedKey}}"/>
+                                        <!-- Show a checkmark before selected item -->
+                                        <Setter TargetName="ItemIndicator" Property="Text" Value="&#x2714;"/>
+                                    </Trigger>
+                                    <Trigger Property="IsHighlighted" Value="true">
+                                        <Setter TargetName="Bd" Property="Background" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlItemBackgroundSelectedKey}}"/>
+                                        <Setter Property="Foreground" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlItemTextSelectedKey}}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="false">
+                                        <Setter Property="Foreground" Value="{DynamicResource ItemTextDisabled}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:LocationsDropDown}" BasedOn="{StaticResource LocationsDropDownBox}" />
+
+</ResourceDictionary>

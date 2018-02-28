@@ -1,8 +1,5 @@
 namespace ExplorerTestLib.ViewModels
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using System.Windows;
     using ExplorerTestLib.Interfaces;
     using FileListView.Interfaces;
     using FileSystemModels.Browse;
@@ -11,6 +8,9 @@ namespace ExplorerTestLib.ViewModels
     using FileSystemModels.Interfaces.Bookmark;
     using FileSystemModels.Models;
     using FilterControlsLib.Interfaces;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using System.Windows;
 
     /// <summary>
     /// Class implements a folder/file view model class
@@ -137,6 +137,9 @@ namespace ExplorerTestLib.ViewModels
                     // Navigate Folder/File ListView to this folder
                     browseResult = await FolderItemsView.NavigateToAsync(itemPath);
                 }
+
+                if (browseResult == true)    // Log location into history of recent locations
+                    NaviHistory.Forward(itemPath);
             }
             catch { }
             finally
@@ -185,6 +188,9 @@ namespace ExplorerTestLib.ViewModels
                     // Navigate Folder/File ListView to this folder
                     FolderItemsView.NavigateTo(itemPath);
                 }
+
+                // Log location into history of recent locations
+                NaviHistory.Forward(itemPath);
             }
             else
             {

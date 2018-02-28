@@ -170,7 +170,116 @@
 
             <StackPanel Orientation="Horizontal"
                         Grid.Row="1" Grid.Column="0" SnapsToDevicePixels="True">
-                <Button DataContext="{Binding FolderItemsView}"
+
+                <Grid xmlns:BHreskeys="clr-namespace:HistoryControlLib.Themes;assembly=HistoryControlLib"
+                      xmlns:BHcontrols="clr-namespace:HistoryControlLib.Controls;assembly=HistoryControlLib"
+                      xmlns:BHbehav="clr-namespace:HistoryControlLib.Behaviors;assembly=HistoryControlLib"
+                      Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="24"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="24"/>
+                        <ColumnDefinition Width="24"/>
+                        <ColumnDefinition Width="16"/>
+                        <ColumnDefinition Width="24"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0"
+                            Margin="3,3,0,3"
+                            Command="{Binding BackwardCommand}"
+                            ToolTip="Back"
+                            HorizontalAlignment="Right" VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Right" VerticalContentAlignment="Stretch"
+                            Style="{DynamicResource {x:Static BHreskeys:ResourceKeys.HistoryButtonStyleKey}}"
+                        >
+                        <Button.Content>
+                            <Grid>
+                                <Path HorizontalAlignment="Center"
+                              Data="{DynamicResource {x:Static BHreskeys:ResourceKeys.ArrowGeometryKey}}"
+                              Fill="{Binding Foreground,RelativeSource={RelativeSource AncestorType=Button}}"
+                              RenderTransformOrigin=".5,.5"
+                              Stretch="Uniform">
+                                    <Path.RenderTransform>
+                                        <TransformGroup>
+                                            <RotateTransform Angle="180" />
+                                            <ScaleTransform ScaleX="0.75" ScaleY="0.75" />
+                                        </TransformGroup>
+                                    </Path.RenderTransform>
+                                </Path>
+                            </Grid>
+                        </Button.Content>
+                    </Button>
+
+                    <Button Grid.Column="1"
+                            Margin="0,3,0,3"
+                            Command="{Binding ForwardCommand}"
+                            ToolTip="Forward"
+                            HorizontalAlignment="Left" VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Left" VerticalContentAlignment="Stretch"
+                            Style="{DynamicResource {x:Static BHreskeys:ResourceKeys.HistoryButtonStyleKey}}"
+                        >
+                        <Button.Content>
+                            <Grid>
+                                <Path HorizontalAlignment="Center"
+                                      Data="{DynamicResource {x:Static BHreskeys:ResourceKeys.ArrowGeometryKey}}"
+                                      Fill="{Binding Foreground,RelativeSource={RelativeSource AncestorType=Button}}"
+                                      RenderTransformOrigin=".5,.5"
+                                      Stretch="Uniform">
+                                    <Path.RenderTransform>
+                                        <TransformGroup>
+                                            <RotateTransform Angle="0" />
+                                            <ScaleTransform ScaleX="0.7" ScaleY="0.7" />
+                                        </TransformGroup>
+                                    </Path.RenderTransform>
+                                </Path>
+                            </Grid>
+                        </Button.Content>
+                    </Button>
+
+                    <BHcontrols:LocationsDropDown
+                            Grid.Column="2"
+                            ItemsSource="{Binding NaviHistory.Locations}"
+                            HorizontalAlignment="Left"
+                            BHbehav:SelectionChangedCommand.ChangedCommand="{Binding SelectionChanged}"
+                            SelectedItem="{Binding NaviHistory.SelectedItem,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                            ToolTip="Recent Locations"
+                        >
+                        <BHcontrols:LocationsDropDown.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path}"/>
+                            </DataTemplate>
+                        </BHcontrols:LocationsDropDown.ItemTemplate>
+                    </BHcontrols:LocationsDropDown>
+
+                    <Button Grid.Column="3" Grid.Row="0"
+                            Margin="3"
+                            Command="{Binding UpCommand}"
+                            ToolTip="Up"
+                            HorizontalAlignment="Center" VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch"
+                            Style="{DynamicResource {x:Static BHreskeys:ResourceKeys.HistoryButtonStyleKey}}"
+                        >
+                        <Button.Content>
+                            <Grid>
+                                <Path HorizontalAlignment="Right"
+                              Data="{DynamicResource {x:Static BHreskeys:ResourceKeys.ArrowGeometryKey}}"
+                              Fill="{Binding Foreground,RelativeSource={RelativeSource AncestorType=Button}}"
+                              RenderTransformOrigin=".5,.5"
+                              Stretch="Uniform">
+                                    <Path.RenderTransform>
+                                        <TransformGroup>
+                                            <RotateTransform Angle="270" />
+                                            <ScaleTransform ScaleX="0.7" ScaleY="0.7" />
+                                        </TransformGroup>
+                                    </Path.RenderTransform>
+                                </Path>
+                            </Grid>
+                        </Button.Content>
+                    </Button>
+                </Grid>
+
+                <!-- Button DataContext="{Binding FolderItemsView}"
                         Command="{Binding NavigateBackCommand}"
                         ToolTip="{x:Static fvloc:Strings.NavigateBackCommand_TT}"
                         ToolTipService.ShowOnDisabled="True"
@@ -178,7 +287,7 @@
                         Padding="3"
                         HorizontalAlignment="Left" MinHeight="16" MinWidth="16">
                     <Image Source="{DynamicResource FLV_Image_Back}" Width="16" Margin="3,0" />
-                </Button>
+                </>
                 <Button DataContext="{Binding FolderItemsView}"
                             Command="{Binding NavigateForwardCommand}"
                             ToolTip="{x:Static fvloc:Strings.NavigateForwardCommand_TT}"
@@ -196,7 +305,7 @@
                             Padding="3"
                             HorizontalAlignment="Left" MinHeight="16" MinWidth="16">
                     <Image Source="{DynamicResource FLV_Image_FolderUp}" Width="16" Margin="3,0" />
-                </Button>
+                </Button -->
 
                 <Separator Margin="9,3" SnapsToDevicePixels="True" />
 
