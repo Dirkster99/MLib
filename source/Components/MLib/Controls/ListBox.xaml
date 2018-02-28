@@ -36,7 +36,7 @@
     <!-- SolidColorBrush x:Key="ListBoxItemHoverBackgroundBrush" Color="{StaticResource Color_006}" - ControlInputBackgroundHoverKey -->
     <!-- SolidColorBrush x:Key="ListBoxItemHoverBorderBrush" Color="{StaticResource Color_004}"     - ControlInputBorderHoverKey     -->
     <!-- SolidColorBrush x:Key="ListBoxItemPressedBackgroundBrush" Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}" /-->
-    <!-- SolidColorBrush x:Key="ListBoxItemPressedBorderBrush" Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}" / -->
+    <!-- SolidColorBrush x:Key="ControlItemPressedBorderBrush" Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}" / -->
     <!-- SolidColorBrush x:Key="ControlItemBackgroundSelectedKey" Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}" /-->
     <!-- SolidColorBrush x:Key="ControlItemBorderSelectedKey" Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}" / -->
 
@@ -232,7 +232,7 @@
                         <Rectangle x:Name="FocusedVisualElement"
                                    IsHitTestVisible="False"
                                    Visibility="Collapsed"
-                                   Stroke="{DynamicResource {x:Static reskeys:ResourceKeys.ListBoxItemPressedBorderBrush}}"
+                                   Stroke="{DynamicResource {x:Static reskeys:ResourceKeys.ControlItemPressedBorderBrush}}"
                                    StrokeThickness="1" />
                         
                         <Rectangle x:Name="DisabledVisualElement"

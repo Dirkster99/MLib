@@ -162,9 +162,8 @@
                      Opacity=".1"
                      />
 
-    <!-- ListBox Control Brush Keys XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
-                     ResourceId=ListBoxItemPressedBorderBrush}"
+                     ResourceId=ControlItemPressedBorderBrush}"
                      Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}"
                      Opacity=".5"
                      />
@@ -317,7 +316,6 @@
                      ResourceId=CheckBoxBrushKey}"
                      Color="#80CCCCCC"
                      />
-
 
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
                      ResourceId=TransparentWhiteBrushKey}"

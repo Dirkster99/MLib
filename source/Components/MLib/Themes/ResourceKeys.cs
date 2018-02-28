@@ -75,9 +75,9 @@
         public static readonly ComponentResourceKey ControlItemUnfocusedBackgroundSelectedKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlItemUnfocusedBackgroundSelectedKey");
         public static readonly ComponentResourceKey ControlItemUnfocusedBorderSelectedKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlItemUnfocusedBorderSelectedKey");
 
-        // ListBox Definitions
-        public static readonly ComponentResourceKey ListBoxItemPressedBorderBrush          = new ComponentResourceKey(typeof(ResourceKeys), "ListBoxItemPressedBorderBrush");
-        public static readonly ComponentResourceKey ListBoxItemBackgroundBrush             = new ComponentResourceKey(typeof(ResourceKeys), "ListBoxItemBackgroundBrush");
+        public static readonly ComponentResourceKey ControlItemPressedBorderBrush = new ComponentResourceKey(typeof(ResourceKeys), "ListBoxItemPressedBorderBrush");
+
+        //
         public static readonly ComponentResourceKey DisabledVisualElement                  = new ComponentResourceKey(typeof(ResourceKeys), "DisabledVisualElement");
 
         // ValidationToolTip Brushes -->
