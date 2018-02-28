@@ -18,7 +18,6 @@
         public static readonly ComponentResourceKey ControlAccentBrushKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlAccentBrushKey");
 
         public static readonly ComponentResourceKey ControlAccent90BrushKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlAccent90BrushKey");
-        public static readonly ComponentResourceKey ControlAccent70BrushKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlAccent70BrushKey");
 
         public static readonly ComponentResourceKey ControlAccent50BrushKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlAccent50BrushKey");
         public static readonly ComponentResourceKey ControlAccent30BrushKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlAccent30BrushKey");
@@ -84,8 +83,6 @@
         // ListBox Definitions
         public static readonly ComponentResourceKey ListBoxItemPressedBorderBrush          = new ComponentResourceKey(typeof(ResourceKeys), "ListBoxItemPressedBorderBrush");
         public static readonly ComponentResourceKey ListBoxItemBackgroundBrush             = new ComponentResourceKey(typeof(ResourceKeys), "ListBoxItemBackgroundBrush");
-        public static readonly ComponentResourceKey ListBoxItemSelectedBackgroundBrush     = new ComponentResourceKey(typeof(ResourceKeys), "ListBoxItemSelectedBackgroundBrush");
-        public static readonly ComponentResourceKey ListBoxItemSelectedBorderBrush         = new ComponentResourceKey(typeof(ResourceKeys), "ListBoxItemSelectedBorderBrush");
         public static readonly ComponentResourceKey DisabledVisualElement                  = new ComponentResourceKey(typeof(ResourceKeys), "DisabledVisualElement");
 
         // ValidationToolTip Brushes -->

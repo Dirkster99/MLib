@@ -21,11 +21,6 @@
                      Opacity=".9"/>
 
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
-                     ResourceId=ControlAccent70BrushKey}"
-                     Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}"
-                     Opacity=".7"/>
-
-    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
                      ResourceId=ControlAccent50BrushKey}"
                      Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}"
                      Opacity=".5"/>
@@ -181,11 +176,6 @@
     <!-- ListBox Control Brush Keys XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
                      ResourceId=ListBoxItemPressedBorderBrush}" Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}" />
-
-    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
-                     ResourceId=ListBoxItemSelectedBackgroundBrush}" Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}" />
-    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
-                     ResourceId=ListBoxItemSelectedBorderBrush}" Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}" />
 
     <!--SolidColorBrush x:Key="LightForegroundBrush" Color="{StaticResource Color_001}"  - ControlTextBrushKey -->
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},

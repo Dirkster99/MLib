@@ -37,8 +37,8 @@
     <!-- SolidColorBrush x:Key="ListBoxItemHoverBorderBrush" Color="{StaticResource Color_004}"     - ControlInputBorderHoverKey     -->
     <!-- SolidColorBrush x:Key="ListBoxItemPressedBackgroundBrush" Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}" /-->
     <!-- SolidColorBrush x:Key="ListBoxItemPressedBorderBrush" Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}" / -->
-    <!-- SolidColorBrush x:Key="ListBoxItemSelectedBackgroundBrush" Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}" /-->
-    <!-- SolidColorBrush x:Key="ListBoxItemSelectedBorderBrush" Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}" / -->
+    <!-- SolidColorBrush x:Key="ControlItemBackgroundSelectedKey" Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}" /-->
+    <!-- SolidColorBrush x:Key="ControlItemBorderSelectedKey" Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}" / -->
 
     <!--SolidColorBrush x:Key="LightForegroundBrush" Color="{StaticResource Color_001}"  - ControlTextBrushKey -->
     <!-- SolidColorBrush x:Key="DisabledVisualElement" Color="#FF181818" Opacity="0.6" /--> <!--Color="{StaticResource Color_009}" -->
@@ -215,8 +215,8 @@
                         </VisualStateManager.VisualStateGroups>
                         <Rectangle x:Name="Bd" Fill="{TemplateBinding Background}" />
                         <Rectangle x:Name="BgSelected"
-                                   Fill="{DynamicResource {x:Static reskeys:ResourceKeys.ListBoxItemSelectedBackgroundBrush}}"
-                                   Stroke="{DynamicResource {x:Static reskeys:ResourceKeys.ListBoxItemSelectedBorderBrush}}"
+                                   Fill="{DynamicResource {x:Static reskeys:ResourceKeys.ControlItemBackgroundSelectedKey}}"
+                                   Stroke="{DynamicResource {x:Static reskeys:ResourceKeys.ControlItemBorderSelectedKey}}"
                                    Visibility="Collapsed" />
                         <ContentControl x:Name="contentControl" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="{TemplateBinding Padding}" Foreground="{TemplateBinding Foreground}">
                             <ContentPresenter x:Name="contentPresenter" />
