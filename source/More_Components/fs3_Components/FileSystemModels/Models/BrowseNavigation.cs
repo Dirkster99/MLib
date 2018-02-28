@@ -36,8 +36,8 @@
         /// </summary>
         public BrowseNavigation()
         {
-            this.RecentFolders = new Stack<IPathModel>();
-            this.FutureFolders = new Stack<IPathModel>();
+            this.PastLocations = new Stack<IPathModel>();
+            this.FutureLocations = new Stack<IPathModel>();
         }
         #endregion constructor
 
@@ -51,12 +51,12 @@
         /// <summary>
         /// Gets/sets the undo stacks for navigation.
         /// </summary>
-        private Stack<IPathModel> RecentFolders { get; set; }
+        private Stack<IPathModel> PastLocations { get; }
 
         /// <summary>
         /// Gets/sets the redo stack for navigation.
         /// </summary>
-        private Stack<IPathModel> FutureFolders { get; set; }
+        private Stack<IPathModel> FutureLocations { get; }
         #endregion properties
 
         #region methods
@@ -99,15 +99,15 @@
         {
             try
             {
-                if (this.RecentFolders.Count > 0)
+                if (PastLocations.Count > 0)
                 {
-                    // top of stack is always last valid folder
-                    if (this.CurrentFolder != null)
-                        this.FutureFolders.Push(this.CurrentFolder);
+                    // top of stack is always last location
+                    if (CurrentFolder != null)
+                        FutureLocations.Push(CurrentFolder);
 
-                    this.CurrentFolder = this.RecentFolders.Pop();
+                    CurrentFolder = PastLocations.Pop();
 
-                    return this.CurrentFolder.Clone() as IPathModel;
+                    return CurrentFolder.Clone() as IPathModel;
                 }
             }
             catch
@@ -123,7 +123,7 @@
         /// <returns></returns>
         bool IBrowseNavigation.CanBrowseBack()
         {
-            return this.RecentFolders.Count > 0;
+            return this.PastLocations.Count > 0;
         }
 
         /// <summary>
@@ -131,25 +131,25 @@
         /// </summary>
         IPathModel IBrowseNavigation.BrowseForward()
         {
-            if (this.FutureFolders.Count > 0)
+            if (this.FutureLocations.Count > 0)
             {
-                bool pushRecentFolder = true;
+                bool pushPastLocation = true;
 
                 if (this.CurrentFolder == null)
-                    pushRecentFolder = false;
+                    pushPastLocation = false;
                 else
                 {
-                    if (this.RecentFolders.Count > 0) // Don't push same folder twice
+                    if (PastLocations.Count > 0) // Don't push same location twice on top
                     {
-                        if (PathModel.Compare(this.RecentFolders.Peek(), this.CurrentFolder) == true)
-                            pushRecentFolder = false;
+                        if (PathModel.Compare(this.PastLocations.Peek(), this.CurrentFolder) == true)
+                            pushPastLocation = false;
                     }
                 }
 
-                if (pushRecentFolder == true)
-                    this.RecentFolders.Push(this.CurrentFolder);
+                if (pushPastLocation == true)
+                    this.PastLocations.Push(this.CurrentFolder);
 
-                this.CurrentFolder = this.FutureFolders.Pop();
+                this.CurrentFolder = this.FutureLocations.Pop();
 
                 return this.CurrentFolder.Clone() as IPathModel;
             }
@@ -163,11 +163,11 @@
         /// </summary>
         bool IBrowseNavigation.CanBrowseForward()
         {
-            return this.FutureFolders.Count > 0;
+            return this.FutureLocations.Count > 0;
         }
 
         /// <summary>
-        /// Browse into the parent folder path of a given path.
+        /// Browse into the parent folder location of a given path.
         /// </summary>
         IPathModel IBrowseNavigation.BrowseUp()
         {
@@ -179,24 +179,7 @@
 
                 var newDir = new PathModel(newf, FSItemType.Folder);
 
-                bool pushRecentFolder = true;
-
-                if (this.CurrentFolder == null)
-                    pushRecentFolder = false;
-                else
-                {
-                    if (this.RecentFolders.Count > 0) // Don't push same folder twice
-                    {
-                        if (PathModel.Compare(this.RecentFolders.Peek(), this.CurrentFolder) == true)
-                            pushRecentFolder = false;
-                    }
-                }
-
-                if (pushRecentFolder == true)
-                    this.RecentFolders.Push(this.CurrentFolder);
-
-                this.FutureFolders.Clear();
-                this.CurrentFolder = newDir;
+                SetCurrentFolder(newDir.Path, true);
 
                 return newDir.Clone() as IPathModel;
             }
@@ -232,14 +215,8 @@
         /// <param name="newPath"></param>
         FSItemType IBrowseNavigation.BrowseDown(FSItemType infoType, string newPath)
         {
-            if (infoType == FSItemType.Folder)
-            {
-                ////this.RecentFolders.Push(this.CurrentFolder);
-                ////this.FutureFolders.Clear();
-                ////this.CurrentFolder = newPath;
-
-                this.SetCurrentFolder(newPath, true);
-            }
+            if (infoType == FSItemType.Folder || infoType == FSItemType.LogicalDrive)
+                SetCurrentFolder(newPath, true);
 
             return infoType;
         }
@@ -316,20 +293,21 @@
                 else
                 {
                     // Do not set the same location twice
-                    if (PathModel.Compare(this.CurrentFolder, new PathModel(path, FSItemType.Folder)) == true)
-                        return;
-
-                    if (this.RecentFolders.Count > 0) // Don't push same folder twice
+                    if (this.PastLocations.Count > 0) // Don't push same folder twice
                     {
-                        if (PathModel.Compare(this.RecentFolders.Peek(), this.CurrentFolder) == true)
+                        if (PathModel.Compare(this.PastLocations.Peek(), this.CurrentFolder) == true)
                             pushRecentFolder = false;
+                        else
+                            pushRecentFolder = true;
                     }
+                    else      // Past is empty so what ever we have now is being recorded
+                        pushRecentFolder = true;
                 }
 
                 if (pushRecentFolder == true)
-                    this.RecentFolders.Push(this.CurrentFolder);
+                    this.PastLocations.Push(this.CurrentFolder);
 
-                this.FutureFolders.Clear();
+                this.FutureLocations.Clear();
                 this.CurrentFolder = new PathModel(path, FSItemType.Folder);
             }
             else

@@ -22,7 +22,6 @@
 
         public static readonly ComponentResourceKey ControlAccent50BrushKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlAccent50BrushKey");
         public static readonly ComponentResourceKey ControlAccent30BrushKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlAccent30BrushKey");
-        public static readonly ComponentResourceKey ControlAccent10BrushKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlAccent10BrushKey");
         #endregion Accent Keys
 
         #region Normal Control Foreground and Background Keys
@@ -77,6 +76,10 @@
         public static readonly ComponentResourceKey ControlItemTextDisabledKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlItemTextDisabledKey");
         public static readonly ComponentResourceKey ControlItemBackgroundSelectedKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlItemBackgroundSelectedKey");
         public static readonly ComponentResourceKey ControlItemBorderSelectedKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlItemBorderSelectedKey");
+
+        // Background and borderbrush for unfocused collection (listview, treeview, listbox etc..) items
+        public static readonly ComponentResourceKey ControlItemUnfocusedBackgroundSelectedKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlItemUnfocusedBackgroundSelectedKey");
+        public static readonly ComponentResourceKey ControlItemUnfocusedBorderSelectedKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlItemUnfocusedBorderSelectedKey");
 
         // ListBox Definitions
         public static readonly ComponentResourceKey ListBoxItemPressedBorderBrush          = new ComponentResourceKey(typeof(ResourceKeys), "ListBoxItemPressedBorderBrush");

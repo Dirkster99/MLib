@@ -190,10 +190,10 @@
                                             </DiscreteObjectKeyFrame>
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="Fill" Storyboard.TargetName="BgSelected">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccent10BrushKey}}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlItemUnfocusedBackgroundSelectedKey}}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="Stroke" Storyboard.TargetName="BgSelected">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccent10BrushKey}}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlItemUnfocusedBorderSelectedKey}}" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>

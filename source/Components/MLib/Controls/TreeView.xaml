@@ -156,7 +156,7 @@
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True"><!-- Selected Item has no focus -->
                             <!-- Setter Property="Foreground" Value="{DynamicResource AccentSelectedColorBrush}" / -->
-                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccent10BrushKey}}" />
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlItemUnfocusedBackgroundSelectedKey}}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Foreground" Value="{DynamicResource {x:Static reskeys:ResourceKeys.Gray7BrushKey}}" />
