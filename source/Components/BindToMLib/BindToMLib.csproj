@@ -125,6 +125,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="HistoryControlLib\DarkLightBrushs.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="LightBrushs.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -151,6 +155,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\More_Components\fs3_Components\HistoryControlLib\HistoryControlLib.csproj">
+      <Project>{54a1d71e-3dad-4eab-b2a4-22e0c69ddb2e}</Project>
+      <Name>HistoryControlLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MLib\MLib.csproj">
       <Project>{87a9302d-c6a7-4507-82d5-d83a40e899e2}</Project>
       <Name>MLib</Name>

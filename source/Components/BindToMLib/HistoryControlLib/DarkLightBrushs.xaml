@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     
                     xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
-                    xmlns:reskeys="clr-namespace:WatermarkControlsLib.Themes;assembly=WatermarkControlsLib"
+                    xmlns:reskeys="clr-namespace:HistoryControlLib.Themes;assembly=HistoryControlLib"
                     xmlns:MLib_reskeys="clr-namespace:MLib.Themes;assembly=MLib"
                     >
     <!-- Accent Color Brush Definition
@@ -29,4 +29,15 @@
                      ResourceId=ControlSelectedBorderKey}"
                      Color="{DynamicResource {x:Static MLib_reskeys:ResourceKeys.ControlAccentColorKey}}"
                      options:Freeze="true" />
+
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
+                     ResourceId=ControlItemBackgroundSelectedKey}"
+                     Color="{DynamicResource {x:Static MLib_reskeys:ResourceKeys.ControlAccentColorKey}}"
+                     options:Freeze="true" />
+
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
+                     ResourceId=ControlItemBorderSelectedKey}"
+                     Color="{DynamicResource {x:Static MLib_reskeys:ResourceKeys.ControlAccentColorKey}}"
+                     options:Freeze="true" />
+
 </ResourceDictionary>

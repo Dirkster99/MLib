@@ -133,12 +133,14 @@
                    , new Uri("/WatermarkControlsLib;component/Themes/DarkBrushs.xaml", UriKind.RelativeOrAbsolute)
                    , new Uri("/FolderBrowser;component/Themes/MetroDark.xaml", UriKind.RelativeOrAbsolute)
                    , new Uri("/FileListView;component/Images/MetroDarkIcons.xaml", UriKind.RelativeOrAbsolute)
+                   , new Uri("/HistoryControlLib;component/Themes/DarkTheme.xaml", UriKind.RelativeOrAbsolute)
 
                    , new Uri("/Mlib;component/Themes/DarkTheme.xaml", UriKind.RelativeOrAbsolute)
                    , new Uri("/MWindowLib;component/Themes/DarkTheme.xaml", UriKind.RelativeOrAbsolute)
 
                    , new Uri("/BindToMLib;component/DropDownButtonLib/DarkBrushs.xaml", UriKind.RelativeOrAbsolute)
                    , new Uri("/BindToMLib;component/WatermarkControlsLib/DarkLightBrushs.xaml", UriKind.RelativeOrAbsolute)
+                   , new Uri("/BindToMLib;component/HistoryControlLib/DarkLightBrushs.xaml", UriKind.RelativeOrAbsolute)
                    , new Uri("/BindToMLib;component/MWindowLib/DarkBrushs.xaml", UriKind.RelativeOrAbsolute)
                 }, settings.Themes);
             }
@@ -155,12 +157,14 @@
                    , new Uri("/WatermarkControlsLib;component/Themes/LightBrushs.xaml", UriKind.RelativeOrAbsolute)
                    , new Uri("/FolderBrowser;component/Themes/MetroLight.xaml", UriKind.RelativeOrAbsolute)
                    , new Uri("/FileListView;component/Images/MetroLightIcons.xaml", UriKind.RelativeOrAbsolute)
+                   , new Uri("/HistoryControlLib;component/Themes/LightTheme.xaml", UriKind.RelativeOrAbsolute)
 
                    , new Uri("/Mlib;component/Themes/LightTheme.xaml", UriKind.RelativeOrAbsolute)
                    , new Uri("/MWindowLib;component/Themes/LightTheme.xaml", UriKind.RelativeOrAbsolute)
 
                    , new Uri("/BindToMLib;component/DropDownButtonLib/LightBrushs.xaml", UriKind.RelativeOrAbsolute)
                    , new Uri("/BindToMLib;component/WatermarkControlsLib/DarkLightBrushs.xaml", UriKind.RelativeOrAbsolute)
+                   , new Uri("/BindToMLib;component/HistoryControlLib/DarkLightBrushs.xaml", UriKind.RelativeOrAbsolute)
                    , new Uri("/BindToMLib;component/MWindowLib/LightBrushs.xaml", UriKind.RelativeOrAbsolute)
                 }, settings.Themes);
             }
