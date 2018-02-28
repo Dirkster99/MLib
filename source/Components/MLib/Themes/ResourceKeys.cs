@@ -16,11 +16,6 @@
         /// (e.g.: Color of Activated Normal Window Frame, ResizeGrip, Focus or MouseOver input elements)
         /// </summary>
         public static readonly ComponentResourceKey ControlAccentBrushKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlAccentBrushKey");
-
-        public static readonly ComponentResourceKey ControlAccent90BrushKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlAccent90BrushKey");
-
-        public static readonly ComponentResourceKey ControlAccent50BrushKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlAccent50BrushKey");
-        public static readonly ComponentResourceKey ControlAccent30BrushKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlAccent30BrushKey");
         #endregion Accent Keys
 
         #region Normal Control Foreground and Background Keys
