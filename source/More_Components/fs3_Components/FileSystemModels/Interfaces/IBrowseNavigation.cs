@@ -50,39 +50,6 @@
         void SetCurrentFolder(string path, bool bSetHistory);
 
         /// <summary>
-        /// Navigates back to a folder that was visited before the current folder (if any).
-        /// </summary>
-        IPathModel BrowseBack();
-
-        /// <summary>
-        /// Determine whether back navigatino to a folder that was visited before the
-        /// current folder is currently possible or not.
-        /// </summary>
-        bool CanBrowseBack();
-
-        /// <summary>
-        /// Navigates to a folder that was visited before navigating back (if any).
-        /// </summary>
-        IPathModel BrowseForward();
-
-        /// <summary>
-        /// Determine if navigates to a folder that was visited before navigating
-        /// back is currently possible or not.
-        /// </summary>
-        bool CanBrowseForward();
-
-        /// <summary>
-        /// Browse into the parent folder path of a given path.
-        /// </summary>
-        IPathModel BrowseUp();
-
-        /// <summary>
-        /// Determine whether browsing into the parent folder
-        /// path of a given path is possible or not.
-        /// </summary>
-        bool CanBrowseUp();
-
-        /// <summary>
         /// Browse into a given path.
         /// </summary>
         /// <param name="infoType"></param>

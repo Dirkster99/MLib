@@ -19,7 +19,7 @@ namespace FileSystemModels.Local {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Strings {
@@ -278,7 +278,7 @@ namespace FileSystemModels.Local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Go back one location..
+        ///   Looks up a localized string similar to Back to:.
         /// </summary>
         public static string NavigateBackCommand_TT {
             get {
@@ -287,7 +287,7 @@ namespace FileSystemModels.Local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Go forward one location..
+        ///   Looks up a localized string similar to Forward to:.
         /// </summary>
         public static string NavigateForwardCommand_TT {
             get {
@@ -296,7 +296,7 @@ namespace FileSystemModels.Local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Navigate up to parent.
+        ///   Looks up a localized string similar to Up.
         /// </summary>
         public static string NavigateUpCommand_TT {
             get {

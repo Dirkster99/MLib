@@ -43,9 +43,6 @@ namespace FileListView.ViewModels
         private readonly IBrowseNavigation _BrowseNavigation = null;
         private readonly ObservableCollection<ILVItemViewModel> _CurrentItems = null;
 
-        private ICommand _NavigateForwardCommand = null;
-        private ICommand _NavigateBackCommand = null;
-        private ICommand _NavigateUpCommand = null;
         private ICommand _NavigateDownCommand = null;
         private ICommand _RefreshCommand = null;
         private ICommand _ToggleIsFolderVisibleCommand = null;
@@ -299,89 +296,6 @@ namespace FileListView.ViewModels
         }
 
         #region commands
-        /// <summary>
-        /// Navigates to a folder that was visited before navigating back (if any).
-        /// </summary>
-        public ICommand NavigateForwardCommand
-        {
-            get
-            {
-                if (_NavigateForwardCommand == null)
-                    _NavigateForwardCommand = new RelayCommand<object>((p) =>
-                    {
-                        var newFolder = _BrowseNavigation.BrowseForward();
-
-                        if (newFolder != null)
-                        {
-                            PopulateView(newFolder);
-
-                            if (BrowseEvent != null)
-                                BrowseEvent(this, new BrowsingEventArgs(newFolder, false, BrowseResult.Complete));
-                        }
-                    }
-//                    ,(p) => _BrowseNavigation.CanBrowseForward()
-                    );
-
-                return _NavigateForwardCommand;
-            }
-        }
-
-        /// <summary>
-        /// Navigates back to a folder that was visited before the current folder (if any).
-        /// </summary>
-        public ICommand NavigateBackCommand
-        {
-            get
-            {
-                if (_NavigateBackCommand == null)
-                    _NavigateBackCommand = new RelayCommand<object>((p) =>
-                    {
-                        var newFolder = _BrowseNavigation.BrowseBack();
-
-                        if (newFolder != null)
-                        {
-                            PopulateView(newFolder);
-
-                            if (BrowseEvent != null)
-                                BrowseEvent(this, new BrowsingEventArgs(newFolder, false, BrowseResult.Complete));
-                        }
-                    }
-//                    ,(p) => _BrowseNavigation.CanBrowseBack()
-                    );
-
-                return _NavigateBackCommand;
-            }
-        }
-
-        /// <summary>
-        /// Browse into the parent folder path of a given path.
-        /// </summary>
-        public ICommand NavigateUpCommand
-        {
-            get
-            {
-                if (this._NavigateUpCommand == null)
-                    this._NavigateUpCommand = new RelayCommand<object>((p) =>
-                    {
-                        var newFolder = this._BrowseNavigation.BrowseUp();
-
-                        if (newFolder != null)
-                        {
-                            if (newFolder.DirectoryPathExists() == false)
-                                return;
-
-                            PopulateView(newFolder);
-
-////                            if (this.BrowseEvent != null)
-////                                this.BrowseEvent(this, new BrowsingEventArgs(newFolder, false, BrowseResult.Complete));
-                        }
-                    },
-                    (p) => this._BrowseNavigation.CanBrowseUp());
-
-                return this._NavigateUpCommand;
-            }
-        }
-
         /// <summary>
         /// Browse into a given a path.
         /// </summary>

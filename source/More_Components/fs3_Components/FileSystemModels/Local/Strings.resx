@@ -219,18 +219,6 @@
     <value>My Documents</value>
     <comment>A special Windows folder</comment>
   </data>
-  <data name="NavigateBackCommand_TT" xml:space="preserve">
-    <value>Go back one location.</value>
-    <comment>A tool tip for command that navigates to a previous location.</comment>
-  </data>
-  <data name="NavigateForwardCommand_TT" xml:space="preserve">
-    <value>Go forward one location.</value>
-    <comment>A tool tip for command that navigates forward to a previously visited location.</comment>
-  </data>
-  <data name="NavigateUpCommand_TT" xml:space="preserve">
-    <value>Navigate up to parent</value>
-    <comment>A tool tip for command that navigates to a parent (folder) of the current folder.</comment>
-  </data>
   <data name="RefreshCommand_TT" xml:space="preserve">
     <value>Update listed items.</value>
     <comment>A tool tip for command that updates the currently listed items.</comment>
@@ -305,5 +293,17 @@
   </data>
   <data name="STR_ERROR_FOLDER_DOES_NOT_EXIST" xml:space="preserve">
     <value>Folder '{0}' does not exist.</value>
+  </data>
+  <data name="NavigateBackCommand_TT" xml:space="preserve">
+    <value>Back to:</value>
+    <comment>A tool tip for command that navigates to a previous location.</comment>
+  </data>
+  <data name="NavigateForwardCommand_TT" xml:space="preserve">
+    <value>Forward to:</value>
+    <comment>A tool tip for command that navigates forward to a previously visited location.</comment>
+  </data>
+  <data name="NavigateUpCommand_TT" xml:space="preserve">
+    <value>Up</value>
+    <comment>A tool tip for command that navigates to a parent (folder) of the current folder.</comment>
   </data>
 </root>

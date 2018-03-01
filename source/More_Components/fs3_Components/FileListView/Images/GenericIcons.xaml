@@ -5,15 +5,6 @@
        can be used in a generic (light) non-Metro theme.
   -->
 
-  <!-- 16 pixel Folder Up command icon -->
-  <BitmapImage x:Key="FLV_Image_FolderUp" UriSource="pack://application:,,,/FileListView;component/Images/Generic/075b_UpFolder_16x16_72.png" />
-
-  <!-- 16 pixel back command icon -->
-  <BitmapImage x:Key="FLV_Image_Back" UriSource="pack://application:,,,/FileListView;component/Images/Generic/Back.png" />
-
-  <!-- 16 pixel forward command icon -->
-  <BitmapImage x:Key="FLV_Image_Forward" UriSource="pack://application:,,,/FileListView;component/Images/Generic/forward.png" />
-
   <!-- 16 pixel refresh command icon -->
   <BitmapImage x:Key="FLV_Image_Refresh" UriSource="pack://application:,,,/FileListView;component/Images/Generic/refresh.png" />
 

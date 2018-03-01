@@ -51,30 +51,6 @@ namespace FileListView.Interfaces
 
         #region commands
         /// <summary>
-        /// Navigates to a folder that was visited before navigating back (if any).
-        /// </summary>
-        ICommand NavigateForwardCommand
-        {
-            get;
-        }
-
-        /// <summary>
-        /// Navigates back to a folder that was visited before the current folder (if any).
-        /// </summary>
-        ICommand NavigateBackCommand
-        {
-            get;
-        }
-
-        /// <summary>
-        /// Browse into the parent folder path of a given path.
-        /// </summary>
-        ICommand NavigateUpCommand
-        {
-            get;
-        }
-
-        /// <summary>
         /// Browse into a given a path.
         /// </summary>
         /// <returns></returns>

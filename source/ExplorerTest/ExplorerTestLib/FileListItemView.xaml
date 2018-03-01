@@ -190,7 +190,7 @@
                         >
                         <Button.ToolTip>
                             <TextBlock>
-                                <TextBlock Text="Back to: "/>
+                                <TextBlock Text="{x:Static fvloc:Strings.NavigateBackCommand_TT}"/>
                                 <TextBlock Text="{Binding NaviHistory.NextBackwardItem.Path}"/>
                             </TextBlock>
                         </Button.ToolTip>
@@ -221,7 +221,7 @@
                         >
                         <Button.ToolTip>
                             <TextBlock>
-                                <TextBlock Text="Forward to: "/>
+                                <TextBlock Text="{x:Static fvloc:Strings.NavigateForwardCommand_TT}"/>
                                 <TextBlock Text="{Binding NaviHistory.NextForwardItem.Path}"/>
                             </TextBlock>
                         </Button.ToolTip>
@@ -261,7 +261,7 @@
                     <Button Grid.Column="3" Grid.Row="0"
                             Margin="3"
                             Command="{Binding UpCommand}"
-                            ToolTip="Up"
+                            ToolTip="{x:Static fvloc:Strings.NavigateUpCommand_TT}"
                             HorizontalAlignment="Center" VerticalAlignment="Stretch"
                             HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch"
                             Style="{DynamicResource {x:Static BHreskeys:ResourceKeys.HistoryButtonStyleKey}}"
@@ -269,10 +269,10 @@
                         <Button.Content>
                             <Grid>
                                 <Path HorizontalAlignment="Right"
-                              Data="{DynamicResource {x:Static BHreskeys:ResourceKeys.ArrowGeometryKey}}"
-                              Fill="{Binding Foreground,RelativeSource={RelativeSource AncestorType=Button}}"
-                              RenderTransformOrigin=".5,.5"
-                              Stretch="Uniform">
+                                      Data="{DynamicResource {x:Static BHreskeys:ResourceKeys.ArrowGeometryKey}}"
+                                      Fill="{Binding Foreground,RelativeSource={RelativeSource AncestorType=Button}}"
+                                      RenderTransformOrigin=".5,.5"
+                                      Stretch="Uniform">
                                     <Path.RenderTransform>
                                         <TransformGroup>
                                             <RotateTransform Angle="270" />
@@ -284,34 +284,6 @@
                         </Button.Content>
                     </Button>
                 </Grid>
-
-                <!-- Button DataContext="{Binding FolderItemsView}"
-                        Command="{Binding NavigateBackCommand}"
-                        ToolTip="{x:Static fvloc:Strings.NavigateBackCommand_TT}"
-                        ToolTipService.ShowOnDisabled="True"
-                        Grid.Column="0" Margin="3"
-                        Padding="3"
-                        HorizontalAlignment="Left" MinHeight="16" MinWidth="16">
-                    <Image Source="{DynamicResource FLV_Image_Back}" Width="16" Margin="3,0" />
-                </>
-                <Button DataContext="{Binding FolderItemsView}"
-                            Command="{Binding NavigateForwardCommand}"
-                            ToolTip="{x:Static fvloc:Strings.NavigateForwardCommand_TT}"
-                            ToolTipService.ShowOnDisabled="True"
-                            Grid.Column="1" Margin="3"
-                            Padding="3"
-                            HorizontalAlignment="Left" MinHeight="16" MinWidth="16">
-                    <Image Source="{DynamicResource FLV_Image_Forward}" Width="16" Margin="3,0" />
-                </Button>
-                <Button DataContext="{Binding FolderItemsView}"
-                            Command="{Binding NavigateUpCommand}"
-                            ToolTip="{x:Static fvloc:Strings.NavigateUpCommand_TT}"
-                            ToolTipService.ShowOnDisabled="True"
-                            Grid.Column="2" Margin="3"
-                            Padding="3"
-                            HorizontalAlignment="Left" MinHeight="16" MinWidth="16">
-                    <Image Source="{DynamicResource FLV_Image_FolderUp}" Width="16" Margin="3,0" />
-                </Button -->
 
                 <Separator Margin="9,3" SnapsToDevicePixels="True" />
 
