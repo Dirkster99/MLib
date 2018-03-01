@@ -188,18 +188,23 @@
                     <Button Grid.Column="0"
                             Margin="3,3,0,3"
                             Command="{Binding BackwardCommand}"
-                            ToolTip="Back"
                             HorizontalAlignment="Right" VerticalAlignment="Stretch"
                             HorizontalContentAlignment="Right" VerticalContentAlignment="Stretch"
                             Style="{DynamicResource {x:Static BHreskeys:ResourceKeys.HistoryButtonStyleKey}}"
                         >
+                        <Button.ToolTip>
+                            <TextBlock>
+                                <TextBlock Text="Back to: "/>
+                                <TextBlock Text="{Binding NaviHistory.NextBackwardItem.Path}"/>
+                            </TextBlock>
+                        </Button.ToolTip>
                         <Button.Content>
                             <Grid>
                                 <Path HorizontalAlignment="Center"
-                              Data="{DynamicResource {x:Static BHreskeys:ResourceKeys.ArrowGeometryKey}}"
-                              Fill="{Binding Foreground,RelativeSource={RelativeSource AncestorType=Button}}"
-                              RenderTransformOrigin=".5,.5"
-                              Stretch="Uniform">
+                                      Data="{DynamicResource {x:Static BHreskeys:ResourceKeys.ArrowGeometryKey}}"
+                                      Fill="{Binding Foreground,RelativeSource={RelativeSource AncestorType=Button}}"
+                                      RenderTransformOrigin=".5,.5"
+                                      Stretch="Uniform">
                                     <Path.RenderTransform>
                                         <TransformGroup>
                                             <RotateTransform Angle="180" />
@@ -214,11 +219,16 @@
                     <Button Grid.Column="1"
                             Margin="0,3,0,3"
                             Command="{Binding ForwardCommand}"
-                            ToolTip="Forward"
                             HorizontalAlignment="Left" VerticalAlignment="Stretch"
                             HorizontalContentAlignment="Left" VerticalContentAlignment="Stretch"
                             Style="{DynamicResource {x:Static BHreskeys:ResourceKeys.HistoryButtonStyleKey}}"
                         >
+                        <Button.ToolTip>
+                            <TextBlock>
+                                <TextBlock Text="Forward to: "/>
+                                <TextBlock Text="{Binding NaviHistory.NextForwardItem.Path}"/>
+                            </TextBlock>
+                        </Button.ToolTip>
                         <Button.Content>
                             <Grid>
                                 <Path HorizontalAlignment="Center"
