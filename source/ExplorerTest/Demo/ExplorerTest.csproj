@@ -61,6 +61,9 @@
     <Reference Include="DropDownButtonLib, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dirkster.DropDownButtonLib.1.0.4\lib\net4\DropDownButtonLib.dll</HintPath>
     </Reference>
+    <Reference Include="HistoryControlLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Dirkster.HistoryControlLib.1.0.0\lib\net4\HistoryControlLib.dll</HintPath>
+    </Reference>
     <Reference Include="InplaceEditBoxLib, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dirkster.InplaceEditBoxLib.1.0.0.3\lib\net4\InplaceEditBoxLib.dll</HintPath>
     </Reference>
@@ -143,10 +146,6 @@
     <ProjectReference Include="..\..\More_Components\fs3_Components\FolderBrowser\FolderBrowser.csproj">
       <Project>{7d4bd5f8-a98e-4966-abbd-cbe202dfbef7}</Project>
       <Name>FolderBrowser</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\More_Components\fs3_Components\HistoryControlLib\HistoryControlLib.csproj">
-      <Project>{54a1d71e-3dad-4eab-b2a4-22e0c69ddb2e}</Project>
-      <Name>HistoryControlLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\ExplorerTestLib\ExplorerTestLib.csproj">
       <Project>{abd0c546-0168-49b9-9c27-c7211293d461}</Project>

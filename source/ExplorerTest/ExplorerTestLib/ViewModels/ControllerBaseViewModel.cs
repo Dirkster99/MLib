@@ -54,6 +54,9 @@
                     {
                         object[] paramets = p as object[];
 
+                        if (paramets.Length == 0)
+                            return;
+
                         if (paramets != null)
                         {
                             try

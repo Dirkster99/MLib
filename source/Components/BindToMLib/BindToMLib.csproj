@@ -70,6 +70,9 @@
     <Reference Include="DropDownButtonLib, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Dirkster.DropDownButtonLib.1.0.4\lib\net4\DropDownButtonLib.dll</HintPath>
     </Reference>
+    <Reference Include="HistoryControlLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Dirkster.HistoryControlLib.1.0.0\lib\net4\HistoryControlLib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -155,10 +158,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\More_Components\fs3_Components\HistoryControlLib\HistoryControlLib.csproj">
-      <Project>{54a1d71e-3dad-4eab-b2a4-22e0c69ddb2e}</Project>
-      <Name>HistoryControlLib</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MLib\MLib.csproj">
       <Project>{87a9302d-c6a7-4507-82d5-d83a40e899e2}</Project>
       <Name>MLib</Name>
