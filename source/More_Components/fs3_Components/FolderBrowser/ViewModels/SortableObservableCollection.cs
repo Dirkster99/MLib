@@ -1,4 +1,4 @@
-﻿namespace FsCore.Collections
+﻿namespace FolderBrowser.ViewModels
 {
     using System;
     using System.Collections.Generic;

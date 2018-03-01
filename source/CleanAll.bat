@@ -166,12 +166,6 @@ RMDIR /S /Q "More_Components/fs3_Components/FolderBrowser/obj"
 ECHO.
 ECHO Deleting BIN and OBJ Folders in 
 ECHO.
-RMDIR /S /Q "More_Components/fs3_Components/FsCore\bin"
-RMDIR /S /Q "More_Components/fs3_Components/FsCore\obj"
-
-ECHO.
-ECHO Deleting BIN and OBJ Folders in 
-ECHO.
 RMDIR /S /Q "More_Components/fs3_Components/InplaceEditBoxLib\bin"
 RMDIR /S /Q "More_Components/fs3_Components/InplaceEditBoxLib\obj"
 

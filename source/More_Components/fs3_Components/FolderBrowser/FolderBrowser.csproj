@@ -105,6 +105,7 @@
     <Compile Include="Themes\ResourceKeys.cs" />
     <Compile Include="ViewModels\DriveViewModel.cs" />
     <Compile Include="ViewModels\EditFolderBookmarks.cs" />
+    <Compile Include="ViewModels\SortableObservableCollection.cs" />
     <Compile Include="ViewModels\TreeItemViewModel.cs" />
     <Compile Include="Views\Behaviours\TreeViewVirtualItemBehaviour.cs" />
     <Compile Include="ViewModels\BrowserViewModel.cs" />
@@ -153,10 +154,6 @@
     <ProjectReference Include="..\FileSystemModels\FileSystemModels.csproj">
       <Project>{391639c4-5c43-4391-9465-27686e82c33f}</Project>
       <Name>FileSystemModels</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FsCore\FsCore.csproj">
-      <Project>{8391f556-c4cb-4aa9-9874-bf665fb2b072}</Project>
-      <Name>FsCore</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

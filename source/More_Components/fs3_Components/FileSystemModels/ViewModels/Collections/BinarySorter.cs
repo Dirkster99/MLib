@@ -7,7 +7,7 @@
 // http://www.codeproject.com/Articles/208361/Concurrent-Observable-Collection-Dictionary-and-So
 // Last Revised: September 2012
 
-namespace FsCore.Collections
+namespace FileSystemModels.ViewModels.Collections
 {
     using System;
     using System.Collections.Generic;
@@ -48,6 +48,8 @@ namespace FsCore.Collections
         /// Gets the position for a key to be inserted such that the sort order is maintained.
         /// </summary>
         /// <param name="key"></param>
+        /// <param name="count"></param>
+        /// <param name="indexToKey"></param>
         /// <returns></returns>
         public int GetInsertIndex(int count, TKey key, Func<int, TKey> indexToKey)
         {
@@ -86,6 +88,7 @@ namespace FsCore.Collections
         /// <param name="low"></param>
         /// <param name="high"></param>
         /// <param name="key"></param>
+        /// <param name="indexToKey"></param>
         /// <returns></returns>
         private int BinarySearchForIndex(int low, int high, TKey key, Func<int, TKey> indexToKey)
         {

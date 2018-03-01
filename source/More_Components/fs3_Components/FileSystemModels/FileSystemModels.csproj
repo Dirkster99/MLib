@@ -170,7 +170,18 @@
     <Compile Include="ViewModels\Base\RelayCommand.cs" />
     <Compile Include="ViewModels\Base\ViewModelBase.cs" />
     <Compile Include="ViewModels\Bookmarks\BookmarkesViewModel.cs" />
+    <Compile Include="ViewModels\Collections\BinarySorter.cs" />
+    <Compile Include="ViewModels\Collections\DoubleLinkListIndexNode.cs" />
+    <Compile Include="ViewModels\Collections\FastObservableCollection.cs" />
+    <Compile Include="ViewModels\Collections\ImmutableCollectionBase.cs" />
+    <Compile Include="ViewModels\Collections\KeyCollection.cs" />
+    <Compile Include="ViewModels\Collections\ObservableDictionary.cs" />
+    <Compile Include="ViewModels\Collections\ObservableSortedDictionary.cs" />
+    <Compile Include="ViewModels\Collections\SortableObservableCollection.cs" />
+    <Compile Include="ViewModels\Collections\ValueCollection.cs" />
     <Compile Include="ViewModels\ListItemViewModel.cs" />
+    <Compile Include="ViewModels\Semaphores\AsyncLock .cs" />
+    <Compile Include="ViewModels\Semaphores\AsyncSemaphore .cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Local\Strings.de-DE.resx">

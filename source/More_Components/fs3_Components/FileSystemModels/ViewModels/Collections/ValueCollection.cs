@@ -7,15 +7,15 @@
 // http://www.codeproject.com/Articles/208361/Concurrent-Observable-Collection-Dictionary-and-So
 // Last Revised: September 2012
 
-namespace FsCore.Collections
+namespace FileSystemModels.ViewModels.Collections
 {
     using System.Collections.Generic;
 
     /// <summary>
-    /// Provides an immutable key collection as an interface to the keys
+    /// Provides an immutable value collection as an interface to the keys
     /// stored in an observable dictionary
     /// </summary>
-    public class KeyCollection<TKey, TValue> : ImmutableCollectionBase<TKey>
+    public class ValueCollection<TKey, TValue> : ImmutableCollectionBase<TValue>
     {
 
         // ************************************************************************
@@ -38,7 +38,7 @@ namespace FsCore.Collections
         /// <summary>
         /// Constructor that takes the source dictionary as a parameter
         /// </summary>
-        public KeyCollection(ObservableDictionary<TKey, TValue> dictionary)
+        public ValueCollection(ObservableDictionary<TKey, TValue> dictionary)
         {
             _dictionary = dictionary;
         }
@@ -51,7 +51,7 @@ namespace FsCore.Collections
         #region ImmutableCollectionBase Implementation
 
         /// <summary>
-        /// Gets the number of elements contained in the collection<T>.
+        /// Gets the number of elements contained in the collection&lt;T>.
         /// </summary>
         public override int Count
         {
@@ -61,19 +61,26 @@ namespace FsCore.Collections
             }
         }
 
+        /// <summary>
+        /// Determines whether a given item is part of the collection or not.
         /// </summary>
         /// <param name="item">The object to locate</param>
         /// <returns>true if item is found otherwise false</returns>
-        public override bool Contains(TKey item)
+        public override bool Contains(TValue item)
         {
-            return _dictionary.ContainsKey(item);
+            foreach (KeyValuePair<TKey, TValue> pair in _dictionary)
+            {
+                if (item.Equals(pair.Value))
+                    return true;
+            }
+            return false;
         }
 
         /// <summary>
-        //  Copies the elements of the collection to an array, starting
+        ///  Copies the elements of the collection to an array, starting
         /// at a particular index.
         /// </summary>
-        public override void CopyTo(TKey[] array, int arrayIndex)
+        public override void CopyTo(TValue[] array, int arrayIndex)
         {
             if (array == null)
             {
@@ -82,7 +89,7 @@ namespace FsCore.Collections
 
             foreach (KeyValuePair<TKey, TValue> pair in _dictionary)
             {
-                array[arrayIndex] = pair.Key;
+                array[arrayIndex] = pair.Value;
                 ++arrayIndex;
             }
         }
@@ -90,11 +97,11 @@ namespace FsCore.Collections
         /// <summary>
         /// Gets the enumerator for the collection
         /// </summary>
-        public override IEnumerator<TKey> GetEnumerator()
+        public override IEnumerator<TValue> GetEnumerator()
         {
             foreach (KeyValuePair<TKey, TValue> pair in _dictionary)
             {
-                yield return pair.Key;
+                yield return pair.Value;
             }
         }
         #endregion ImmutableCollectionBase Implementation

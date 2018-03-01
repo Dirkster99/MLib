@@ -1,4 +1,4 @@
-﻿namespace FolderBrowser.Semaphores
+﻿namespace FileSystemModels.ViewModels.Semaphores
 {
     using System;
     using System.Threading;
@@ -24,12 +24,19 @@
         private readonly AsyncSemaphore m_semaphore;
         private readonly Task<Releaser> m_releaser;
 
+        /// <summary>
+        /// Class constructor.
+        /// </summary>
         public AsyncLock()
         {
             m_semaphore = new AsyncSemaphore(1);
             m_releaser = Task.FromResult(new Releaser(this));
         }
 
+        /// <summary>
+        /// Implements the lock method for usage with using keyword.
+        /// </summary>
+        /// <returns></returns>
         public Task<Releaser> LockAsync()
         {
             var wait = m_semaphore.WaitAsync();
@@ -40,12 +47,18 @@
                     TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
         }
 
+        /// <summary>
+        /// Implements a releaser structure to support the lock via using functionality.
+        /// </summary>
         public struct Releaser : IDisposable
         {
             private readonly AsyncLock m_toRelease;
 
             internal Releaser(AsyncLock toRelease) { m_toRelease = toRelease; }
 
+            /// <summary>
+            /// Disposes the releaser structure.
+            /// </summary>
             public void Dispose()
             {
                 if (m_toRelease != null)

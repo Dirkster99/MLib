@@ -1,4 +1,4 @@
-﻿namespace FolderBrowser.Semaphores
+﻿namespace FileSystemModels.ViewModels.Semaphores
 {
     using System;
     using System.Collections.Generic;
@@ -29,12 +29,20 @@
         private readonly Queue<TaskCompletionSource<bool>> m_waiters = new Queue<TaskCompletionSource<bool>>();
         private int m_currentCount;
 
+        /// <summary>
+        /// Class constructor.
+        /// </summary>
+        /// <param name="initialCount"></param>
         public AsyncSemaphore(int initialCount)
         {
             if (initialCount < 0) throw new ArgumentOutOfRangeException("initialCount");
             m_currentCount = initialCount;
         }
 
+        /// <summary>
+        /// Implements the wait operation for waiting asynchronously.
+        /// </summary>
+        /// <returns></returns>
         public Task WaitAsync()
         {
             lock (m_waiters)
@@ -53,6 +61,9 @@
             }
         }
 
+        /// <summary>
+        /// Implements the release method for releasing a wait lock.
+        /// </summary>
         public void Release()
         {
             TaskCompletionSource<bool> toRelease = null;

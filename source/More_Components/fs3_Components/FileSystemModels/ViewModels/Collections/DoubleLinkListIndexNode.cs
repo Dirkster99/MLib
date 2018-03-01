@@ -7,7 +7,7 @@
 // http://www.codeproject.com/Articles/208361/Concurrent-Observable-Collection-Dictionary-and-So
 // Last Revised: September 2012
 
-namespace FsCore.Collections
+namespace FileSystemModels.ViewModels.Collections
 {
     /// <summary>
     /// This class is used for linked objects in a 2 way linked list,
@@ -60,7 +60,7 @@ namespace FsCore.Collections
     /// Constructor for when a node is inserted into the middle of the list.
     /// </summary>
     /// <param name="previous"></param>
-    /// <param name="index"></param>
+    /// <param name="next"></param>
     public DoubleLinkListIndexNode(DoubleLinkListIndexNode previous, DoubleLinkListIndexNode next) {
       Previous = previous;
       Next = next;

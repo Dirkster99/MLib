@@ -1,4 +1,4 @@
-﻿namespace FsCore.Collections
+﻿namespace FileSystemModels.ViewModels.Collections
 {
     using System;
     using System.Collections.Generic;
@@ -6,6 +6,11 @@
     using System.Collections.Specialized;
     using System.Windows.Threading;
 
+    /// <summary>
+    /// Observable collection with fewer notif property changed notifiactions
+    /// to speed up updates and fluid ui experience.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class FastObservableCollection<T> : ObservableCollection<T>
     {
         private readonly object locker = new object();

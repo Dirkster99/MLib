@@ -7,7 +7,7 @@
 // http://www.codeproject.com/Articles/208361/Concurrent-Observable-Collection-Dictionary-and-So
 // Last Revised: September 2012
 
-namespace FsCore.Collections
+namespace FileSystemModels.ViewModels.Collections
 {
     using System;
     using System.Collections;
@@ -78,7 +78,7 @@ namespace FsCore.Collections
 
         /// <summary>
         /// Initializes a new instance of this class that contains elements copied
-        /// from the specified IDictionary<TKey, TValue> and uses the default
+        /// from the specified IDictionary&lt;TKey, TValue> and uses the default
         /// equality comparer for the key type.
         /// </summary>
         /// <param name="source"></param>
@@ -94,7 +94,7 @@ namespace FsCore.Collections
 
         /// <summary>
         /// Initializes a new instance of this class that is empty, has the default
-        /// initial capacity, and uses the specified IEqualityComparer<T>.
+        /// initial capacity, and uses the specified IEqualityComparer&lt;T>.
         /// </summary>
         /// <param name="equalityComparer"></param>
         public ObservableDictionary(IEqualityComparer<TKey> equalityComparer)
@@ -119,8 +119,8 @@ namespace FsCore.Collections
 
         /// <summary>
         /// Initializes a new instance of this class that contains elements copied
-        /// from the specified IDictionary<TKey, TValue> and uses the specified
-        /// IEqualityComparer<T>.
+        /// from the specified IDictionary&lt;TKey, TValue> and uses the specified
+        /// IEqualityComparer&lt;T>.
         /// </summary>
         /// <param name="source"></param>
         /// <param name="equalityComparer"></param>
@@ -137,7 +137,7 @@ namespace FsCore.Collections
         /// <summary>
         /// Initializes a new instance of this class that is empty, has the
         /// specified initial capacity, and uses the specified
-        /// IEqualityComparer<T>.
+        /// IEqualityComparer&lt;T>.
         /// </summary>
         /// <param name="capacity"></param>
         /// <param name="equalityComparer"></param>
@@ -211,6 +211,9 @@ namespace FsCore.Collections
             }
         }
 
+        /// <summary>
+        /// Triggers the event NotifyCollectionChanged event when the collection has changed.
+        /// </summary>
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
         #endregion Events, Triggers and Handlers
@@ -221,7 +224,7 @@ namespace FsCore.Collections
         #region IDictionary<TKey, TValue> Members
 
         /// <summary>
-        /// Adds an element with the provided key and value to the IDictionary<TKey, TValue>.
+        /// Adds an element with the provided key and value to the IDictionary&lt;TKey, TValue>.
         /// </summary>
         /// <param name="key">
         /// The object to use as the key of the element to add.
@@ -238,13 +241,13 @@ namespace FsCore.Collections
         }
 
         /// <summary>
-        /// Determines whether the IDictionary<TKey, TValue> contains an element with the specified key.
+        /// Determines whether the IDictionary&lt;TKey, TValue> contains an element with the specified key.
         /// </summary>
         /// <param name="key">
-        /// The key to locate in the IDictionary<TKey, TValue>.
+        /// The key to locate in the IDictionary&lt;TKey, TValue>.
         /// </param>
         /// <returns>
-        /// True if the IDictionary<TKey, TValue> contains an element with the key; otherwise, false.
+        /// True if the IDictionary&lt;TKey, TValue> contains an element with the key; otherwise, false.
         /// </returns>
         public bool ContainsKey(TKey key)
         {
@@ -252,7 +255,7 @@ namespace FsCore.Collections
         }
 
         /// <summary>
-        /// Gets an ICollection<T> containing the keys of the IDictionary<TKey, TValue>.
+        /// Gets an ICollection&lt;T> containing the keys of the IDictionary&lt;TKey, TValue>.
         /// </summary>
         public ICollection<TKey> Keys
         {
@@ -263,13 +266,13 @@ namespace FsCore.Collections
         }
 
         /// <summary>
-        /// Removes the element with the specified key from the IDictionary<TKey, TValue>.
+        /// Removes the element with the specified key from the IDictionary&lt;TKey, TValue>.
         /// </summary>
         /// <param name="key">
         /// The key of the element to remove.
         /// </param>
         /// <returns>
-        /// True if the element is successfully removed; otherwise, false. This method also returns false if key was not found in the original IDictionary<TKey, TValue>.
+        /// True if the element is successfully removed; otherwise, false. This method also returns false if key was not found in the original IDictionary&lt;TKey, TValue>.
         /// </returns>
         public bool Remove(TKey key)
         {
@@ -296,7 +299,7 @@ namespace FsCore.Collections
         /// When this method returns, the value associated with the specified key, if the key is found; otherwise, the default value for the type of the value parameter. This parameter is passed uninitialized.
         /// </param>
         /// <returns>
-        /// True if the object that implements IDictionary<TKey, TValue> contains an element with the specified key; otherwise, false.
+        /// True if the object that implements IDictionary&lt;TKey, TValue> contains an element with the specified key; otherwise, false.
         /// </returns>
         public bool TryGetValue(TKey key, out TValue value)
         {
@@ -314,7 +317,7 @@ namespace FsCore.Collections
         }
 
         /// <summary>
-        /// Gets an ICollection<T> containing the values in the IDictionary<TKey, TValue>.
+        /// Gets an ICollection&lt;T> containing the values in the IDictionary&lt;TKey, TValue>.
         /// </summary>
         public ICollection<TValue> Values
         {
@@ -362,7 +365,7 @@ namespace FsCore.Collections
         #region ICollection<KeyValuePair<TKey, TValue>> Members
 
         /// <summary>
-        /// Adds an item to the ICollection<T>.
+        /// Adds an item to the ICollection&lt;T>.
         /// </summary>
         /// <param name="item"></param>
         public void Add(KeyValuePair<TKey, TValue> item)
@@ -371,7 +374,7 @@ namespace FsCore.Collections
         }
 
         /// <summary>
-        /// Removes all items from the ICollection<T>.
+        /// Removes all items from the ICollection&lt;T>.
         /// </summary>
         public void Clear()
         {
@@ -381,7 +384,7 @@ namespace FsCore.Collections
         }
 
         /// <summary>
-        /// Determines whether the ICollection<T> contains a specific value.
+        /// Determines whether the ICollection&lt;T> contains a specific value.
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
@@ -391,7 +394,7 @@ namespace FsCore.Collections
         }
 
         /// <summary>
-        /// Copies the elements of the ICollection<T> to an Array, starting at a particular Array index.
+        /// Copies the elements of the ICollection&lt;T> to an Array, starting at a particular Array index.
         /// </summary>
         /// <param name="array"></param>
         /// <param name="arrayIndex"></param>
@@ -401,13 +404,13 @@ namespace FsCore.Collections
         }
 
         /// <summary>
-        /// Removes the first occurrence of a specific object from the ICollection<T>.
+        /// Removes the first occurrence of a specific object from the ICollection&lt;T>.
         /// </summary>
         /// <param name="item">
-        /// The object to remove from the ICollection<T>.
+        /// The object to remove from the ICollection&lt;T>.
         /// </param>
         /// <returns>
-        /// True if item was successfully removed from the ICollection<T>; otherwise, false. This method also returns false if item is not found in the original ICollection<T>.
+        /// True if item was successfully removed from the ICollection&lt;T>; otherwise, false. This method also returns false if item is not found in the original ICollection&lt;T>.
         /// </returns>
         public bool Remove(KeyValuePair<TKey, TValue> item)
         {
@@ -422,7 +425,7 @@ namespace FsCore.Collections
         }
 
         /// <summary>
-        /// Gets the number of elements contained in the ICollection<T>.
+        /// Gets the number of elements contained in the ICollection&lt;T>.
         /// </summary>
         public int Count
         {
@@ -433,7 +436,7 @@ namespace FsCore.Collections
         }
 
         /// <summary>
-        /// Gets a value indicating whether the ICollection<T> is read-only.
+        /// Gets a value indicating whether the ICollection&lt;T> is read-only.
         /// </summary>
         public bool IsReadOnly
         {
@@ -454,7 +457,7 @@ namespace FsCore.Collections
         /// Returns an enumerator that iterates through the collection.
         /// </summary>
         /// <returns>
-        /// A IEnumerator<T> that can be used to iterate through the collection.
+        /// A IEnumerator&lt;T> that can be used to iterate through the collection.
         /// </returns>
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {

@@ -7,7 +7,7 @@
 // http://www.codeproject.com/Articles/208361/Concurrent-Observable-Collection-Dictionary-and-So
 // Last Revised: September 2012
 
-namespace FsCore.Collections
+namespace FileSystemModels.ViewModels.Collections
 {
     using System.Collections.Generic;
 
@@ -36,7 +36,7 @@ namespace FsCore.Collections
         #region Public Methods
 
         /// <summary>
-        /// Constructor with an optional IComparer<TKey> parameter.
+        /// Constructor with an optional IComparer&lt;TKey> parameter.
         /// </summary>
         /// <param name="comparer">Comparer used to sort the keys.</param>
         public ObservableSortedDictionary(IComparer<TKey> comparer = null)
@@ -45,7 +45,7 @@ namespace FsCore.Collections
         }
 
         /// <summary>
-        /// Adds an element with the provided key and value to the IDictionary<TKey, TValue>.
+        /// Adds an element with the provided key and value to the IDictionary&lt;TKey, TValue>.
         /// </summary>
         /// <param name="key">
         /// The object to use as the key of the element to add.

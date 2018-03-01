@@ -1,7 +1,6 @@
 ﻿namespace FolderBrowser.ViewModels
 {
     using FolderBrowser.Interfaces;
-    using FsCore.Collections;
     using System.Collections.Generic;
 
     internal class SortableObservableDictionaryCollection : SortableObservableCollection<ITreeItemViewModel>
