@@ -249,10 +249,6 @@
       <Project>{dec77495-6e48-4f66-b22b-e9ba2ca6e257}</Project>
       <Name>BindToMLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\More_Components\fs3_Components\FolderBrowser\FolderBrowser.csproj">
-      <Project>{7d4bd5f8-a98e-4966-abbd-cbe202dfbef7}</Project>
-      <Name>FolderBrowser</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Components\MLib\MLib.csproj">
       <Project>{87a9302d-c6a7-4507-82d5-d83a40e899e2}</Project>
       <Name>MLib</Name>
