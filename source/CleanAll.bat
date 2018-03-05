@@ -6,7 +6,6 @@ ECHO.
 ECHO This script deletes all temporary build files in the .vs folder and the
 ECHO BIN and OBJ folders contained in the following projects
 ECHO.
-ECHO FsContentDialogDemo
 ECHO TreeViewDemo
 ECHO MDemo
 ECHO Components/MLib
@@ -42,12 +41,6 @@ ECHO.
 ECHO Removing vs settings folder with *.sou file
 ECHO.
 RMDIR /S /Q .vs
-
-ECHO.
-ECHO Deleting BIN and OBJ Folders in FsContentDialogDemo
-ECHO.
-RMDIR /S /Q "FsContentDialogDemo\bin"
-RMDIR /S /Q "FsContentDialogDemo\obj"
 
 ECHO.
 ECHO Deleting BIN and OBJ Folders in MDemo
