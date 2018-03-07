@@ -2,7 +2,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     
-    xmlns:local="clr-namespace:MLib"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:reskeys="clr-namespace:MLib.Themes"
     >
@@ -14,6 +13,10 @@
         <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/Menu/ContextMenu.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/Menu/LightBrushs.xaml" />
 
+        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/StatusBar.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/GridSplitter.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/Slider.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/Toolbar.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/TextBlock.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/Label.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/Hyperlink.xaml" />

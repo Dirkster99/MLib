@@ -1,4 +1,4 @@
-﻿namespace MLib.Themes
+namespace MLib.Themes
 {
     using System.Windows;
 
@@ -121,7 +121,6 @@
         public static readonly ComponentResourceKey BlackBrushKey = new ComponentResourceKey(typeof(ResourceKeys), "BlackBrushKey");
 
         // Gray Brush/Color Defintions
-
         public static readonly ComponentResourceKey GrayNormalKey = new ComponentResourceKey(typeof(ResourceKeys), "GrayNormalKey");
         public static readonly ComponentResourceKey GrayHoverKey = new ComponentResourceKey(typeof(ResourceKeys), "GrayHoverKey");
 
@@ -131,6 +130,7 @@
         public static readonly ComponentResourceKey Gray1ColorKey = new ComponentResourceKey(typeof(ResourceKeys), "Gray1ColorKey");
         public static readonly ComponentResourceKey Gray2ColorKey = new ComponentResourceKey(typeof(ResourceKeys), "Gray2ColorKey");
         public static readonly ComponentResourceKey Gray5ColorKey = new ComponentResourceKey(typeof(ResourceKeys), "Gray5ColorKey");
+        public static readonly ComponentResourceKey Gray6ColorKey = new ComponentResourceKey(typeof(ResourceKeys), "Gray6ColorKey");
         public static readonly ComponentResourceKey Gray7ColorKey = new ComponentResourceKey(typeof(ResourceKeys), "Gray7ColorKey");
         public static readonly ComponentResourceKey Gray8ColorKey = new ComponentResourceKey(typeof(ResourceKeys), "Gray8ColorKey");
         public static readonly ComponentResourceKey Gray10ColorKey = new ComponentResourceKey(typeof(ResourceKeys), "Gray10ColorKey");
@@ -138,6 +138,7 @@
         public static readonly ComponentResourceKey Gray1BrushKey = new ComponentResourceKey(typeof(ResourceKeys), "Gray1BrushKey");
         public static readonly ComponentResourceKey Gray2BrushKey = new ComponentResourceKey(typeof(ResourceKeys), "Gray2BrushKey");
         public static readonly ComponentResourceKey Gray5BrushKey = new ComponentResourceKey(typeof(ResourceKeys), "Gray5BrushKey");
+        public static readonly ComponentResourceKey Gray6BrushKey = new ComponentResourceKey(typeof(ResourceKeys), "Gray6BrushKey");
         public static readonly ComponentResourceKey Gray7BrushKey = new ComponentResourceKey(typeof(ResourceKeys), "Gray7BrushKey");
         public static readonly ComponentResourceKey Gray8BrushKey = new ComponentResourceKey(typeof(ResourceKeys), "Gray8BrushKey");
         public static readonly ComponentResourceKey Gray10BrushKey = new ComponentResourceKey(typeof(ResourceKeys), "Gray10BrushKey");
@@ -163,5 +164,38 @@
         public static readonly ComponentResourceKey GroupBoxBackground = new ComponentResourceKey(typeof(ResourceKeys), "GroupBoxBackground");
         public static readonly ComponentResourceKey GroupBoxBorderBrush = new ComponentResourceKey(typeof(ResourceKeys), "GroupBoxBorderBrush");
         public static readonly ComponentResourceKey GroupBoxContentBackground = new ComponentResourceKey(typeof(ResourceKeys), "GroupBoxContentBackground");
-    }
+        
+        // Slider Colors
+        public static readonly ComponentResourceKey SliderThumbBackground = new ComponentResourceKey(typeof(ResourceKeys), "SliderThumbBackground");
+        public static readonly ComponentResourceKey SliderThumbBorder = new ComponentResourceKey(typeof(ResourceKeys), "SliderThumbBorder");
+        public static readonly ComponentResourceKey SliderThumbBackgroundHover = new ComponentResourceKey(typeof(ResourceKeys), "SliderThumbBackgroundHover");
+        public static readonly ComponentResourceKey SliderThumbBorderHover = new ComponentResourceKey(typeof(ResourceKeys), "SliderThumbBorderHover");
+        public static readonly ComponentResourceKey SliderThumbBackgroundDragging = new ComponentResourceKey(typeof(ResourceKeys), "SliderThumbBackgroundDragging");
+        public static readonly ComponentResourceKey SliderThumbBorderDragging = new ComponentResourceKey(typeof(ResourceKeys), "SliderThumbBorderDragging");
+        public static readonly ComponentResourceKey SliderThumbBackgroundDisabled = new ComponentResourceKey(typeof(ResourceKeys), "SliderThumbBackgroundDisabled");
+        public static readonly ComponentResourceKey SliderThumbBorderDisabled = new ComponentResourceKey(typeof(ResourceKeys), "SliderThumbBorderDisabled");
+        public static readonly ComponentResourceKey SliderTick = new ComponentResourceKey(typeof(ResourceKeys), "SliderTick");
+        public static readonly ComponentResourceKey SliderTrackBorder = new ComponentResourceKey(typeof(ResourceKeys), "SliderTrackBorder");
+        public static readonly ComponentResourceKey SliderTrackBackground = new ComponentResourceKey(typeof(ResourceKeys), "SliderTrackBackground");
+        public static readonly ComponentResourceKey SliderSelectionBackground = new ComponentResourceKey(typeof(ResourceKeys), "SliderSelectionBackground");
+        public static readonly ComponentResourceKey SliderSelectionBorder = new ComponentResourceKey(typeof(ResourceKeys), "SliderSelectionBorder");
+        public static readonly ComponentResourceKey SliderTickDisabled = new ComponentResourceKey(typeof(ResourceKeys), "SliderTickDisabled");
+
+        // Grid Splitter & StatusBar Background Foreground Colors
+        public static readonly ComponentResourceKey SeparatorBackground = new ComponentResourceKey(typeof(ResourceKeys), "SeparatorBackground");
+        public static readonly ComponentResourceKey SeperatorForeground = new ComponentResourceKey(typeof(ResourceKeys), "SeperatorForeground");
+
+        // StatusBar Colors
+        public static readonly ComponentResourceKey StatusBarForegroundBrushKey = new ComponentResourceKey(typeof(ResourceKeys), "StatusBarForegroundBrushKey");
+        public static readonly ComponentResourceKey StatusBarBackgroundBrushKey = new ComponentResourceKey(typeof(ResourceKeys), "StatusBarBackgroundBrushKey");
+        public static readonly ComponentResourceKey StatusDisabledForegroundBrushKey = new ComponentResourceKey(typeof(ResourceKeys), "StatusDisabledForegroundBrushKey");
+
+        // Toolbar Colors
+        public static readonly ComponentResourceKey ToolBarItemHoverBackgroundBrushKey = new ComponentResourceKey(typeof(ResourceKeys), "ToolBarItemHoverBackgroundBrushKey");
+        public static readonly ComponentResourceKey ToolBarItemHoverBorderBrushKey = new ComponentResourceKey(typeof(ResourceKeys), "ToolBarItemHoverBorderBrushKey");
+        public static readonly ComponentResourceKey ToolBarItemDisabledBrushKey = new ComponentResourceKey(typeof(ResourceKeys), "ToolBarItemDisabledBrushKey");
+        public static readonly ComponentResourceKey ToolBarButtonPressed = new ComponentResourceKey(typeof(ResourceKeys), "ToolBarButtonPressed");
+        public static readonly ComponentResourceKey ToolBarBackground = new ComponentResourceKey(typeof(ResourceKeys), "ToolBarBackground");
+        public static readonly ComponentResourceKey ToolBarTrayBackground = new ComponentResourceKey(typeof(ResourceKeys), "ToolBarTrayBackground");
+  }
 }

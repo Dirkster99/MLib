@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     
                     xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
@@ -286,6 +286,7 @@
     <Color x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=Gray1ColorKey}">#FFF9F9F9</Color>
     <Color x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=Gray2ColorKey}">#FF7F7F7F</Color>
     <Color x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=Gray5ColorKey}">#FFB9B9B9</Color>
+    <Color x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=Gray6ColorKey}">#FFCCCCCC</Color>
     <Color x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=Gray7ColorKey}">#FF7E7E7E</Color>
     <Color x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=Gray8ColorKey}">#FF454545</Color>
     <Color x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=Gray10ColorKey}">#FF2F2F2F</Color>
@@ -293,6 +294,7 @@
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=Gray1BrushKey}"  Color="{DynamicResource {x:Static reskeys:ResourceKeys.Gray1ColorKey}}" options:Freeze="True" />
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=Gray2BrushKey}"  Color="{DynamicResource {x:Static reskeys:ResourceKeys.Gray2ColorKey}}" options:Freeze="True" />
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=Gray5BrushKey}"  Color="{DynamicResource {x:Static reskeys:ResourceKeys.Gray5ColorKey}}" options:Freeze="True" />
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=Gray6BrushKey}"  Color="{DynamicResource {x:Static reskeys:ResourceKeys.Gray6ColorKey}}" options:Freeze="True" />
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=Gray7BrushKey}"  Color="{DynamicResource {x:Static reskeys:ResourceKeys.Gray7ColorKey}}" options:Freeze="True" />
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=Gray8BrushKey}"  Color="{DynamicResource {x:Static reskeys:ResourceKeys.Gray8ColorKey}}" options:Freeze="True" />
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=Gray10BrushKey}" Color="{DynamicResource {x:Static reskeys:ResourceKeys.Gray10ColorKey}}" options:Freeze="True" />
@@ -349,4 +351,45 @@
                      ResourceId=GroupBoxContentBackground}"
                      Color="#60444444"/>
 
+    <!-- Slider Colors -->
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=SliderThumbBackground}" Color="#717171"/>
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=SliderThumbBorder}" Color="#717171"/>
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=SliderThumbBackgroundHover}" Color="#919191"/>
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=SliderThumbBorderHover}" Color="#919191"/>
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=SliderThumbBackgroundDragging}" Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}"/>
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=SliderThumbBorderDragging}" Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}"/>
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=SliderThumbBackgroundDisabled}" Color="#333333"/>
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=SliderThumbBorderDisabled}" Color="#333333"/>
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=SliderTick}" Color="#717171"/>
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=SliderTrackBorder}" Color="#333333"/>
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=SliderTrackBackground}" Color="#333333"/>
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=SliderSelectionBackground}" Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}"/>
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=SliderSelectionBorder}" Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}"/>
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=SliderTickDisabled}" Color="#333333"/>
+
+    <!-- Grid Splitter Background Color -->
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=SeparatorBackground}" Color="#cccccc" />
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=SeperatorForeground}" Color="#FF808080" />
+
+    <!-- StatusBar Brushes & Styles -->
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=StatusBarForegroundBrushKey}" Color="#FFffFFff"/>
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=StatusBarBackgroundBrushKey}" Color="#FF000000"/>
+
+    <!-- LinearGradientBrush x:Key="StatusBarBackgroundBrushKey"
+                         StartPoint="0,0"
+                         EndPoint="0,1">
+        <LinearGradientBrush.GradientStops>
+            <GradientStop Color="#D2E6FA" Offset="0" />
+            <GradientStop Color="#FCFDFE" Offset="1" />
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush -->
+
+    <!-- Toolbar Colors -->
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=ToolBarItemHoverBackgroundBrushKey}" Color="#10FFFFFF"/>
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=ToolBarItemHoverBorderBrushKey}" Color="#10FFFFFF"/>
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=ToolBarItemDisabledBrushKey}" Color="#40000000"/>
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=ToolBarButtonPressed}" Color="#40FFFFFF"/>
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=ToolBarBackground}" Color="#353535"/>
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=ToolBarTrayBackground}" Color="#313131"/>
+    
 </ResourceDictionary>

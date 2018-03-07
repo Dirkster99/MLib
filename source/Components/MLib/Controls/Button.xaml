@@ -8,10 +8,6 @@
     xmlns:reskeys="clr-namespace:MLib.Themes"
     >
 
-    <!-- ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/MLib;component/Converters/Converters.xaml" />
-    </ResourceDictionary.MergedDictionaries -->
-
     <Style x:Key="BaseButtonStyle" TargetType="{x:Type ButtonBase}">
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="Background"
