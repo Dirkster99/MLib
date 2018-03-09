@@ -1,7 +1,6 @@
 ﻿namespace MLib.Interfaces
 {
     using Events;
-    using MLib.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Windows.Media;
@@ -39,7 +38,8 @@
         IThemeInfo GetDefaultTheme();
 
         /// <summary>
-        /// Set the current theme as a selection of the settings service peroperties.
+        /// Set the current them as a selection of the settings service peroperties
+        /// along with the given accentcolor.
         /// </summary>
         /// <param name="Themes">Collections of themes to select the new theme from.</param>
         /// <param name="themeName">Name od the theme to be set (e.g.: Dark, Light)</param>
@@ -47,6 +47,13 @@
         /// (can be Windows default or custom accent color).
         /// Accent Color in UI elements is invisible if this is null.</param>
         void SetTheme(IThemeInfos Themes, string themeName, Color AccentColor);
+
+        /// <summary>
+        /// Resets the AccentColor without changing the theme and
+        /// triggers a AccentColorChanged event to all listners.
+        /// </summary>
+        /// <param name="accentColor"></param>
+        void SetAccentColor(Color accentColor);
 
         /// <summary>
         /// Resets the standard themes available through the theme settings interface.

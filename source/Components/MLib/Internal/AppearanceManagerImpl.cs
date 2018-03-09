@@ -167,6 +167,43 @@
             return new ThemeInfos();
         }
 
+        /// <summary>
+        /// Resets the AccentColor without changing the theme and
+        /// triggers a AccentColorChanged event to all listners.
+        /// </summary>
+        /// <param name="accentColor"></param>
+        public void SetAccentColor(Color accentColor)
+        {
+            try
+            {
+                if (accentColor != null)
+                {
+                    bool bColorChanged = false;
+
+                    bColorChanged = (Application.Current.Resources[ResourceKeys.ControlAccentColorKey] == null &&
+                                    accentColor != null);
+
+                    if (Application.Current.Resources[ResourceKeys.ControlAccentColorKey] != null)
+                    {
+                        bColorChanged = bColorChanged ||
+                            ((Color)Application.Current.Resources[ResourceKeys.ControlAccentColorKey] != accentColor);
+                    }
+
+                    if (bColorChanged == true)
+                    {
+                        // Set accent color
+                        Application.Current.Resources[ResourceKeys.ControlAccentColorKey] = accentColor;
+                        Application.Current.Resources[ResourceKeys.ControlAccentBrushKey] = new SolidColorBrush(accentColor);
+
+                        if (AccentColorChanged != null)
+                        {
+                            AccentColorChanged(this, new ColorChangedEventArgs(accentColor));
+                        }
+                    }
+                }
+            }
+            catch { }
+        }
 
         private void SetTheme(IThemeInfo theme
                             , Color AccentColor)
@@ -227,35 +264,7 @@
                 }
             }
 
-            try
-            {
-                if (accentColor != null)
-                {
-                    bool bColorChanged = false;
-
-                    bColorChanged = (Application.Current.Resources[ResourceKeys.ControlAccentColorKey] == null &&
-                                    accentColor != null);
-
-                    if (Application.Current.Resources[ResourceKeys.ControlAccentColorKey] != null)
-                    {
-                        bColorChanged  = bColorChanged ||
-                            ((Color)Application.Current.Resources[ResourceKeys.ControlAccentColorKey] !=  accentColor);
-                    }
-
-                    if (bColorChanged == true)
-                    {
-                        // Set accent color
-                        Application.Current.Resources[ResourceKeys.ControlAccentColorKey] = accentColor;
-                        Application.Current.Resources[ResourceKeys.ControlAccentBrushKey] = new SolidColorBrush(accentColor);
-
-                        if (AccentColorChanged != null)
-                        {
-                            AccentColorChanged(this, new ColorChangedEventArgs(accentColor));
-                        }
-                    }
-                }
-            }
-            catch { }
+            SetAccentColor(accentColor);
 
             // remove old theme
             if (oldThemeDict != null)

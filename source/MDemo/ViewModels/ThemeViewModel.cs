@@ -1,6 +1,5 @@
 ﻿namespace MDemo.ViewModels
 {
-    using MLib;
     using MLib.Interfaces;
     using MLib.Themes;
     using Settings.Interfaces;
@@ -168,7 +167,10 @@
 
                 // This may be black on Windows 7 and the experience is black & white then :-(
                 if (AccentColor == default(Color) || AccentColor == Colors.Black || AccentColor.A == 0)
+                {
+                    // default blue accent color
                     AccentColor = Color.FromRgb(0x1b, 0xa1, 0xe2);
+                }
             }
             else
                 AccentColor = settings.Options.GetOptionValue<Color>("Appearance", "AccentColor");
