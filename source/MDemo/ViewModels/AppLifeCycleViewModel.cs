@@ -128,8 +128,7 @@
                 // Add additional Dark and Light resources to those theme resources added above
                 appearance.AddThemeResources("Dark", new List<Uri>
                 {
-                    new Uri("/DropDownButtonLib;component/Themes/MetroDark.xaml", UriKind.RelativeOrAbsolute)
-                   ,new Uri("/MWindowDialogLib;component/Themes/DarkIcons.xaml", UriKind.RelativeOrAbsolute)
+                    new Uri("/MWindowDialogLib;component/Themes/DarkIcons.xaml", UriKind.RelativeOrAbsolute)
                    ,new Uri("/MWindowDialogLib;component/Themes/DarkBrushs.xaml", UriKind.RelativeOrAbsolute)
                    ,new Uri("/BindToMLib;component/DarkBrushs.xaml", UriKind.RelativeOrAbsolute)
 
@@ -152,8 +151,7 @@
             {
                 appearance.AddThemeResources("Light", new List<Uri>
                 {
-                    new Uri("/DropDownButtonLib;component/Themes/MetroLight.xaml", UriKind.RelativeOrAbsolute)
-                   ,new Uri("/MWindowDialogLib;component/Themes/LightIcons.xaml", UriKind.RelativeOrAbsolute)
+                    new Uri("/MWindowDialogLib;component/Themes/LightIcons.xaml", UriKind.RelativeOrAbsolute)
                    ,new Uri("/MWindowDialogLib;component/Themes/LightBrushs.xaml", UriKind.RelativeOrAbsolute)
                    ,new Uri("/BindToMLib;component/LightBrushs.xaml", UriKind.RelativeOrAbsolute)
 
