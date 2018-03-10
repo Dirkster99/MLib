@@ -153,6 +153,9 @@
     <Compile Include="Demos\Views\CustomDialogView.xaml.cs">
       <DependentUpon>CustomDialogView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Demos\Views\SimpleDialogWindow.xaml.cs">
+      <DependentUpon>SimpleDialogWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\AppCore.cs" />
     <Compile Include="Models\SettingDefaults.cs" />
     <Compile Include="ServiceInjector.cs" />
@@ -188,6 +191,10 @@
     <Page Include="Demos\Views\CustomDialogView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Demos\Views\SimpleDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -286,9 +293,6 @@
     <Resource Include="Resources\Icons\light\appbar.lock.png" />
     <Resource Include="Resources\Icons\light\appbar.question.png" />
     <Resource Include="Resources\Icons\light\appbar.camera.flash.png" />
-    <Resource Include="Readme.txt">
-      <Generator>MSBuild:Compile</Generator>
-    </Resource>
     <Content Include="Resources\Icons\design\appbar.camera.flash.svg" />
     <Content Include="Resources\Icons\design\appbar.check.svg" />
     <Content Include="Resources\Icons\design\appbar.lock.svg" />

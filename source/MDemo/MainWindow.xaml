@@ -133,6 +133,7 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0" Margin="3,3,24,3">
@@ -158,6 +159,13 @@
                             VerticalAlignment="Bottom"
                             HorizontalAlignment="Left"
                             Content="Show MsgBox" Command="{Binding Demo.ShowMsgBoxCommand}" />
+
+                    <!-- Display a simple synchronous method based message dialog box -->
+                    <Button Grid.Column="3"
+                            Margin="3"
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Left"
+                            Content="Show Dialog" Command="{Binding Demo.ShowDialogCommand}" />
                 </Grid>
             </Grid>
 

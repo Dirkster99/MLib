@@ -96,6 +96,7 @@
         private ICommand _ShowLoginDialogCommand;
         private ICommand _ShowMsgBoxAsyncCommand;
         private ICommand _ShowProgressDialogCommand;
+        private ICommand _ShowDialogCommand;
         #endregion private fields
 
         #region messagebox test fields
@@ -368,6 +369,25 @@
                 }
 
                 return _ShowMsgBoxCommand;
+            }
+        }
+
+        public ICommand ShowDialogCommand
+        {
+            get
+            {
+                if (_ShowDialogCommand == null)
+                {
+                    _ShowDialogCommand = new RelayCommand<object>((p) =>
+                    {
+                        var dialog = new Views.SimpleDialogWindow();
+
+                        dialog.ShowDialog();
+                    },
+                    (p) => { return true; });
+                }
+
+                return _ShowDialogCommand;
             }
         }
 

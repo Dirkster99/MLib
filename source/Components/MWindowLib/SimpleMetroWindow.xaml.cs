@@ -292,23 +292,6 @@
             set { SetValue(ShowSystemMenuOnRightClickProperty, value); }
         }
         #endregion ShowSystemMenuOnRightClick
-
-        #region IsContentDialogVisible
-        /// <summary>
-        /// Determine whether a ContentDialog is currenlty shown inside the <seealso cref="SimpleMetroWindow"/> or not.
-        /// </summary>
-        public bool IsContentDialogVisible
-        {
-            get { return (bool)GetValue(IsContentDialogVisibleProperty); }
-            set { SetValue(IsContentDialogVisibleProperty, value); }
-        }
-
-        /// <summary>
-        /// Determine whether a ContentDialog is currenlty shown inside the <seealso cref="SimpleMetroWindow"/> or not.
-        /// </summary>
-        private static readonly DependencyProperty IsContentDialogVisibleProperty =
-            DependencyProperty.Register("IsContentDialogVisible", typeof(bool), typeof(SimpleMetroWindow), new PropertyMetadata(false));
-        #endregion IsContentDialogVisible
         #endregion properties
 
         #region methodes
@@ -544,13 +527,6 @@
         internal DependencyObject GetPart(string name)
         {
             return GetTemplateChild(name);
-        }
-
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            // #2409: don't close window if there is a dialog still open
-            e.Cancel = this.IsContentDialogVisible;
-            base.OnClosing(e);
         }
 
         protected IntPtr CriticalHandle

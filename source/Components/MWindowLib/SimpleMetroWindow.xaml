@@ -219,7 +219,7 @@
                         Visibility="Hidden"
                         />
                 <!--
-                                Visibility="{Binding IsActive, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource bool2VisibilityConverter}}" -->
+                    Visibility="{Binding IsActive, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource bool2VisibilityConverter}}" -->
             </Grid>
         </Border>
         <ControlTemplate.Resources>
@@ -240,15 +240,6 @@
         </ControlTemplate.Resources>
 
         <ControlTemplate.Triggers>
-            <!-- Lets make user cannot Tab into a Window Button -->
-            <Trigger Property="IsContentDialogVisible" Value="true">
-                <Setter TargetName="Restore" Property="Focusable" Value="false" />
-                <Setter TargetName="Maximize" Property="Focusable" Value="false" />
-                <Setter TargetName="Minimize" Property="Focusable" Value="false" />
-                <Setter TargetName="Close" Property="Focusable" Value="false" />
-            </Trigger>
-            
-
             <Trigger Property="ShowDialogsOverTitleBar" Value="False">
                 <Setter TargetName="PART_MetroInactiveDialogsContainer" Property="Grid.Row" Value="1" />
                 <Setter TargetName="PART_OverlayBox" Property="Grid.Row" Value="1" />
@@ -271,10 +262,14 @@
                 <Setter TargetName="LayoutRoot" Property="Margin" Value="7" />
                 <Setter TargetName="WindowResizeGrip" Property="Visibility" Value="Collapsed" />
             </Trigger>
-            <Trigger Property="WindowState" Value="Normal">
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="WindowState" Value="Normal" />
+                    <Condition Property="ShowMaxButton" Value="True" />
+                </MultiTrigger.Conditions>
                 <Setter TargetName="Maximize" Property="Visibility" Value="Visible" />
                 <Setter TargetName="Restore" Property="Visibility" Value="Collapsed" />
-            </Trigger>
+            </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="ResizeMode" Value="CanResizeWithGrip" />
