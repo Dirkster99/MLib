@@ -50,7 +50,7 @@
                                     <Image x:Name="PART_Icon"
                                            Grid.Column="0"
                                            Source="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                           Margin="0"
+                                           Margin="3,3,0,3"
                                            VerticalAlignment="Top"
                                            Width="32"
                                            Panel.ZIndex="1"
