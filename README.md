@@ -13,7 +13,4 @@ https://www.codeproject.com/Articles/1170500/A-ContentDialog-in-a-WPF-Desktop-Ap
 
 # Supported OS
 
-This framework supports only Windows 10 and later.
-
-The controls and themings may work for Windows 7 or 8,
-but are neither tested nor supported on previous versions of Windows 10.
+This framework is designed with Windows 10 UI guidelines in mind but it should also work for Windows 7 or 8.
