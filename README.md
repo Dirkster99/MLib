@@ -4,6 +4,10 @@ MLib is a set of WPF theming libraries based on <a href="https://github.com/MahA
 <a href="https://github.com/firstfloorsoftware/mui/">MUI</a>,
 and <a href="https://github.com/Infragistics/InfragisticsThemesForMicrosoftControls">Infragistics Themes For Microsoft Controls</a>.
 
+This set of theming libraries is used to power several Windows dektop app projects:
+- ![Edi](https://github.com/Dirkster99/Edi)
+- ![File System Controls](https://github.com/Dirkster99/fsc/wiki/FSC-Themeable-Explorer-(Clone))
+
 # Features
 
 All styles are available with a Light and Dark theme.
