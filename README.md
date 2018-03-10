@@ -1,8 +1,13 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/mhg80nk8ywbk9dat?svg=true)](https://ci.appveyor.com/project/Dirkster99/mlib)
+[![Release](https://img.shields.io/github/release/Dirkster99/fsc.svg)](https://github.com/Dirkster99/fsc/releases/latest)
 # MLib
 MLib is a set of WPF theming libraries based on <a href="https://github.com/MahApps/MahApps.Metro">MahApps.Metro</a>,
 <a href="https://github.com/firstfloorsoftware/mui/">MUI</a>,
 and <a href="https://github.com/Infragistics/InfragisticsThemesForMicrosoftControls">Infragistics Themes For Microsoft Controls</a>.
+
+This set of theming libraries is used to power several Windows dektop app projects:
+- ![Edi](https://github.com/Dirkster99/Edi)
+- ![File System Controls](https://github.com/Dirkster99/fsc/wiki/FSC-Themeable-Explorer-(Clone))
 
 # Features
 
