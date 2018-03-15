@@ -7,7 +7,7 @@ and <a href="https://github.com/Infragistics/InfragisticsThemesForMicrosoftContr
 
 This set of theming libraries is used to power several Windows dektop app projects:
 - ![Edi](https://github.com/Dirkster99/Edi)
-- ![File System Controls](https://github.com/Dirkster99/fsc/wiki/FSC-Themeable-Explorer-(Clone))
+- ![File System Controls](https://github.com/Dirkster99/fsc/wiki/FSC-Themeable-Explorer-(Clone)) (TestExplorerMLib and ThemedExplorer projects)
 
 # Features
 
