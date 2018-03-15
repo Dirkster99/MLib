@@ -171,23 +171,25 @@
 
                 <Grid Grid.Column="0" Grid.Row="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
+                    <watermark:WatermarkTextBox
+                        Grid.Column="0"
+                        Margin="3"
+                        Watermark="Target Directory:"
+                        Text="{Binding TargetFile.Path}"
+                        VerticalAlignment="Center"
+                        />
+
                     <Button Content="..."
-                            Command="{Binding SelectFolderCommand}"
-                            CommandParameter="{Binding TargetFile.Path}"
-                            MinHeight="25" MinWidth="25"
-                            Margin="3"
-                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                    
-                    <watermark:WatermarkTextBox Grid.Column="1"
-                                        Margin="0"
-                                        Watermark="Target Directory:"
-                                        Text="{Binding TargetFile.Path}"
-                                        VerticalAlignment="Center"
-                                        />
+                        Grid.Column="1"
+                        Command="{Binding SelectFolderCommand}"
+                        CommandParameter="{Binding TargetFile.Path}"
+                        MinHeight="25" MinWidth="25"
+                        Margin="3"
+                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                 </Grid>
 
                 <watermark:WatermarkTextBox Grid.Column="0" Grid.Row="1"

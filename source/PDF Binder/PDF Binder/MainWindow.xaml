@@ -12,6 +12,9 @@
         Icon="{DynamicResource logo64}"
                       
         ShowDialogsOverTitleBar="False"
+
+        xmlns:Dialog="clr-namespace:MWindowDialogLib.Dialogs;assembly=MWindowDialogLib"
+        Dialog:DialogParticipation.Register="{Binding}"
         >
     <Grid xmlns:behav="clr-namespace:PDF_Binder.Behaviours"
           xmlns:conv="clr-namespace:PDF_Binder.Converters"

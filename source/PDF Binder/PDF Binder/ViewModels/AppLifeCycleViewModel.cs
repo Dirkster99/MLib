@@ -135,10 +135,12 @@
                    ,new Uri("/MWindowDialogLib;component/Themes/DarkBrushs.xaml", UriKind.RelativeOrAbsolute)
                    ,new Uri("/BindToMLib;component/DarkBrushs.xaml", UriKind.RelativeOrAbsolute)
                    ,new Uri("/FolderBrowser;component/Themes/MetroDark.xaml", UriKind.RelativeOrAbsolute)
+                   ,new Uri("/DropDownButtonLib;component/Themes/MetroDark.xaml", UriKind.RelativeOrAbsolute)
 
 //                   ,new Uri("/PDF Binder;component/Themes/MWindowLib/DarkBrushs.xaml", UriKind.RelativeOrAbsolute)
                    ,new Uri("/PDF Binder;component/Themes/Dark/DarkIcons.xaml", UriKind.RelativeOrAbsolute)
                    ,new Uri("/PDF Binder;component/Themes/WatermarkControlsLib/DarkBrushs.xaml", UriKind.RelativeOrAbsolute)
+                   ,new Uri("/PDF Binder;component/BindToMLib/DropDownButtonLib/DarkLightBrushs.xaml", UriKind.RelativeOrAbsolute)
 
                 }, settings.Themes);
             }
@@ -155,10 +157,12 @@
                    ,new Uri("/MWindowDialogLib;component/Themes/LightBrushs.xaml", UriKind.RelativeOrAbsolute)
                    ,new Uri("/BindToMLib;component/LightBrushs.xaml", UriKind.RelativeOrAbsolute)
                    ,new Uri("/FolderBrowser;component/Themes/MetroLight.xaml", UriKind.RelativeOrAbsolute)
+                   ,new Uri("/DropDownButtonLib;component/Themes/MetroDark.xaml", UriKind.RelativeOrAbsolute)
 
 //                   ,new Uri("/PDF Binder;component/Themes/MWindowLib/LightBrushs.xaml", UriKind.RelativeOrAbsolute)
                    ,new Uri("/PDF Binder;component/Themes/Light/LightIcons.xaml", UriKind.RelativeOrAbsolute)
                    ,new Uri("/PDF Binder;component/Themes/WatermarkControlsLib/LightBrushs.xaml", UriKind.RelativeOrAbsolute)
+                   ,new Uri("/PDF Binder;component/BindToMLib/DropDownButtonLib/DarkLightBrushs.xaml", UriKind.RelativeOrAbsolute)
 
                 }, settings.Themes);
             }

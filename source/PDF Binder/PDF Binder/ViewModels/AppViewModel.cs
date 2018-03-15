@@ -4,12 +4,14 @@
     using Doc.DocManager.Interfaces;
     using ExplorerLib;
     using FileSystemModels;
+    using FileSystemModels.Browse;
     using FileSystemModels.Interfaces.Bookmark;
     using FolderBrowser;
     using MLib.Interfaces;
     using MLib.Themes;
     using MWindowInterfacesLib.Interfaces;
     using MWindowInterfacesLib.MsgBox.Enums;
+    using PDF_Binder.ViewModels.FBContentDialog;
     using PDF_Binder.ViewModels.VMManagement;
     using PDFBinderLib;
     using PDFBinderLib.Implementations;
@@ -57,7 +59,7 @@
         private bool _IsToggleSettingsChecked = false;
 
         private ICommand mSelectFolderCommand;
-        private IBookmarksViewModel mBookmarkedLocation;
+        private IBookmarksViewModel _BookmarkedLocation;
         #endregion private fields
 
         #region constructors
@@ -82,6 +84,16 @@
             _SelectedSourceFileItems = new ObservableCollection<FileInfoViewModel>();
 
             _Progress = new ProgressViewModel();
+
+            BookmarkedLocations = FileSystemModels.Factory.CreateBookmarksViewModel();
+
+            BookmarkedLocations.AddFolder(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
+            BookmarkedLocations.AddFolder(Environment.GetFolderPath(Environment.SpecialFolder.MyVideos));
+            BookmarkedLocations.AddFolder(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic));
+            BookmarkedLocations.AddFolder(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+            BookmarkedLocations.AddFolder(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
+            BookmarkedLocations.AddFolder(Environment.GetFolderPath(Environment.SpecialFolder.Windows));
+            BookmarkedLocations.AddFolder(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles));
         }
         #endregion constructors
 
@@ -93,6 +105,7 @@
                 return _AppLifeCycle;
             }
         }
+
         #region app theme
         /// <summary>
         /// Command executes when the user has selected
@@ -470,14 +483,14 @@
         {
             get
             {
-                return mBookmarkedLocation;
+                return _BookmarkedLocation;
             }
 
             private set
             {
-                if (mBookmarkedLocation != value)
+                if (_BookmarkedLocation != value)
                 {
-                    mBookmarkedLocation = value;
+                    _BookmarkedLocation = value;
                     RaisePropertyChanged(() => BookmarkedLocations);
                 }
             }
@@ -492,8 +505,23 @@
             {
                 if (mSelectFolderCommand == null)
                 {
-                    mSelectFolderCommand = new RelayCommand<object>((p) =>
+                    mSelectFolderCommand = new RelayCommand<object>(async (p) =>
                     {
+                        var initialPath = p as string;
+
+                        if (string.IsNullOrEmpty(initialPath) == true)
+                            initialPath = GetDefaultPath(AppLifeCycleViewModel.MyDocumentsUserDir);
+
+                        var dlg = new FolderBrowserControler(initialPath, this.BookmarkedLocations);
+
+                        var path = await dlg.ShowContentDialogFromVM(this, true);
+
+                        if (string.IsNullOrEmpty(path) == false)
+                            TargetFile.Path = path;
+
+                        CloneBookMarks(dlg.BookmarkedLocations);
+
+/***
                         // See Loaded event in FolderBrowserTreeView_Loaded methid to understand initial load
                         var treeBrowserVM = FolderBrowserFactory.CreateBrowserViewModel();
 
@@ -531,6 +559,7 @@
                             if (dlgVM.BookmarkedLocations != null)
                                 this.BookmarkedLocations = dlgVM.BookmarkedLocations.CloneBookmark();
                         }
+***/
                     });
                 }
 
@@ -715,7 +744,6 @@
             this.AppTheme.ApplyTheme(Application.Current.MainWindow, themeDisplayName);
         }
 
-
         /// <summary>
         /// Standard dispose method of the <seealso cref="IDisposable" /> interface.
         /// </summary>
@@ -794,7 +822,6 @@
             }
         }
 
-
         /// <summary>
         /// Toggles the settings viemodel to enable/disable editing settings.
         /// </summary>
@@ -869,6 +896,19 @@
             }
 
             return defaultPath;
+        }
+
+        /// <summary>
+        /// Method is invoked to copy the given bookmarks into the local
+        /// bookmark locations object (typically called up close of browser dialog).
+        /// </summary>
+        /// <param name="bookmarkedLocations"></param>
+        private void CloneBookMarks(IBookmarksViewModel bookmarkedLocations)
+        {
+            if (bookmarkedLocations == null)
+                return;
+
+            this.BookmarkedLocations = bookmarkedLocations.CloneBookmark();
         }
         #endregion methods
     }
