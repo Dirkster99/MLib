@@ -75,7 +75,7 @@ namespace MLib.Themes
         public static readonly ComponentResourceKey ControlItemUnfocusedBackgroundSelectedKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlItemUnfocusedBackgroundSelectedKey");
         public static readonly ComponentResourceKey ControlItemUnfocusedBorderSelectedKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlItemUnfocusedBorderSelectedKey");
 
-        public static readonly ComponentResourceKey ControlItemPressedBorderBrush = new ComponentResourceKey(typeof(ResourceKeys), "ListBoxItemPressedBorderBrush");
+        public static readonly ComponentResourceKey ControlItemPressedBorderBrush = new ComponentResourceKey(typeof(ResourceKeys), "ControlItemPressedBorderBrush");
 
         //
         public static readonly ComponentResourceKey DisabledVisualElement                  = new ComponentResourceKey(typeof(ResourceKeys), "DisabledVisualElement");

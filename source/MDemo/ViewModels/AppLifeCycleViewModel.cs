@@ -132,8 +132,6 @@
                    ,new Uri("/MWindowDialogLib;component/Themes/DarkBrushs.xaml", UriKind.RelativeOrAbsolute)
                    ,new Uri("/BindToMLib;component/DarkBrushs.xaml", UriKind.RelativeOrAbsolute)
 
-                   ,new Uri("/FolderBrowser;component/Themes/MetroDark.xaml", UriKind.RelativeOrAbsolute)
-
                    //,new Uri("/MWindowLib;component/Themes/DarkBrushs.xaml", UriKind.RelativeOrAbsolute)
                    //,new Uri("/MDemo;component/Themes/MWindowLib/DarkBrushs.xaml", UriKind.RelativeOrAbsolute)
 
@@ -154,8 +152,6 @@
                     new Uri("/MWindowDialogLib;component/Themes/LightIcons.xaml", UriKind.RelativeOrAbsolute)
                    ,new Uri("/MWindowDialogLib;component/Themes/LightBrushs.xaml", UriKind.RelativeOrAbsolute)
                    ,new Uri("/BindToMLib;component/LightBrushs.xaml", UriKind.RelativeOrAbsolute)
-
-                   ,new Uri("/FolderBrowser;component/Themes/MetroLight.xaml", UriKind.RelativeOrAbsolute)
 
                    //,new Uri("/MWindowLib;component/Themes/LightBrushs.xaml", UriKind.RelativeOrAbsolute)
                    //,new Uri("/MDemo;component/Themes/MWindowLib/LightBrushs.xaml", UriKind.RelativeOrAbsolute)
