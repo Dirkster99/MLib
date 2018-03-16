@@ -76,14 +76,42 @@
         </Setter>
     </Style>
 
-    <Style x:Key="{x:Type ToggleButton}"
-           BasedOn="{StaticResource BaseButtonStyle}"
-           TargetType="{x:Type ToggleButton}">
+    <Style x:Key="{x:Type ToggleButton}" BasedOn="{StaticResource BaseButtonStyle}"
+                                         TargetType="{x:Type ToggleButton}">
         <Setter Property="Focusable" Value="False"/>
         <Style.Triggers>
-            <Trigger Property="IsChecked" Value="True">
+            <!--Trigger Property="IsChecked" Value="True">
                 <Setter Property="BorderBrush" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlButtonIsDefaultBorderBrushKey}}" />
-            </Trigger>
+            </Trigger-->
+
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsEnabled" Value="true"/>
+                    <Condition Property="IsMouseOver" Value="true"/>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="BorderBrush" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlButtonIsDefaultBorderBrushKey}}" />
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsEnabled" Value="true"/>
+                    <Condition Property="IsChecked" Value="true"/>
+                    <Condition Property="IsFocused" Value="true"/>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="BorderBrush" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlButtonIsDefaultBorderBrushKey}}" />
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsChecked" Value="true"/>
+                    <Condition Property="IsFocused" Value="false"/>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="BorderBrush" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlButtonIsUnfocusedDefaultBrushKey}}" />
+                </MultiTrigger.Setters>
+            </MultiTrigger>
         </Style.Triggers>
     </Style>
 

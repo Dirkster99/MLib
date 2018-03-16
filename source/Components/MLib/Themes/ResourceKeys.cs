@@ -60,6 +60,7 @@ namespace MLib.Themes
         public static readonly ComponentResourceKey ControlButtonTextPressedKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlButtonTextPressedKey");
         public static readonly ComponentResourceKey ControlButtonBorderPressedKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlButtonBorderPressedKey");
         public static readonly ComponentResourceKey ControlButtonIsDefaultBorderBrushKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlButtonIsDefaultBorderBrushKey");
+        public static readonly ComponentResourceKey ControlButtonIsUnfocusedDefaultBrushKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlButtonIsUnfocusedDefaultBrushKey");
 
         // Color definitions for ItemsControl based controls (Listview, Combobox, listbox etc...)
         public static readonly ComponentResourceKey ControlItemTextKey = new ComponentResourceKey(typeof(ResourceKeys), "ControlItemTextKey");

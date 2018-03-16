@@ -38,15 +38,7 @@
         <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/TreeView.xaml" />
 
         <ResourceDictionary Source="pack://application:,,,/MLib;component/Themes/DarkBrushs.xaml" />
-
-        <!-- ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/Dialogs/MessageDialog.xaml" / -->
-
-        <!-- ResourceDictionary Source="pack://application:,,,/MsgBox;component/View/Modern/Themes/ModernUI.Dark.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MsgBox;component/Themes/DarkBrushes.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MsgBox;component/Themes/DarkIcons.xaml" / -->
     </ResourceDictionary.MergedDictionaries>
-
-    <!--Title bar-->
 
     <!--Close system button-->
     <sys:Double x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},

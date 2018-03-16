@@ -111,7 +111,12 @@
                      Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}"
                      Opacity=".55"
                      />
-    
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
+                     ResourceId=ControlButtonIsUnfocusedDefaultBrushKey}"
+                     Color="#FFFFFF"
+                     Opacity=".35"
+                     />
+
     <!-- Color definitions for ItemsControl based controls (Listview, Combobox, listbox etc...) -->
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
                      ResourceId=ControlItemTextKey}"
@@ -148,13 +153,13 @@
     <!-- Background and borderbrush for unfocused collection (listview, treeview, listbox etc..) items -->
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
                      ResourceId=ControlItemUnfocusedBackgroundSelectedKey}"
-                     Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}"
-                     Opacity=".1"
+                     Color="#dddddd"
+                     Opacity=".5"
                      />
 
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
                      ResourceId=ControlItemUnfocusedBorderSelectedKey}"
-                     Color="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentColorKey}}"
+                     Color="#dddddd"
                      Opacity=".1"
                      />
 

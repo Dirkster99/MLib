@@ -38,7 +38,8 @@
         </Setter>
     </Style>
 
-    <Style x:Key="ComboBoxEditableTextBox" TargetType="{x:Type TextBox}">
+    <Style x:Key="ComboBoxEditableTextBox" TargetType="{x:Type TextBox}"
+           BasedOn="{StaticResource {x:Type TextBox}}">
         <Setter Property="OverridesDefaultStyle" Value="true"/>
         <Setter Property="AllowDrop" Value="true"/>
         <Setter Property="MinWidth" Value="0"/>
@@ -46,6 +47,7 @@
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
         <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="ContextMenu" Value="{DynamicResource TextBoxMetroContextMenu}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
@@ -264,6 +266,15 @@
                 <Setter Property="IsTabStop" Value="false"/>
                 <Setter Property="Padding" Value="3"/>
                 <Setter Property="Template" Value="{StaticResource ComboBoxEditableTemplate}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="BorderBrush" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentBrushKey}}" />
+            </Trigger>
+            <Trigger Property="IsFocused" Value="true">
+                <Setter Property="BorderBrush" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentBrushKey}}" />
+            </Trigger>
+            <Trigger Property="IsFocused" Value="false">
+                <Setter Property="BorderBrush" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlInputBorderKey}}"/>
             </Trigger>
         </Style.Triggers>
     </Style>

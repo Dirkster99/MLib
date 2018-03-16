@@ -229,7 +229,7 @@
       <Name>MWindowInterfacesLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\MWindowLib\MWindowLib.csproj">
-      <Project>{BE4C8126-E5C8-405E-958F-4DE9F686089B}</Project>
+      <Project>{be4c8126-e5c8-405e-958f-4de9f686089b}</Project>
       <Name>MWindowLib</Name>
     </ProjectReference>
   </ItemGroup>
