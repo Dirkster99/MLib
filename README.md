@@ -1,5 +1,5 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/mhg80nk8ywbk9dat?svg=true)](https://ci.appveyor.com/project/Dirkster99/mlib)
-[![Release](https://img.shields.io/github/release/Dirkster99/fsc.svg)](https://github.com/Dirkster99/fsc/releases/latest)
+[![Release](https://img.shields.io/github/release/Dirkster99/MLib.svg)](https://github.com/Dirkster99/MLib/releases/latest)
 # MLib
 MLib is a set of WPF theming libraries based on <a href="https://github.com/MahApps/MahApps.Metro">MahApps.Metro</a>,
 <a href="https://github.com/firstfloorsoftware/mui/">MUI</a>,
