@@ -16,6 +16,16 @@ All styles are available with a Light and Dark theme.
 The framework supports a dialog service that supports ContentDialogs and Modal Dialogs using one seemless API:
 https://www.codeproject.com/Articles/1170500/A-ContentDialog-in-a-WPF-Desktop-Application
 
+# Nuget Packages
+
+There is more than one NuGet package available bacause not all theming features are impemented in one solid big library but within a set of libraries. So, what you actually downlod and install depends on what you need. But most people are going to want to style an applaiction window and its containing controls, which can be done by downloading and installing **MLib** with **MWindowLib**. Install **MLib** with **MWindowDialogLib** if you are planning to implement <a href="https://www.codeproject.com/Articles/1170500/A-ContentDialog-in-a-WPF-Desktop-Application">ContentDialogs</a> in your application.
+
+The above setup with **MWindowDialogLib** includes the libraries for **MWindowLib**, so either one of the 2 deployment scenarios mentioned above, should work for most situations.
+
+- [![NuGet](https://img.shields.io/nuget/dt/Dirkster.MLib.svg)](http://nuget.org/packages/Dirkster.MLib) MLib
+- [![NuGet](https://img.shields.io/nuget/dt/Dirkster.MWindowLib.svg)](http://nuget.org/packages/Dirkster.MWindowLib) MWindowLib
+- [![NuGet](https://img.shields.io/nuget/dt/Dirkster.MWindowDialogLib.svg)](http://nuget.org/packages/Dirkster.MWindowDialogLib) MWindowDialogLib
+
 # Supported OS
 
 This framework is designed with Windows 10 UI guidelines in mind but it should also work for Windows 7 or 8.
