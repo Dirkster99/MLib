@@ -374,7 +374,7 @@
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=SliderTickDisabled}" Color="#333333"/>
 
     <!-- Grid Splitter Background Color -->
-    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=SeparatorBackground}" Color="#cccccc" />
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=SeparatorBackground}" Color="Transparent" />
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},ResourceId=SeperatorForeground}" Color="#FF808080" />
 
     <!-- StatusBar Brushes & Styles -->
