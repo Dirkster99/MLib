@@ -11,6 +11,10 @@ namespace MLib.Util
   /// </summary>
   public class BindingProxy : Freezable
   {
+    /// <summary>
+    /// Implements the backing store property field of Data property.
+    /// who has a reference to this object.
+    /// </summary>
     public static readonly DependencyProperty DataProperty =
         DependencyProperty.Register("Data", typeof(object), typeof(BindingProxy), new UIPropertyMetadata(null));
 

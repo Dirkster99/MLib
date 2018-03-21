@@ -16,7 +16,7 @@
     /// 1) An implementation of <seealso cref="IMetroWindow"/> or
     /// 
     /// 2) A ViewModel that is bound to an <seealso cref="IMetroWindow"/> implementation
-    ///    and registered via <seealso cref="DialogParticipation"/>.
+    ///    and registered via DialogParticipation.
     /// </summary>
     internal class DialogCoordinator : IDialogCoordinator
     {
@@ -71,8 +71,7 @@
 
         /// <summary>
         /// Attempts to find the MetroWindow that should show the ContentDialog
-        /// by searching the context object in the <seealso cref="DialogParticipation"/>
-        /// object.
+        /// by searching the context object in the DialogParticipation object.
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>

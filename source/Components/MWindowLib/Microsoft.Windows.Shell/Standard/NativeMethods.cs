@@ -23,6 +23,9 @@
         ID = (-12)
     }
 
+    /// <summary>
+    /// Models a 2-D point with x and y coordinates.
+    /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     internal struct POINT
     {
@@ -253,7 +256,9 @@
         [DllImport("user32.dll", EntryPoint = "SetWindowLongPtr", SetLastError = true)]
         private static extern IntPtr SetWindowLongPtr64(IntPtr hWnd, GWL nIndex, IntPtr dwNewLong);
 
-        // This is aliased as a macro in 32bit Windows.
+        /// <summary>
+        /// This is aliased as a macro in 32bit Windows.
+        /// </summary>
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static IntPtr GetWindowLongPtr(IntPtr hwnd, GWL nIndex)
         {
@@ -273,7 +278,9 @@
             return ret;
         }
 
-        // This is aliased as a macro in 32bit Windows.
+        /// <summary>
+        /// This is aliased as a macro in 32bit Windows.
+        /// </summary>
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static IntPtr SetWindowLongPtr(IntPtr hwnd, GWL nIndex, IntPtr dwNewLong)
         {
@@ -290,6 +297,9 @@
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool _GetCursorPos(out POINT lpPoint);
 
+        /// <summary>
+        /// Gets the 2-D space coordinates of the cursor.
+        /// </summary>
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static POINT GetCursorPos()
         {
@@ -302,7 +312,9 @@
             return pt;
         }
 
-        // Depending on the message, callers may want to call GetLastError based on the return value.
+        /// <summary>
+        /// Depending on the message, callers may want to call GetLastError based on the return value.
+        /// </summary>
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr SendMessage(IntPtr hWnd, WM Msg, IntPtr wParam, IntPtr lParam);

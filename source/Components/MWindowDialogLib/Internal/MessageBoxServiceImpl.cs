@@ -61,7 +61,6 @@
         /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
-        /// <param name="context"></param>
         /// <returns></returns>
         public async Task<MsgBoxResult> ShowAsync(
               string messageBoxText
@@ -94,7 +93,6 @@
         /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
-        /// <param name="context"></param>
         /// <returns></returns>
         MsgBoxResult IMessageBoxService.Show(
               string messageBoxText
@@ -133,13 +131,13 @@
         /// all others are optional.
         /// </summary>
         /// <param name="messageBoxText"></param>
+        /// <param name="caption"></param>
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
         /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
-        /// <param name="context"></param>
         /// <returns></returns>
         public async Task<MsgBoxResult> ShowAsync(
                     string messageBoxText
@@ -167,13 +165,13 @@
         /// all others are optional.
         /// </summary>
         /// <param name="messageBoxText"></param>
+        /// <param name="caption"></param>
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
         /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
-        /// <param name="context"></param>
         /// <returns></returns>
         MsgBoxResult IMessageBoxService.Show(
             string messageBoxText
@@ -214,13 +212,14 @@
         /// are a required parameters.
         /// </summary>
         /// <param name="messageBoxText"></param>
+        /// <param name="caption"></param>
+        /// <param name="buttonOption"></param>
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
         /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
-        /// <param name="context"></param>
         /// <returns></returns>
         public async Task<MsgBoxResult> ShowAsync(string messageBoxText, string caption,
                   MsgBoxButtons buttonOption,
@@ -249,13 +248,14 @@
         /// are a required parameters.
         /// </summary>
         /// <param name="messageBoxText"></param>
+        /// <param name="caption"></param>
+        /// <param name="buttonOption"></param>
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
         /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
-        /// <param name="context"></param>
         /// <returns></returns>
         MsgBoxResult IMessageBoxService.Show(string messageBoxText, string caption,
               MsgBoxButtons buttonOption,
@@ -296,13 +296,14 @@
         /// are a required parameters.
         /// </summary>
         /// <param name="messageBoxText"></param>
+        /// <param name="caption"></param>
+        /// <param name="buttonOption"></param>
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
         /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
-        /// <param name="context"></param>
         /// <returns></returns>
         public async Task<MsgBoxResult> ShowAsync(string messageBoxText, string caption,
                   MsgBoxButtons buttonOption, MsgBoxImage image,
@@ -332,13 +333,14 @@
         /// are a required parameters.
         /// </summary>
         /// <param name="messageBoxText"></param>
+        /// <param name="caption"></param>
+        /// <param name="buttonOption"></param>
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
         /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
-        /// <param name="context"></param>
         /// <returns></returns>
         MsgBoxResult IMessageBoxService.Show(string messageBoxText, string caption,
                           MsgBoxButtons buttonOption, MsgBoxImage image,
@@ -376,17 +378,20 @@
         /// <paramref name="caption"/>
         /// <paramref name="details"/>
         /// <paramref name="buttonOption"/>
-        /// <param name="image"></param>
+        /// <paramref name="image"/>
         /// are a required parameters.
         /// </summary>
         /// <param name="messageBoxText"></param>
+        /// <param name="caption"></param>
+        /// <param name="details"></param>
+        /// <param name="buttonOption"></param>
+        /// <param name="image"></param>
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
         /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
-        /// <param name="context"></param>
         /// <returns></returns>
         public async Task<MsgBoxResult> ShowAsync(string messageBoxText, string caption,
           string details,
@@ -414,17 +419,20 @@
         /// <paramref name="caption"/>
         /// <paramref name="details"/>
         /// <paramref name="buttonOption"/>
-        /// <param name="image"></param>
+        /// <paramref name="image"/>
         /// are a required parameters.
         /// </summary>
         /// <param name="messageBoxText"></param>
+        /// <param name="caption"></param>
+        /// <param name="details"></param>
+        /// <param name="buttonOption"></param>
+        /// <param name="image"></param>
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
         /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
-        /// <param name="context"></param>
         /// <returns></returns>
         MsgBoxResult IMessageBoxService.Show(string messageBoxText, string caption,
                   string details,
@@ -462,10 +470,9 @@
         /// Show a message box with a standard Exception display to the user.
         /// The parameters:
         /// <paramref name="exp"/>
-        /// <paramref name="messageBoxText"/> and 
         /// <paramref name="caption"/>
         /// <paramref name="buttonOption"/>
-        /// <param name="image"></param>
+        /// <paramref name="image"/>
         /// are a required parameters.
         /// </summary>
         /// <param name="exp"></param>
@@ -501,10 +508,9 @@
         /// Show a message box with a standard Exception display to the user.
         /// The parameters:
         /// <paramref name="exp"/>
-        /// <paramref name="messageBoxText"/> and 
         /// <paramref name="caption"/>
         /// <paramref name="buttonOption"/>
-        /// <param name="image"></param>
+        /// <paramref name="image"/>
         /// are a required parameters.
         /// </summary>
         /// <param name="exp"></param>
@@ -552,6 +558,7 @@
         /// Only the <paramref name="exp"/> parameter is required all others are optional.
         /// </summary>
         /// <param name="exp"></param>
+        /// <param name="textMessage"></param>
         /// <param name="caption"></param>
         /// <param name="buttonOption"></param>
         /// <param name="image"></param>
@@ -588,6 +595,7 @@
         /// Only the <paramref name="exp"/> parameter is required all others are optional.
         /// </summary>
         /// <param name="exp"></param>
+        /// <param name="textMessage"></param>
         /// <param name="caption"></param>
         /// <param name="buttonOption"></param>
         /// <param name="image"></param>
@@ -638,13 +646,15 @@
         /// (see actual interface definition for defaults of optional parameters.
         /// </summary>
         /// <param name="messageBoxText"></param>
+        /// <param name="caption"></param>
+        /// <param name="buttonOption"></param>
+        /// <param name="image"></param>
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
-        /// <param name="helpLabel"></param>
+        /// <param name="helpLinkLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
-        /// <param name="ownerContext"></param>
         /// <returns></returns>
         public async Task<MsgBoxResult> ShowAsync(object ownerContext,
                           string messageBoxText, string caption = "",
@@ -673,13 +683,15 @@
         /// are required parameters
         /// </summary>
         /// <param name="messageBoxText"></param>
+        /// <param name="caption"></param>
+        /// <param name="buttonOption"></param>
+        /// <param name="image"></param>
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
-        /// <param name="helpLabel"></param>
+        /// <param name="helpLinkLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
-        /// <param name="ownerContext"></param>
         /// <returns></returns>
         MsgBoxResult IMessageBoxService.Show(object ownerContext,
                           string messageBoxText, string caption,
@@ -728,11 +740,17 @@
         /// XXX TODO: dialogCanCloseViaChrome and defaultCloseResult are NOT supported yet
         /// XXX
         /// </summary>
+        /// <param name="ownerContext"></param>
         /// <param name="messageBoxText"></param>
+        /// <param name="caption"></param>
+        /// <param name="defaultCloseResult"></param>
+        /// <param name="dialogCanCloseViaChrome"></param>
+        /// <param name="buttonOption"></param>
+        /// <param name="image"></param>
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
-        /// <param name="helpLabel"></param>
+        /// <param name="helpLinkLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
         /// <returns></returns>
@@ -770,11 +788,17 @@
         /// XXX TODO: dialogCanCloseViaChrome and defaultCloseResult are NOT supported yet
         /// XXX
         /// </summary>
+        /// <param name="ownerContext"></param>
+        /// <param name="caption"></param>
+        /// <param name="defaultCloseResult"></param>
+        /// <param name="dialogCanCloseViaChrome"></param>
+        /// <param name="buttonOption"></param>
+        /// <param name="image"></param>
         /// <param name="messageBoxText"></param>
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
-        /// <param name="helpLabel"></param>
+        /// <param name="helpLinkLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
         /// <returns></returns>
@@ -830,7 +854,7 @@
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
-        /// <param name="helpLinkLabel"></param>
+        /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
         /// <returns></returns>
@@ -870,7 +894,7 @@
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
-        /// <param name="helpLinkLabel"></param>
+        /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
         /// <returns></returns>
@@ -924,7 +948,7 @@
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
-        /// <param name="helpLinkLabel"></param>
+        /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
         public async Task<MsgBoxResult> ShowAsync(string messageBoxText, string caption,
@@ -965,7 +989,7 @@
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
-        /// <param name="helpLinkLabel"></param>
+        /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
         MsgBoxResult IMessageBoxService.Show(string messageBoxText, string caption,
@@ -1019,7 +1043,7 @@
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
-        /// <param name="helpLinkLabel"></param>
+        /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
         /// <returns></returns>
@@ -1064,7 +1088,7 @@
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
-        /// <param name="helpLinkLabel"></param>
+        /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
         /// <returns></returns>
@@ -1122,7 +1146,7 @@
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
-        /// <param name="helpLinkLabel"></param>
+        /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
         /// <returns></returns>
@@ -1230,7 +1254,7 @@
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
-        /// <param name="helpLinkLabel"></param>
+        /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
         /// <returns></returns>
@@ -1281,7 +1305,7 @@
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
-        /// <param name="helpLinkLabel"></param>
+        /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
         /// <returns></returns>
@@ -1326,7 +1350,7 @@
         /// </summary>
         /// <param name="viewModel">The viewmodel contains additional
         /// parameters for the message view.</param>
-        /// <param name="owner">The message view will be attached to this owning window
+        /// <param name="context">The message view will be attached to this owning window
         /// of this parameter is non-null, otherwise Application.Current.MainWindow
         /// is being used.</param>
         /// <returns></returns>
@@ -1356,7 +1380,7 @@
         /// </summary>
         /// <param name="viewModel">The viewmodel contains additional
         /// parameters for the message view.</param>
-        /// <param name="owner">The message view will be attached to this owning window
+        /// <param name="context">The message view will be attached to this owning window
         /// of this parameter is non-null, otherwise Application.Current.MainWindow
         /// is being used.</param>
         /// <returns></returns>
@@ -1459,7 +1483,7 @@
         /// Implements a modal blocking behaviour for async methods in WPF
         /// and returns the result of the dialog.
         /// 
-        /// https://social.msdn.microsoft.com/Forums/en-US/163ef755-ff7b-4ea5-b226-bbe8ef5f4796/is-there-a-pattern-for-calling-an-async-method-synchronously?forum=async&prof=required
+        /// https://social.msdn.microsoft.com/Forums/en-US/163ef755-ff7b-4ea5-b226-bbe8ef5f4796/is-there-a-pattern-for-calling-an-async-method-synchronously?forum=async&amp;prof=required
         /// </summary>
         /// <param name="task"></param>
         /// <returns></returns>

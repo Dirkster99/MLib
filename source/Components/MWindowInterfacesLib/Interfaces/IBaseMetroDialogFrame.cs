@@ -21,37 +21,35 @@
         /// </summary>
         string Title { get; set; }
 
-        //
-        // Summary:
-        //     Gets or sets the maximum height constraint of the element.
-        //
-        // Returns:
-        //     The maximum height of the element, in device-independent units (1/96th inch per
-        //     unit). The default value is System.Double.PositiveInfinity. This value can be
-        //     any value equal to or greater than 0.0. System.Double.PositiveInfinity is also
-        //     valid.
+        /// <summary>
+        /// Gets or sets the maximum height constraint of the element.
+        /// </summary>
+        /// <returns>
+        ///     The maximum height of the element, in device-independent units (1/96th inch per
+        ///     unit). The default value is System.Double.PositiveInfinity. This value can be
+        ///     any value equal to or greater than 0.0. System.Double.PositiveInfinity is also
+        ///     valid.
+        /// </returns>
         [Localizability(LocalizationCategory.None, Readability = Readability.Unreadable)]
         [TypeConverter(typeof(LengthConverter))]
         double MaxHeight { get; set; }
 
-        //
-        // Summary:
-        //     Gets or sets the minimum height constraint of the element.
-        //
-        // Returns:
-        //     The minimum height of the element, in device-independent units (1/96th inch per
-        //     unit). The default value is 0.0. This value can be any value equal to or greater
-        //     than 0.0. However, System.Double.PositiveInfinity is NOT valid, nor is System.Double.NaN.
+        /// <summary>
+        /// Gets or sets the minimum height constraint of the element.
+        /// </summary>
+        /// <returns>
+        ///     The minimum height of the element, in device-independent units (1/96th inch per
+        ///     unit). The default value is 0.0. This value can be any value equal to or greater
+        ///     than 0.0. However, System.Double.PositiveInfinity is NOT valid, nor is System.Double.NaN.
+        /// </returns>
         [Localizability(LocalizationCategory.None, Readability = Readability.Unreadable)]
         [TypeConverter(typeof(LengthConverter))]
         double MinHeight { get; set; }
 
-        //
-        // Summary:
-        //     Gets or sets the data context for an element when it participates in data binding.
-        //
-        // Returns:
-        //     The object to use as data context.
+        /// <summary>
+        /// Gets or sets the data context for an element when it participates in data binding.
+        /// </summary>
+        /// <returns>The object to use as data context.</returns>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Localizability(LocalizationCategory.NeverLocalize)]
         object DataContext { get; set; }
@@ -99,7 +97,7 @@
         void OnShown();
 
         /// <summary>
-        /// Set the ZIndex value for this <seealso cref="BaseMetroDialog"/>.
+        /// Set the ZIndex value for this BaseMetroDialog.
         /// This method can make sure that a given dialog is visible when more
         /// than one dialog is open.
         /// </summary>

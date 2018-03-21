@@ -3,6 +3,10 @@
     using System.Windows;
     using System.Windows.Controls;
 
+    /// <summary>
+    /// Implements an extended ContentControl that keeps track of framework specific
+    /// things like character chasing and so forth.
+    /// </summary>
     public class ContentControlEx : ContentControl
     {
         /// <summary>

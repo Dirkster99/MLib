@@ -10,9 +10,6 @@
     /// </summary>
     public class ThemeBase
     {
-        #region fields
-        #endregion fields
-
         #region constructor
         /// <summary>
         /// Parameterized constructor

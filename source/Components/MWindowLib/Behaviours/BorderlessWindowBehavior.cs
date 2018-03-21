@@ -10,7 +10,9 @@
     using System.Windows.Shell;
 
     /// <summary>
-    /// With this class we can make custom window styles.
+    /// This class supports custom window styles while removing the normal
+    /// Windows version dependent border of a Window.
+    /// http://mahapps.com/guides/advanced-guide.html
     /// </summary>
     public class BorderlessWindowBehavior : Behavior<Window>
     {
@@ -38,17 +40,22 @@
         ////    }
         ////}
 
+        /// <summary>
+        /// Initializes a new instance of the System.Windows.Interactivity.Behavior class.
+        ///
+        /// Hooks any necessary handlers to the AssociatedObject.
+        /// </summary>
         protected override void OnAttached()
         {
             ////this.isWindwos10OrHigher = IsWindows10OrHigher();
 
             this.windowChrome = new WindowChrome
             {
-#if NET4_5
-                ResizeBorderThickness = SystemParameters.WindowResizeBorderThickness, 
-#else
-                ResizeBorderThickness = SystemParameters2.Current.WindowResizeBorderThickness,
-#endif
+                ////#if NET4_5
+                ResizeBorderThickness = SystemParameters.WindowResizeBorderThickness,
+                ////#else
+                ////                ResizeBorderThickness = SystemParameters2.Current.WindowResizeBorderThickness,
+                ////#endif
                 CaptionHeight = 0,
                 CornerRadius = new CornerRadius(0),
                 GlassFrameThickness = new Thickness(0),
@@ -155,13 +162,13 @@
         ////    }
         ////}
 
-        /// <summary>Add and remove a native WindowStyle from the HWND.</summary>
-        /// <param name="removeStyle">The styles to be removed.  These can be bitwise combined.</param>
-        /// <param name="addStyle">The styles to be added.  These can be bitwise combined.</param>
-        /// <returns>Whether the styles of the HWND were modified as a result of this call.</returns>
-        /// <SecurityNote>
-        ///   Critical : Calls critical methods
-        /// </SecurityNote>
+        //// <summary>Add and remove a native WindowStyle from the HWND.</summary>
+        //// <param name="removeStyle">The styles to be removed.  These can be bitwise combined.</param>
+        //// <param name="addStyle">The styles to be added.  These can be bitwise combined.</param>
+        //// <returns>Whether the styles of the HWND were modified as a result of this call.</returns>
+        //// <SecurityNote>
+        ////   Critical : Calls critical methods
+        //// </SecurityNote>
         ////[SecurityCritical]
         ////private bool _ModifyStyle(WS removeStyle, WS addStyle)
         ////{
@@ -218,6 +225,9 @@
             }
         }
 
+        /// <summary>
+        /// Unhooks any necessary handlers from the AssociatedObject.
+        /// </summary>
         protected override void OnDetaching()
         {
             this.Cleanup();

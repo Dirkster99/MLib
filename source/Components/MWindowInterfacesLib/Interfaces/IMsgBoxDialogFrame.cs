@@ -4,6 +4,10 @@
     using System.Threading.Tasks;
     using System.Windows.Controls.Primitives;
 
+    /// <summary>
+    /// Class models a dialog result (button clicked) via const int definitions
+    /// that improve readability and maintainability of the implemented code.
+    /// </summary>
     public static class DialogIntResults
     {
         /// <summary>
@@ -27,7 +31,8 @@
         public const int NO_DEFAULT_BUTTON = 1;
 
 
-        /*** A value greater one is a value that repesents an ectual button that can close the dialog ***/
+        /*** A value greater one is a value that repesents an ectual button that
+             can close the dialog ***/
 
         /// <summary>
         /// The result value of the dialog  is OK.
@@ -42,7 +47,7 @@
 
     /// <summary>
     /// This interface defines a custom dialog interface that defines the type
-    /// (and hence its values) of the dialog result via the <TResult> template
+    /// (and hence its values) of the dialog result via the TResult template
     /// parameter.
     /// </summary>
     /// <typeparam name="TResult"></typeparam>
@@ -65,6 +70,10 @@
         /// </summary>
         bool? DialogCloseResult { get; set; }
 
+        /// <summary>
+        /// Gets the dialog's thumb that is used to drag the dialog around
+        /// when the user drags it.
+        /// </summary>
         Thumb DialogThumb { get; }
 
         /// <summary>

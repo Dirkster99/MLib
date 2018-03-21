@@ -24,7 +24,6 @@
         /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
-        /// <param name="context"></param>
         /// <returns></returns>
         Task<MsgBoxResult> ShowAsync(
               string messageBoxText
@@ -48,7 +47,6 @@
         /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
-        /// <param name="context"></param>
         /// <returns></returns>
         MsgBoxResult Show(
               string messageBoxText
@@ -67,13 +65,13 @@
         /// all others are optional.
         /// </summary>
         /// <param name="messageBoxText"></param>
+        /// <param name="caption"></param>
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
         /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
-        /// <param name="context"></param>
         /// <returns></returns>
         Task<MsgBoxResult> ShowAsync(
             string messageBoxText
@@ -92,13 +90,13 @@
         /// all others are optional.
         /// </summary>
         /// <param name="messageBoxText"></param>
+        /// <param name="caption"></param>
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
         /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
-        /// <param name="context"></param>
         /// <returns></returns>
         MsgBoxResult Show(
             string messageBoxText
@@ -119,13 +117,14 @@
         /// are a required parameters.
         /// </summary>
         /// <param name="messageBoxText"></param>
+        /// <param name="caption"></param>
+        /// <param name="buttonOption"></param>
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
         /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
-        /// <param name="context"></param>
         /// <returns></returns>
         Task<MsgBoxResult> ShowAsync(string messageBoxText, string caption,
           MsgBoxButtons buttonOption,
@@ -145,13 +144,14 @@
         /// are a required parameters.
         /// </summary>
         /// <param name="messageBoxText"></param>
+        /// <param name="buttonOption"></param>
+        /// <param name="caption"></param>
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
         /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
-        /// <param name="context"></param>
         /// <returns></returns>
         MsgBoxResult Show(string messageBoxText, string caption,
           MsgBoxButtons buttonOption,
@@ -172,13 +172,14 @@
         /// are a required parameters.
         /// </summary>
         /// <param name="messageBoxText"></param>
+        /// <param name="caption"></param>
+        /// <param name="buttonOption"></param>
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
         /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
-        /// <param name="context"></param>
         /// <returns></returns>
         Task<MsgBoxResult> ShowAsync(string messageBoxText, string caption,
                           MsgBoxButtons buttonOption, MsgBoxImage image,
@@ -199,13 +200,14 @@
         /// are a required parameters.
         /// </summary>
         /// <param name="messageBoxText"></param>
+        /// <param name="buttonOption"></param>
+        /// <param name="caption"></param>
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
         /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
-        /// <param name="context"></param>
         /// <returns></returns>
         MsgBoxResult Show(string messageBoxText, string caption,
                           MsgBoxButtons buttonOption, MsgBoxImage image,
@@ -227,13 +229,15 @@
         /// are a required parameters.
         /// </summary>
         /// <param name="messageBoxText"></param>
+        /// <param name="caption"></param>
+        /// <param name="details"></param>
+        /// <param name="buttonOption"></param>
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
         /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
-        /// <param name="context"></param>
         /// <returns></returns>
         Task<MsgBoxResult> ShowAsync(string messageBoxText, string caption,
                   string details,
@@ -256,13 +260,15 @@
         /// are a required parameters.
         /// </summary>
         /// <param name="messageBoxText"></param>
+        /// <param name="caption"></param>
+        /// <param name="buttonOption"></param>
+        /// <param name="details"></param>
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
         /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
-        /// <param name="context"></param>
         /// <returns></returns>
         MsgBoxResult Show(string messageBoxText, string caption,
                   string details,
@@ -280,7 +286,6 @@
         /// Show a message box with a standard Exception display to the user.
         /// The parameters:
         /// <paramref name="exp"/>
-        /// <paramref name="messageBoxText"/> and 
         /// <paramref name="caption"/>
         /// <paramref name="buttonOption"/>
         /// <param name="image"></param>
@@ -289,7 +294,6 @@
         /// <param name="exp"></param>
         /// <param name="caption"></param>
         /// <param name="buttonOption"></param>
-        /// <param name="image"></param>
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
@@ -310,7 +314,6 @@
         /// Show a message box with a standard Exception display to the user.
         /// The parameters:
         /// <paramref name="exp"/>
-        /// <paramref name="messageBoxText"/> and 
         /// <paramref name="caption"/>
         /// <paramref name="buttonOption"/>
         /// <param name="image"></param>
@@ -319,7 +322,6 @@
         /// <param name="exp"></param>
         /// <param name="caption"></param>
         /// <param name="buttonOption"></param>
-        /// <param name="image"></param>
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
@@ -341,6 +343,7 @@
         /// Only the <paramref name="exp"/> parameter is required all others are optional.
         /// </summary>
         /// <param name="exp"></param>
+        /// <param name="textMessage"></param>
         /// <param name="caption"></param>
         /// <param name="buttonOption"></param>
         /// <param name="image"></param>
@@ -367,6 +370,7 @@
         /// Only the <paramref name="exp"/> parameter is required all others are optional.
         /// </summary>
         /// <param name="exp"></param>
+        /// <param name="textMessage"></param>
         /// <param name="caption"></param>
         /// <param name="buttonOption"></param>
         /// <param name="image"></param>
@@ -396,13 +400,15 @@
         /// are required parameters
         /// </summary>
         /// <param name="messageBoxText"></param>
+        /// <param name="caption"></param>
+        /// <param name="buttonOption"></param>
+        /// <param name="image"></param>
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
-        /// <param name="helpLabel"></param>
+        /// <param name="helpLinkLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
-        /// <param name="ownerContext"></param>
         /// <returns></returns>
         Task<MsgBoxResult> ShowAsync(object ownerContext,
                           string messageBoxText, string caption = "",
@@ -421,13 +427,15 @@
         /// are required parameters
         /// </summary>
         /// <param name="messageBoxText"></param>
+        /// <param name="caption"></param>
+        /// <param name="buttonOption"></param>
+        /// <param name="image"></param>
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
-        /// <param name="helpLabel"></param>
+        /// <param name="helpLinkLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
-        /// <param name="ownerContext"></param>
         /// <returns></returns>
         MsgBoxResult Show(object ownerContext,
                           string messageBoxText, string caption = "",
@@ -452,11 +460,17 @@
         /// XXX TODO: dialogCanCloseViaChrome and defaultCloseResult are NOT supported yet
         /// XXX
         /// </summary>
+        /// <param name="ownerContext"></param>
+        /// <param name="caption"></param>
+        /// <param name="defaultCloseResult"></param>
+        /// <param name="dialogCanCloseViaChrome"></param>
+        /// <param name="buttonOption"></param>
+        /// <param name="image"></param>
         /// <param name="messageBoxText"></param>
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
-        /// <param name="helpLabel"></param>
+        /// <param name="helpLinkLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
         /// <returns></returns>
@@ -478,23 +492,26 @@
         /// Only the
         /// <paramref name="ownerContext"/>,
         /// <paramref name="messageBoxText"/>,
-        /// <paramref name="caption"/>,
-        /// <paramref name="defaultCloseResult"/>,
-        /// <paramref name="dialogCanCloseViaChrome"/> are required parameters
         /// XXX
         /// XXX TODO: dialogCanCloseViaChrome and defaultCloseResult are NOT supported yet
         /// XXX
         /// </summary>
+        /// <param name="ownerContext"></param>
         /// <param name="messageBoxText"></param>
+        /// <param name="caption"/>,
+        /// <param name="defaultCloseResult"/>,
+        /// <param name="dialogCanCloseViaChrome"/> are required parameters
+        /// <param name="image"></param>
+        /// <param name="buttonOption"></param>
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
-        /// <param name="helpLabel"></param>
+        /// <param name="helpLinkLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
         /// <returns></returns>
         MsgBoxResult Show(object ownerContext,
-        string messageBoxText, string caption,
+                          string messageBoxText, string caption,
                           MsgBoxResult defaultCloseResult,
                           bool dialogCanCloseViaChrome,
                           MsgBoxButtons buttonOption = MsgBoxButtons.OK,
@@ -525,7 +542,7 @@
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
-        /// <param name="helpLinkLabel"></param>
+        /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
         /// <returns></returns>
@@ -556,7 +573,7 @@
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
-        /// <param name="helpLinkLabel"></param>
+        /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
         /// <returns></returns>
@@ -589,7 +606,7 @@
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
-        /// <param name="helpLinkLabel"></param>
+        /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
         Task<MsgBoxResult> ShowAsync(string messageBoxText, string caption,
@@ -621,7 +638,7 @@
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
-        /// <param name="helpLinkLabel"></param>
+        /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
         MsgBoxResult Show(string messageBoxText, string caption,
@@ -655,7 +672,7 @@
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
-        /// <param name="helpLinkLabel"></param>
+        /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
         /// <returns></returns>
@@ -691,7 +708,7 @@
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
-        /// <param name="helpLinkLabel"></param>
+        /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
         /// <returns></returns>
@@ -729,7 +746,7 @@
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
-        /// <param name="helpLinkLabel"></param>
+        /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
         /// <returns></returns>
@@ -767,7 +784,7 @@
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
-        /// <param name="helpLinkLabel"></param>
+        /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
         /// <returns></returns>
@@ -807,7 +824,7 @@
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
-        /// <param name="helpLinkLabel"></param>
+        /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
         /// <returns></returns>
@@ -848,7 +865,7 @@
         /// <param name="btnDefault"></param>
         /// <param name="helpLink"></param>
         /// <param name="helpLinkTitle"></param>
-        /// <param name="helpLinkLabel"></param>
+        /// <param name="helpLabel"></param>
         /// <param name="navigateHelplinkMethod"></param>
         /// <param name="showCopyMessage"></param>
         /// <returns></returns>

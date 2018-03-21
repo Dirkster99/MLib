@@ -2,6 +2,9 @@
 {
     using System.Windows;
 
+    /// <summary>
+    /// Class implements extension methods to find the owning window for a given context.
+    /// </summary>
     public class Find
     {
         /// <summary>

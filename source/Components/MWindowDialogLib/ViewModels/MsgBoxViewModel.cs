@@ -34,7 +34,7 @@
     /// - Help Link Navigation for advanced research in online resources (by the user)
     /// - (Expander) section with more textual/technical details
     /// </summary>
-    internal class MsgBoxViewModel : DialogResultViewModel<MsgBoxResult>  ////, INotifyableViewModel
+    internal class MsgBoxViewModel : DialogResultViewModel<MsgBoxResult>
         , IMsgBoxViewModel<MsgBoxResult>
     {
         #region fields
@@ -130,10 +130,10 @@
         #endregion constructor
 
         #region events
-        /// <summary>
-        /// Expose an event that is triggered when the viewmodel tells its view:
-        /// Here is another notification message please show it to the user.
-        /// </summary>
+        //// <summary>
+        //// Expose an event that is triggered when the viewmodel tells its view:
+        //// Here is another notification message please show it to the user.
+        //// </summary>
 ////        public event UserNotification.Events.ShowNotificationEventHandler ShowNotificationMessage;
         #endregion events
 
@@ -772,10 +772,10 @@
                 this.Result = this.DefaultCloseResult;
         }
 
-        /// <summary>
-        /// Show a notification that users should use the labelled choice buttons to close a dialog
-        /// instead of trying escape, ALT-F4, or Window Close (X) ... window chrome accessibilies...
-        /// </summary>
+        //// <summary>
+        //// Show a notification that users should use the labelled choice buttons to close a dialog
+        //// instead of trying escape, ALT-F4, or Window Close (X) ... window chrome accessibilies...
+        //// </summary>
         ////        private void ShowLegalCloseOptionsNotification()
         ////        {
         ////            if (this.ShowNotificationMessage != null)

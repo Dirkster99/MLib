@@ -1,5 +1,16 @@
 ﻿namespace MWindowDialogLib.ViewModels
 {
+    /// <summary>
+    /// Implements a class template for a dialog driven view model in which
+    /// it is important to lock the result (OK or Cancel button clicked) in a flexible fashion.
+    ///
+    /// This template can be used to drive a dialog based view through its life-cycle.
+    /// A dialog based view can be very similar to a classic message box dialog but can also
+    /// a drop-down content element, or something else.
+    ///
+    /// The difference here is that we use an int or enum or ... to return a value indicating
+    /// the element that a user had selected in a custom dialog view.
+    /// </summary>
     public class DialogResultViewModel<T> : Base.BaseViewModel
     {
         #region fields

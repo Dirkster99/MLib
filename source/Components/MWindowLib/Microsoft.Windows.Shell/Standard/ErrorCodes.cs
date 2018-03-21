@@ -384,6 +384,10 @@
             _value = i;
         }
 
+        /// <summary>
+        /// Create an HRESULT from an integer value.
+        /// </summary>
+        /// <param name="i"></param>
         public HRESULT(int i)
         {
             _value = unchecked((uint)i);

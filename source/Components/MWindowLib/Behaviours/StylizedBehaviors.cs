@@ -4,24 +4,52 @@
     using System.Windows;
     using System.Windows.Interactivity;
 
+    /// <summary>
+    /// This class implements an attached property that can be attached
+    /// to a window style to hold a collection of behaviors that in turn can manipulate
+    /// the appearance of a window (e.g.: make it borderless).
+    /// </summary>
     public class StylizedBehaviors
     {
+        /// <summary>
+        /// Backing store of the Behaviors dependency property which implements
+        /// a collection of behaviors that can be applied to a style (of a window).
+        /// </summary>
         public static readonly DependencyProperty BehaviorsProperty
             = DependencyProperty.RegisterAttached("Behaviors",
                                                   typeof(StylizedBehaviorCollection),
                                                   typeof(StylizedBehaviors),
-                                                  new FrameworkPropertyMetadata(null, OnPropertyChanged));
+                                                  new FrameworkPropertyMetadata(null,
+                                                                                OnPropertyChanged));
 
+        /// <summary>
+        /// Gets the Behaviors dependency property which implements
+        /// a collection of behaviors that can be applied to a style (of a window).
+        /// </summary>
+        /// <param name="uie"></param>
+        /// <returns>the collection of style behaviors</returns>
         public static StylizedBehaviorCollection GetBehaviors(DependencyObject uie)
         {
             return (StylizedBehaviorCollection)uie.GetValue(BehaviorsProperty);
         }
 
+        /// <summary>
+        /// Sets the Behaviors dependency property which implements
+        /// a collection of behaviors that can be applied to a style (of a window).
+        /// </summary>
+        /// <param name="uie"></param>
+        /// <param name="value"></param>
         public static void SetBehaviors(DependencyObject uie, StylizedBehaviorCollection value)
         {
             uie.SetValue(BehaviorsProperty, value);
         }
 
+        /// <summary>
+        /// Method is invoked when the Behaviors dependency property is changed (on attach/detach).
+        /// </summary>
+        /// <param name="dpo">The FrameworkElement where this behavior is attached.</param>
+        /// <param name="e">A collection of a <seealso cref="StylizedBehaviorCollection"/>
+        /// to keep track of in this behaviors collection.</param>
         private static void OnPropertyChanged(DependencyObject dpo, DependencyPropertyChangedEventArgs e)
         {
             var uie = dpo as FrameworkElement;

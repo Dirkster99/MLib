@@ -273,6 +273,9 @@
         #region IsWindowDraggable
         private static readonly DependencyProperty IsWindowDraggableProperty = DependencyProperty.Register("IsWindowDraggable", typeof(bool), typeof(SimpleMetroWindow), new PropertyMetadata(true));
 
+        /// <summary>
+        /// Get/sets whether an external window can be dragged off the initial position or not.
+        /// </summary>
         public bool IsWindowDraggable
         {
             get { return (bool)GetValue(IsWindowDraggableProperty); }
@@ -295,6 +298,9 @@
         #endregion properties
 
         #region methodes
+        /// <summary>
+        /// Standard method that is invoked by the WPF framework upon initializing the registered XAML.
+        /// </summary>
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -308,10 +314,10 @@
         }
 
         #region Overlay Methods
-        /// <summary>
-        /// Begins to show the SimpleMetroWindow's overlay effect.
-        /// </summary>
-        /// <returns>A task representing the process.</returns>
+        //// <summary>
+        //// Begins to show the SimpleMetroWindow's overlay effect.
+        //// </summary>
+        //// <returns>A task representing the process.</returns>
 ////        public System.Threading.Tasks.Task ShowOverlayAsync()
 ////        {
 ////            if (_OverlayBox == null) throw new InvalidOperationException("OverlayBox can not be founded in this SimpleMetroWindow's template. Are you calling this before the window has loaded?");
@@ -358,10 +364,10 @@
 ////            return tcs.Task;
 ////        }
 
-        /// <summary>
-        /// Begins to hide the SimpleMetroWindow's overlay effect.
-        /// </summary>
-        /// <returns>A task representing the process.</returns>
+        //// <summary>
+        //// Begins to hide the SimpleMetroWindow's overlay effect.
+        //// </summary>
+        //// <returns>A task representing the process.</returns>
 ////        public System.Threading.Tasks.Task HideOverlayAsync()
 ////        {
 ////            if (_OverlayBox == null)
@@ -438,6 +444,7 @@
 
         /// <summary>
         /// Stores the given element, or the last focused element via FocusManager, for restoring the focus after closing a dialog.
+        /// See also RestoreFocus, ResetStoredFocus method.
         /// </summary>
         /// <param name="thisElement">The element which will be focused again.</param>
         public void StoreFocus(IInputElement thisElement = null) // [CanBeNull] 
@@ -448,6 +455,10 @@
             }));
         }
 
+        /// <summary>
+        /// Restores a previously saved keyboard focus back to the last focused element.
+        /// See also StoreFocus, ResetStoredFocus method.
+        /// </summary>
         public void RestoreFocus()
         {
             if (_RestoreFocus != null)
@@ -460,8 +471,10 @@
             }
         }
 
+
         /// <summary>
         /// Clears the stored element which would get the focus after closing a dialog.
+        /// See also StoreFocus, RestoreFocus method.
         /// </summary>
         public void ResetStoredFocus()
         {
@@ -529,6 +542,9 @@
             return GetTemplateChild(name);
         }
 
+        /// <summary>
+        /// Gets a handle that is required to send Win32 messages to the underlying window.
+        /// </summary>
         protected IntPtr CriticalHandle
         {
             get

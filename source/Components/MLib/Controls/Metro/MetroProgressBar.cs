@@ -7,68 +7,105 @@
     using System.Windows.Media.Animation;
 
     /// <summary>
-    /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-    ///
-    /// Step 1a) Using this custom control in a XAML file that exists in the current project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:MLib.Themes.Framework.Controls"
-    ///
-    ///
-    /// Step 1b) Using this custom control in a XAML file that exists in a different project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:MLib.Themes.Framework.Controls;assembly=MLib.Themes.Framework.Controls"
-    ///
-    /// You will also need to add a project reference from the project where the XAML file lives
-    /// to this project and Rebuild to avoid compilation errors:
-    ///
-    ///     Right click on the target project in the Solution Explorer and
-    ///     "Add Reference"->"Projects"->[Browse to and select this project]
-    ///
-    ///
-    /// Step 2)
-    /// Go ahead and use your control in the XAML file.
-    ///
-    ///     <MyNamespace:MetroProgressBar/>
-    ///
-    /// </summary>
-    /// <summary>
-    /// A metrofied ProgressBar.
+    /// Implements a metrofied ProgressBar control.
     /// <see cref="ProgressBar"/>
     /// </summary>
     public class MetroProgressBar : ProgressBar
     {
+        #region fields
+        /// <summary> 
+        /// Implements the backing field for the dependency property EllipseDiameter.
+        /// </summary>
         public static readonly DependencyProperty EllipseDiameterProperty =
             DependencyProperty.Register("EllipseDiameter", typeof(double), typeof(MetroProgressBar),
                                         new PropertyMetadata(default(double)));
 
+        /// <summary> 
+        /// Implements the backing field for the dependency property EllipseOffset.
+        /// </summary>
         public static readonly DependencyProperty EllipseOffsetProperty =
             DependencyProperty.Register("EllipseOffset", typeof(double), typeof(MetroProgressBar),
                                         new PropertyMetadata(default(double)));
 
-        private readonly object lockme = new object();
+        private readonly object _lockMe = new object();
         private Storyboard indeterminateStoryboard;
-
+        #endregion fields
+        
+        #region constructors
+        /// <summary>
+        /// Static class constructor.
+        /// </summary>
         static MetroProgressBar()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(MetroProgressBar), new FrameworkPropertyMetadata(typeof(MetroProgressBar)));
             IsIndeterminateProperty.OverrideMetadata(typeof(MetroProgressBar), new FrameworkPropertyMetadata(OnIsIndeterminateChanged));
         }
 
+        /// <summary>
+        /// Class constructor.
+        /// </summary>
         public MetroProgressBar()
         {
             IsVisibleChanged += VisibleChangedHandler;
         }
+        #endregion constructors
 
-        private void VisibleChangedHandler(object sender, DependencyPropertyChangedEventArgs e)
+        #region methods
+        /// <summary>
+        /// Gets/sets the diameter of the ellipses dependency property
+        /// used in the indeterminate animation.
+        /// </summary>
+        public double EllipseDiameter
         {
-            // reset Storyboard if Visibility is set to Visible #1300
-            if (this.IsIndeterminate)
+            get { return (double)GetValue(EllipseDiameterProperty); }
+            set { SetValue(EllipseDiameterProperty, value); }
+        }
+
+        /// <summary>
+        /// Gets/sets the offset of the ellipses dependency property
+        /// used in the indeterminate animation.
+        /// </summary>
+        public double EllipseOffset
+        {
+            get { return (double)GetValue(EllipseOffsetProperty); }
+            set { SetValue(EllipseOffsetProperty, value); }
+        }
+        
+        /// <summary>
+        /// Called when a template is applied to a ProgressBar.(Overrides
+        /// FrameworkElement.OnApplyTemplate().)
+        /// </summary>
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            lock (_lockMe)
             {
-                ToggleIndeterminate(this, (bool)e.OldValue, (bool)e.NewValue);
+                this.indeterminateStoryboard = this.TryFindResource("IndeterminateStoryboard") as Storyboard;
+            }
+
+            Loaded -= LoadedHandler;
+            Loaded += LoadedHandler;
+        }
+
+        /// <summary>
+        /// Raises the Initialized event. This method is invoked whenever IsInitialized is set
+        /// to true internally. (Inherited from FrameworkElement.)
+        /// </summary>
+        /// <param name="e">The Initialized event.</param>
+        protected override void OnInitialized(EventArgs e)
+        {
+            base.OnInitialized(e);
+
+            // Update the Ellipse properties to their default values
+            // only if they haven't been user-set.
+            if (EllipseDiameter.Equals(0))
+            {
+                SetEllipseDiameter(this.ActualSize(true));
+            }
+            if (EllipseOffset.Equals(0))
+            {
+                SetEllipseOffset(this.ActualSize(true));
             }
         }
 
@@ -82,7 +119,8 @@
             ToggleIndeterminate(bar, (bool)e.OldValue, (bool)e.NewValue);
         }
 
-        private static void ToggleIndeterminate(MetroProgressBar bar, bool oldValue, bool newValue)
+        private static void ToggleIndeterminate(MetroProgressBar bar,
+                                                bool oldValue, bool newValue)
         {
             if (newValue == oldValue)
             {
@@ -109,22 +147,13 @@
             }
         }
 
-        /// <summary>
-        /// Gets/sets the diameter of the ellipses used in the indeterminate animation.
-        /// </summary>
-        public double EllipseDiameter
+        private void VisibleChangedHandler(object sender, DependencyPropertyChangedEventArgs e)
         {
-            get { return (double)GetValue(EllipseDiameterProperty); }
-            set { SetValue(EllipseDiameterProperty, value); }
-        }
-
-        /// <summary>
-        /// Gets/sets the offset of the ellipses used in the indeterminate animation.
-        /// </summary>
-        public double EllipseOffset
-        {
-            get { return (double)GetValue(EllipseOffsetProperty); }
-            set { SetValue(EllipseOffsetProperty, value); }
+            // reset Storyboard if Visibility is set to Visible #1300
+            if (this.IsIndeterminate)
+            {
+                ToggleIndeterminate(this, (bool)e.OldValue, (bool)e.NewValue);
+            }
         }
 
         private void SizeChangedHandler(object sender, SizeChangedEventArgs e)
@@ -153,7 +182,8 @@
             {
                 return;
             }
-            lock (this.lockme)
+
+            lock (_lockMe)
             {
                 //perform calculations
                 var containerAnimStart = CalcContainerAnimStart(width);
@@ -313,40 +343,12 @@
             return width * 2.0 / 3.0;
         }
 
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-
-            lock (this.lockme)
-            {
-                this.indeterminateStoryboard = this.TryFindResource("IndeterminateStoryboard") as Storyboard;
-            }
-
-            Loaded -= LoadedHandler;
-            Loaded += LoadedHandler;
-        }
-
         private void LoadedHandler(object sender, RoutedEventArgs routedEventArgs)
         {
             Loaded -= LoadedHandler;
             SizeChangedHandler(null, null);
             SizeChanged += SizeChangedHandler;
         }
-
-        protected override void OnInitialized(EventArgs e)
-        {
-            base.OnInitialized(e);
-
-            // Update the Ellipse properties to their default values
-            // only if they haven't been user-set.
-            if (EllipseDiameter.Equals(0))
-            {
-                SetEllipseDiameter(this.ActualSize(true));
-            }
-            if (EllipseOffset.Equals(0))
-            {
-                SetEllipseOffset(this.ActualSize(true));
-            }
-        }
+        #endregion methods
     }
 }

@@ -31,7 +31,14 @@
         #endregion constructors
 
         #region events
+        /// <summary>
+        /// Implements an event source to tell listeners when a dialog is opened.
+        /// </summary>
         public event EventHandler<DialogStateChangedEventArgs> DialogOpened;
+
+        /// <summary>
+        /// Implements an event source to tell listeners when a dialog is closed.
+        /// </summary>
         public event EventHandler<DialogStateChangedEventArgs> DialogClosed;
         #endregion events
 
@@ -39,10 +46,8 @@
         /// <summary>
         /// Creates a MsgBoxDialog inside of the current window.
         /// </summary>
-        /// <param name="window">The MetroWindow</param>
-        /// <param name="title">The title of the MessageDialog.</param>
-        /// <param name="message">The message contained within the MessageDialog.</param>
-        /// <param name="style">The type of buttons to use.</param>
+        /// <param name="metroWindow">The MetroWindow</param>
+        /// <param name="dialog">The dialog contained within the current Window.</param>
         /// <param name="settings">Optional settings that override the global metro dialog settings.</param>
         /// <returns>A task promising the result of which button was pressed.</returns>
         public Task<MsgBoxResult> ShowMsgBoxAsync(
@@ -100,13 +105,13 @@
         /// <summary>
         /// Hides a visible Metro Dialog instance.
         /// </summary>
-        /// <param name="window">The window with the dialog that is visible.</param>
+        /// <param name="metroWindow">The window with the dialog that is visible.</param>
         /// <param name="dialog">The dialog instance to hide.</param>
         /// <param name="settings">An optional pre-defined settings instance.</param>
         /// <returns>A task representing the operation.</returns>
         /// <exception cref="InvalidOperationException">
         /// The <paramref name="dialog"/> is not visible in the window.
-        /// This happens if <see cref="ShowMetroDialogAsync"/> hasn't been called before.
+        /// This happens if ShowMetroDialogAsync hasn't been called before.
         /// </exception>
         public Task HideMetroDialogAsync(
               IMetroWindow metroWindow
@@ -140,10 +145,10 @@
 
         /// <summary>
         /// Adds a Metro Dialog instance to the specified window and makes it visible asynchronously.
-        /// If you want to wait until the user has closed the dialog, use <see cref="ShowMetroDialogAsyncAwaitable"/>
+        /// If you want to wait until the user has closed the dialog, use ShowMetroDialogAsyncAwaitable.
         /// <para>You have to close the resulting dialog yourself with <see cref="HideMetroDialogAsync"/>.</para>
         /// </summary>
-        /// <param name="window">The owning window of the dialog.</param>
+        /// <param name="metroWindow">The owning window of the dialog.</param>
         /// <param name="dialog">The dialog instance itself.</param>
         /// <param name="settings">An optional pre-defined settings instance.</param>
         /// <returns>A task representing the operation.</returns>
@@ -179,6 +184,13 @@
             }).Unwrap();
         }
 
+        /// <summary>
+        /// Creates a modal dialog inside of the current main window.
+        /// </summary>
+        /// <param name="metroWindow">The MetroWindow</param>
+        /// <param name="dialog">The outside modal window to be owned by a given <seealso cref="IMetroWindow"/></param>
+        /// <param name="settings">Optional settings that override the global metro dialog settings.</param>
+        /// <returns>The result that was entered or 0 if the user escape keyed the dialog...</returns>
         public Task<int> ShowMetroDialogAsync(IMetroWindow metroWindow
                                         , IMsgBoxDialogFrame<int> dialog
                                         , IMetroDialogFrameSettings settings = null)
@@ -230,14 +242,14 @@
         }
 
         #region Modal External dialog
-        /// <summary>
-        /// Creates a InputDialog outside of the current window.
-        /// </summary>
-        /// <param name="window">The MetroWindow</param>
-        /// <param name="title">The title of the MessageDialog.</param>
-        /// <param name="message">The message contained within the MessageDialog.</param>
-        /// <param name="settings">Optional settings that override the global metro dialog settings.</param>
-        /// <returns>The text that was entered or null (Nothing in Visual Basic) if the user cancelled the operation.</returns>
+        //// <summary>
+        //// Creates a InputDialog outside of the current window.
+        //// </summary>
+        //// <param name="window">The MetroWindow</param>
+        //// <param name="title">The title of the MessageDialog.</param>
+        //// <param name="message">The message contained within the MessageDialog.</param>
+        //// <param name="settings">Optional settings that override the global metro dialog settings.</param>
+        //// <returns>The text that was entered or null (Nothing in Visual Basic) if the user cancelled the operation.</returns>
         ////        public string ShowModalInputExternal(
         ////            IMetroWindow metroWindow
         ////          , string title
@@ -274,15 +286,15 @@
         ////            return result;
         ////        }
 
-        /// <summary>
-        /// Creates a MessageDialog ouside of the current window.
-        /// </summary>
-        /// <param name="window">The MetroWindow</param>
-        /// <param name="title">The title of the MessageDialog.</param>
-        /// <param name="message">The message contained within the MessageDialog.</param>
-        /// <param name="style">The type of buttons to use.</param>
-        /// <param name="settings">Optional settings that override the global metro dialog settings.</param>
-        /// <returns>A task promising the result of which button was pressed.</returns>
+        //// <summary>
+        //// Creates a MessageDialog ouside of the current window.
+        //// </summary>
+        //// <param name="window">The MetroWindow</param>
+        //// <param name="title">The title of the MessageDialog.</param>
+        //// <param name="message">The message contained within the MessageDialog.</param>
+        //// <param name="style">The type of buttons to use.</param>
+        //// <param name="settings">Optional settings that override the global metro dialog settings.</param>
+        //// <returns>A task promising the result of which button was pressed.</returns>
         ////        public MessageDialogResult ShowModalMessageExternal(
         ////              IMetroWindow metroWindow
         ////            , string title
@@ -320,15 +332,15 @@
         ////            return result;
         ////        }
 
-        /// <summary>
-        /// Creates a LoginDialog outside of the current window.
-        /// </summary>
-        /// <param name="metroWindow">The window that is the parent of the dialog.</param>
-        /// <param name="title">The title of the LoginDialog.</param>
-        /// <param name="message">The message contained within the LoginDialog.</param>
-        /// <param name="dialogWindow"></param>
-        /// <param name="settings">Optional settings that override the global metro dialog settings.</param>
-        /// <returns>The text that was entered or null (Nothing in Visual Basic) if the user cancelled the operation.</returns>
+        //// <summary>
+        //// Creates a LoginDialog outside of the current window.
+        //// </summary>
+        //// <param name="metroWindow">The window that is the parent of the dialog.</param>
+        //// <param name="title">The title of the LoginDialog.</param>
+        //// <param name="message">The message contained within the LoginDialog.</param>
+        //// <param name="dialogWindow"></param>
+        //// <param name="settings">Optional settings that override the global metro dialog settings.</param>
+        //// <returns>The text that was entered or null (Nothing in Visual Basic) if the user cancelled the operation.</returns>
         ////        public ILoginDialogData ShowModalLoginExternal(
         ////              IMetroWindow metroWindow
         ////            , string title

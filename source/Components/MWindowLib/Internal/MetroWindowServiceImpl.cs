@@ -4,7 +4,7 @@
 
     /// <summary>
     /// Implements the service component according to the interface
-    /// defintion in <see cref="Interfaces.IMetroWindowService"/>.
+    /// defintion in <see cref="MWindowInterfacesLib.Interfaces.IMetroWindowService"/>.
     /// 
     /// This service component creates instances of Metro Windows
     /// and supports utillity functions ...

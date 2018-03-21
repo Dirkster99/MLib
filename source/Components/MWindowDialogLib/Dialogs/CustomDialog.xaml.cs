@@ -13,6 +13,9 @@
     public partial class CustomDialog : DialogFrame, IMsgBoxDialogFrame<int>
     {
         #region constructors
+        /// <summary>
+        /// Class constructor.
+        /// </summary>
         public CustomDialog()
             : base()
         {
@@ -22,6 +25,10 @@
             this.Loaded += MsgBoxDialog_Loaded;
         }
 
+        /// <summary>
+        /// Class constructor from parameters.
+        /// </summary>
+        /// <param name="parentWindow"></param>
         public CustomDialog(IMetroWindow parentWindow)
             : this(parentWindow, null)
         {
@@ -31,6 +38,11 @@
             this.Loaded += MsgBoxDialog_Loaded;
         }
 
+        /// <summary>
+        /// Class constructor from parameters.
+        /// </summary>
+        /// <param name="parentWindow"></param>
+        /// <param name="settings"></param>
         public CustomDialog(IMetroWindow parentWindow
                            ,IMetroDialogFrameSettings settings)
             : base(parentWindow, settings)
@@ -66,6 +78,12 @@
             this.Loaded += MsgBoxDialog_Loaded;
         }
 
+        /// <summary>
+        /// Constructor from custom view and optional viewmodel.
+        /// </summary>
+        /// <param name="contentView"></param>
+        /// <param name="viewModel"></param>
+        /// <param name="settings"></param>
         public CustomDialog(object contentView
                            , object viewModel = null
                            , IMetroDialogFrameSettings settings = null)
@@ -85,6 +103,10 @@
         #endregion constructors
 
         #region nethods
+        /// <summary>
+        /// Gets the dialog's thumb that is used to drag the dialog around
+        /// when the user drags it.
+        /// </summary>
         public Thumb DialogThumb { get; protected set; } 
 
         /// <summary>

@@ -9,14 +9,25 @@
     /// </summary>
     public class NullBoolToVisibilityConverter : IValueConverter
     {
+        /// <summary>
+        /// Static class constructor.
+        /// </summary>
         public NullBoolToVisibilityConverter()
         {
             True = Visibility.Visible;
             False = Visibility.Collapsed;
         }
 
+        /// <summary>
+        /// Gets/sets the <seealso cref="Visibility"/> value to which/from which the
+        /// boolean true value is converted.
+        /// </summary>
         public Visibility True { get; set; }
 
+        /// <summary>
+        /// Gets/sets the <seealso cref="Visibility"/> value to which/from which the
+        /// boolean false value is converted.
+        /// </summary>
         public Visibility False { get; set; }
 
         #region IValueConverter

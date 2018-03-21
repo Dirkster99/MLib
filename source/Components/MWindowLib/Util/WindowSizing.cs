@@ -6,9 +6,23 @@
 
     /// <summary>
     /// Source: https://codekong.wordpress.com/2010/11/10/custom-window-style-and-accounting-for-the-taskbar/
+    ///
+    /// We have to add some code to a window, with WindowStyle set to None, to make our
+    /// new window accommodate for the taskbar. One thing we must be especially aware of
+    /// is accommodating for the taskbar when it is set to auto-hide. When the taskbar is
+    /// auto-hidden, you have to leave 2 pixels available for the bar on the docked edge
+    /// so the user can mouse over that area to restore the hidden taskbar.
+    /// 
+    /// This public static WindowSizing class that should handle the bar correctly.
+    /// 
+    /// http://blog.opennetcf.com/ayakhnin/content/binary/OfficeStyleWindow.zip
     /// </summary>
     internal static class WindowSizing
     {
+        /// <summary>
+        /// Determines the default monitor for a window whos taskbar is to be taken into account.
+        /// (tasbars can be configured to dock different on multiple displays).
+        /// </summary>
         const int MONITOR_DEFAULTTONEAREST = 0x00000002;
 
         #region DLLImports

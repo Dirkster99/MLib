@@ -17,7 +17,7 @@
     using System.Windows.Media.Animation;
 
     /// <summary>
-    /// The <seealso cref="MetroWindow"/> class is a CustonControl that inherites from Window.
+    /// The <seealso cref="MetroWindow"/> class is a CustonControl that inherits from Window.
     /// 
     /// Remarks:
     /// CustomControl Window is based on this source:
@@ -70,16 +70,25 @@
         #endregion ctor
 
         #region properties
+        /// <summary>
+        /// Gets the overlay box that is used to display modal dialogs inside the main window.
+        /// </summary>
         public Grid OverlayBox
         {
             get { return _OverlayBox; }
         }
 
+        /// <summary>
+        /// Gets a collection of Active modal dialogs that are displayed inside the main window.
+        /// </summary>
         public Grid MetroActiveDialogContainer
         {
             get { return _MetroActiveDialogContainer; }
         }
 
+        /// <summary>
+        /// Gets a collection of InActive modal dialogs that can be displayed inside the main window.
+        /// </summary>
         public Grid MetroInactiveDialogContainer
         {
             get { return _MetroInactiveDialogContainer; }
@@ -262,6 +271,9 @@
         #region IsWindowDraggable
         private static readonly DependencyProperty IsWindowDraggableProperty = DependencyProperty.Register("IsWindowDraggable", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
 
+        /// <summary>
+        /// Get/sets whether an external window can be dragged off the initial position or not.
+        /// </summary>
         public bool IsWindowDraggable
         {
             get { return (bool)GetValue(IsWindowDraggableProperty); }
@@ -301,6 +313,9 @@
         #endregion properties
 
         #region methodes
+        /// <summary>
+        /// Standard method that is invoked by the WPF framework upon initializing the registered XAML.
+        /// </summary>
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -414,14 +429,20 @@
             return tcs.Task;
         }
 
+        /// <summary>
+        /// Gets whether the OverlayBox is currently visible or not.
+        /// </summary>
         public bool IsOverlayVisible()
         {
             if (_OverlayBox == null)
-                throw new InvalidOperationException("OverlayBox can not be founded in this MetroWindow's template. Are you calling this before the window has loaded?");
+                throw new InvalidOperationException("OverlayBox can not be found in this MetroWindow's template. Are you calling this before the window has loaded?");
 
             return _OverlayBox.Visibility == Visibility.Visible && _OverlayBox.Opacity >= 0.7;
         }
 
+        /// <summary>
+        /// Ensure visibility of the OverlayBox.
+        /// </summary>
         public void ShowOverlay()
         {
             _OverlayBox.Visibility = Visibility.Visible;
@@ -432,6 +453,9 @@
                 IsContentDialogVisible = true;
         }
 
+        /// <summary>
+        /// Ensure non-visibility of the OverlayBox.
+        /// </summary>
         public void HideOverlay()
         {
             //overlayBox.Opacity = 0.0;
@@ -444,6 +468,7 @@
 
         /// <summary>
         /// Stores the given element, or the last focused element via FocusManager, for restoring the focus after closing a dialog.
+        /// See also RestoreFocus, ResetStoredFocus method.
         /// </summary>
         /// <param name="thisElement">The element which will be focused again.</param>
         public void StoreFocus(IInputElement thisElement = null) // [CanBeNull] 
@@ -454,6 +479,10 @@
             }));
         }
 
+        /// <summary>
+        /// Restores a previously saved keyboard focus back to the last focused element.
+        /// See also StoreFocus, ResetStoredFocus method.
+        /// </summary>
         public void RestoreFocus()
         {
             if (_RestoreFocus != null)
@@ -468,6 +497,7 @@
 
         /// <summary>
         /// Clears the stored element which would get the focus after closing a dialog.
+        /// See also StoreFocus, RestoreFocus method.
         /// </summary>
         public void ResetStoredFocus()
         {
@@ -475,9 +505,13 @@
         }
         #endregion Overlay Methods
 
+        /// <summary>
+        /// Gets a task object for the currently active content dialog.
+        /// </summary>
         public Task<TDialog> GetCurrentDialogAsync<TDialog>() where TDialog : IBaseMetroDialogFrame
         {
             this.Dispatcher.VerifyAccess();
+
             var t = new TaskCompletionSource<TDialog>();
             this.Dispatcher.Invoke((Action)(() =>
             {
@@ -535,6 +569,10 @@
             return GetTemplateChild(name);
         }
 
+        /// <summary>
+        /// Raises the System.Windows.Window.Closing event.
+        /// </summary>
+        /// <param name="e">A System.ComponentModel.CancelEventArgs that contains the event data.</param>
         protected override void OnClosing(CancelEventArgs e)
         {
             // #2409: don't close window if there is a dialog still open
@@ -542,6 +580,9 @@
             base.OnClosing(e);
         }
 
+        /// <summary>
+        /// Gets a handle that is required to send Win32 messages to the underlying window.
+        /// </summary>
         protected IntPtr CriticalHandle
         {
             get
@@ -634,7 +675,7 @@
             var criticalHandle = window.CriticalHandle;
             // DragMove works too
             // window.DragMove();
-            // instead this 2 lines
+            // instead these 2 lines
             NativeMethods.SendMessage(criticalHandle, WM.SYSCOMMAND, (IntPtr)SC.MOUSEMOVE, IntPtr.Zero);
             NativeMethods.SendMessage(criticalHandle, WM.LBUTTONUP, IntPtr.Zero, IntPtr.Zero);
         }

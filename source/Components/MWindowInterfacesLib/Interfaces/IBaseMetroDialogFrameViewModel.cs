@@ -5,7 +5,7 @@
     /// <summary>
     /// Defines the base interface items that should be implemented by any
     /// viewmodel that supports a content dialog of any type. This type of
-    /// viewmodel can return a <seealso cref="TResult"/> to give a callers
+    /// viewmodel can return a TResult to give a callers
     /// more details than just true/false for Cancel or OK.
     /// </summary>
     /// <typeparam name="TResult"></typeparam>

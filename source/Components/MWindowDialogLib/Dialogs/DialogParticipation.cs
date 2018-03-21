@@ -15,12 +15,14 @@
     public static class DialogParticipation
     {
         #region Register dependency property
+        /// <summary>
+        /// Gets the backing store field of the attachable Register property.
+        /// </summary>
         public static readonly DependencyProperty RegisterProperty = DependencyProperty.RegisterAttached(
             "Register",
             typeof(object),
             typeof(DialogParticipation),
             new PropertyMetadata(default(object), RegisterPropertyChangedCallback));
-
 
         /// <summary>
         /// Register the associated object (typically a bound viewmodel) with
@@ -39,7 +41,7 @@
         /// as parameter.
         /// </summary>
         /// <param name="element"></param>
-        /// <param name="context"></param>
+        /// <returns></returns>
         public static object GetRegister(DependencyObject element)
         {
             return element.GetValue(RegisterProperty);

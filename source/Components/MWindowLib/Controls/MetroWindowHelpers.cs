@@ -54,12 +54,12 @@
             }
         }
 
-        /// <summary>
-        /// Adapts the WindowCommands to the theme of the first opened, topmost &amp;&amp; (top || right || left) flyout
-        /// </summary>
-        /// <param name="window">The MetroWindow</param>
-        /// <param name="flyouts">All the flyouts! Or flyouts that fall into the category described in the summary.</param>
-        /// <param name="resetBrush">An optional brush to reset the window commands brush to.</param>
+        //// <summary>
+        //// Adapts the WindowCommands to the theme of the first opened, topmost &amp;&amp; (top || right || left) flyout
+        //// </summary>
+        //// <param name="window">The MetroWindow</param>
+        //// <param name="flyouts">All the flyouts! Or flyouts that fall into the category described in the summary.</param>
+        //// <param name="resetBrush">An optional brush to reset the window commands brush to.</param>
         ////        public static void HandleWindowCommandsForFlyouts(this MetroWindow window, IEnumerable<Flyout> flyouts, Brush resetBrush = null)
         ////        {
         ////            var allOpenFlyouts = flyouts.Where(x => x.IsOpen);

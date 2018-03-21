@@ -15,6 +15,9 @@
     public partial class MsgBoxDialog : DialogFrame, IMsgBoxDialogFrame<MsgBoxResult>
     {
         #region constructors
+        /// <summary>
+        /// Class constructor.
+        /// </summary>
         public MsgBoxDialog()
             : base()
         {
@@ -24,6 +27,10 @@
             this.Loaded += MsgBoxDialog_Loaded;
         }
 
+        /// <summary>
+        /// Class constructor from parameters.
+        /// </summary>
+        /// <param name="parentWindow"></param>
         internal MsgBoxDialog(IMetroWindow parentWindow)
             : this(parentWindow, null)
         {
@@ -33,6 +40,11 @@
             this.Loaded += MsgBoxDialog_Loaded;
         }
 
+        /// <summary>
+        /// Class constructor from parameters.
+        /// </summary>
+        /// <param name="parentWindow"></param>
+        /// <param name="settings"></param>
         internal MsgBoxDialog(IMetroWindow parentWindow
                             , IMetroDialogFrameSettings settings)
             : base(parentWindow, settings)
@@ -69,9 +81,13 @@
         }
         #endregion constructors
 
+        /// <summary>
+        /// Gets the dialog's thumb that is used to drag the dialog around
+        /// when the user drags it.
+        /// </summary>
         public Thumb DialogThumb { get; protected set; }
 
-        #region nethods
+        #region methods
         /// <summary>
         /// Keeps the dialog open until a user or process has signalled
         /// that we can close this with a result...
@@ -193,6 +209,6 @@
 
             }));
         }
-        #endregion nethods
+        #endregion methods
     }
 }

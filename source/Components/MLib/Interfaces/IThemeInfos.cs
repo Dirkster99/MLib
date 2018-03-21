@@ -19,22 +19,20 @@
         /// Retrieve an existing theme entry by its Uri source.
         /// Returns null if theme is not present.
         /// </summary>
-        /// <param name="source"></param>
+        /// <param name="name"></param>
         /// <returns></returns>
         IThemeInfo GetThemeInfo(string name);
 
         /// <summary>
         /// Remove an existing theme entry by its Uri source.
         /// </summary>
-        /// <param name="source"></param>
+        /// <param name="name"></param>
         /// <returns></returns>
         IThemeInfo RemoveThemeInfo(string name);
 
         /// <summary>
         /// Remove all existing theme entries.
         /// </summary>
-        /// <param name="source"></param>
-        /// <returns></returns>
         void RemoveAllThemeInfos();
 
         /// <summary>

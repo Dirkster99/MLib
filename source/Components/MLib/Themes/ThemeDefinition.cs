@@ -3,26 +3,27 @@
     using System.Collections.Generic;
 
     /// <summary>
-    /// Defines a theme by its name, source etc...
+    /// Defines a theme by its name and a list of sources
+    /// stated as Uri formatted strings.
     /// </summary>
     public class ThemeDefinition
     {
+        /// <summary>
+        /// Parameterized constructor.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="sources"></param>
+        public ThemeDefinition(string name, List<string> sources)
+        {
+            this.Name = (name != null ? name : string.Empty);
+            this.Sources = (sources != null ? new List<string>(sources) : new List<string>());
+        }
+
         /// <summary>
         /// Hidden standard constructor.
         /// </summary>
         private ThemeDefinition()
         {
-        }
-
-        /// <summary>
-        /// Parameterized constructor.
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="source"></param>
-        public ThemeDefinition(string name, List<string> sources)
-        {
-            this.Name = (name != null ? name : string.Empty);
-            this.Sources = (sources != null ? new List<string>(sources) : new List<string>());
         }
 
         /// <summary>

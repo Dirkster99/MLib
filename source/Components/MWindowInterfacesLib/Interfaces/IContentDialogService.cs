@@ -14,8 +14,8 @@
         /// a dialog from this service.
         /// 
         /// The message box service methodes take care of this property, automatically,
-        /// the methodes in all other services, <seealso cref="DialogManager"/> and
-        /// <seealso cref="DialogCoordinator"/> should be invoked with this property
+        /// the methodes in all other services, DialogManager and
+        /// DialogCoordinator should be invoked with this property
         /// as parameter (or will be invoked with default settings).
         /// </summary>
         IMetroDialogFrameSettings DialogSettings { get; }

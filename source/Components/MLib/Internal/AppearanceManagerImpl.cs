@@ -90,7 +90,6 @@
         /// <summary>
         /// Returns the default theme for the application
         /// </summary>
-        /// <param name="Themes"></param>
         /// <returns></returns>
         public IThemeInfo GetDefaultTheme()
         {

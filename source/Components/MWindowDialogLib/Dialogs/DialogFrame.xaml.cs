@@ -11,8 +11,8 @@
     /// <summary>
     /// The base class for dialogs.
     ///
-    /// You probably don't want to use this class, if you want to add arbitrary content to your dialog,
-    /// use the <see cref="CustomDialog2"/> class.
+    /// You probably don't want to use this class, if you want to add arbitrary content
+    /// to your dialog, use the CustomDialog class.
     /// </summary>
     public partial class DialogFrame : UserControl, IBaseMetroDialogFrame
     {
@@ -89,8 +89,10 @@
 
         #region DialogCanCloseViaChrome
         /// <summary>
+        /// Gets/Sets the DialogCanCloseViaChrome dependency property.
+        ///
         /// Bind this property between view and viemodel to have the viewmodel tell
-        /// the view whether it OK to close without picking a choice (eg. yes) or not.
+        /// the view whether it is OK to close without picking a choice (eg. yes) or not.
         /// </summary>
         public bool DialogCanCloseViaChrome
         {
@@ -98,6 +100,12 @@
             set { SetValue(DialogCanCloseViaChromeProperty, value); }
         }
 
+        /// <summary>
+        /// Backing store field of the DialogCanCloseViaChrome dependency property.
+        ///
+        /// Bind this property between view and viemodel to have the viewmodel tell
+        /// the view whether it is OK to close without picking a choice (eg. yes) or not.
+        /// </summary>
         public static readonly DependencyProperty DialogCanCloseViaChromeProperty =
             DependencyProperty.Register("DialogCanCloseViaChrome"
                 , typeof(bool)
@@ -116,6 +124,12 @@
             set { SetValue(DialogCloseResultProperty, value); }
         }
 
+        /// <summary>
+        /// Backing store field of the DialogCloseResult dependency property.
+        ///
+        /// Bind this property between view and viemodel to have the viewmodel tell
+        /// the view that it is time to disappear (eg. user has clicked a choice button).
+        /// </summary>
         public static readonly DependencyProperty DialogCloseResultProperty =
             DependencyProperty.Register("DialogCloseResult"
                 , typeof(bool?)
@@ -148,7 +162,7 @@
 
         #region Title
         /// <summary>
-        /// Gets/sets the dialog's title.
+        /// Gets/sets the dialog's title dependency property.
         /// </summary>
         public string Title
         {
@@ -156,6 +170,9 @@
             set { SetValue(TitleProperty, value); }
         }
 
+        /// <summary>
+        /// Gets/sets the dialog's title dependency property.
+        /// </summary>
         public static readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(DialogFrame), new PropertyMetadata(default(string)));
         #endregion Title
 
@@ -224,6 +241,10 @@
             return tcs.Task;
         }
 
+        /// <summary>
+        /// Waits until a dialog is closed.
+        /// </summary>
+        /// <returns></returns>
         public Task _WaitForCloseAsync()
         {
             TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
@@ -281,8 +302,16 @@
             // nothing here
         }
 
+        /// <summary>
+        /// Method can be customized to handle dialog specific code that should
+        /// run when the dialog is displayed.
+        /// </summary>
         public virtual void OnShown() { }
 
+        /// <summary>
+        /// Method can be customized to handle dialog specific code that should
+        /// run when the dialog is removed from the display.
+        /// </summary>
         public virtual void OnClose()
         {
             // this is only set when a dialog is shown (externally) in it's OWN window.

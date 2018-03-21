@@ -22,10 +22,16 @@
         /// </summary>
         List<Uri> ThemeSources { get; }
 
+        /// <summary>
+        /// Gets the current accent color.
+        /// </summary>
         Color AccentColor { get; }
         #endregion properties
 
         #region events
+        /// <summary>
+        /// This event is invoked when the current accent color was changed to a different accent color.
+        /// </summary>
         event ColorChangedEventHandler AccentColorChanged;
         #endregion events
 
@@ -33,7 +39,6 @@
         /// <summary>
         /// Returns the default theme for the application
         /// </summary>
-        /// <param name="Themes"></param>
         /// <returns></returns>
         IThemeInfo GetDefaultTheme();
 
