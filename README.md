@@ -27,7 +27,7 @@ The above setup with **MWindowDialogLib** includes the libraries for **MWindowLi
 - [![NuGet](https://img.shields.io/nuget/dt/Dirkster.MWindowDialogLib.svg)](http://nuget.org/packages/Dirkster.MWindowDialogLib) MWindowDialogLib
 
 # Demo/Template Projects
-- [![Build status](https://ci.appveyor.com/api/projects/status/4bjtkyk7eqlor0su?svg=true)](https://ci.appveyor.com/project/Dirkster99/mlib-hq656)
+- [![Build status](https://ci.appveyor.com/api/projects/status/4bjtkyk7eqlor0su?svg=true)](https://ci.appveyor.com/project/Dirkster99/mlib-hq656) source/00_DemoTemplates\ThemedDemo.sln
 
 # Supported OS
 
