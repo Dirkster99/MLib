@@ -142,8 +142,29 @@
                 new Uri("/Mlib;component/Themes/LightTheme.xaml", UriKind.RelativeOrAbsolute)
             });
 
-            _defaultTheme = themes.GetThemeInfo("Dark");
+            SetDefaultTheme(themes, "Dark");
         }
+
+        /// <summary>
+        /// This function assumes that themes and their resources have
+        /// been added, previously.
+        /// 
+        /// Use this method to define a default theme which can always be
+        /// used as a backup whenever a certain theme is not defined etc...
+        /// </summary>
+        /// <param name="Themes"></param>
+        /// <param name="defaultThemeName"></param>
+        public void SetDefaultTheme(IThemeInfos Themes
+                            , string defaultThemeName)
+        {
+            var theme = Themes.GetThemeInfo(defaultThemeName);
+
+            if (theme == null)
+                throw new System.ArgumentOutOfRangeException(defaultThemeName);
+
+            _defaultTheme = theme;
+        }
+
 
         /// <summary>
         /// Adds more resource files into the standard themes available

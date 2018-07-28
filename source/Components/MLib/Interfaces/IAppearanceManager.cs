@@ -83,6 +83,18 @@
                                 , IThemeInfos themes);
 
         /// <summary>
+        /// This function assumes that themes and their resources have
+        /// been added, previously.
+        /// 
+        /// Use this method to define a default theme which can always be
+        /// used as a backup whenever a certain theme is not defined etc...
+        /// </summary>
+        /// <param name="Themes"></param>
+        /// <param name="defaultThemeName"></param>
+        void SetDefaultTheme(IThemeInfos Themes
+                           , string defaultThemeName);
+
+        /// <summary>
         /// Creates a new instance of an object that adheres to the
         /// <see cref="IThemeInfos"/> interface.
         /// </summary>
