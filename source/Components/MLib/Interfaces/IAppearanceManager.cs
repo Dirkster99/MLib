@@ -62,9 +62,14 @@
 
         /// <summary>
         /// Resets the standard themes available through the theme settings interface.
+        /// Method Adds Dark and Light theme infos from MLib - calling applications can
+        /// use the AddThemeResources() method to add more resources.
         /// </summary>
-        /// <param name="Themes"></param>
-        void SetDefaultThemes(IThemeInfos Themes);
+        /// <param name="themes">Collection of themeinfos in which Dark and Light themes
+        /// with MLib resources should be added.</param>
+        /// <param name="removeAllThemeInfos">Determines whether existing collection
+        /// of themeinfos is removed before addinng Dark and Light themes.</param>
+        void SetDefaultThemes(IThemeInfos themes, bool removeAllThemeInfos = true);
 
         /// <summary>
         /// Adds more resource files into the standard themes available

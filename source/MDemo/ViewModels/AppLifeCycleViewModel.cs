@@ -6,6 +6,7 @@
     using Settings.UserProfile;
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Globalization;
     using System.Windows.Input;
 
@@ -122,8 +123,30 @@
         {
             try
             {
-                // Add default themings for Dark and Light
-                appearance.SetDefaultThemes(settings.Themes);
+                try
+                {
+                    settings.Themes.RemoveAllThemeInfos();
+                    settings.Themes.AddThemeInfo("Generic", new List<Uri>{});
+
+                    // Add default MLib themings for Dark and Light
+                    appearance.SetDefaultThemes(settings.Themes, false);
+
+                    // Adding Generic theme (which is really based on Light theme in MLib)
+                    // but other components may have another theme definition for Generic
+                    // so this is how it can be tested ...
+                    appearance.AddThemeResources("Generic", new List<Uri>
+                    {
+                        new Uri("/MLib;component/Themes/Generic.xaml", UriKind.RelativeOrAbsolute)
+                       ,new Uri("/MWindowLib;component/Themes/Generic.xaml", UriKind.RelativeOrAbsolute)
+                       ,new Uri("/MWindowDialogLib;component/Themes/Generic.xaml", UriKind.RelativeOrAbsolute)
+                       ,new Uri("/BindToMLib;component/LightBrushs.xaml", UriKind.RelativeOrAbsolute)
+
+                    }, settings.Themes);
+                }
+                catch (Exception exp)
+                {
+                    Debug.WriteLine(exp);
+                }
 
                 // Add additional Dark and Light resources to those theme resources added above
                 appearance.AddThemeResources("Dark", new List<Uri>

@@ -16,7 +16,7 @@
     public class AppViewModel : Base.ViewModelBase, IDisposable
     {
         #region private fields
-        private bool mDisposed = false;
+        private bool _Disposed = false;
         private AppLifeCycleViewModel _AppLifeCycle = null;
 
         private bool _isInitialized = false;       // application should be initialized through one method ONLY!
@@ -74,7 +74,7 @@
                 {
                     _ThemeSelectionChangedCommand = new RelayCommand<object>((p) =>
                     {
-                        if (this.mDisposed == true)
+                        if (this._Disposed == true)
                             return;
 
                         object[] paramets = p as object[];
@@ -100,11 +100,13 @@
                         if (Application.Current.MainWindow == null)
                             return;
 
+                        // Theme selection has not changed so lets ignore this one
+                        if (theme.IsSelected == true)
+                            return;
+
                         if (theme != null)
-                        {
                             _AppTheme.ApplyTheme(Application.Current.MainWindow,
                                                  theme.Model.Name);
-                        }
                     });
                 }
 
@@ -229,7 +231,7 @@
         /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing)
         {
-            if (mDisposed == false)
+            if (_Disposed == false)
             {
                 if (disposing == true)
                 {
@@ -241,7 +243,7 @@
                 // if we add them, they need to be released here.
             }
 
-            mDisposed = true;
+            _Disposed = true;
 
             //// If it is available, make the call to the
             //// base class's Dispose(Boolean) method

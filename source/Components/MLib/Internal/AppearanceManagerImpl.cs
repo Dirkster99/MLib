@@ -118,11 +118,18 @@
 
         /// <summary>
         /// Resets the standard themes available through the theme settings interface.
+        /// Method Adds Dark and Light theme infos from MLib - calling applications can
+        /// use the AddThemeResources() method to add more resources.
         /// </summary>
-        /// <param name="themes"></param>
-        public void SetDefaultThemes(IThemeInfos themes)
+        /// <param name="themes">Collection of themeinfos in which Dark and Light themes
+        /// with MLib resources should be added.</param>
+        /// <param name="removeAllThemeInfos">Determines whether existing collection
+        /// of themeinfos is removed before addinng Dark and Light themes.</param>
+        public void SetDefaultThemes(IThemeInfos themes,
+                                     bool removeAllThemeInfos = true)
         {
-            themes.RemoveAllThemeInfos();
+            if (removeAllThemeInfos == true)
+                themes.RemoveAllThemeInfos();
 
             // Add theming models
             themes.AddThemeInfo("Dark", new List<Uri>
@@ -220,14 +227,6 @@
             {}
         }
 
-        private ResourceDictionary GetThemeDictionary()
-        {
-            // determine the current theme by looking at the app resources and return the first dictionary having the resource key 'WindowBackground' defined.
-            return (from dict in Application.Current.Resources.MergedDictionaries
-                    where dict.Contains("WindowBackground")
-                    select dict).FirstOrDefault();
-        }
-
         /// <summary>
         /// Is invoked whenever the application theme is changed
         /// and a new Accent Color is applied.
@@ -242,10 +241,7 @@
             if (sources == null)
                 throw new ArgumentNullException("source");
 
-            // TODO XXX This needs adjustment to remove everything that was previously added
-            //          and replace everything that was alredy there with same name ???
-            var oldThemeDict = GetThemeDictionary();
-            var dictionaries = Application.Current.Resources.MergedDictionaries;
+            Application.Current.Resources.Clear();
 
             foreach (var item in sources)
             {
@@ -254,7 +250,7 @@
                     var themeDict = new ResourceDictionary { Source = item };
 
                     // add new before removing old theme to avoid dynamicresource not found warnings
-                    dictionaries.Add(themeDict);
+                    Application.Current.Resources.MergedDictionaries.Add(themeDict);
                 }
                 catch (Exception exp)
                 {
@@ -264,10 +260,6 @@
             }
 
             SetAccentColor(accentColor);
-
-            // remove old theme
-            if (oldThemeDict != null)
-                dictionaries.Remove(oldThemeDict);
         }
         #endregion methods
     }
