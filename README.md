@@ -14,7 +14,11 @@ This set of theming libraries is used to power several Windows dektop app projec
 All styles are available with a Light and Dark theme.
 
 The framework supports a dialog service that supports ContentDialogs and Modal Dialogs using one seemless API:
-https://www.codeproject.com/Articles/1170500/A-ContentDialog-in-a-WPF-Desktop-Application
+- <a href="https://www.codeproject.com/Articles/1170500/A-ContentDialog-in-a-WPF-Desktop-Application">A ContentDialog in a WPF Application</a>
+
+Review this article and give feedback on designing WPF controls for <b>more than one</b> specific theming library:
+- <a href="File System Controls in WPF (Version III)">File System Controls in WPF (Version III)</a>
+
 
 # Nuget Packages
 
