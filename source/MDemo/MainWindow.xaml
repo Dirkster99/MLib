@@ -18,6 +18,10 @@
         Dialog:DialogParticipation.Register="{Binding Demo}"
         Name="SamplesMainWindow"
         >
+    <MWindow:MetroWindow.InputBindings>
+        <KeyBinding Key="I" Modifiers="Ctrl" Command="{Binding Demo.ShowInputDialogCommand}"/>
+        <KeyBinding Key="L" Modifiers="Ctrl" Command="{Binding Demo.ShowLoginDialogCommand}"/>
+    </MWindow:MetroWindow.InputBindings>
     <!-- DialogParticipation is required if DIALOG COORDINATOR is used! -->
     <ScrollViewer>
 
@@ -106,8 +110,8 @@
 
                         <!-- MenuItem Click="ShowDialogOutside" Header="Show CustomDialog Externally" / -->
                         <Separator />
-                        <MenuItem Command="{Binding Demo.ShowInputDialogCommand}" Header="Show InputDialog via VM" />
-                        <MenuItem Command="{Binding Demo.ShowLoginDialogCommand}" Header="Show LoginDialog via VM ..." />
+                        <MenuItem Command="{Binding Demo.ShowInputDialogCommand}" Header="Show InputDialog via VM" InputGestureText="Ctrl + I" />
+                        <MenuItem Command="{Binding Demo.ShowLoginDialogCommand}" Header="Show LoginDialog via VM ..." InputGestureText="Ctrl + L" />
 
                         <!-- Show dialogs via bound viewmodel code -->
                         <MenuItem Header="Show MessageDialog via VM">

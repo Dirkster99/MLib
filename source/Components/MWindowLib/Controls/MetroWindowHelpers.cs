@@ -20,14 +20,19 @@
         /// <param name="window">The MetroWindow.</param>
         /// <param name="name">The name of the template child.</param>
         /// <param name="hitTestVisible"></param>
-        public static void SetIsHitTestVisibleInChromeProperty<T>(this MetroWindow window, string name, bool hitTestVisible = true) where T : class
+        public static void SetIsHitTestVisibleInChromeProperty<T>(
+            this MetroWindow window,
+            string name,
+            bool hitTestVisible = true) where T : class
         {
             if (window == null)
             {
                 throw new ArgumentNullException(nameof(window));
             }
+
             var inputElement = window.GetPart<T>(name) as IInputElement;
             Debug.Assert(inputElement != null, $"{name} is not a IInputElement");
+
             if (WindowChrome.GetIsHitTestVisibleInChrome(inputElement) != hitTestVisible)
             {
                 WindowChrome.SetIsHitTestVisibleInChrome(inputElement, hitTestVisible);

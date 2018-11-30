@@ -314,6 +314,7 @@
                 <WindowChrome CornerRadius="0" GlassFrameThickness="1" UseAeroCaptionButtons="False" />
             </Setter.Value>
         </Setter>
+        <Setter Property="Focusable" Value="True"/>
     </Style>
 
 </ResourceDictionary>
