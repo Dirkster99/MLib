@@ -4,8 +4,20 @@
                     xmlns:reskeys="clr-namespace:MLib.Themes"
                     >
 
+    <!-- Colors the standard ProgressBar which can be used whenever the Infinite Metro Style is not wanted -->
+    <Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type reskeys:ResourceKeys},
+                   ResourceId=ProgressStyleKey}"
+           TargetType="ProgressBar"
+           >
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentBrushKey}}" />
+        <Setter Property="Background" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ProgressBackgroundBrushKey}}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlInputBorderKey}}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+
     <!-- Source: First Floor Modern UI -->
-    <Style x:Key="MetroProgressBar" TargetType="ProgressBar">
+    <Style x:Key="MetroProgressBar" TargetType="ProgressBar"
+           BasedOn="{StaticResource {x:Type ProgressBar}}">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentBrushKey}}" />
         <Setter Property="Background" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ProgressBackgroundBrushKey}}" />
         <Setter Property="BorderThickness"
@@ -141,6 +153,7 @@
 
     </Style>
 
-    <Style BasedOn="{StaticResource MetroProgressBar}" TargetType="ProgressBar" />
+    <Style x:Key="{x:Type ProgressBar}"
+           BasedOn="{StaticResource MetroProgressBar}" TargetType="ProgressBar" />
 
 </ResourceDictionary>

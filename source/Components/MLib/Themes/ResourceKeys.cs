@@ -665,5 +665,16 @@ namespace MLib.Themes
         /// </summary>
         public static readonly ComponentResourceKey ToolBarTrayBackground = new ComponentResourceKey(typeof(ResourceKeys), "ToolBarTrayBackground");
         #endregion Toolbar Colors
-  }
+
+        #region ProgressBar
+        /// <summary>
+        /// MLib has 2 ways of enabling Metro ProgressBars (Infinit ProgressBar with 4 dots sliding through)
+        /// A MetroProgressBar control lives in <see cref="MLib.Controls.Metro.MetroProgressBar"/>
+        /// and the other one is activated by default.
+        /// 
+        /// A non-metro progress bar with a moving rectangle only can be activated with this style key.
+        /// </summary>
+        public static readonly ComponentResourceKey ProgressStyleKey = new ComponentResourceKey(typeof(ResourceKeys), "ProgressStyleKey");
+        #endregion ProgressBar
+    }
 }
