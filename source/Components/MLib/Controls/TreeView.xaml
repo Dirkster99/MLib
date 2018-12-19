@@ -164,7 +164,7 @@
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
                                 <Setter TargetName="Bd" Property="Background" Value="{DynamicResource {x:Static reskeys:ResourceKeys.Gray7BrushKey}}" />
-                                <!-- Setter Property="Foreground" Value="{DynamicResource AccentSelectedColorBrush}" / -->
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentBrushKey}}" />
                             </MultiTrigger.Setters>
                         </MultiTrigger>
                         <MultiTrigger>
@@ -179,7 +179,7 @@
                                 <Condition Property="IsSelected" Value="True" />    <!-- Selected Item has no focus -->
                                 <Condition Property="IsSelectionActive" Value="False" />
                             </MultiTrigger.Conditions>
-                            <Setter Property="Foreground" Value="{DynamicResource AccentSelectedColorBrush}" />
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentBrushKey}}" />
                             <Setter TargetName="Bd" Property="Background" Value="{DynamicResource {x:Static reskeys:ResourceKeys.ControlItemUnfocusedBackgroundSelectedKey}}" />
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
