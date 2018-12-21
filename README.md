@@ -24,7 +24,7 @@ Review this article and give feedback on designing WPF controls for <b>more than
 
 # Nuget Packages
 
-There is more than one NuGet package available bacause not all theming features are impemented in one solid big library but within a set of libraries. So, what you actually downlod and install depends on what you need. But most people are going to want to style an applaiction window and its containing controls, which can be done by downloading and installing **MLib** with **MWindowLib**. Install **MLib** with **MWindowDialogLib** if you are planning to implement <a href="https://www.codeproject.com/Articles/1170500/A-ContentDialog-in-a-WPF-Desktop-Application">ContentDialogs</a> in your application.
+There is more than one NuGet package available, because not all theming features are impemented in one solid big library, but within a set of libraries. So, what you actually downlod and install depends on what you need. But most people are going to want to style an application window and its containing controls, which can be done by downloading and installing **MLib** with **MWindowLib**. Install **MLib** with **MWindowDialogLib**, if you are planning to implement <a href="https://www.codeproject.com/Articles/1170500/A-ContentDialog-in-a-WPF-Desktop-Application">ContentDialogs</a> in your application.
 
 The above setup with **MWindowDialogLib** includes the libraries for **MWindowLib**, so either one of the 2 deployment scenarios mentioned above, should work for most situations.
 
