@@ -97,7 +97,7 @@
         }
 
         /// <summary>
-        /// Set the current theme as a selection of the settings service peroperties.
+        /// Set the current theme as a selection of the settings service properties.
         /// </summary>
         /// <param name="Themes">Collections of themes to select the new theme from.</param>
         /// <param name="themeName">Name od the theme to be set (e.g.: Dark, Light)</param>

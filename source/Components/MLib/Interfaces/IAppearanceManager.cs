@@ -43,7 +43,7 @@
         IThemeInfo GetDefaultTheme();
 
         /// <summary>
-        /// Set the current them as a selection of the settings service peroperties
+        /// Set the current them as a selection of the settings service properties
         /// along with the given accentcolor.
         /// </summary>
         /// <param name="Themes">Collections of themes to select the new theme from.</param>
