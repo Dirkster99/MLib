@@ -109,7 +109,6 @@
     <Compile Include="Controls\ContentControlEx.cs" />
     <Compile Include="Themes\MenuKeys.cs" />
     <Compile Include="Themes\ResourceKeys.cs" />
-    <Compile Include="Themes\ThemeDefinition.cs" />
     <Compile Include="Util\PasswordBoxHelper.cs" />
     <Compile Include="Util\TransitioningContentControl.cs" />
     <Page Include="Controls\Button.xaml">
@@ -267,7 +266,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="MLib_ClassDiagram.cd" />
+    <None Include="MLibClasses.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

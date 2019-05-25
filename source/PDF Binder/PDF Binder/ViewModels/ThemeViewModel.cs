@@ -1,7 +1,6 @@
 ﻿namespace PDF_Binder.ViewModels
 {
     using MLib.Interfaces;
-    using MLib.Themes;
     using Settings.Interfaces;
     using System.Collections.Generic;
     using System.Linq;
@@ -14,9 +13,9 @@
     public class ThemeViewModel : Base.ViewModelBase
     {
         #region private fields
-        private readonly ThemeDefinition  _DefaultTheme = null;
-        private Dictionary<string, ThemeDefinition> _ListOfThemes = null;
-        private ThemeDefinition _SelectedTheme = null;
+        private readonly IThemeInfo _DefaultTheme = null;
+        private Dictionary<string, IThemeInfo> _ListOfThemes = null;
+        private IThemeInfo _SelectedTheme = null;
         private bool _IsEnabled = true;
         #endregion private fields
 
@@ -28,7 +27,7 @@
         {
             var settings = GetService<ISettingsManager>(); // add the default themes
 
-            _ListOfThemes = new Dictionary<string, ThemeDefinition>();
+            _ListOfThemes = new Dictionary<string, IThemeInfo>();
 
             foreach (var item in settings.Themes.GetThemeInfos())
             {
@@ -36,7 +35,7 @@
                 foreach (var subitem in item.ThemeSources)
                     list.Add(subitem.ToString());
 
-                _ListOfThemes.Add(item.DisplayName, new ThemeDefinition(item.DisplayName, list));
+                _ListOfThemes.Add(item.DisplayName, item);
             }
 
             // Lets make sure there is a default
@@ -51,7 +50,7 @@
         /// <summary>
         /// Returns a default theme that should be applied when nothing else is available.
         /// </summary>
-        public ThemeDefinition DefaultTheme
+        public IThemeInfo DefaultTheme
         {
             get
             {
@@ -62,7 +61,7 @@
         /// <summary>
         /// Returns a list of theme definitons.
         /// </summary>
-        public List<ThemeDefinition> ListOfThemes
+        public List<IThemeInfo> ListOfThemes
         {
             get
             {
@@ -73,7 +72,7 @@
         /// <summary>
         /// Gets the currently selected theme (or desfault on applaiction start-up)
         /// </summary>
-        public ThemeDefinition SelectedTheme
+        public IThemeInfo SelectedTheme
         {
             get
             {
@@ -129,7 +128,7 @@
                     Color AccentColor = ThemeViewModel.GetCurrentAccentColor(settings);
                     GetService<IAppearanceManager>().SetTheme(settings.Themes, themeName, AccentColor);
 
-                    ThemeDefinition o;
+                    IThemeInfo o;
                     _ListOfThemes.TryGetValue(themeName, out o);
                     SelectedTheme = o;
                 }

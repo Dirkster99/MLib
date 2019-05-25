@@ -19,7 +19,7 @@
         <!-- Dark/Ligh Theme Switch Demo -->
         <StackPanel Margin="3,3,12,3">
             <ComboBox ItemsSource="{Binding AppTheme.ListOfThemes}"
-                      DisplayMemberPath="Name"
+                      DisplayMemberPath="DisplayName"
                       SelectedItem="{Binding AppTheme.SelectedTheme, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
                       behav:SelectionChangedCommand.ChangedCommand="{Binding ThemeSelectionChangedCommand}"
                       IsEnabled="{Binding AppTheme.IsEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"

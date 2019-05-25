@@ -36,8 +36,8 @@
                               >
                         <MenuItem.ItemContainerStyle>
                             <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource MetroMenuItem}">
-                                <Setter Property="Header" Value="{Binding Name, Mode=OneWay}" />
-                                <Setter Property="IsEnabled" Value="{Binding AppTheme.IsEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <Setter Property="Header" Value="{Binding DisplayName, Mode=OneWay}" />
+                                <!--Setter Property="IsEnabled" Value="{Binding AppTheme.IsEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" /-->
                             </Style>
                         </MenuItem.ItemContainerStyle>
                     </MenuItem>

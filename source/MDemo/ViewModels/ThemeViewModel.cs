@@ -36,7 +36,7 @@
                 foreach (var subitem in item.ThemeSources)
                     list.Add(subitem.ToString());
 
-                _ListOfThemes.Add(item.DisplayName, new ThemeDefinitionViewModel(new ThemeDefinition(item.DisplayName, list)));
+                _ListOfThemes.Add(item.DisplayName, new ThemeDefinitionViewModel(item));
             }
 
             // Lets make sure there is a default

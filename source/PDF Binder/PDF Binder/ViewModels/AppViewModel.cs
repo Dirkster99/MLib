@@ -132,7 +132,7 @@
                             if (paramets.Length > 0)
                             {
                                 _AppTheme.ApplyTheme(Application.Current.MainWindow,
-                                                     (paramets[0] as ThemeDefinition).Name);
+                                                     (paramets[0] as IThemeInfo).DisplayName);
                             }
                         }
                     });

@@ -52,7 +52,7 @@
                         <MenuItem Header="Themes"
                                   ItemsSource="{Binding AppTheme.ListOfThemes}"
                                   IsEnabled="{Binding AppTheme.IsEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                  DisplayMemberPath="Model.Name"
+                                  DisplayMemberPath="Model.DisplayName"
                               >
                             <MenuItem.ItemContainerStyle>
                                 <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource {x:Type MenuItem}}">
@@ -143,7 +143,7 @@
                     <StackPanel Grid.Column="0" Margin="3,3,24,3">
                         <TextBlock Text="Themes" />
                         <ComboBox ItemsSource="{Binding AppTheme.ListOfThemes}"
-                                  DisplayMemberPath="Model.Name"
+                                  DisplayMemberPath="Model.DisplayName"
                                   SelectedItem="{Binding AppTheme.SelectedTheme, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
                                   behav:SelectionChangedCommand.ChangedCommand="{Binding ThemeSelectionChangedCommand}"
                                   IsEnabled="{Binding AppTheme.IsEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"

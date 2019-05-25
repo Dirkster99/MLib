@@ -106,7 +106,7 @@
 
                         if (theme != null)
                             _AppTheme.ApplyTheme(Application.Current.MainWindow,
-                                                 theme.Model.Name);
+                                                 theme.Model.DisplayName);
                     });
                 }
 
