@@ -102,7 +102,7 @@
                         if (theme != null)
                         {
                             _AppTheme.ApplyTheme(Application.Current.MainWindow,
-                                                 theme.Model.Name);
+                                                 theme.Model.DisplayName);
                         }
                     });
                 }
@@ -123,7 +123,7 @@
                 if (_AppTheme != value)
                 {
                     _AppTheme = value;
-                    RaisePropertyChanged(() => this.AppTheme);
+                    NotifyPropertyChanged(() => this.AppTheme);
                 }
             }
         }

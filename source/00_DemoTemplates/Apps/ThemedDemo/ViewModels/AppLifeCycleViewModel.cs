@@ -68,7 +68,7 @@
                 if (mDialogCloseResult != value)
                 {
                     mDialogCloseResult = value;
-                    RaisePropertyChanged(() => DialogCloseResult);
+                    NotifyPropertyChanged(() => DialogCloseResult);
                 }
             }
         }

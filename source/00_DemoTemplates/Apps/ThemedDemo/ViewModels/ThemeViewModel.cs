@@ -33,11 +33,7 @@
 
             foreach (var item in settings.Themes.GetThemeInfos())
             {
-                var list = new List<string>();
-                foreach (var subitem in item.ThemeSources)
-                    list.Add(subitem.ToString());
-
-                _ListOfThemes.Add(item.DisplayName, new ThemeDefinitionViewModel(new ThemeDefinition(item.DisplayName, list)));
+                _ListOfThemes.Add(item.DisplayName, new ThemeDefinitionViewModel(item));
             }
 
             // Lets make sure there is a default
@@ -94,7 +90,7 @@
                     if (_SelectedTheme != null)
                         _SelectedTheme.IsSelected = true;
 
-                    this.RaisePropertyChanged(() => this.SelectedTheme);
+                    this.NotifyPropertyChanged(() => this.SelectedTheme);
                 }
             }
         }
@@ -115,7 +111,7 @@
                 if (_IsEnabled != value)
                 {
                     _IsEnabled = value;
-                    RaisePropertyChanged(() => IsEnabled);
+                    NotifyPropertyChanged(() => IsEnabled);
                 }
             }
         }

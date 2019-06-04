@@ -24,7 +24,7 @@
         /// </summary>
         /// <typeparam name="TProperty"></typeparam>
         /// <param name="property"></param>
-        public void RaisePropertyChanged<TProperty>(Expression<Func<TProperty>> property)
+        public void NotifyPropertyChanged<TProperty>(Expression<Func<TProperty>> property)
         {
             var lambda = (LambdaExpression)property;
             MemberExpression memberExpression;
@@ -37,7 +37,7 @@
             else
                 memberExpression = (MemberExpression)lambda.Body;
 
-            this.RaisePropertyChanged(memberExpression.Member.Name);
+            this.NotifyPropertyChanged(memberExpression.Member.Name);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@
         /// Standard implementation through <seealso cref="INotifyPropertyChanged"/>.
         /// </summary>
         /// <param name="propertyName"></param>
-        protected virtual void RaisePropertyChanged(string propertyName)
+        protected virtual void NotifyPropertyChanged(string propertyName)
         {
             if (this.PropertyChanged != null)
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
