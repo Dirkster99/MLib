@@ -9,16 +9,27 @@
     /// </summary>
     internal class ThemeInfos : IThemeInfos
     {
-        Dictionary<string, ThemeInfo> mDic = new Dictionary<string, ThemeInfo>();
+        private Dictionary<string, ThemeInfo> mDic = new Dictionary<string, ThemeInfo>();
 
         /// <summary>
         /// Add another theme entry by its name and Uri source.
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="themeSources"></param>
+        /// <param name="name">The unique (display) name for this theme.</param>
+        /// <param name="themeSources">List of Uri based resources to be loaded for this theme.</param>
         public void AddThemeInfo(string name, List<Uri> themeSources)
         {
             mDic.Add(name, new ThemeInfo(name, themeSources));
+        }
+
+        /// <summary>
+        /// Add another theme entry by its name and Uri source.
+        /// </summary>
+        /// <param name="theme">The <see cref="IThemeInfo"/> based object instance containing
+        /// the unique name definition and collection of Uri based resources to be loaded for
+        /// this theme.</param>
+        public void AddThemeInfo(IThemeInfo theme)
+        {
+            mDic.Add(theme.DisplayName, new ThemeInfo(theme));
         }
 
         /// <summary>

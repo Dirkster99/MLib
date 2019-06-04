@@ -11,9 +11,17 @@
         /// <summary>
         /// Add another theme entry by its name and Uri source.
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="themeSources"></param>
+        /// <param name="name">The unique (display) name for this theme.</param>
+        /// <param name="themeSources">List of Uri based resources to be loaded for this theme.</param>
         void AddThemeInfo(string name, List<Uri> themeSources);
+
+        /// <summary>
+        /// Add another theme entry by its name and Uri source.
+        /// </summary>
+        /// <param name="theme">The <see cref="IThemeInfo"/> based object instance containing
+        /// the unique name definition and collection of Uri based resources to be loaded for
+        /// this theme.</param>
+        void AddThemeInfo(IThemeInfo theme);
 
         /// <summary>
         /// Retrieve an existing theme entry by its Uri source.

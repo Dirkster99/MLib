@@ -29,6 +29,17 @@
         }
 
         /// <summary>
+        /// Copy constructor from <see cref="IThemeInfo"/> parameter.
+        /// </summary>
+        /// <param name="theme"></param>
+        public ThemeInfo(IThemeInfo theme)
+            : this()
+        {
+            this.DisplayName = theme.DisplayName;
+            this.ThemeSources = new List<Uri>(theme.ThemeSources);
+        }
+
+        /// <summary>
         /// Hidden standard constructor
         /// </summary>
         protected ThemeInfo()

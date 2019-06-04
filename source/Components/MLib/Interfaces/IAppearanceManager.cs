@@ -97,9 +97,25 @@
         /// <summary>
         /// Creates a new instance of an object that adheres to the
         /// <see cref="IThemeInfos"/> interface.
+        /// 
+        /// This method can be used to create a new collection of themes
+        /// based on instances of <see cref="IThemeInfo"/> in which each
+        /// instance defines another theme.
         /// </summary>
         /// <returns></returns>
         IThemeInfos CreateThemeInfos();
+
+        /// <summary>
+        /// Creates a new instance of an object that adheres to the
+        /// <see cref="IThemeInfo"/> interface.
+        /// 
+        /// This method can be used to create an additional theme that can be added into a
+        /// <see cref="IThemeInfos"/> colleciton.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="themeSources"></param>
+        /// <returns></returns>
+        IThemeInfo CreateThemeInfo(string name, List<Uri> themeSources);
         #endregion methods
     }
 }
