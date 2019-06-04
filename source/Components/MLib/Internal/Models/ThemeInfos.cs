@@ -9,7 +9,7 @@
     /// </summary>
     internal class ThemeInfos : IThemeInfos
     {
-        private Dictionary<string, ThemeInfo> mDic = new Dictionary<string, ThemeInfo>();
+        private Dictionary<string, IThemeInfo> _Dic = new Dictionary<string, IThemeInfo>();
 
         /// <summary>
         /// Add another theme entry by its name and Uri source.
@@ -18,7 +18,7 @@
         /// <param name="themeSources">List of Uri based resources to be loaded for this theme.</param>
         public void AddThemeInfo(string name, List<Uri> themeSources)
         {
-            mDic.Add(name, new ThemeInfo(name, themeSources));
+            _Dic.Add(name, new ThemeInfo(name, themeSources));
         }
 
         /// <summary>
@@ -29,7 +29,7 @@
         /// this theme.</param>
         public void AddThemeInfo(IThemeInfo theme)
         {
-            mDic.Add(theme.DisplayName, new ThemeInfo(theme));
+            _Dic.Add(theme.DisplayName, theme);
         }
 
         /// <summary>
@@ -40,8 +40,8 @@
         /// <returns></returns>
         public IThemeInfo GetThemeInfo(string name)
         {
-            ThemeInfo ret = null;
-            mDic.TryGetValue(name, out ret);
+            IThemeInfo ret = null;
+            _Dic.TryGetValue(name, out ret);
 
             return ret;
         }
@@ -53,10 +53,10 @@
         /// <returns></returns>
         public IThemeInfo RemoveThemeInfo(string name)
         {
-            ThemeInfo ret = null;
-            if (mDic.TryGetValue(name, out ret) == true)
+            IThemeInfo ret = null;
+            if (_Dic.TryGetValue(name, out ret) == true)
             {
-                mDic.Remove(name);
+                _Dic.Remove(name);
                 return ret;
             }
 
@@ -68,7 +68,7 @@
         /// </summary>
         public void RemoveAllThemeInfos()
         {
-            mDic.Clear();
+            _Dic.Clear();
         }
 
         /// <summary>
@@ -77,7 +77,7 @@
         /// <returns></returns>
         public IEnumerable<IThemeInfo> GetThemeInfos()
         {
-            foreach (var item in mDic.Values)
+            foreach (var item in _Dic.Values)
                 yield return item;
         }
     }
