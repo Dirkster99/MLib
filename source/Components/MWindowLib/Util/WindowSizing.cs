@@ -1,6 +1,7 @@
 ﻿namespace MWindowLib.Util
 {
-	using System;
+    using MWindowLib.Native;
+    using System;
     using System.Runtime.InteropServices;
     using System.Windows;
 
@@ -110,13 +111,35 @@
             System.Windows.Interop.HwndSource.FromHwnd(handle).AddHook(new System.Windows.Interop.HwndSourceHook(WindowProc));
         }
 
-        private static IntPtr WindowProc(System.IntPtr hwnd, int msg, System.IntPtr wParam, System.IntPtr lParam, ref bool handled)
+        private static bool _AboutToBeMaximized = false;
+
+        private static IntPtr WindowProc(System.IntPtr hwnd,
+                                         int msg,
+                                         System.IntPtr wParam,
+                                         System.IntPtr lParam,
+                                         ref bool handled)
         {
             switch (msg)
             {
-                case 0x0024:
-                    WmGetMinMaxInfo(hwnd, lParam);
-                    handled = true;
+                // The SC_MAXIMIZE event is always fired BEFOR the WM_GETMINMAXINFO event
+                //
+                // https://stackoverflow.com/questions/1295999/event-when-a-window-gets-maximized-un-maximized
+                // Check your window state here
+                case (int)Constants.SYSCOMMAND:                       // 0x0112
+                    if (wParam == new IntPtr(Constants.SC_MAXIMIZE)) // Maximize event - SC_MAXIMIZE from Winuser.h
+                        _AboutToBeMaximized = true;
+                    else
+                        _AboutToBeMaximized = false;
+                    break;
+
+                case Constants.WM_GETMINMAXINFO:       // 0x0024
+                    // This code should only be invoked when the window is maximized
+                    // Otherwise, for resize and so forth, we let WPF go ahead and do the hard work
+                    if (_AboutToBeMaximized == true)
+                    {
+                        WmGetMinMaxInfo(hwnd, lParam);
+                        handled = true;
+                    }
                     break;
             }
 
@@ -134,10 +157,12 @@
                 GetMonitorInfo(monitorContainingApplication, monitorInfo);
                 RECT rcWorkArea = monitorInfo.rcWork;
                 RECT rcMonitorArea = monitorInfo.rcMonitor;
+
                 mmi.ptMaxPosition.x = Math.Abs(rcWorkArea.left - rcMonitorArea.left);
                 mmi.ptMaxPosition.y = Math.Abs(rcWorkArea.top - rcMonitorArea.top);
                 mmi.ptMaxSize.x = Math.Abs(rcWorkArea.right - rcWorkArea.left);
                 mmi.ptMaxSize.y = Math.Abs(rcWorkArea.bottom - rcWorkArea.top);
+
                 mmi.ptMaxTrackSize.x = mmi.ptMaxSize.x;                                // maximum drag X size for the window
                 mmi.ptMaxTrackSize.y = mmi.ptMaxSize.y;                                // maximum drag Y size for the window
                 mmi.ptMinTrackSize.x = (int)SystemParameters.MinimumWindowWidth;       // minimum drag X size for the window
