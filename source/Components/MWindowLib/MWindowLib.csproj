@@ -98,6 +98,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\MWResizeGrip.xaml.cs">
+      <DependentUpon>MWResizeGrip.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Internal\MetroWindowServiceImpl.cs" />
     <Compile Include="SimpleMetroWindow.xaml.cs">
@@ -105,6 +108,10 @@
     </Compile>
     <Compile Include="Util\WindowSizing.cs" />
     <Compile Include="Util\InvokeExtensions.cs" />
+    <Page Include="Controls\MWResizeGrip.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="SimpleMetroWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

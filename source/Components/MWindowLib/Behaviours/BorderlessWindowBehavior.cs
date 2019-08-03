@@ -400,7 +400,9 @@
             {
                 //window.SetIsHitTestVisibleInChromeProperty<Border>("PART_Border");
                 window.SetIsHitTestVisibleInChromeProperty<UIElement>("PART_Icon");
-                window.SetWindowChromeResizeGripDirection("WindowResizeGrip", ResizeGripDirection.BottomRight);
+
+//// Let the resize grip handle the dragging
+////                window.SetWindowChromeResizeGripDirection("PART_WindowResizeGrip", ResizeGripDirection.BottomRight);
             }
         }
     }

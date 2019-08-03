@@ -5,39 +5,40 @@
     xmlns:reskeys="clr-namespace:MLib.Themes"
     >
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Styles/FocusVisualStyleKey.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/ProgressBar.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/Metro/MetroProgressBar.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/Menu/Menu.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/Menu/ContextMenu.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/Menu/DarkBrushs.xaml" />
+        <ResourceDictionary Source="/MLib;component/Styles/FocusVisualStyleKey.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/ProgressBar.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/Metro/MetroProgressBar.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/Menu/Menu.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/Menu/ContextMenu.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/Menu/DarkBrushs.xaml" />
 
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/StatusBar.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/GridSplitter.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/Slider.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/Toolbar.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/TextBlock.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/Label.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/Hyperlink.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/Button.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/GroupBox.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/StatusBar.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/GridSplitter.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/Slider.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/Toolbar.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/TextBlock.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/Label.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/Hyperlink.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/Button.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/GroupBox.xaml" />
 
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/ListBox.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/ListView.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/ScrollBar.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/ToolTip.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/ComboBox.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/TextBox.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/PasswordBox.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/TabControl.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/ListBox.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/ListView.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/ScrollBar.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/ToolTip.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/ComboBox.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/TextBox.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/PasswordBox.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/TabControl.xaml" />
 
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/ContentControlEx.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/Expander.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/Checkbox.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/RadioButton.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Controls/TreeView.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/ContentControlEx.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/Expander.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/Checkbox.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/RadioButton.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/TreeView.xaml" />
+        <ResourceDictionary Source="/MLib;component/Controls/MResizeGrip.xaml" />
 
-        <ResourceDictionary Source="pack://application:,,,/MLib;component/Themes/DarkBrushs.xaml" />
+        <ResourceDictionary Source="/MLib;component/Themes/DarkBrushs.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <!--Close system button-->

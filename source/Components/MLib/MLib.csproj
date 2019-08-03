@@ -92,6 +92,9 @@
     <Compile Include="Behaviors\MergeStyleBehaviour.cs" />
     <Compile Include="Controls\Metro\Extensions.cs" />
     <Compile Include="Controls\Metro\MetroProgressBar.cs" />
+    <Compile Include="Controls\MResizeGrip.xaml.cs">
+      <DependentUpon>MResizeGrip.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\RelativeAnimatingContentControl.cs" />
     <Compile Include="Converters\BackgroundToForegroundConverter.cs" />
     <Compile Include="Converters\ThicknessBindingConverter.cs" />
@@ -174,6 +177,10 @@
     <Page Include="Controls\Metro\MetroProgressBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MResizeGrip.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\PasswordBox.xaml">
       <SubType>Designer</SubType>

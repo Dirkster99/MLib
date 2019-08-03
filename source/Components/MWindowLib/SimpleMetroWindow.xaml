@@ -155,20 +155,7 @@
                                 </Controls:MetroThumb>
                             </Grid>
 
-                            <Grid Grid.Row="2">
-                                <Path x:Name="WindowResizeGrip"
-                                    Visibility="Collapsed"
-                                    Width="12"
-                                    Height="12"
-                                    Margin="1"
-                                    HorizontalAlignment="Right"
-                                    Stroke="{DynamicResource {x:Static reskeys:ResourceKeys.ControlAccentBrushKey}}"
-                                    StrokeThickness="1"
-                                    Stretch="None"
-                                    Data="F1 M1,10 L3,10 M5,10 L7,10 M9,10 L11,10 M2,9 L2,11 M6,9 L6,11 M10,9 L10,11 M5,6 L7,6 M9,6 L11,6 M6,5 L6,7 M10,5 L10,7 M9,2 L11,2 M10,1 L10,3"
-                                    Panel.ZIndex="1"
-                                      />
-                            </Grid>
+                            <Controls:MWResizeGrip Grid.Row="2" x:Name="PART_WindowResizeGrip" />
 
                             <!--  inactive dialog container  -->
                             <Grid x:Name="PART_MetroInactiveDialogsContainer"
@@ -260,7 +247,7 @@
                 <Setter TargetName="Maximize" Property="Visibility" Value="Collapsed" />
                 <Setter TargetName="Restore" Property="Visibility" Value="Visible" />
                 <Setter TargetName="LayoutRoot" Property="Margin" Value="7" />
-                <Setter TargetName="WindowResizeGrip" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_WindowResizeGrip" Property="Visibility" Value="Collapsed" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -275,7 +262,7 @@
                     <Condition Property="ResizeMode" Value="CanResizeWithGrip" />
                     <Condition Property="WindowState" Value="Normal" />
                 </MultiTrigger.Conditions>
-                <Setter TargetName="WindowResizeGrip" Property="Visibility" Value="Visible" />
+                <Setter TargetName="PART_WindowResizeGrip" Property="Visibility" Value="Visible" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

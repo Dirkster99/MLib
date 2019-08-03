@@ -3,10 +3,11 @@
                     >
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/MWindowLib;component/Styles/WindowButtonStyle.xaml" />
-        <!-- ResourceDictionary Source="pack://application:,,,/MWindowLib;component/Controls/Accent/BaseLight.xaml" / -->
-        <ResourceDictionary Source="pack://application:,,,/MWindowLib;component/Themes/LightBrushs.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MWindowLib;component/SimpleMetroWindow.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MWindowLib;component/MetroWindow.xaml" />
+        <ResourceDictionary Source="/MWindowLib;component/Styles/WindowButtonStyle.xaml" />
+        <!-- ResourceDictionary Source="/MWindowLib;component/Controls/Accent/BaseLight.xaml" / -->
+        <ResourceDictionary Source="/MWindowLib;component/Themes/LightBrushs.xaml" />
+        <ResourceDictionary Source="/MWindowLib;component/SimpleMetroWindow.xaml" />
+        <ResourceDictionary Source="/MWindowLib;component/MetroWindow.xaml" />
+        <ResourceDictionary Source="/MWindowLib;component/Controls/MWResizeGrip.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

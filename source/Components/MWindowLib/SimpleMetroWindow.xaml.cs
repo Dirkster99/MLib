@@ -4,7 +4,6 @@
     using Microsoft.Windows.Shell.Standard;
     using Native;
     using System;
-    using System.ComponentModel;
     using System.Reflection;
     using System.Windows;
     using System.Windows.Controls.Primitives;
@@ -35,6 +34,7 @@
 ////        private const string PART_MetroActiveDialogContainer = "PART_MetroActiveDialogContainer";
 ////        private const string PART_MetroInactiveDialogsContainer = "PART_MetroInactiveDialogsContainer";
         private const string PART_WindowTitleThumb = "PART_WindowTitleThumb";
+        private const string PART_WindowResizeGrip = "PART_WindowResizeGrip";
 
         private IInputElement _RestoreFocus;
 ////        private Storyboard _OverlayStoryboard;
@@ -318,129 +318,129 @@
         //// Begins to show the SimpleMetroWindow's overlay effect.
         //// </summary>
         //// <returns>A task representing the process.</returns>
-////        public System.Threading.Tasks.Task ShowOverlayAsync()
-////        {
-////            if (_OverlayBox == null) throw new InvalidOperationException("OverlayBox can not be founded in this SimpleMetroWindow's template. Are you calling this before the window has loaded?");
-////
-////            var tcs = new System.Threading.Tasks.TaskCompletionSource<object>();
-////
-////            if (IsOverlayVisible() && _OverlayStoryboard == null)
-////            {
-////                //No Task.FromResult in .NET 4.
-////                tcs.SetResult(null);
-////                return tcs.Task;
-////            }
-////
-////            Dispatcher.VerifyAccess();
-////
-////            _OverlayBox.Visibility = Visibility.Visible;
-////
-////            var sb = (Storyboard)this.Template.Resources["OverlayFastSemiFadeIn"];
-////
-////            sb = sb.Clone();
-////
-////            EventHandler completionHandler = null;
-////            completionHandler = (sender, args) =>
-////            {
-////                sb.Completed -= completionHandler;
-////
-////                if (_OverlayStoryboard == sb)
-////                {
-////                    _OverlayStoryboard = null;
-////
-////                    if (IsContentDialogVisible == false)
-////                        IsContentDialogVisible = true;
-////                }
-////
-////                tcs.TrySetResult(null);
-////            };
-////
-////            sb.Completed += completionHandler;
-////
-////            _OverlayBox.BeginStoryboard(sb);
-////
-////            _OverlayStoryboard = sb;
-////
-////            return tcs.Task;
-////        }
+        ////        public System.Threading.Tasks.Task ShowOverlayAsync()
+        ////        {
+        ////            if (_OverlayBox == null) throw new InvalidOperationException("OverlayBox can not be founded in this SimpleMetroWindow's template. Are you calling this before the window has loaded?");
+        ////
+        ////            var tcs = new System.Threading.Tasks.TaskCompletionSource<object>();
+        ////
+        ////            if (IsOverlayVisible() && _OverlayStoryboard == null)
+        ////            {
+        ////                //No Task.FromResult in .NET 4.
+        ////                tcs.SetResult(null);
+        ////                return tcs.Task;
+        ////            }
+        ////
+        ////            Dispatcher.VerifyAccess();
+        ////
+        ////            _OverlayBox.Visibility = Visibility.Visible;
+        ////
+        ////            var sb = (Storyboard)this.Template.Resources["OverlayFastSemiFadeIn"];
+        ////
+        ////            sb = sb.Clone();
+        ////
+        ////            EventHandler completionHandler = null;
+        ////            completionHandler = (sender, args) =>
+        ////            {
+        ////                sb.Completed -= completionHandler;
+        ////
+        ////                if (_OverlayStoryboard == sb)
+        ////                {
+        ////                    _OverlayStoryboard = null;
+        ////
+        ////                    if (IsContentDialogVisible == false)
+        ////                        IsContentDialogVisible = true;
+        ////                }
+        ////
+        ////                tcs.TrySetResult(null);
+        ////            };
+        ////
+        ////            sb.Completed += completionHandler;
+        ////
+        ////            _OverlayBox.BeginStoryboard(sb);
+        ////
+        ////            _OverlayStoryboard = sb;
+        ////
+        ////            return tcs.Task;
+        ////        }
 
         //// <summary>
         //// Begins to hide the SimpleMetroWindow's overlay effect.
         //// </summary>
         //// <returns>A task representing the process.</returns>
-////        public System.Threading.Tasks.Task HideOverlayAsync()
-////        {
-////            if (_OverlayBox == null)
-////                throw new InvalidOperationException("OverlayBox can not be founded in this SimpleMetroWindow's template. Are you calling this before the window has loaded?");
-////
-////            var tcs = new System.Threading.Tasks.TaskCompletionSource<object>();
-////
-////            if (_OverlayBox.Visibility == Visibility.Visible && _OverlayBox.Opacity == 0.0)
-////            {
-////                //No Task.FromResult in .NET 4.
-////                tcs.SetResult(null);
-////                return tcs.Task;
-////            }
-////
-////            Dispatcher.VerifyAccess();
-////
-////            var sb = (Storyboard)this.Template.Resources["OverlayFastSemiFadeOut"];
-////
-////            sb = sb.Clone();
-////
-////            EventHandler completionHandler = null;
-////            completionHandler = (sender, args) =>
-////            {
-////                sb.Completed -= completionHandler;
-////
-////                if (_OverlayStoryboard == sb)
-////                {
-////                    _OverlayBox.Visibility = Visibility.Hidden;
-////                    _OverlayStoryboard = null;
-////
-////                    if (IsContentDialogVisible == true)
-////                        IsContentDialogVisible = false;
-////                }
-////
-////                tcs.TrySetResult(null);
-////            };
-////
-////            sb.Completed += completionHandler;
-////
-////            _OverlayBox.BeginStoryboard(sb);
-////
-////            _OverlayStoryboard = sb;
-////
-////            return tcs.Task;
-////        }
-////
-////        public bool IsOverlayVisible()
-////        {
-////            if (_OverlayBox == null)
-////                throw new InvalidOperationException("OverlayBox can not be founded in this SimpleMetroWindow's template. Are you calling this before the window has loaded?");
-////
-////            return _OverlayBox.Visibility == Visibility.Visible && _OverlayBox.Opacity >= 0.7;
-////        }
-////
-////        public void ShowOverlay()
-////        {
-////            _OverlayBox.Visibility = Visibility.Visible;
-////            //overlayBox.Opacity = 0.7;
-////            _OverlayBox.SetCurrentValue(Grid.OpacityProperty, 0.5);
-////
-////            if (IsContentDialogVisible == false)
-////                IsContentDialogVisible = true;
-////        }
-////
-////        public void HideOverlay()
-////        {
-////            //overlayBox.Opacity = 0.0;
-////            _OverlayBox.SetCurrentValue(Grid.OpacityProperty, 0.0);
-////            _OverlayBox.Visibility = System.Windows.Visibility.Hidden;
-////
-////            if (IsContentDialogVisible == true)
-////                IsContentDialogVisible = false;
-////        }
+        ////        public System.Threading.Tasks.Task HideOverlayAsync()
+        ////        {
+        ////            if (_OverlayBox == null)
+        ////                throw new InvalidOperationException("OverlayBox can not be founded in this SimpleMetroWindow's template. Are you calling this before the window has loaded?");
+        ////
+        ////            var tcs = new System.Threading.Tasks.TaskCompletionSource<object>();
+        ////
+        ////            if (_OverlayBox.Visibility == Visibility.Visible && _OverlayBox.Opacity == 0.0)
+        ////            {
+        ////                //No Task.FromResult in .NET 4.
+        ////                tcs.SetResult(null);
+        ////                return tcs.Task;
+        ////            }
+        ////
+        ////            Dispatcher.VerifyAccess();
+        ////
+        ////            var sb = (Storyboard)this.Template.Resources["OverlayFastSemiFadeOut"];
+        ////
+        ////            sb = sb.Clone();
+        ////
+        ////            EventHandler completionHandler = null;
+        ////            completionHandler = (sender, args) =>
+        ////            {
+        ////                sb.Completed -= completionHandler;
+        ////
+        ////                if (_OverlayStoryboard == sb)
+        ////                {
+        ////                    _OverlayBox.Visibility = Visibility.Hidden;
+        ////                    _OverlayStoryboard = null;
+        ////
+        ////                    if (IsContentDialogVisible == true)
+        ////                        IsContentDialogVisible = false;
+        ////                }
+        ////
+        ////                tcs.TrySetResult(null);
+        ////            };
+        ////
+        ////            sb.Completed += completionHandler;
+        ////
+        ////            _OverlayBox.BeginStoryboard(sb);
+        ////
+        ////            _OverlayStoryboard = sb;
+        ////
+        ////            return tcs.Task;
+        ////        }
+        ////
+        ////        public bool IsOverlayVisible()
+        ////        {
+        ////            if (_OverlayBox == null)
+        ////                throw new InvalidOperationException("OverlayBox can not be founded in this SimpleMetroWindow's template. Are you calling this before the window has loaded?");
+        ////
+        ////            return _OverlayBox.Visibility == Visibility.Visible && _OverlayBox.Opacity >= 0.7;
+        ////        }
+        ////
+        ////        public void ShowOverlay()
+        ////        {
+        ////            _OverlayBox.Visibility = Visibility.Visible;
+        ////            //overlayBox.Opacity = 0.7;
+        ////            _OverlayBox.SetCurrentValue(Grid.OpacityProperty, 0.5);
+        ////
+        ////            if (IsContentDialogVisible == false)
+        ////                IsContentDialogVisible = true;
+        ////        }
+        ////
+        ////        public void HideOverlay()
+        ////        {
+        ////            //overlayBox.Opacity = 0.0;
+        ////            _OverlayBox.SetCurrentValue(Grid.OpacityProperty, 0.0);
+        ////            _OverlayBox.Visibility = System.Windows.Visibility.Hidden;
+        ////
+        ////            if (IsContentDialogVisible == true)
+        ////                IsContentDialogVisible = false;
+        ////        }
 
         /// <summary>
         /// Stores the given element, or the last focused element via FocusManager, for restoring the focus after closing a dialog.

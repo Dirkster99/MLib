@@ -4,7 +4,7 @@
     >
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/MWindowLib;component/Themes/LightTheme.xaml" />
+        <ResourceDictionary Source="/MWindowLib;component/Themes/LightTheme.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

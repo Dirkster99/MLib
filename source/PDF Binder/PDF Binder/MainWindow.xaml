@@ -22,6 +22,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Margin="3">
             <Grid.ColumnDefinitions>
@@ -88,5 +89,9 @@
 
             <ContentPresenter Content="{Binding CurrentViewModel}" Grid.Row="3" />
         </Grid>
+
+        <!--StatusBar Grid.Row="2">
+            <StatusBarItem>Ready.</StatusBarItem>
+        </StatusBar-->
     </Grid>
 </Controls:MetroWindow>

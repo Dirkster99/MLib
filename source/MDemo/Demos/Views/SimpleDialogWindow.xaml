@@ -1,20 +1,36 @@
-﻿<mwl:SimpleMetroWindow x:Class="MDemo.Demos.Views.SimpleDialogWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+﻿<mwl:SimpleMetroWindow
+    x:Class="MDemo.Demos.Views.SimpleDialogWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mwl="clr-namespace:MWindowLib;assembly=MWindowLib"
+    xmlns:controls="clr-namespace:MLib.Controls;assembly=MLib"
+    Title="SimpleDialogWindow"
+    Width="800"
+    Height="450"
+    MinHeight="100"
+    MinWidth="100"
+    ShowIcon="False"
+    ShowInTaskbar="False"
+    ShowMaxButton="False"
+    ShowMinButton="False"
+    WindowStartupLocation="CenterOwner"
+    mc:Ignorable="d">
+    <Grid Margin="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Margin="6" Text="Sample Dialog content goes here" />
 
-        xmlns:mwl="clr-namespace:MWindowLib;assembly=MWindowLib"
-
-        WindowStartupLocation="CenterOwner"
-        ShowIcon="False"
-        ShowMaxButton="False"
-        ShowMinButton="False"
-        ShowInTaskbar="False"
-
-        mc:Ignorable="d"
-        Title="SimpleDialogWindow" Height="450" Width="800">
-    <Grid Margin="6">
-        <TextBlock Text="Sample Dialog content goes here" />
+        <StatusBar
+            Margin="0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Bottom">
+            <StatusBarItem>
+                Ready.
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </mwl:SimpleMetroWindow>
