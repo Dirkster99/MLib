@@ -1,0 +1,37 @@
+version: 1.3.{build}
+
+branches:
+  only:
+  - master
+  
+configuration: Release
+
+platform: Any CPU
+
+image: Visual Studio 2019 Preview
+
+install:
+  - cmd: choco install dotnetcore-sdk --pre
+  
+before_build:
+  - cmd: nuget restore source\MDemo.sln
+
+build:
+  parallel: true
+  verbosity: minimal
+  
+artifacts:
+- path: source\Components\MLib\bin\Release
+  name: MLib
+
+- path: source\Components\MWindowDialogLib\bin\Release
+  name: MWindowDialogLib
+
+- path: source\Components\MWindowLib\bin\Release
+  name: MWindowLib
+
+- path: source\MDemo\bin\Release
+  name: MDemo
+
+- path: source\PDF Binder\PDF Binder\bin\Release
+  name: PDF Binder
