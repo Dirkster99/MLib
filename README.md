@@ -2,6 +2,8 @@
 [![Release](https://img.shields.io/github/release/Dirkster99/MLib.svg)](https://github.com/Dirkster99/MLib/releases/latest)
 [![NuGet](https://img.shields.io/nuget/dt/Dirkster.MLib.svg)](http://nuget.org/packages/Dirkster.MLib)
 
+![Net4](https://badgen.net/badge/Framework/.Net&nbsp;4/blue) ![NetCore3](https://badgen.net/badge/Framework/NetCore&nbsp;3/blue)
+
 # MLib
 MLib is a set of WPF theming libraries based on <a href="https://github.com/MahApps/MahApps.Metro">MahApps.Metro</a>,
 <a href="https://github.com/firstfloorsoftware/mui/">MUI</a>,
