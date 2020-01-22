@@ -1,8 +1,7 @@
 ﻿namespace MWindowLib.Behaviours
 {
-    using System.ComponentModel;
+    using global::Microsoft.Xaml.Behaviors;
     using System.Windows;
-    using System.Windows.Interactivity;
 
     /// <summary>
     /// This class implements an attached property that can be attached

@@ -1,11 +1,11 @@
 ﻿namespace MWindowLib.Behaviours
 {
     using Controls;
+    using global::Microsoft.Xaml.Behaviors;
     using Native;
     using System;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Interactivity;
     using System.Windows.Interop;
     using System.Windows.Shell;
 

@@ -1,7 +1,7 @@
 ﻿namespace MWindowLib.Behaviours
 {
+    using global::Microsoft.Xaml.Behaviors;
     using System.Windows;
-    using System.Windows.Interactivity;
 
     /// <summary>
     /// Class implements a freezable collection to keep track of behaviors
