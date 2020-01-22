@@ -8,7 +8,7 @@
     <FileVersion>1.3.0.0</FileVersion>
     <Company>Open Source</Company>
     <Product>Dirkster.MWindowLib</Product>
-    <Copyright>2016-2019</Copyright>
+    <Copyright>2016-2020</Copyright>
     <Description>Part of MLib, which is a set of WPF theming libraries based on MahApps.Metro and MUI</Description>
     <PackageProjectUrl>https://github.com/Dirkster99/MLib</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Dirkster99/MLib</RepositoryUrl>
@@ -21,7 +21,14 @@
     <PackageIconUrl>https://raw.githubusercontent.com/Dirkster99/Docu/master/MLib/MWindowLib/Application_64x.png</PackageIconUrl>
     <PackageTags>custom wpf control c# .net metro modern black dark light theme control library</PackageTags>
     <PackageReleaseNotes>Mutlitargetting NetCore 3 and Net 4</PackageReleaseNotes>
-  
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <!--
+    NuGet packages with dependent local libraries are currently not (very well) supported as discussed here:
+    https://stackoverflow.com/questions/44976879/msbuild-multiple-dll-in-a-single-nuget-package
+    
+    Current workaround: Use seperate NuGet.exe with *.nuspec file to build and deploy this package
+    -->
+ 
   </PropertyGroup>
 
   <ItemGroup>

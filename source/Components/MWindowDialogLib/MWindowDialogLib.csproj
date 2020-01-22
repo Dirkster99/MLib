@@ -22,6 +22,12 @@
     <PackageIconUrl>https://raw.githubusercontent.com/Dirkster99/Docu/master/MLib/MWindowDialogLib/AppFlyout_64x.png</PackageIconUrl>
     <PackageTags>custom wpf control c# .net metro modern black dark light theme control library</PackageTags>
     <PackageReleaseNotes>Mutlitargetting NetCore 3 and Net 4</PackageReleaseNotes>
+    <!--
+    NuGet packages with dependent local libraries are currently not (very well) supported as discussed here:
+    https://stackoverflow.com/questions/44976879/msbuild-multiple-dll-in-a-single-nuget-package
+    
+    Current workaround: Use seperate NuGet.exe with *.nuspec file to build and deploy this package
+    -->
 
   </PropertyGroup>
 
