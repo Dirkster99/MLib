@@ -10,7 +10,7 @@
     using System.Windows.Input;
 
     /// <summary>
-    /// Main ViewModel vlass that manages session start-up, life span, and shutdown
+    /// Main ViewModel class that manages session start-up, life span, and shutdown
     /// of the application.
     /// </summary>
     public class AppViewModel : Base.ViewModelBase, IDisposable
