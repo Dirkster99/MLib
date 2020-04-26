@@ -18,9 +18,13 @@
 
     <TargetFrameworks>net4;netcoreapp3.0</TargetFrameworks>
     <UseWPF>true</UseWPF>
-    <PackageIconUrl>https://raw.githubusercontent.com/Dirkster99/Docu/master/MLib/MLib/Behavior_64x.png</PackageIconUrl>
+    <PackageIcon>Behavior_64x.png</PackageIcon>
     <PackageTags>custom wpf control c# .net metro modern black dark light theme control library</PackageTags>
     <PackageReleaseNotes>Mutlitargetting NetCore 3 and Net 4</PackageReleaseNotes>
   </PropertyGroup>
 
-  </Project>
+  <ItemGroup>
+    <None Include="images/Behavior_64x.png" Pack="true" PackagePath=""/>
+  </ItemGroup>
+
+</Project>

@@ -18,7 +18,7 @@
     <TargetFrameworks>net452;netcoreapp3.0</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageIconUrl>https://raw.githubusercontent.com/Dirkster99/Docu/master/MLib/MWindowLib/Application_64x.png</PackageIconUrl>
+    <PackageIcon>Application_64x.png</PackageIcon>
     <PackageTags>custom wpf control c# .net metro modern black dark light theme control library</PackageTags>
     <PackageReleaseNotes>Mutlitargetting NetCore 3 and Net 4</PackageReleaseNotes>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -37,6 +37,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MWindowInterfacesLib\MWindowInterfacesLib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="images/Application_64x.png" Pack="true" PackagePath=""/>
   </ItemGroup>
 
 </Project>

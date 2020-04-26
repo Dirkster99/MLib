@@ -19,7 +19,7 @@
     <UseWPF>true</UseWPF>
 
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageIconUrl>https://raw.githubusercontent.com/Dirkster99/Docu/master/MLib/MWindowDialogLib/AppFlyout_64x.png</PackageIconUrl>
+    <PackageIcon>AppFlyout_64x.png</PackageIcon>
     <PackageTags>custom wpf control c# .net metro modern black dark light theme control library</PackageTags>
     <PackageReleaseNotes>Mutlitargetting NetCore 3 and Net 4</PackageReleaseNotes>
     <!--
@@ -34,6 +34,10 @@
   <ItemGroup>
     <ProjectReference Include="..\MWindowInterfacesLib\MWindowInterfacesLib.csproj" />
     <ProjectReference Include="..\MWindowLib\MWindowLib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="images/AppFlyout_64x.png" Pack="true" PackagePath=""/>
   </ItemGroup>
 
 </Project>
