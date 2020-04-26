@@ -21,7 +21,7 @@
     <PackageIcon>Application_64x.png</PackageIcon>
     <PackageTags>custom wpf control c# .net metro modern black dark light theme control library</PackageTags>
     <PackageReleaseNotes>Mutlitargetting NetCore 3 and Net 4</PackageReleaseNotes>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
     <!--
     NuGet packages with dependent local libraries are currently not (very well) supported as discussed here:
     https://stackoverflow.com/questions/44976879/msbuild-multiple-dll-in-a-single-nuget-package
@@ -40,7 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="images/Application_64x.png" Pack="true" PackagePath=""/>
+    <None Include="images/Application_64x.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
 </Project>
