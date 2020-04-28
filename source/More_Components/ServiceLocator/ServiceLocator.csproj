@@ -78,6 +78,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Settings\SettingsModel\SettingsModel.csproj">
+      <Project>{ccf70a3f-6fd7-4f8b-9d06-e942794cdd4d}</Project>
+      <Name>SettingsModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Settings\Settings\Settings.csproj">
       <Project>{a22b65f9-80b8-425b-b5a3-c1e2d84aec04}</Project>
       <Name>Settings</Name>

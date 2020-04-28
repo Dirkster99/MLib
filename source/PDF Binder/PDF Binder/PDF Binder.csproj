@@ -270,13 +270,13 @@
       <Project>{252126d1-e1d9-49c3-910b-fcf2266265ef}</Project>
       <Name>ServiceLocator</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\More_Components\Settings\SettingsModel\SettingsModel.csproj">
-      <Project>{9b0ba841-5a2f-4ed3-a908-253dbca70e77}</Project>
-      <Name>SettingsModel</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\More_Components\Settings\Settings\Settings.csproj">
       <Project>{a22b65f9-80b8-425b-b5a3-c1e2d84aec04}</Project>
       <Name>Settings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\More_Components\Settings\SettingsModel\SettingsModel.csproj">
+      <Project>{ccf70a3f-6fd7-4f8b-9d06-e942794cdd4d}</Project>
+      <Name>SettingsModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\Components\Doc\Doc.csproj">
       <Project>{e4aa9a89-efa8-40a1-9fa7-5b4a03e473d4}</Project>
