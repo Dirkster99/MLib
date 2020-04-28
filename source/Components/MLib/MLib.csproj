@@ -2,25 +2,27 @@
 
   <PropertyGroup>
 
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.3.0.1</Version>
-    <AssemblyVersion>1.3.0.0</AssemblyVersion>
-    <FileVersion>1.3.0.0</FileVersion>
+    <Version>1.3.1.2</Version>
+    <AssemblyVersion>1.3.1.2</AssemblyVersion>
+    <FileVersion>1.3.1.2</FileVersion>
     <Company>Open Source</Company>
     <Product>Dirkster.MLib</Product>
     <Copyright>2016-2020</Copyright>
     <Description>MLib is a set of WPF theming libraries based on MahApps.Metro and MUI</Description>
+    
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/Dirkster99/MLib</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Dirkster99/MLib</RepositoryUrl>
     <PackageId>Dirkster.MLib</PackageId>
-    <Authors>https://github.com/Dirkster99/MLib</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-
-    <TargetFrameworks>net4;netcoreapp3.0</TargetFrameworks>
-    <UseWPF>true</UseWPF>
     <PackageIcon>Behavior_64x.png</PackageIcon>
     <PackageTags>custom wpf control c# .net metro modern black dark light theme control library</PackageTags>
     <PackageReleaseNotes>Mutlitargetting NetCore 3 and Net 4</PackageReleaseNotes>
+
+    <Authors>https://github.com/Dirkster99/MLib</Authors>
+
+    <TargetFrameworks>net4;netcoreapp3.0</TargetFrameworks>
+    <UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
