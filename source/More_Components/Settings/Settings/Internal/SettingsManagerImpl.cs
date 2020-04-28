@@ -10,17 +10,17 @@
     using System.IO;
     using System.Xml;
     using System.Xml.Serialization;
+	using System.Diagnostics;
 
-    /// <summary>
-    /// This class keeps track of program options and user profile (session) data.
-    /// Both data items can be added and are loaded on application start to restore
-    /// the program state of the last user session or to implement the default
-    /// application state when starting the application for the very first time.
-    /// </summary>
-    internal class SettingsManagerImpl : ISettingsManager
+	/// <summary>
+	/// This class keeps track of program options and user profile (session) data.
+	/// Both data items can be added and are loaded on application start to restore
+	/// the program state of the last user session or to implement the default
+	/// application state when starting the application for the very first time.
+	/// </summary>
+	internal class SettingsManagerImpl : ISettingsManager
     {
         #region fields
-        protected static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IOptionsPanel mSettingsDataPanel = null;
 
         private IProfile mSessionData = null;
@@ -224,7 +224,7 @@
                     }
                     catch (Exception e)
                     {
-                        logger.Error(e);
+                        Debug.WriteLine(e.ToString());
                     }
                     finally
                     {
@@ -238,7 +238,7 @@
             }
             catch (Exception exp)
             {
-                logger.Error(exp);
+                Debug.WriteLine(exp.ToString());
             }
             finally
             {

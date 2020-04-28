@@ -275,7 +275,7 @@
       <Name>SettingsModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\More_Components\Settings\Settings\Settings.csproj">
-      <Project>{2807b493-cc2e-402e-901a-eb138698fedc}</Project>
+      <Project>{a22b65f9-80b8-425b-b5a3-c1e2d84aec04}</Project>
       <Name>Settings</Name>
     </ProjectReference>
     <ProjectReference Include="..\Components\Doc\Doc.csproj">
