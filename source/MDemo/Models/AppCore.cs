@@ -1,6 +1,7 @@
 ﻿namespace MDemo.Models
 {
     using System;
+    using System.Diagnostics;
     using System.Globalization;
     using System.Reflection;
 
@@ -10,10 +11,6 @@
     /// </summary>
     public class AppCore
     {
-        #region fields
-        protected static log4net.ILog Logger;
-        #endregion fields
-
         #region properties
         /// <summary>
         /// Get the name of the executing assembly (usually name of *.exe file)
@@ -122,7 +119,7 @@
             }
             catch (Exception exp)
             {
-                Logger.Error(exp);
+                Debug.WriteLine(exp.ToString());
                 return false;
             }
 

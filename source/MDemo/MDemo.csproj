@@ -1,309 +1,138 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{84D31F14-D7A8-4C89-A9BB-22BC778929A2}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MDemo</RootNamespace>
-    <AssemblyName>MDemo</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFrameworkProfile />
+    <TargetFrameworks>netcoreapp3.0;net4.5.2</TargetFrameworks>
+    <UseWPF>true</UseWPF>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="InplaceEditBoxLib, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dirkster.InplaceEditBoxLib.1.4.0\lib\net452\InplaceEditBoxLib.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Management" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="UserNotification, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dirkster.UserNotifications.1.5.1\lib\net40\UserNotification.dll</HintPath>
-    </Reference>
-    <Reference Include="WatermarkControlsLib, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dirkster.WatermarkControlsLib.1.1.0\lib\net40\WatermarkControlsLib.dll</HintPath>
-    </Reference>
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
+    <None Remove="Resources\Icons\dark\appbar.camera.flash.png" />
+    <None Remove="Resources\Icons\dark\appbar.check.png" />
+    <None Remove="Resources\Icons\dark\appbar.lock.png" />
+    <None Remove="Resources\Icons\dark\appbar.question.png" />
+    <None Remove="Resources\Icons\design\appbar.camera.flash.svg" />
+    <None Remove="Resources\Icons\design\appbar.check.svg" />
+    <None Remove="Resources\Icons\design\appbar.lock.svg" />
+    <None Remove="Resources\Icons\design\appbar.question.svg" />
+    <None Remove="Resources\Icons\light\appbar.camera.flash.png" />
+    <None Remove="Resources\Icons\light\appbar.check.png" />
+    <None Remove="Resources\Icons\light\appbar.lock.png" />
+    <None Remove="Resources\Icons\light\appbar.question.png" />
+    <None Remove="Resources\logo\pdfbinder_light.svg" />
+    <None Remove="Resources\logo\pdfbinder_logo_128.png" />
+    <None Remove="Resources\logo\pdfbinder_logo_32.png" />
+    <None Remove="Resources\logo\pdfbinder_logo_64.png" />
   </ItemGroup>
+
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="Behaviours\FocusExtension.cs" />
-    <Compile Include="Behaviours\PasswordBoxTextChanged.cs" />
-    <Compile Include="Behaviours\SelectionChangedBehavior.cs .cs" />
-    <Compile Include="Converters\EnumToBooleanConverter.cs" />
-    <Compile Include="Demos\BindingProxy .cs" />
-    <Compile Include="Demos\Converters\IntToIsDefaultConverter.cs" />
-    <Compile Include="Demos\Converters\SampleParametersConverter.cs" />
-    <Compile Include="Demos\CustomDialogDemos.cs" />
-    <Compile Include="Demos\ProgressDialogDemos.cs" />
-    <Compile Include="Demos\LoginDialogDemos.cs" />
-    <Compile Include="Demos\InputDialogDemos.cs" />
-    <Compile Include="Demos\MessageDialogDemos.cs" />
-    <Compile Include="Demos\Views\InputView.xaml.cs">
-      <DependentUpon>InputView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Demos\Views\LoginView.xaml.cs">
-      <DependentUpon>LoginView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Demos\Views\MessageView.xaml.cs">
-      <DependentUpon>MessageView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Demos\Views\ProgressView.xaml.cs">
-      <DependentUpon>ProgressView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Demos\ViewModels\Tasks\IProgress.cs" />
-    <Compile Include="Demos\ViewModels\ProgressDialogViewModel.cs" />
-    <Compile Include="Demos\ViewModels\LoginDialogViewModel.cs" />
-    <Compile Include="Demos\ViewModels\InputDialogViewModel.cs" />
-    <Compile Include="Demos\ViewModels\MessageDialogViewModel.cs" />
-    <Compile Include="Demos\ViewModels\MsgDemoViewModel.cs" />
-    <Compile Include="Demos\ViewModels\Tasks\ProgressSettings.cs" />
-    <Compile Include="Demos\ViewModels\Tasks\ProgressViewModel.cs" />
-    <Compile Include="Demos\Views\CustomDialogView.xaml.cs">
-      <DependentUpon>CustomDialogView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Demos\Views\SimpleDialogWindow.xaml.cs">
-      <DependentUpon>SimpleDialogWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AppCore.cs" />
-    <Compile Include="Models\SettingDefaults.cs" />
-    <Compile Include="ServiceInjector.cs" />
-    <Compile Include="ViewModels\AppLifeCycleViewModel.cs" />
-    <Compile Include="ViewModels\AppViewModel.cs" />
-    <Compile Include="ViewModels\Base\ModelBase.cs" />
-    <Compile Include="ViewModels\Base\RelayCommand.cs" />
-    <Compile Include="ViewModels\Base\ViewModelBase.cs" />
-    <Compile Include="Demos\ViewModels\CustomDialogViewModel.cs" />
-    <Compile Include="Demos\ViewModels\DemoViewModel.cs" />
-    <Compile Include="ViewModels\ThemeDefinitionViewModel.cs" />
-    <Compile Include="ViewModels\ThemeViewModel.cs" />
-    <Page Include="Demos\Views\Dialogs.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Demos\Views\InputView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Demos\Views\LoginView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Demos\Views\MessageView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Demos\Views\ProgressView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Demos\Views\CustomDialogView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Demos\Views\SimpleDialogWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="Themes\Dark\DarkIcons.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Light\LightIcons.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <None Include="ClassDiagram1.cd" />
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <AppDesigner Include="Properties\" />
-    <None Include="Resources\Icons\design\appbar.camera.flash.design" />
-    <None Include="Resources\Icons\design\appbar.check.design" />
-    <None Include="Resources\Icons\design\appbar.lock.design" />
-    <None Include="Resources\Icons\design\appbar.question.design" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Components\MLib\MLib.csproj">
-      <Project>{87a9302d-c6a7-4507-82d5-d83a40e899e2}</Project>
-      <Name>MLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Components\MWindowDialogLib\MWindowDialogLib.csproj">
-      <Project>{ef9c4ab3-61d7-4c10-a2e6-5c205764f0ec}</Project>
-      <Name>MWindowDialogLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Components\MWindowInterfacesLib\MWindowInterfacesLib.csproj">
-      <Project>{37633896-6066-49c5-b76a-0e5d5d6d1d23}</Project>
-      <Name>MWindowInterfacesLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\More_Components\ServiceLocator\ServiceLocator.csproj">
-      <Project>{252126d1-e1d9-49c3-910b-fcf2266265ef}</Project>
-      <Name>ServiceLocator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Components\MWindowLib\MWindowLib.csproj">
-      <Project>{be4c8126-e5c8-405e-958f-4de9f686089b}</Project>
-      <Name>MWindowLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Components\BindToMLib\BindToMLib.csproj">
-      <Project>{f7c783f4-8140-43a8-8d42-1b6c0b7a179a}</Project>
-      <Name>BindToMLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\More_Components\Settings\Settings\Settings.csproj">
-      <Project>{a22b65f9-80b8-425b-b5a3-c1e2d84aec04}</Project>
-      <Name>Settings</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\More_Components\Settings\SettingsModel\SettingsModel.csproj">
-      <Project>{ccf70a3f-6fd7-4f8b-9d06-e942794cdd4d}</Project>
-      <Name>SettingsModel</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Icons\dark\appbar.check.png" />
-    <Resource Include="Resources\Icons\dark\appbar.lock.png" />
-    <Resource Include="Resources\Icons\dark\appbar.question.png" />
-    <Resource Include="Resources\Icons\light\appbar.check.png" />
-    <Resource Include="Resources\Icons\light\appbar.lock.png" />
-    <Resource Include="Resources\Icons\light\appbar.question.png" />
-    <Resource Include="Resources\Icons\light\appbar.camera.flash.png" />
     <Content Include="Resources\Icons\design\appbar.camera.flash.svg" />
     <Content Include="Resources\Icons\design\appbar.check.svg" />
     <Content Include="Resources\Icons\design\appbar.lock.svg" />
     <Content Include="Resources\Icons\design\appbar.question.svg" />
-    <Resource Include="Resources\Icons\dark\appbar.camera.flash.png" />
     <Content Include="Resources\logo\pdfbinder_light.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dirkster.InplaceEditBoxLib" Version="1.4.0" />
+    <PackageReference Include="Dirkster.UserNotifications" Version="1.5.1" />
+    <PackageReference Include="Dirkster.WatermarkControlsLib" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Components\BindToMLib\BindToMLib.csproj" />
+    <ProjectReference Include="..\Components\MLib\MLib.csproj" />
+    <ProjectReference Include="..\Components\MWindowDialogLib\MWindowDialogLib.csproj" />
+    <ProjectReference Include="..\Components\MWindowInterfacesLib\MWindowInterfacesLib.csproj" />
+    <ProjectReference Include="..\Components\MWindowLib\MWindowLib.csproj" />
+    <ProjectReference Include="..\More_Components\ServiceLocator\ServiceLocator.csproj" />
+    <ProjectReference Include="..\More_Components\Settings\SettingsModel\SettingsModel.csproj" />
+    <ProjectReference Include="..\More_Components\Settings\Settings\Settings.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Icons\dark\appbar.camera.flash.png" />
+    <Resource Include="Resources\Icons\dark\appbar.check.png" />
+    <Resource Include="Resources\Icons\dark\appbar.lock.png" />
+    <Resource Include="Resources\Icons\dark\appbar.question.png" />
+    <Resource Include="Resources\Icons\light\appbar.camera.flash.png" />
+    <Resource Include="Resources\Icons\light\appbar.check.png" />
+    <Resource Include="Resources\Icons\light\appbar.lock.png" />
+    <Resource Include="Resources\Icons\light\appbar.question.png" />
     <Resource Include="Resources\logo\pdfbinder_logo_128.png" />
     <Resource Include="Resources\logo\pdfbinder_logo_32.png" />
     <Resource Include="Resources\logo\pdfbinder_logo_64.png" />
   </ItemGroup>
+
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </ApplicationDefinition>
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
+  <ItemGroup>
+    <Compile Update="App.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Demos\Views\CustomDialogView.xaml.cs">
+      <DependentUpon>CustomDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Demos\Views\InputView.xaml.cs">
+      <DependentUpon>InputView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Demos\Views\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Demos\Views\MessageView.xaml.cs">
+      <DependentUpon>MessageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Demos\Views\ProgressView.xaml.cs">
+      <DependentUpon>ProgressView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Demos\Views\SimpleDialogWindow.xaml.cs">
+      <DependentUpon>SimpleDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="MainWindow.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Demos\Views\CustomDialogView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Demos\Views\Dialogs.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Demos\Views\InputView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Demos\Views\LoginView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Demos\Views\MessageView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Demos\Views\ProgressView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Demos\Views\SimpleDialogWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\Dark\DarkIcons.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\Light\LightIcons.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 </Project>
